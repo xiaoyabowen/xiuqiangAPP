@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>体检记录</title>
+    <style>
+        body{
+            height:100%;
+            background: #F2F2F2;
+        }
+        .select-date{
+            width:100%;
+            height:42px;
+            padding-left:8px; 
+            padding-right:8px;
+            margin-top:8px;
+            box-sizing: border-box;
+        }
+        .select-date .sd{
+            width:100%;
+            height:42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            position: relative;
+            text-align: center;
+        }
+        .sd .left-btn>img, .sd .right-btn>img{
+            width:16px;
+            height:16px;
+        }
+        .sd .left-btn{
+            position:absolute;
+            left:15px;
+            top:13.5px;
+        }
+        .sd .right-btn{
+            position:absolute;
+            right:15px;
+            top:13.5px;
+        }
+        .sd .show-time{
+            font-size: 16px;
+            color: #333333;
+            line-height:42px;
+        }
+        .morning-check{
+            width:100%;
+            height:254px;
+            padding-left:8px; 
+            padding-right:8px;
+            margin-top:12px;
+            box-sizing: border-box;
+        }
+        .morning-check .mc{
+            width:100%;
+            height:254px;
+            padding:20px 18px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .morning-check .mc .mc-title>:nth-child(1){
+            font-size: 16px;
+            color: #333333;
+            font-weight:bold;
+        }
+        .morning-check .mc .mc-title>:nth-child(2){
+            font-size: 14px;
+            color: #999999;
+        }
+        .morning-check .mc .mc-content{
+            margin-top:15px;
+        }
+        .morning-check .mc .mc-content .content-list li{
+            width:100%;
+            height:21px;
+            line-height: 20px;
+            margin-top:12px;
+            box-sizing: border-box;
+        }
+        .morning-check .mc .mc-content .content-list li .li-left{
+            float:left;
+        }
+        .morning-check .mc .mc-content .content-list li .li-right{
+            float:right;
+        }
+        .morning-check .mc .mc-content .content-list  li .mc-item{
+            font-size: 14px;
+            color: #666666;
+            float:left; 
+            position: absolute;           
+        }
+        .morning-check .mc .mc-content .content-list li .mc-data{
+            font-size: 14px;
+            color: #333333;
+            font-weight:bold;
+            float:left;
+            width: 100%;
+            padding-left:75px;
+        }
+        .morning-check .mc .mc-content .content-list li .li-right .comment{
+            width:46px;
+            height:21px;
+            border: 1px solid #5AC8E1;
+            border-radius: 4px;
+            display:block;
+            float:left;
+            text-align: center;
+            font-size: 12px;
+            color:#666666;
+            line-height:22px;
+        }
+        .morning-check .mc .mc-content .content-list li .li-right .isnormal{
+            width:46px;
+            height:21px;
+            border: 1px solid #67C49C;
+            border-radius: 4px;
+            display:block;
+            float:right;
+            text-align: center;
+            font-size: 12px;
+            color:#666666;
+            line-height:22px;
+            margin-left:12px;
+        }
+        .morning-check .mc .mc-content .content-list li .li-right .abnormal{
+            color:#D4602C !important;
+        }
+        .noon-check-title{
+            margin-top:22px;
+        }
+        .overall-evaluate{
+            width:100%;
+            height:42px;
+            padding-left:8px; 
+            padding-right:8px;
+            margin-top:12px;
+            margin-bottom:11px;
+            box-sizing: border-box; 
+        }
+        .overall-evaluate>.oe{
+            width:100%;
+            height:42px;
+            line-height: 42px;
+            position: relative;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:18px;
+            padding-right:18px;
+            box-sizing: border-box;
+        }
+        .overall-evaluate>.oe .oe-left{
+            font-size: 16px;
+            color: #333333;
+            float:left;
+        }
+        .overall-evaluate>.oe .oe-right{
+            font-size: 17px;
+            color: #5AC8E1;
+            float:right;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div class="morning-check">
+                <div class="mc">
+                    <div class="mc-title">
+                        <span>晨检</span>
+                        <span class="check-date">2018.04.06</span>
+                    </div>
+                    <div class="mc-content">
+                        <ul class="content-list">
+                            <li class="height">
+                                <div class="li-left">
+                                    <span class="mc-item">身高</span>
+                                    <span class="mc-data height-data">100cm</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                            <li class="weight">
+                                <div class="li-left">
+                                    <span class="mc-item">体重</span>
+                                    <span class="mc-data weight-data">30kg</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mc-title noon-check-title">
+                        <span>午检</span>
+                    </div>
+                    <div class="mc-content">
+                        <ul class="content-list">
+                            <li class="height">
+                                <div class="li-left">
+                                    <span class="mc-item">身高</span>
+                                    <span class="mc-data height-data">100cm</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                            <li class="weight">
+                                <div class="li-left">
+                                    <span class="mc-item">体重</span>
+                                    <span class="mc-data weight-data">30kg</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="morning-check">
+                <div class="mc">
+                    <div class="mc-title">
+                        <span>晨检</span>
+                        <span class="check-date">2018.04.06</span>
+                    </div>
+                    <div class="mc-content">
+                        <ul class="content-list">
+                            <li class="height">
+                                <div class="li-left">
+                                    <span class="mc-item">身高</span>
+                                    <span class="mc-data height-data">100cm</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                            <li class="weight">
+                                <div class="li-left">
+                                    <span class="mc-item">体重</span>
+                                    <span class="mc-data weight-data">30kg</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mc-title noon-check-title">
+                        <span>午检</span>
+                    </div>
+                    <div class="mc-content">
+                        <ul class="content-list">
+                            <li class="height">
+                                <div class="li-left">
+                                    <span class="mc-item">身高</span>
+                                    <span class="mc-data height-data">100cm</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                            <li class="weight">
+                                <div class="li-left">
+                                    <span class="mc-item">体重</span>
+                                    <span class="mc-data weight-data">30kg</span>
+                                </div>
+                                <div class="li-right">
+                                    <span class="comment">评论</span>
+                                    <span class="isnormal">正常</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>  
+        </div>    
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+       
+    </script>
+</body>
+</html>

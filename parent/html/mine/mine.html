@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			
+			.tp_user{
+				position: relative;
+				height: 148px;
+				width: 100%;
+				background: url(../../image/mebg.png);
+				background-repeat-y: repeat;
+				background-size: cover;
+				/*line-height: 130px;*/
+				position: relative;
+				padding:0 18px;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.shiftClass{
+				font-size: 16px;
+				color: #FFFFFF;
+				letter-spacing: 0.22px;
+				
+				
+				text-align: right;
+				
+			}
+			.shiftClass em{
+				margin-top: 30px;
+				height: 22px;
+				line-height: 22px;
+				background: #5AC8E1;
+				text-align: center;
+				border-radius: 4px;
+				padding-left: 37px;
+				position: relative;
+				padding-right: 10px;
+			}
+			.shiftClass em:before{
+				content: '';
+				width: 14px;
+				height: 15px;
+				background: url(../../image/ringrotate.png) no-repeat;
+				position: absolute;
+				left: 10px;
+				top: 50%;
+				margin-top: -7px;
+			}
+			.userCon{
+				float: left;
+				display: inline-block;
+				width: 86px;
+				height: 86px;
+				border-radius: 50%;
+				border: 3px solid #fff;
+				/*padding: 3px;*/
+				/*box-sizing: border-box;*/
+				/*background: #fff;*/
+				overflow: hidden;
+			}
+			#name{
+				float: left;
+				margin-left: 12px;
+				line-height: 86px;
+			}
+			.con{
+				position: absolute;
+				left: 18px;
+				bottom: 15px;
+				width: 100%;
+				height: 86px;
+				/*line-height: 86px;*/
+				font-size: 16px;
+				color: #484848;
+				letter-spacing: 0.22px;
+			}
+			.userCon {
+				float: left;
+				display: inline-block;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				/*padding: 3px;*/
+				border: 3px solid #fff;
+				/*box-sizing: border-box;*/
+				background: #fff;
+				overflow: hidden;
+			}
+			.userCon>img{
+				display: block;
+			}
+			.operationList{
+				background-color: #fff;
+				margin-top:12px;
+			}
+			.operationList li,.other_operationList li{
+				border-bottom: 1px solid #f0f0f0;
+				height: 40px;
+				line-height: 40px;
+				padding-left: 20px;
+				padding-right: 18px;
+				position: relative;
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.33px;
+			}
+			.operationList li:after,.other_operationList li:after{
+				content: '';
+				width: 7px;
+				height: 14px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				right:18px;
+				top: 50%;
+				margin-top: -4px;
+			}
+			.operationList li:nth-last-of-type(1),.other_operationList li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.other_operationList{
+				margin-top: 12px;
+				background-color: #fff;
+				/*margin-bottom: 62px;*/
+			}
+			.operationList li span,.other_operationList li span{
+				position: relative;
+				padding-left: 30px;
+			}
+			.operationList li span:before,.other_operationList li span:before{
+				content: '';
+				height: 20px;
+				background-size: 100%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -9px;
+			}
+			.mine01 span:before{
+				width: 16px;
+				background: url(../../image/mine/mine01.png) no-repeat;
+			}
+			.mine02 span:before{
+				width: 20px;
+				background: url(../../image/mine/mine02.png) no-repeat;
+			}
+			.mine03 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine03.png) no-repeat;
+			}
+			.mine04 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine04.png) no-repeat;
+			}
+			.mine05 span:before{
+				width: 19px;
+				background: url(../../image/mine/mine010.png) no-repeat;
+			}
+			.mine06 span:before{
+				width: 19px;
+				background: url(../../image/mine/mine010.png) no-repeat;
+			}
+			.mine07 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine06.png) no-repeat;
+			}
+			.mine08 span:before{
+				width: 19px;
+				background: url(../../image/mine/mine07.png) no-repeat;
+			}
+			.mine09 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine09.png) no-repeat;
+			}
+			.mine10 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine08.png) no-repeat;
+			}
+			.mine11 span:before{
+				width: 18px;
+				background: url(../../image/mine/mine011.png) no-repeat;
+			}
+			.operationList li.ap_mine05{
+				height: 12px;
+				background-color: #f8f8f8;
+				border-bottom: 0;
+			}
+			.operationList li.mine04{
+				border-bottom: 0;
+			}
+			.operationList li.ap_mine05:after{
+				width: 0;
+				height: 0;
+				
+			}
+			.popup{
+				width: 100%;
+				height:100%;
+				position:fixed;
+				background:rgba(255,255,255,.9);
+				top:0;
+				display:none;
+			}
+			.popupbox{
+				width:229px;
+				height:226px;
+				background: #fff;
+				box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 8px;
+				margin:160px auto 0;
+				position:relative;
+			}
+			.popupbox .title{
+				width:100%;
+				height:64px;
+				text-align: center;
+				line-height: 64px;
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #484848;
+				letter-spacing: 0.22px;
+				border-bottom: 1px solid #F0F0F0;
+			}
+			.popupbox .contunt{
+				padding-top: 16px;
+			}
+			.popupbox .contunt div{
+				background: #5AC8E1;
+				border-radius: 4px;
+				width:169px;
+				height:39px;
+				text-align: center;
+				line-height: 39px;
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #FFFFFF;
+				letter-spacing: 0.22px;
+				margin:14px auto;
+			}
+			.popupbox .imgbox{
+				width:38px;
+				height:38px;
+				position: absolute;
+				top:-19px;
+				right: -19px;
+			}
+			.popupbox .imgbox img{
+				width:100%;
+				height:100%;
+			}.popup{
+				 width: 100%;
+				 height:100%;
+				 position:fixed;
+				 background:rgba(255,255,255,.9);
+				 top:0;
+				 display:none;
+			 }
+			.popupbox{
+				width:229px;
+				height:226px;
+				background: #fff;
+				box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 8px;
+				margin:160px auto 0;
+				position:relative;
+			}
+			.popupbox .title{
+				width:100%;
+				height:64px;
+				text-align: center;
+				line-height: 64px;
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #484848;
+				letter-spacing: 0.22px;
+				border-bottom: 1px solid #F0F0F0;
+			}
+			.popupbox .contunt{
+				padding-top: 16px;
+			}
+			.popupbox .contunt div{
+				background: #5AC8E1;
+				border-radius: 4px;
+				width:169px;
+				height:39px;
+				text-align: center;
+				line-height: 39px;
+				font-family: PingFangSC-Regular;
+				font-size: 16px;
+				color: #FFFFFF;
+				letter-spacing: 0.22px;
+				margin:14px auto;
+			}
+			.popupbox .imgbox{
+				width:38px;
+				height:38px;
+				position: absolute;
+				top:-19px;
+				right: -19px;
+			}
+			.popupbox .imgbox img{
+				width:100%;
+				height:100%;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="mine">
+			<div class="tp_user">
+		    	<p class="shiftClass" onclick="changeShifts()">
+		    		<em>我的宝贝</em>
+		    	</p>
+		    	<div class="con">
+					<div class="userCon">
+						<img id='userIcon' src=""  alt="" />
+					</div>
+					<span id="name"></span>
+				</div>
+		    </div>
+		    <ul class="operationList">
+		    	<li class="mine01" onclick="openMyInformation()"><span>我的信息</span></li>
+		    	<li class="mine02" onclick="openBabyGrow()"><span>宝宝成长</span></li>
+		    	<!--<li class="mine03" onclick="openMyStudy_file()"><span>我的学习</span></li>-->
+		    	<li class="mine04" onclick="openMyChat()"><span>我的消息</span></li>
+		    	<li class="ap_mine05"></li>
+		    	<li class="mine06" onclick="openTeacherMailbox02()"><span>园长信箱</span></li>
+		    	<li class="mine07" onclick="openMyScore()"><span>我的积分</span></li>
+		    	<li class="mine08" onclick="openSetUp()"><span>我的设置</span></li>
+		    </ul>
+		    <ul class="other_operationList">
+		    	<li class="mine09" onclick="openHelpCenter()"><span>帮助中心</span></li>
+		    	<!--<li class="mine10" onclick="openScan()"><span>园所二维码</span></li>-->
+		    	<li class="mine11" onclick="openAbout()"><span>关于本系统</span></li>
+		    </ul>
+		</div>
+		<div class="popup" id="changeShifts">
+			<div class="popupbox">
+				<div class="title">选择要查看的宝贝</div>
+				<div class="contunt" id="contuntHm">
+					<!--<div>我的宝贝</div>
+					<div>其他宝贝</div>-->
+				</div>
+				<div class="imgbox" onclick="closeZ()">
+					<img src="../../icon/delet.png" >
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/html" id="contuntTm">
+		<%for(var i=0;i<list.length;i++){%>
+			<div tapmode="itemOn" onclick="chooseThisBady('<%=list[i].id%>')"><%=list[i].name%></div>
+		<%}%>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		var cid;
+        apiready = function () {
+            var  userInfo = getUserInfo();
+            cid = getUserInfo().cids[0];
+            ajaxGet(getMyInformations,{uid:userInfo.id},function(ret,err) {
+                if(ret.data){
+                	setUserInfo(ret.data);
+                    if (isNotBlack(ret.data) && isNotBlack(ret.data.icon)) {
+                            var picList = ret.data.icon;
+                            var width = 80;
+                            var height = 80;
+                            var obj = getImgSizeBySize(picList, width, height);
+                            ret.data.style = obj.style;
+                    } else {
+                        ret.data.icon = "../../image/fcoushead.png";
+                        ret.data.style = ""
+                    }
+//                    alert(JSON.stringify(ret.data))
+                    document.getElementById('userIcon').src=ret.data.icon;
+                    document.getElementById('userIcon').style.cssText = ret.data.style;
+                    document.getElementById('name').innerHTML=ret.data.name;
+                    
+                    
+                    var list = userInfo.children;
+		            var data = {list: list};
+		            var html = template("contuntTm", data);
+		            document.getElementById('contuntHm').innerHTML = html;
+                }
+            })
+        };
+		
+		//我的积分
+	    function openMyScore(){
+	    	openNewWindow("myScore","../mine/myScore.html")
+	    }
+	    
+	    
+	    //我的学习
+//	    function openMyStudy_file(){
+//	    	openNewWindow("myStudy","../mine/myStudy.html")
+//	    }
+//
+	    
+	    
+	    function openTeacherMailbox02(){
+	    	openNewWindow("teacherMailbox02","../mine/teacherMailbox02.html")
+	    }
+	    
+	    
+	    //还没做  宝宝成长
+	    function openBabyGrow(){
+	    	openNewWindow("babyGrow","../mine/babyGrow.html")
+	    }
+	 
+	 	function openMyInformation(){
+	    	openNewWindow("myInformation","../mine/myInformation.html")
+	    }
+
+	 	function openMyChat(){
+            api.accessNative({
+                name: 'openChatList',
+                extra: {
+					uid : getUserInfo().cids[0],
+					icon : getUserInfo().icon||""
+                }
+            });
+	    }
+	 	
+	 	
+	 	function openSetUp(){
+	    	openNewWindow("setUp","../mine/setUp.html")
+	    }
+	 	
+	 	function openScan(){
+	    	openNewWindow("scan","../mine/scan.html")
+	    }
+	 	
+	 	function openAbout(){
+			openNewWindow("about","../coommon/about.html")
+		}
+	 	function openHelpCenter(){
+			openNewWindow("helpCenter","./helpCenter.html")
+		}
+	 	
+	 	
+	 	function goLogin(){
+	 		openNewWindow("login","../RegisterLogin/login.html")
+	 	}
+
+        //点击切换宝贝模板
+        function changeShifts(){
+            document.getElementById('changeShifts').style.display = 'block';
+        }
+        //关闭切换宝贝模板
+        function closeZ(){
+            document.getElementById('changeShifts').style.display = 'none';
+        }
+        
+        
+        //点击具体的班级  切换班级  刷新数据
+		function chooseThisBady(id){
+			var userInfo = getUserInfo();
+			var list = userInfo.children;
+			var list_id = userInfo.cids;
+			var allResult = {};
+			for (var i = 0; i < list.length; i++) {
+				allResult[list[i].id] = list[i];
+				if (list[i].id == id) {
+					list.splice(i, 1);
+					list_id.splice(i,1);
+				}
+			}
+
+			list_id.unshift(id);
+			list.unshift(allResult[id]);
+			
+			userInfo.children = list;
+			userInfo.cids = list_id;
+			setUserInfo(userInfo);
+			api.execScript({
+	        	name:'main',
+	        	frameName : "wonderfulTime",
+		        script: "apiready()"
+		    });
+		    
+		    api.execScript({
+	        	name:'main',
+	        	frameName : "msg",
+		        script: "apiready()"
+		    });
+            api.execScript({
+                name:'main',
+
+                script: "classNameCheck()"
+            });
+			setTimeout(function(){
+				closeZ();
+			},200)
+		}
+	</script>
+</html>

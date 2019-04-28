@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝主页</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+				body{
+					  background:#F2F2F2;
+						min-width:320px;
+						height:auto;
+				}
+				.top-info{
+					width:100%;
+					height:144px;
+					position: relative;
+					box-sizing: border-box;
+				}
+				.bg{
+					width:100%;
+					height:100%;
+					position:absolute;
+					top:0px;
+					left:0px;
+					box-sizing: border-box;
+					overflow:hidden;
+				
+				}
+				.bg>img{
+					width:100%;
+					height:100%;
+					-webkit-filter: blur(15px); /* Chrome, Opera */
+					-moz-filter: blur(15px);
+					-ms-filter: blur(15px);    
+          filter: blur(15px);
+				}
+				.avatar{
+					width:68px;
+					height:68px;
+					border:1px solid #5AC8E1;
+					border-radius:50%;
+					position:absolute;
+					top:32px;
+					left:50%;
+					margin-left:-34px;
+				}
+				.avatar>img{
+					width:100%;
+					height:100%;
+					border-radius:50%;					
+				}
+				.class-glory{
+						width:100%;
+						position:absolute;
+						bottom:15px;
+						padding-left:13.6%;
+						padding-right:11.7%;
+						font-size: 12px;
+						box-sizing: border-box;
+				}
+				.class{
+					float:left;
+				}
+				.glory{
+					float:right;
+				}
+				.class>:nth-child(1),.glory>:nth-child(1){
+						color:#FFFFFF;
+				}
+				.class>:nth-child(2),.glory>:nth-child(2){
+						color:#5AC8E1;
+				}
+				.health-exam{
+						width:100%;
+						padding:10px 8px 0px;
+						box-sizing: border-box;
+				}
+				.he{
+						width:100%;
+						min-height:141px;
+						background: #FFFFFF;
+						box-shadow: 0 2px 4px 0 #CDE3E9;
+						border-radius: 8px;
+						position:relative;
+				}
+				.he-icon img{
+						width:31px;
+						height:30px;
+						position:absolute;
+						top:20px;
+						left:18px;
+				}
+				.he-info{
+						width:100%;
+						padding-left:19.7%;
+						box-sizing: border-box;
+						padding-top:12px;
+						padding-right:13px;
+				}
+				.info-title>:nth-child(1){
+						font-size: 16px;
+						color: #666666;
+						float:left;
+				}
+				.info-title>:nth-child(2){
+						font-size: 12px;
+						color: #BDBDBD;
+						float:right;
+						/* margin-right:5px; */
+				}
+				.first-title>:nth-child(2){
+					 margin-right:5px;
+				}
+				.he-list{
+						clear:both;
+						padding-top:16px;
+						padding-bottom:22px;
+				}
+				.he-list li{
+						position:relative;
+						clear:both;
+						height:23px;
+						margin-bottom:17px;
+				}
+				.he-list li>:nth-child(1),.he-list li>:nth-child(2){
+						position: absolute;
+						font-size:14px;
+						line-height:22px;
+				}
+				.he-list li>:nth-child(1){
+						left:0px;
+					  color:#666666;
+				}
+				.he-list li>:nth-child(2){
+						left:30%;
+						color:#333333;
+						font-weight:bold;
+				}
+				.he-list li>:nth-child(3){
+					  position: absolute;
+						right:58px;
+						width:46px;
+						height:23px;
+						border-radius: 4px;
+						text-align: center;
+					  line-height:22px;
+						font-size: 12px;
+						color: #666666;						
+						border: 1px solid #5AC8E1;
+						border-radius: 4px;
+						box-sizing: border-box;
+				}
+				.he-list li>:nth-child(4){
+					  width:46px;
+						height:23px;
+						border-radius: 4px;
+						text-align: center;
+					  line-height:22px;
+						font-size: 12px;
+						color: #666666;	
+						position: absolute;
+						right:0px;
+						border: 1px solid #67C49C;
+						border-radius: 4px;
+						box-sizing: border-box;
+				}
+				.splendid-time{
+						width:100%;
+						padding-left:8px;
+						padding-right:8px;
+						margin-top:10px;
+						box-sizing: border-box;
+				}
+				.st{
+						width:100%;
+						background: #FFFFFF;
+						box-shadow: 0 0 6px 0 rgba(0,0,0,0.15);
+						border-radius: 8px;
+						/* padding:8px 14px 12px 16px;		 */
+						box-sizing: border-box;
+						position:relative;
+				}
+				.left-icon>img{
+						width:32px;
+						height:32px;
+						position:absolute;
+						top:17px;
+						left:16px;
+				}
+				.right-info{
+						width:100%;
+						padding:12px 13px 12px 19.7%;
+						box-sizing: border-box;
+				}
+				.info-title .left-name{
+						font-size: 15px;
+						color: #666666;
+						line-height:21px;
+						float:left;
+				}
+				.info-title .right-date{
+						font-size: 12px;
+						color: #BDBDBD;
+						line-height:17px;
+						float:right;
+				}
+				.info-detail{
+						clear:both;
+						font-size: 12px;
+						color: #999999;
+						line-height:17px;
+						padding-top:6px;
+				}
+				.info-img{
+						width:100%;
+						margin-top:10px;
+				}
+				.info-img::after{
+						content:"";
+						display:block;
+						clear:both;
+						height:0;
+						overflow:hidden;
+						visibility: hidden;
+				}
+				.info-img li{
+						float:left;
+						width:22%;
+						margin:0 4% 4% 0;
+				}
+				.info-img>:nth-child(4n){
+						margin-right:0px !important; 
+				}
+				.info-img li figure{
+						position:relative;
+						width:100%;
+						height:0;
+						padding-bottom:100%;
+				}
+				.info-img li figure img{
+						display:block;
+						position: absolute;
+						width:100%;
+						height:100%;
+						top:0;
+						bottom:0;
+						border-radius:8px;                
+				}
+				.st-img{
+						width:100%;
+				}
+				.st-img li{
+						width:100%;
+						margin-top:10px;         
+				}
+				.st-img li figure{
+						position:relative;
+						width:100%;
+						height:0;
+						padding-bottom:52%;
+				}
+				.st-img li figure img{
+						display:block;
+						position: absolute;
+						width:100%;
+						height:100%;
+						top:0;
+						bottom:0;
+						border-radius:8px;                
+				}
+				.baby-clock{
+					  padding-bottom:21px;
+				}
+				.bc-list{
+						clear:both;
+						width:100%;
+						padding-top:7px;
+				}
+				.bc-list>:not(:last-child){
+					  border-bottom:1px solid #EFEFEF;
+				}
+				.bc-list li{
+						width:100%;
+						height:37px;
+						line-height:37px;
+						box-sizing: border-box;
+						position:relative;
+				}
+				.bc-list li>div>:nth-child(1){
+						font-size:14px;
+						color:#999999;
+				}
+				.bc-list li>div>:nth-child(2){
+						font-size:14px;
+						color:#000000;
+				}
+				.bc-list li>div>:nth-child(3){
+						width:46px;
+						height:21px;
+						text-align: center;
+						line-height:21px;
+						background: #93C85C;
+						color:#FFFFFF;
+						font-size:12px;
+						border-radius:4px;
+						box-sizing: border-box;
+						position:absolute;
+						right:0;
+						bottom:9px;
+				}
+				.bc-icon>img{
+					width:27px !important;
+					height:28px !important;
+				}
+		</style>
+	</head>
+	<body>
+			<div class="top-info">
+					<div class="bg"><img src="../../image/index-banner.png" alt=""></div>
+					<div class="avatar"><img src="../../image/baby02.png" alt=""></div>
+					<div class="class-glory">
+							<div class="class">
+									<em>所在班级：</em><em>太阳花一班</em>
+							</div>
+							<div class="glory">
+									<em>个人荣誉：</em><em>模范宝宝</em>
+							</div>
+					</div>
+			</div>
+			<div class="health-exam">
+				  <div class="he">
+							<div class="he-icon">
+									<img src="../../icon/cbicon.png" alt="">
+							</div>
+							<div class="he-info">
+									<div class="info-title first-title">
+											<span>晨检信息</span>
+											<span>2018.02.18</span>
+									</div>
+									<ul class="he-list">
+											<li>
+													<span>身高</span>
+													<span>100cm</span>
+													<span>评论</span>
+													<span>正常</span>
+											</li>
+											<li>
+													<span>体重</span>
+													<span>30kg</span>
+													<span>评论</span>
+													<span>正常</span>
+											</li>
+									</ul>
+							</div>
+					</div>
+			</div>
+			<div class="splendid-time">
+					<div class="st">
+							<div class="left-icon">
+									<img src="../../icon/splendid.png" alt="">
+							</div>
+							<div class="right-info">
+									<div class="info-title">
+											<div class="left-name">精彩瞬间</div>
+											<div class="right-date">2018.03.18</div>
+									</div>
+									<div class="info-detail">
+											美丽的广东长隆动物园，宝宝看到斑马很兴奋，在老师的带领下玩的很开心。
+									</div>
+									<ul class="st-img">
+											<li>
+													<figure>
+															<img src="../../image/cookfood.png" alt="">
+													</figure>
+											</li>
+									</ul>
+							</div>
+					</div>
+			</div>
+			<div class="baby-clock health-exam">
+				  <div class="bc he">
+							<div class="bc-icon he-icon">
+									<img src="../../icon/blueclock.png" alt="">
+							</div>
+							<div class="bc he-info">
+									<div class="info-title">
+											<span>宝宝考勤</span>
+											<span>2018.02.18</span>
+									</div>
+									<ul class="bc-list">
+											<li>
+													<div>
+															<span>考勤情况：</span>
+															<span>未打卡</span>
+															<span>补卡</span>
+													</div>
+											</li>
+											<li>
+													<div>
+															<span>考勤情况：</span>
+															<span>未打卡</span>
+															<span>补卡</span>
+													</div>
+											</li>
+									</ul>
+							</div>
+					</div>
+			</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+
+		};
+	</script>
+</html>

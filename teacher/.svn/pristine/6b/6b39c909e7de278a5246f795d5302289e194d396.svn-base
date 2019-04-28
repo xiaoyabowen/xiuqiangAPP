@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no" />
+		<title>缴费管理</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/swiper-3.3.1.min.css" />
+		<style type="text/css">
+			body{
+                min-width: 320px;
+                background: #F8F8F8;
+			}
+            .pay-manage{
+                width:100%;
+                padding-left:8px;
+                padding-right:8px;
+                padding-top:12px;
+                box-sizing: border-box;
+            }
+            .pay-info{
+                width:100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:20px 18px;
+                box-sizing: border-box;
+            }
+            .pay-name{
+                font-size:14px;
+                color:#505050;
+                padding-bottom:6px;
+                border-bottom:1px solid #F0F0F0;
+            }
+            .pay-date{
+                font-size:12px;
+                color:#A3A3A3;
+                margin-top:6px;
+            }
+            .pay-sum>:nth-child(3){
+                margin-left:30px;
+            }
+            .pay-sum .pay-tag{
+                font-size:11px;
+                color:#A3A3A3;
+            }
+            .pay-sum .status{
+                width:46px;
+                height:21px;
+                border: 1px solid #6CC49E;
+                border-radius: 4px;
+                text-align: center;
+                line-height: 21px;
+                font-size: 12px;
+                color:#505050;
+                float:right;
+                margin-right:20px;
+            }
+            .should-pay,.yet-pay{
+                font-size: 14px;
+                color:#505050;
+            }
+            .pay-use{
+                font-size: 12px;
+                color:#A3A3A3;
+                margin-top:3px;
+            }
+            .pay-detail{
+                width:100%;
+                height: 100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                margin-top:12px;
+                padding:15px 12px 0px;
+                box-sizing: border-box;
+            }
+            .pay-item{
+                width:100%;
+                height:30px;
+                box-sizing: border-box;
+            }
+            .item-list{
+                width:100%;
+                height:30px;
+                box-sizing: border-box;                
+            }
+            .item-list li{
+                width:50%;
+                height:30px;
+                float:left;
+                text-align: center;
+                line-height: 30px;
+                font-size: 14px;
+                color: #A3A3A3;
+                box-sizing: border-box;
+            }
+            .item-list>:nth-child(1){
+                border-right:1px solid #F0F0F0;
+            }
+            .item-list .active{
+                color:#5AC8E1;
+            }
+            .detail-list{
+                width:100%;
+            }
+            .detail-item{
+                width:100%;
+                height:38px;
+                padding:0px 6px 0px;
+                line-height:38px;
+                border-bottom:1px solid #F0F0F0;
+                box-sizing: border-box;
+            }
+            .detail-item ul li{
+                /* display: flex;
+                justify-content: space-between;
+                flex-wrap: nowrap;  */
+                width:33.33%;
+                float:left;
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.19px;
+                box-sizing: border-box;
+            }
+            .detail-item ul>:nth-child(1){
+                text-align: left;
+            }
+            .detail-item ul>:nth-child(2){
+                text-align: center;
+            }
+            .detail-item ul>:nth-child(3){
+                text-align: right;
+            }
+            .detail-info{
+                clear:left;
+                width:100%;
+                box-sizing: border-box;
+            }
+            .info-name{
+            	color: #505050;
+            }
+            .detail-info ul{
+                width:100%; 
+                box-sizing: border-box;                
+            }
+            .detail-info ul>:nth-child(5){
+                opacity: 0.8;
+                color: #666666;
+            }
+            .detail-info ul>:nth-last-child(1){
+                opacity: 0.6;
+                color: #999999;
+                border:none;
+            }
+            .detail-info ul li{
+                width:100%;
+                height:35px;
+                line-height: 35px;
+                border-bottom: 1px solid #F0F0F0;
+                font-size: 12px;
+                padding-left:6px;
+                padding-right:6px;
+                color:#333333;
+                box-sizing: border-box;
+            }
+            .detail-info ul li div{
+                width:33.33%;
+                float:left;
+            }
+            .detail-info ul li>:nth-child(1){
+                text-align: left;
+            }
+            .detail-info ul li>:nth-child(2){
+                text-align: center;
+            }
+            .detail-info ul li>:nth-child(3){
+                text-align: right;
+            }
+            .load-more{
+                text-align: center;          
+                color:#999999;
+                font-size: 14px;
+                margin-top:6px;              
+            }
+            .pd-start{
+                margin-right:3px;
+            }
+		</style>
+	</head>
+	<body id="body" style="display: none;">
+        <div class="pay-manage" id="wrap">
+            <!--<div class="pay-info">
+                <div class="pay-name">2018年软件使用费</div>
+                <div class="pay-date">
+                    <span class="pd-start">2018.03.01</span>-
+                    <span class="pd-end">2018.04.01</span>
+                </div>
+                <div class="pay-sum">
+                    <span class="pay-tag">应缴</span>
+                    <span class="should-pay">50</span>
+                    <span class="pay-tag">已缴</span>
+                    <span class="yet-pay">50</span>
+                    <span class="status">正常</span>
+                </div>
+                <div class="pay-use">
+                    <span>用途：</span>
+                    <span class="use-info">学费</span>
+                </div>
+            </div>
+            <div class="pay-detail" id="main">
+                <div class="pay-item">
+                    <ul class="item-list">
+                        <li class="yet-item active">已缴费</li>
+                        <li class="will-item">未缴费</li>
+                    </ul>
+                </div>
+                <div class="detail-list">
+                    <div class="detail-item">
+                        <ul>
+                            <li>姓名</li>
+                            <li>缴费时间</li>
+                            <li>缴费金额</li>
+                        </ul>
+                    </div>
+                    <div class="detail-info">
+                        <ul>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                            <li>
+                                <div class="info-name">宋清</div>
+                                <div class="info-date">2018.03.01</div>
+                                <div class="info-money">3000元</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="load-more">
+                    <div>加载更多</div>
+                    <div><img src="../../icon/loadmore.png" alt=""></div>
+                </div>
+            </div>-->
+        </div>	
+    <script id="scriptDiv1" type="text/html">
+    	<div class="pay-info">
+            <div class="pay-name"><%=list.name%></div>
+            <div class="pay-date">
+                <span class="pd-start"><%=list.startTime%></span>－
+                <span class="pd-end"><%=list.overtime%></span>
+            </div>
+            <div class="pay-sum">
+                <span class="pay-tag">应缴:</span>
+                <span class="should-pay"><%=list.allNum%></span>
+                <span class="pay-tag">已缴:</span>
+                <span class="yet-pay"><%=list.chargeNum%></span>
+                <span class="status">
+                	<%if(list.statusType == 1){%>
+                		正常
+                	<%}else{%>
+                		结束
+                	<%}%>
+                		
+                	</span>
+            </div>
+            <div class="pay-use">
+                <span>用途：</span>
+                <span class="use-info"><%=list.desc%></span>
+            </div>
+        </div>
+        <div class="pay-detail" id="main">
+            <div class="pay-item">
+                <ul class="item-list">
+                    <li class="list yet-item active" onclick="changeItems(0)">已缴费</li>
+                    <li class="list will-item" onclick="changeItems(1)">未缴费</li>
+                </ul>
+            </div>
+			<div class="detail-list">
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<div class="detail-info">
+								<ul>
+									<%if(list.payItems&&list.payItems.length){%>
+									<%if(list.payItems.length <= 7){%>
+									<%for(var i = 0;i < list.payItems.length;i++){%>
+									<li>
+										<div class="info-name"><%=list.payItems[i].userName%></div>
+										<!--<div class="notice"><img style="width: 16px; height: 16px" src="../../icon/paynotice.png" alt=""></div>-->
+									</li>
+									<%}%>
+									<%}%>
+									<%}%>
+								</ul>
+								<%if(list.payItems.length > 7){%>
+								<ul id="noPayItems" style="display: none;">
+									<%for(var i = 7;i < list.payItems.length;i++){%>
+									<li>
+										<div class="info-name"><%=list.payItems[i].userName%></div>
+										<!--<div class="notice"><img style="width: 16px;height: 16px;" src="../../icon/paynotice.png" alt=""></div>-->
+									</li>
+									<%}%>
+								</ul>
+								<%}%>
+							</div>
+							<%if(list.payItems.length > 7){%>
+							<div class="load-more" onclick="loadMore('noPayItems')">
+								<div>加载更多</div>
+								<div><img src="../../icon/loadmore.png" alt=""></div>
+							</div>
+							<%}%>
+
+						</div>
+						<div class="swiper-slide">
+							<div class="detail-info">
+								<ul>
+									<%if(list.noPayItems&&list.noPayItems.length){%>
+									<%if(list.noPayItems.length <= 7){%>
+									<%for(var i = 0;i < list.noPayItems.length;i++){%>
+									<li>
+										<div class="info-name"><%=list.noPayItems[i].userName%></div>
+										<%if(list.noPayItems[i].remindStatus == 1){%>
+										<div class="notice"><img style="width: 16px;height: 16px;" src="../../icon/paynotice.png" onclick="remind('<%=list.id%>','<%=list.noPayItems[i].uid%>')" alt=""></div>
+										<%}else{%>
+										<div class="notice"><img style="width: 16px;height: 16px;" src="../../icon/paynotice1.png" class="removeImgMoney" onclick="remind('<%=list.id%>','<%=list.noPayItems[i].uid%>')" alt=""></div>
+										<%}%>
+									</li>
+									<%}%>
+									<%}%>
+									<%}%>
+								</ul>
+								<%if(list.noPayItems.length > 7){%>
+								<ul id="noPayItems" style="display: none;">
+									<%for(var i = 7;i < list.noPayItems.length;i++){%>
+									<li>
+										<div class="info-name"><%=list.noPayItems[i].userName%></div>
+										<%if(list.noPayItems[i].remindStatus == 1){%>
+										<div class="notice" onclick="remind('<%=list.id%>','<%=list.noPayItems[i].uid%>')"><img style="width: 16px;height: 16px;" src="../../icon/paynotice.png" onclick="remind('<%=list.id%>','<%=list.noPayItems[i].uid%>')" alt=""></div>
+										<%}else{%>
+										<div class="notice"><img style="width: 16px;height: 16px;" src="../../icon/paynotice1.png" class="removeImgMoney" onclick="remind('<%=list.id%>','<%=list.noPayItems[i].uid%>')" alt=""></div>
+										<%}%>
+									</li>
+									<%}%>
+								</ul>
+								<%}%>
+							</div>
+							<%if(list.noPayItems.length > 7){%>
+							<div class="load-more" onclick="loadMore('noPayItems')">
+								<div>加载更多</div>
+								<div><img src="../../icon/loadmore.png" alt=""></div>
+							</div>
+							<%}%>
+						</div>
+					</div>
+				</div>
+			</div>
+            <!--<div class="detail-list">
+                <div class="swiper-container">
+		    		<div class="swiper-wrapper">
+		       			<div class="swiper-slide">
+		       				<div class="detail-info">
+			                    <ul>
+			                    	<%if(list.payItems&&list.payItems.length){%>
+			                    		<%if(list.payItems.length <= 7){%>	
+					                    	<%for(var i = 0;i < list.payItems.length;i++){%>
+						                        <li>
+					                                <div class="info-name"><%=list.payItems[i].userName%></div>
+					                                <div class="notice"><img src="../../icon/paynotice.png" alt=""></div>
+					                            </li>
+					                    	<%}%> 
+				                    	<%}%>
+			                    	<%}%>
+			                    </ul>
+			                    <%if(list.payItems.length > 7){%>
+			                    	<ul id="noPayItems" style="display: none;">
+				                    	<%for(var i = 7;i < list.payItems.length;i++){%>
+				                    		<li>
+				                                <div class="info-name"><%=list.payItems[i].userName%></div>
+				                                <div class="notice"><img src="../../icon/paynotice.png" alt=""></div>
+				                            </li>
+				                    	<%}%>
+			                    	</ul>
+			                    <%}%>
+			                </div>
+			                <%if(list.payItems.length > 7){%>
+				                <div class="load-more" onclick="loadMore('noPayItems')">
+					                <div>加载更多</div>
+					                <div><img src="../../icon/loadmore.png" alt=""></div>
+					            </div>
+			                <%}%>
+			                
+		       			</div>
+		       			<div class="swiper-slide">
+		       				<div class="detail-info">
+			                    <ul>
+			                    	<%if(list.noPayItems&&list.noPayItems.length){%>
+				                    	<%if(list.noPayItems.length <= 7){%>
+					                        <%for(var i = 0;i < list.noPayItems.length;i++){%>
+					                    		<li>
+					                                <div class="info-name"><%=list.noPayItems[i].userName%></div>
+					                                <div class="notice"><img src="../../icon/paynotice.png" alt=""></div>
+					                           </li>					               
+					                    	<%}%> 
+					                    <%}%>
+					                <%}%>
+			                    </ul>
+			                    <%if(list.noPayItems.length > 7){%>
+			                    	<ul id="noPayItems" style="display: none;">
+				                    	<%for(var i = 7;i < list.noPayItems.length;i++){%>
+				                    		<li>
+				                                <div class="info-name"><%=list.noPayItems[i].userName%></div>
+				                                <div class="notice"><img src="../../icon/paynotice.png" alt=""></div>
+				                            </li>
+				                    	<%}%>
+			                    	</ul>
+			                    <%}%>	
+			                </div>
+			                <%if(list.noPayItems.length > 7){%>
+				                <div class="load-more" onclick="loadMore('noPayItems')">
+					                <div>加载更多</div>
+					                <div><img src="../../icon/loadmore.png" alt=""></div>
+					            </div>
+			                <%}%>
+		       			</div>
+		       		</div>
+		       	</div>
+            </div>-->
+        </div>
+    </script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/swiper-3.3.1.min.js"></script>
+	<script>
+		var mySwiper;
+		apiready = function () {
+			var userInfo = getUserInfo();
+			var parms = api.pageParam;
+			ajaxGet(loadClassChargeDetailUrl,{classId:userInfo.sid,cid:parms.id},function(ret,err){
+				if(ret&&ret.success){
+					ret.data.statusType = parms.type;
+					addDataToHtml(ret.data);
+				}else{
+					toast(ret.msg);
+				}
+			})
+		};	
+		
+		
+		function addDataToHtml(results){
+			results.overtime = formatTimeToDayDade(results.overtime)
+			results.startTime = formatTimeToDayDade(results.startTime)
+			var data = {list: results};	
+			var html = template('scriptDiv1',data);
+	        document.getElementById('wrap').innerHTML = html;
+	        document.getElementById("body").style.display = "block";
+	        mySwiper = new Swiper('.swiper-container', {
+				initialSlide: 0,
+				effect : 'slide',
+				onTransitionEnd :function(swiper){
+					var activeIndex = swiper.activeIndex;
+					var list = document.querySelectorAll(".list");
+					for (var i = 0;i < list.length;i++) {
+						list[i].classList.remove("active")
+					}
+					list[activeIndex].classList.add("active");
+				}
+			})
+		}
+		
+		
+		function changeItems(index){
+			var list = document.querySelectorAll(".list");
+			for (var i = 0;i < list.length;i++) {
+				list[i].classList.remove("active")
+			}
+			list[index].classList.add("active");
+			mySwiper.slideTo(index, 300, false)
+		}
+
+        //提醒
+        function remind(cid,uid) {
+            api.showProgress({
+                title: '提醒中...',
+                text: '请稍后...',
+                modal: false
+            });
+            ajaxGet(payWarn,{cid:cid,uid:uid},function (ret,err) {
+                if(ret.success){
+                    api.hideProgress();
+                    document.getElementsByClassName("removeImgMoney")[0].setAttribute("src","../../icon/paynotice.png");   //替換灰色图片
+                    toast('提醒成功');
+                }else{
+                    api.hideProgress();
+                    toast(ret.msg)
+                }
+            })
+        }
+		
+		//查看更多
+		function loadMore(type){
+			document.getElementById(type).style.display = "block";
+		}
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的学习-视频</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			.ap_topnav{
+				color: #a3a3a3;
+				width: 100%;
+				background-color: #f8f8f8;
+				padding:12px 0;
+				box-sizing: border-box;
+				font-size: 16px;
+			}
+			.ap_topnav_cnt{
+				width: 95.7%;
+				height: 42px;
+				padding: 6px 0;
+				margin: 0 auto;
+				background-color: #fff;
+				text-align: center;
+				border-radius: 4px;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.ap_topnav_cnt li{
+				line-height: 30px;
+				float: left;
+				width: 25%;
+				box-sizing: border-box;
+				border-right: 1px solid #f0f0f0;
+			}
+			.ap_topnav_cnt li:nth-last-of-type(1){
+				border-right: 0;
+			}
+			li.active span{
+				color: #525252;
+				position: relative;
+			}
+			li.active span:before{
+				content: '';
+				width: 54px;
+				height: 2px;
+				background: url(../../icon/selected-bg.png);
+				background-repeat-x: repeat;
+				position: absolute;
+				bottom: -6px;
+				left: 50%;
+				margin-left: -27px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		        <img style="width:25px;height:25px;" src="../../icon/back.png">
+		    </div>
+	    	<div>我的学习</div>
+	    	
+		</div>
+		<div class="ap_topnav">
+	    	<ul class="ap_topnav_cnt">
+	    		<li class="havenot"><span>课程</span></li>
+	    		<li class="already active"><span>视频</span></li>
+	    		<li class="already "><span>照片</span></li>
+	    		<li class="already "><span>文档</span></li>
+	    	</ul>
+	   </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+		
+		
+	
+	</script>
+</html>

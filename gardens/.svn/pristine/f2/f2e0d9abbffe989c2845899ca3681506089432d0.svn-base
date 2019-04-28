@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>今日</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" type="text/css" href="css/api.css"/>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head> 
+<body>
+
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/user.js"></script>
+<script type="text/javascript" src="script/public.js"></script>
+<script type="text/javascript" src="script/init.js"></script>
+<script type="text/javascript" src="script/kv.js"></script>
+<script type="text/javascript" src="script/apiCloud.js"></script>
+<script>
+    apiready = function(){
+        systemInit(function(){
+        	var user = getUserInfo();
+			if(!user || !user.token){
+				setTimeout(function(){
+					openNewOfIndex("login","html/RegisterLogin/login.html",{},{slidBackEnabled:false});
+				},500)
+			}else{
+			    var icon = '';
+			    if(user.icon){
+			        icon = user.icon;
+	            }else{
+			        icon = '';
+	            }
+	            if (user&&user.phone) {
+	            	api.accessNative({
+		                name: 'userlogin',
+		                extra: {
+		                	notice	: "39.107.247.82",
+						    tzPoint: 30001,
+		                    ipv4:chatNativeUrl,
+		                    point:chatPointUrl,
+		                    uid:user.chatId,
+		                    icon:icon,
+		                    imgServer:imgServer,
+		                    token:user.token
+		                }
+		            });
+	            }
+				setTimeout(function(){
+					openNewOfIndex("main","html/main/main.html",{},{slidBackEnabled:false});
+				},500)
+			}
+        })
+	}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>部门人员</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+
+
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background:#F8F8F8;
+			}
+            .main{
+                padding:12px 8px 0 8px;min-height:30px;
+            }
+            .mc-record{
+                padding:20px 12px 0 12px;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+                margin-bottom:12px;
+            }
+            .titie{height:20px;line-height:20px;color:#333;font-size:14px;}
+            .mc-record li{
+                height:41px;line-height:41px;padding:0 3px;border-bottom:1px solid #f2f2f2;position:relative;font-size:12px;color:#333;
+            }
+            .mc-record li:last-child{border:0}
+            .mc-record li img{width:18px;height:18px;position:absolute;right:3px;top:50%;margin-top:-9px;}
+            /*未点开内容*/
+            #list{
+                background: #fff;
+            }
+            h4{
+                height: 73px;
+                line-height: 73px;
+                padding: 0 5%;
+                font-size: 18px;
+                font-weight:normal;
+                background: #fcfcfc;
+            }
+            h4 div{
+                width: 43px;
+                height: 43px;
+                overflow: hidden;
+                border-radius: 50%;
+                float: left;
+                margin-top: 15px;
+                margin-right: 30px;
+            }
+            h4 div img{
+                width: 43px;
+                height: 43px;
+                border-radius: 50%;
+            }
+            .listul{
+                /*display: none;*/
+                /*transition: all 2s;*/
+            }
+            .listul li{
+                padding: 0 5%;
+                padding-left: 30px;
+            }
+            .listul li .phone_box{
+                display: flex;
+                vertical-align: middle;
+                height: 72px;
+                align-items: center;
+            }
+            .images{
+                width: 36px;
+                height: 36px;
+                overflow: hidden;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+            .images>img{
+                display: block;
+            }
+            .phone_Tel>p{
+                font-size: 14px;
+                color: #333333;
+                line-height: 36px;
+            }
+            .listul li:nth-of-type(odd){
+                background: #f6f6f6;
+            }
+            .listul li:nth-of-type(even){
+                background: #fff;
+            }
+            .jiantou{
+                float: right;
+                width: 10px;
+                height: 15px;
+                margin-top: 29px;
+            }
+            .phone_img_tx{
+                display: flex;
+                vertical-align: center;
+                align-items: center;
+            }
+            .phone_img_tx>.phone_img_t{
+                display: inline-block;
+                margin-right: 10px;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="main" id="personnelL">
+            <ul id="list">
+               <!-- <li>
+                    <h4 tapmode="itemOn">
+                        <div>
+                            <img src="../../icon/jskt.png" alt="">
+                        </div>
+                        <span>教师</span>
+                        <img class="jiantou" src="../../image/arrow_rt2.png" alt="">
+                    </h4>
+                    <ul class="listul">
+                        <li>
+                            <div class="phone_box">
+                                <div class="images">
+                                    <img src="../../image/fcoushead.png" alt="">
+                                    <div class="phone_Tel">
+                                        <p>姓名</p>
+                                        &lt;!&ndash;<p>手机号</p>&ndash;&gt;
+                                    </div>
+                                </div>
+                                <div class="phone_img_tx">
+                                    <img style="width: 24px;height: 24px" class="phone_img_t" src="../../icon/gray_phone.png"
+                                         alt="">
+                                    <img style="width: 24px;height: 24px" src="../../icon/gray_msg.png" alt="">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>-->
+
+
+            </ul>
+
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+    <script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="homepage">
+        <%for(var i=0;i<list.length;i++){%>
+        <li>
+            <h4 tapmode="itemOn">
+                <div>
+                    <img src="../../icon/jskt.png" alt="">
+                </div>
+                <span><%=list[i].name%></span>
+                <img class="jiantou" src="../../image/arrow_rt2.png" alt="">
+            </h4>
+            <ul class="listul clearfix" id="employeesListHm<%=list[i].id%>">
+
+            </ul>
+        </li>
+        <%}%>
+    </script>
+    <script type="text/html" id="employeesListTm">
+        <%for(var j=0;j<list.length;j++){%>
+        <li onclick="openPersonHome('<%=list[j].id%>','<%=list[j].name%>')">
+            <div class="phone_box">
+                <div class="images">
+                    <%if(list[j].icon==""){%>
+                        <img style="width: 36px; height: 36px;" src="../../image/fcoushead.png" alt="">
+                    <%} else {%>
+                        <img src="<%=list[j].icon%>" style="<%=list[j].style%>" alt="">
+                    <%}%>
+                </div>
+                <div class="phone_Tel">
+                    <p><%=list[j].name%></p>
+                    <!--<p><%=list[j].phone%></p>-->
+                </div>
+                <!--<div class="phone_img_tx">
+                    <img style="width: 24px;height: 24px" class="phone_img_t" onclick="openPhone(<%=list[j].phone%>)" src="../../icon/gray_phone.png" alt="手机图标">
+                    <img style="width: 24px;height: 24px" src="../../icon/gray_msg.png" onclick="openUserChat(<%=list[j].phone%>)" alt="短信图标">
+                </div>-->
+            </div>
+        </li>
+        <%}%>
+        <li>
+            <div style="text-align: center;font-size: 14px;color: #f8f8f8">已显示全部</div>
+        </li>
+    </script>
+
+	<script>
+        apiready=function () {
+            var sid=getUserInfo().sid;
+            ajaxGet(getDepartmentList,{sid:sid},function (ret,err) {
+                console.log(ret.data)
+                if (ret && ret.success){
+                    var data={list:ret.data}
+                    var html=template("homepage",data);
+                    document.getElementById("list").innerHTML=html;
+                    api.parseTapmode();
+                    var list = document.getElementById('list');
+                    var ah2 = list.getElementsByTagName('h4');
+                    var uls = list.getElementsByTagName('ul');
+                    var jiantou=document.getElementsByClassName("jiantou");
+                    var employeesId;
+                    for(var i=0;i<ah2.length;i++){
+                        ah2[i].index = i;
+                        ah2[i].onclick = function(){
+                            employeesId=ret.data[this.index].id;
+                            ajaxGet(getDepartmentEmployees,{did:ret.data[this.index].id,sid:sid},function (ret,err) {
+                                console.log(ret.data)
+                                if(ret){
+                                    for(var i=0;i<ret.data.length;i++){
+                                        if(ret.data[i].icon){
+                                            var width = 36;
+                                            var height = 36;
+                                            var obj = getImgByThisSize(ret.data[i].icon,width,height);
+                                            ret.data[i].icon=obj.url
+                                            ret.data[i].style = obj.style;
+                                        }else{
+                                            ret.data[i].icon="";
+                                            ret.data[i].style = "";
+                                        }
+                                    }
+//                                alert(JSON.stringify(ret.data));
+                                    var data={list:ret.data}
+                                    var html=template("employeesListTm",data);
+                                    document.getElementById('employeesListHm'+employeesId).innerHTML=html;
+                                    api.parseTapmode();
+                                }
+                            })
+                            if(this.className == ''){
+                                jiantou[this.index].style.width = "15px";
+                                jiantou[this.index].style.height = "8px";
+                                uls[this.index].style.display = 'block';
+                                jiantou[this.index].src = '../../image/arrow_btm.png';
+                                this.className = 'active';
+                            }else{
+                                uls[this.index].style.display = 'none';
+                                this.className = '';
+                                jiantou[this.index].src = '../../image/arrow_rt2.png';
+                                jiantou[this.index].style.width = "8px";
+                                jiantou[this.index].style.height = "15px";
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+        //点击li跳转
+        function openPersonHome(id,name) {
+            openNewWindow("teacherHomepage","../main/teacherHomepage.html",{id:id,name:name})
+
+        }
+	</script>
+</html>

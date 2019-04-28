@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝课表</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+        }
+        .itemOn{background:#0BB7E1}
+    </style>
+</head>
+<body>
+<div id="topbar" >
+    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+        取消
+    </div>
+    <div id="classAndGrade">
+        新建联系人
+    </div>
+    <div class="right" onclick="tianjia()" tapmode="itemOn" style="right: 0px; width: 48px" >完成</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+    apiready = function () {
+        initFrameInWin(api.pageParam);
+    };
+    function tianjia() {
+        api.execScript({
+            name:"NewContacts",
+            frameName:"NewContacts_body",
+            script:'accomplish()'
+        })
+    }
+</script>
+</html>

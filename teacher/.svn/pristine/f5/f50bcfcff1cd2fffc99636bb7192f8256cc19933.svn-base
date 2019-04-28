@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝健康-发现异常</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #fff;
+			}
+            .select-date{
+                width:100%;
+                height:42px;
+                padding-left:8px; 
+                padding-right:8px;
+                padding-top:8px;
+                box-sizing: border-box;
+            }
+            .select-date .sd{
+                width:100%;
+                height:42px;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+                position: relative;
+                text-align: center;
+            }
+            .sd .left-btn>img, .sd .right-btn>img{
+                width:16px;
+                height:16px;
+            }
+            .sd .left-btn{
+                position:absolute;
+                left:15px;
+                top:13.5px;
+            }
+            .sd .right-btn{
+                position:absolute;
+                right:15px;
+                top:13.5px;
+            }
+            .sd .show-time{
+                font-size: 16px;
+                color: #333333;
+                line-height:42px;
+            }
+            .pie-chart{
+                width:100%;
+                padding-left:8px;
+                padding-right:8px;
+                margin-top:20px;
+                box-sizing: border-box;
+            }
+            .pc{
+                width:100%;
+                height:141px;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 8px;
+                padding-top:12px;
+                padding-left:40px;
+                position: relative;
+                box-sizing: border-box;                
+            }
+            .pc>canvas{
+                width:234px;
+                height:117px;
+            }
+            .blank{
+                width:50px;
+                height:50px;
+                background: #FFFFFF;
+                border-radius:50%;
+                position:absolute;
+                top:46.5px;
+                left:75px;
+            }
+            .right-tag{
+                position: absolute;
+                top:35px;
+                left:181px;
+            }
+            .normal>:nth-child(1){
+                width:16px;
+                height:16px;
+                background: #67C49C;
+                box-shadow: 0 2px 4px 0 rgba(155,218,191,0.50);
+                border-radius: 2px;
+            }
+            .normal{
+                position:relative;
+            }
+            .unnormal{
+                margin-top:6px;
+                position:relative;                
+            }
+            .unnormal-rate{
+                margin-top:6px;
+                position:relative;           
+            }
+            .unnormal>:nth-child(1){
+                width:16px;
+                height:16px;
+                background: #D4602C;
+                box-shadow: 0 2px 4px 0 rgba(155,218,191,0.50);
+                border-radius: 2px;
+            }
+            .unnormal-rate>:nth-child(1){
+                width:16px;
+                height:16px;
+                background: #FFFFFF;
+            }
+            .normal>:nth-child(1),.unnormal>:nth-child(1),.unnormal-rate>:nth-child(1){
+                position: absolute;
+                top:3px;
+            }
+            .normal>:nth-child(2),.unnormal>:nth-child(2),.unnormal-rate>:nth-child(2){
+                margin-left:28px;
+                font-size:12px;
+                color:#333333;
+            }
+            .normal>:nth-child(3),.unnormal>:nth-child(3),.unnormal-rate>:nth-child(3){
+                margin-left:12px;
+                font-size:16px;
+                color:#151515;
+            }
+            .detail-list{
+                width:100%;
+                height:auto;
+                padding:0 8px 19px 8px;
+                box-sizing: border-box;
+            }
+            .dl{
+                width:100%;
+                height:auto;
+                background: #FFFFFF;
+                padding:0 12px 0px;
+                border-radius: 8px;
+                box-sizing: border-box;
+            }
+            .dl-title ul li{
+                width:50%;
+                height:26px;
+                line-height:26px;
+                font-size: 14px;
+                color: #999999;
+                float:left;
+                text-align: center;
+                box-sizing: border-box;
+            }
+            .dl-title ul .active{
+                color:#5EC4E0 !important;
+            }
+            .dl-title ul>:nth-child(1){
+                border-right:1px solid #E8E7E7;
+            }
+            .dl-info{
+                clear:left;
+                /* margin-top:8px; */
+                box-sizing: border-box; 
+            }
+            .dl-info ul{
+                width:100%;
+                box-sizing: border-box;  
+            }
+            .dl-info .student-list .sl-item{
+                width:100%;
+                min-height:41px;
+                border-bottom:1px solid #F2F2F2;
+                font-size: 12px;
+                color:#333333;
+                box-sizing: border-box;
+            }
+            .student-list .sl-item div{
+                width:50%;
+                box-sizing: border-box;
+            }
+            .student-list .sl-item{
+                display:flex;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+            }
+            .student-list .sl-item>:nth-child(1){
+                padding-left:16px;
+            }
+            .info-title{
+                width:100%;
+                height:44px;
+                background: #EBFBFF;
+                border-radius:4px;
+            }
+            .info-title li{
+                width:50%;
+                height:44px;
+                float:left;
+                box-sizing: border-box;
+                line-height:44px;
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.19px;
+            }
+            .info-title>:nth-child(1){
+                padding-left:16px;
+            }
+            .dl-info .student-list>:nth-last-child(1){
+                border:none;
+            }
+            .sl-item>:nth-child(1){
+                /* height:41px; */
+                /* line-height:41px; */
+                padding-top:14px;
+                line-height:17px;
+
+            }
+            .right-info{
+                padding-top:6px;
+                padding-bottom:6px;
+            }
+            .item-list li{
+                padding-top:6px;
+                padding-bottom:6px;
+                font-size:12px;
+                color:#D4602C;
+            }
+            .item-list li>:nth-child(1){
+                min-width:46px;
+                height:21px;
+                line-height:21px;
+                /* text-align: center; */
+                padding-left:11px;
+                padding-right:11px;
+                border:1px solid #D4602C;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .item-list li>:nth-child(2){
+                margin-left:12px;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="detail-list">
+            <div class="dl">
+                <div class="dl-info">
+                    <ul class="student-list" id="exceptionResultL">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</body>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/echo.min.js"></script>
+    <script type="text/html" id="exceptionResultH">
+        <%for(var i=0;i<list.length;i++){%>
+            <li class="sl-item">
+                <div class="left-name"><%=list[i].userName%></div>
+                <div class="right-info">
+                    <ul class="item-list">
+                        <%if(list[i].temperatureStatus == 1){%>
+                            <li>
+                                <span>体温</span>
+                                <span><%=list[i].temperatureAnomalies%></span>
+                            </li>
+                        <%}%>
+                        <%if(list[i].oralStatus == 1){%>
+                            <li>
+                                <span>口腔</span>
+                                <span><%=list[i].oralAnomalies%></span>
+                            </li>
+                        <%}%>
+                        <%if(list[i].fingernailStatus == 1){%>
+                            <li>
+                                <span>指甲</span>
+                                <span><%=list[i].fingernailAnomalies%></span>
+                            </li>
+                        <%}%>
+                    </ul>
+                </div>
+            </li>
+        <%}%>
+    </script>
+    <script>
+        var cid;
+         apiready=function(){
+            var ctime = api.pageParam.ctime;
+           cid = api.pageParam.cid;
+           new datalistModel(addDataToHtml,getClazzAllDayCheck,{day:ctime,cid:cid},5,5,100,true);
+        }
+        function getDate(DATE){
+            var sd = formatTimeToAllList(DATE);
+            new datalistModel(addDataToHtml,getClazzAllDayCheck,{day:sd,cid:cid},5,5,100,true);
+        };
+        function addDataToHtml(results,append){
+
+            if(isNotBlack(results)) {
+                    var data = {list: results.exceptionResult};
+                    var html = template('exceptionResultH', data);
+                    if (append) {
+                        var div = document.createElement("div");
+                        div.innerHTML = html;
+                        document.getElementById('exceptionResultL').appendChild(div);
+                    } else {
+                        document.getElementById('exceptionResultL').innerHTML = html;
+                    }
+                    api.parseTapmode();
+                    setTimeout(function () {
+                        echoExt.init({
+                            offset: 0,
+                            throttle: 0//设置图片延迟加载的时间
+                        });
+                    }, 100)
+                }
+        }
+    </script>
+</html>

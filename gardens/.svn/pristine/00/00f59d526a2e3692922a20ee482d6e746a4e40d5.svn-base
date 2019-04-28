@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="../../css/api.css">
+	<link rel="stylesheet" href="../../css/commonWindow.css">
+	<title>我们班</title>
+	<style>
+		html,body{
+			min-width:320px;
+			height: 100%;
+		}
+		.top li{
+			text-align: center;
+			border-radius: 8px;
+			box-sizing: border-box;
+		}
+		.top li>:nth-child(1){
+			position:relative;
+			width:100%;
+			height:0;
+			padding-bottom:100%;
+		}
+		.top li>:nth-child(1)>:nth-child(1){
+			display:block;
+			position: absolute;
+			width:100%;
+			height:100%;
+			top:0;
+			bottom:0;
+			border-radius:8px;
+			text-align: center;
+			font-size: 12px;
+			color: #FFFFFF;
+			letter-spacing: 0.25px;
+			padding-top:70%;
+			box-sizing: border-box;
+		}
+		.top>:nth-child(1){
+			background: #5AC8E1;
+		}
+		.top>:nth-child(2){
+			background: #92CA55;
+		}
+		.top>:nth-child(3){
+			background: #31CACF;
+		}
+		.top>:nth-child(4){
+			background: #67C49C;
+		}
+		.top>:nth-child(5){
+			background: #5AC8E1;
+		}
+		.top>:nth-child(1){
+			background-image:url('../../icon/sicon.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(2){
+			background-image:url('../../icon/fwsb.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(3){
+			background-image:url('../../icon/mzsp.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(4){
+			background-image:url('../../icon/mzpy.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(5){
+			background-image:url('../../icon/health.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.key-indicator{
+			width:100%;
+			height:181px;
+			box-sizing: border-box;
+		}
+		.ki{
+			width:100%;
+			height:100%;
+			background: #FFFFFF;
+			border-radius:8px;
+			box-sizing: border-box;
+		}
+		.con{
+			width: 100%;
+			height: 181px;
+			padding-top:20px;
+			background: #FFFFFF;
+			border-radius:4px;
+			box-sizing: border-box;
+		}
+		.con li{
+			float: left;
+			width: 50%;
+			text-align: center;
+			position: relative;
+			box-sizing: border-box;margin-bottom:57px;
+		}
+		.od-border,.mc-border{
+			width:224px;
+			height:224px;
+			margin:0 auto;
+			background: #FFFFFF;
+			border-radius:50%;
+			text-align: center;
+			box-shadow: 0 2px 6px 0 #CDE3E9;
+			position: relative;
+			zoom:0.5;
+		}
+		#on-duty,#morning-check{
+			position:absolute;
+			left:0px;
+		}
+		.teacher-list li,.students-list li{
+			width:100%;
+			/* height:58px; */
+			border-bottom:1px solid #F2F2F2;
+			padding-top:10px;
+			padding-left:6px;
+			padding-right:6px;
+			line-height: 38px;
+			box-sizing: border-box;
+			background-image:url('../../icon/teacherinfo.png');
+			background-size:16px 16px;
+			background-repeat:no-repeat;
+			background-position:right  center;
+		}
+		.teacher-list li{
+			height:53px;
+		}
+		.students-list li{
+			height:54px;
+		}
+		.teacher-list li .fl-item,.students-list li .fl-item{
+			float:left;
+		}
+		.t-avatar>img,.s-avatar>img{
+			width:36px;
+			height:36px;
+			border-radius:50%;
+		}
+	</style>
+</head>
+<body>
+<div class="key-indicator">
+	<div class="ki">
+		<ul class="con">
+			<li class="on-duty" onclick="operationDetails()">
+				<div class="od-border">
+					<canvas id="analysisA"></canvas>
+				</div>
+			</li>
+			<li class="morning-check">
+				<div class="mc-border">
+					<canvas id="analysisB"></canvas>
+				</div>
+			</li>
+			<li class="on-duty">
+				<div class="od-border">
+					<canvas id="analysisC"></canvas>
+				</div>
+			</li>
+			<li class="morning-check">
+				<div class="mc-border">
+					<canvas id="analysisD"></canvas>
+				</div>
+			</li>
+			<li class="on-duty">
+				<div class="od-border">
+					<canvas id="analysisE"></canvas>
+				</div>
+			</li>
+			<li class="morning-check">
+				<div class="mc-border">
+					<canvas id="analysisF"></canvas>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+	apiready=function(){}
+	var canvasName = "出勤率"
+	drawA(canvasName,80);
+	drawB(canvasName,80);
+	drawC(canvasName,80);
+	drawD(canvasName,80);
+	drawE(canvasName,80);
+	drawF(canvasName,80);
+
+	//招生满员率
+	function drawA(canvasName,val){
+		var c=document.getElementById('analysisA');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//宝宝出勤率
+	function drawB(canvasName,val){
+		var c=document.getElementById('analysisB');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//收费完成率
+	function drawC(canvasName,val){
+		var c=document.getElementById('analysisC');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//教师出勤率
+	function drawD(canvasName,val){
+		var c=document.getElementById('analysisD');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//家长APP
+	function drawE(canvasName,val){
+		var c=document.getElementById('analysisE');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//教师APP
+	function drawF(canvasName,val){
+		var c=document.getElementById('analysisF');
+		var ctx=c.getContext('2d');
+		ctx.scale(2,2);
+		ctx.canvas.width=224;
+		ctx.canvas.height=224;
+		ctx.beginPath();
+		ctx.lineWidth=10;
+		var g = ctx.createLinearGradient(0,0,200,100);
+		g.addColorStop(0,'#5AC8E1');
+		g.addColorStop(1,'#93C85C');
+		ctx.strokeStyle= g ;
+		ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);
+		ctx.stroke();
+		ctx.font='bold 32px Arial';
+		ctx.fillStyle='#484848';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(val+'%',112,100);
+
+		ctx.font='28px Arial';
+		ctx.fillStyle='#333333';
+		ctx.textBaseline='bottom';
+		ctx.textAlign='center';
+		ctx.fillText(canvasName,112,150);
+	}
+	//跳转详情
+	function operationDetails(){
+		openNewWindow("operationdetails","operationdetails_body.html")
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝健康</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+                min-width: 320px;
+                background: #F2F2F2;
+            }
+            .health-list{
+                width:100%;
+                padding:12px 8px 14px;
+                box-sizing: border-box;
+            }
+            .hl{
+                width:100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+                padding:8px 18px 19px;
+                box-sizing: border-box;                
+            }
+            .hl ul{
+                width:100%;
+                box-sizing: border-box;
+            }
+            .hl ul li{
+                width:100%;
+                height:38px;
+                padding-top:12px;
+                border-bottom:1px solid #E8E7E7;
+                display: -webkit-box;  
+                display: -mz-flexbox;
+                display:flex;
+                justify-content: space-between;
+                white-space: nowrap;
+                line-height: 20px;
+                box-sizing: border-box;
+            }
+            .hl ul li>:nth-child(1){
+                font-size:14px;
+                color:#666666;
+            }
+            .hl ul li>:nth-child(2){
+                font-size:14px;
+                color:#999999;
+            }
+            
+            .hl ul li>:nth-child(3)>img{
+                width:22px;
+                height:22px;
+            }
+            .hl ul li .unnormal{
+                color:#D4602C;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="health-list">
+            <div class="hl">
+                <ul>
+                    <li><div>张山</div><div>未见异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                    <li><div>张山</div><div>未见异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                    <li><div>张山</div><div class="unnormal">身高异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                    <li><div>张山</div><div>未见异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                    <li><div>张山</div><div class="unnormal">体重异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                    <li><div>张山</div><div>未见异常</div><div><img src="../../icon/edit.png" alt=""></div></li>
+                </ul>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+</html>

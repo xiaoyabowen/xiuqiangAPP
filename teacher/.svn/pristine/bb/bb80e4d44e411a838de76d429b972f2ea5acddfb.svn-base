@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间-评论</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			.main{
+				width:100%;background:#fff;color:#333;
+			}
+			.main p{
+				font-size: 14px;color: #333333;letter-spacing: 0.33px;height:44px;line-height:44px;padding-left:15px;
+			}
+			.main li{
+				height:41px;border-bottom:1px solid #f2f2f2;padding-left:14px;font-size:12px;background:url("../../image/arrow_rt2.png") no-repeat 93.3% center;background-size:7px 14px;line-height:41px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<p>请选择举报原因</p>
+			<ul>
+				<li onclick="JumpRelease(1)">恶意攻击谩骂</li>
+				<li onclick="JumpRelease(2)">营销广告</li>
+				<li onclick="JumpRelease(3)">淫秽色情</li>
+				<li onclick="JumpRelease(4)">政治反动</li>
+				<li onclick="JumpRelease(5)">其他</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		var TypeId;
+		apiready=function(){
+			TypeId = api.pageParam.tid;
+		};
+		function JumpRelease(ctype){
+			openNewWindow("wonderfulTime_Reportdescription","wonderfulTime_Reportdescription.html",{ctype:ctype,TypeId:TypeId});
+		}
+
+	</script>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--阻止自动判断电话-->
+    <meta name="format-detection" content="telephone=no" />
+    <title>预约报名-已指派</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F8F8F8;
+            color: #333333;
+            font-size: 14px;
+        }
+        .audit-list{
+            width:100%;
+            padding-left:8px;
+            padding-right:8px;
+            box-sizing: border-box;
+        }
+        .audit-list>ul{
+            width:100%;
+            padding-top:14px;
+        }
+        .audit-list>ul .al-item{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            padding:20px 12px 20px 18px;
+            margin-bottom:12px;
+            box-sizing: border-box;
+        }
+        .detail-info{
+            clear:both;
+            margin-top:6px;
+            padding-left:6px;
+        }
+        .di-item{
+            margin-bottom: 12px;
+        }
+        .di-item>:nth-child(1){
+            letter-spacing: 0.16px;
+            line-height:17px;
+            margin-right: 12px;
+        }
+        .di-item>:nth-child(2){
+            letter-spacing: 0.19px;
+            line-height:20px;
+        }
+        .cancelling-stocks{
+            width:98%;
+            height:44px;
+            background: #5AC8E1;
+            border-radius: 4px;
+            text-align: center;
+            line-height: 44px;
+            color:#FFFFFF;
+            font-size:16px;
+            margin-top:12px;
+        }
+        .click{
+            background: #ccc;
+            color:#fff;
+        }
+        .ask-info{
+            background: #ffffff;
+        }
+        .ask-item{
+            padding:12px 18px 6px 18px;
+            border-bottom:1px solid #ccc;
+            font-size: 12px;
+        }
+        .ask-item >:nth-child(1){
+            font-family: PingFang-SC-Regular;
+            color: #333333;
+            text-align: justify;
+        }
+        .ask-item >:nth-child(2){
+            margin-top: 12px;
+            font-family: PingFangSC-Regular;
+            color: #999999;
+        }
+    </style>
+</head>
+<body id="body">
+    <div class="audit-list" id="audit-list">
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="temScript">
+    <%if(list){%>
+        <ul>
+            <li class="al-item">
+                <ul class="detail-info">
+                    <li class="di-item">
+                        <span>家长姓名：</span>
+                        <span><%=list.parentName%></span>
+                    </li>
+                    <li class="di-item">
+                        <span>家长电话：</span>
+                        <span><%=list.phone%></span>
+                    </li>
+                    <li class="di-item">
+                        <span>预约时间：</span>
+                        <span><%=list.Ctime%></span>
+                    </li>
+                    <%if(list.sex == 1){%>
+                    <li class="di-item">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：</span>
+                        <span>男</span>
+                    </li>
+                    <%}else if(list.sex == 2){%>
+                    <li class="di-item">
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：</span>
+                        <span>女</span>
+                    </li>
+                    <%}%>
+                    <li class="di-item">
+                        <span>出生日期：</span>
+                        <span><%=list.BirthDate%></span>
+                    </li>
+                    <%if(list.checkStatus == 0){%>
+                    <li class="di-item">
+                        <span>是否缴纳：</span>
+                        <span>预约未交费</span>
+                    </li>
+                    <%}else if(list.sex == 1){%>
+                    <li class="di-item">
+                        <span>是否缴纳：</span>
+                        <span>交费未分班</span>
+                    </li>
+                    <%}else{%>
+                    <li class="di-item">
+                        <span>是否缴纳：</span>
+                        <span>已分班</span>
+                    </li>
+                    <%}%>
+                    <li class="di-item">
+                        <span>是否缴纳：</span>
+                        <span>已分班</span>
+                    </li>
+                </ul>
+            </li>
+
+            <ul class="ask-info">
+                <%for(var i=0;i<list.askRecords.length;i++){%>
+                <li class="ask-item">
+                    <p><%=list.askRecords[i].consultRecods%></p>
+                    <p><%=list.askRecords[i].Time%></p>
+                </li>
+                <%}%>
+            </ul>
+        </ul>
+    <%}%>
+</script>
+<script>
+    apiready = function () {
+        ajaxGet(getAssignedDetail,{urid:api.pageParam.urid},function (ret,err) {
+            if(ret.success){
+                addDataToHtml(ret.data)
+            }
+        })
+    };
+    function addDataToHtml(results){
+        if(results){
+            var a = formatTimeToDay(results.birthDate);
+            var b = formatTimeToAlls(results.ctime);
+            results['BirthDate'] = a;
+            results['Ctime'] = b;
+            for(var i=0;i<results.askRecords.length;i++){
+                var c = formatTimeToAlls(parseInt(results.askRecords[i].time));
+                results.askRecords[i]['Time'] = c;
+            }
+            var data = {list: results};
+            var html = template('temScript',data);
+            document.getElementById('audit-list').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+    };
+
+</script>
+</html>

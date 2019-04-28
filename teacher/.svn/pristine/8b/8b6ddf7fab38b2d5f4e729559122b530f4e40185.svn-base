@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>毕业院校</title>
+    <link rel="stylesheet" type="text/css" href="../../css/commonWindow.css">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css">
+    <style>
+        .bg-box{
+            width:100%;
+            background:#fff;
+            padding-top: 20px;
+            padding-bottom: 18px;
+        }
+        .textbox{
+            width:90%;
+            margin:0 5% 0;
+            min-height:184px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+        }
+        .textbox textarea{
+            margin:12px 0 0 5%;
+            width:90%;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #999999;
+            letter-spacing: 0.19px;
+            padding:0;
+            min-height: 96px;
+            border:none;
+        }
+        .btnbox{
+            width:90%;
+            margin:20px 5% 0;
+            height:44px;
+            line-height: 44px;
+            text-align: center;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            font-family: PingFangSC-Regular;
+            font-size: 16px;
+            color: #FFFFFF;
+            letter-spacing: 0.22px;
+        }
+    </style>
+</head>
+<body style="background:#ebf0f3;">
+    <div style="width:100%;height:12px;background:#ebf0f3;">
+
+    </div>
+    <div class="bg-box">
+        <div class="textbox">
+            <textarea placeholder="输入您的毕业院校" id="text-box"></textarea>
+        </div>
+    </div>
+    <div class="btnbox" onclick="refer()">
+        保存
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript">
+    var UNIversity;
+    apiready = function(){
+        UNIversity = api.pageParam.UNiversity;
+        if(UNIversity == '' || UNIversity==undefined){
+
+        }else{
+            document.getElementById('text-box').value=UNIversity;
+        }
+    }
+    //毕业院校
+    function refer(){
+        var textCount=document.getElementById('text-box').value;
+        api.execScript({
+            name:"myInformation",
+            frameName:'myInformation_body',
+            script: 'institutions('+JSON.stringify(textCount)+')'
+        })
+        closeWin();
+    }
+</script>
+</html>

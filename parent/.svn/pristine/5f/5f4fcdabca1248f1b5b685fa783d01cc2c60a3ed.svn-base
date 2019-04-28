@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>精彩瞬间</title>
+    <link rel="stylesheet" href="../../css/api.css"/>
+    <link rel="stylesheet" href="../../css/commonWindow.css"/>
+    <style type="text/css">
+        body {
+            min-width: 320px;
+            height:100%;
+        }
+
+        .comment-like {
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            background: #fff;
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            z-index: 2;
+        }
+
+        .comment-num {
+            float: left;
+            font-size: 16px;
+            color: #333333;
+            background: url('../../image/selected-bg.png');
+            background-repeat: no-repeat;
+            background-size: 54px 2px;
+            background-position: bottom center;
+        }
+
+        .like-num {
+            float: right;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .like-num > :nth-child(1) > img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            vertical-align: middle;
+            /* margin-right:6px; */
+        }
+
+        .wonderfulList {
+            z-index: 1;
+        }
+
+        .wonderfulList > li {
+            padding: 20px 15px 0px;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+        }
+
+        .wonderfulList > li:nth-last-of-type(1) {
+            border-bottom: 0;
+        }
+
+        .wonderfulList > li .tp_user {
+            overflow: hidden;
+            padding-bottom: 10px;
+        }
+
+        .wonderfulList > li .tp_user .userPic {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            float: left;
+            margin-right: 12px;
+        }
+
+        .wonderfulList > li .tp_user .userPic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .wonderfulList > li .tp_user .userInfo {
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.29px;
+        }
+
+        .wonderfulList > li .tp_user .userInfo .username {
+            padding-top: 8px;
+            line-height: 20px;
+            position: relative;
+        }
+
+        .wonderfulList > li .tp_user .userInfo .username em {
+            line-height: 10px;
+            font-size: 12px;
+            color: #999999;
+            letter-spacing: 0.21px;
+            position: absolute;
+            right: 0;
+            top: 14px;
+        }
+
+        .ct_content p {
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.5px;
+            line-height: 19px;
+            text-align: justify;
+        }
+
+        .ct_content ul {
+            padding-top: 10px;
+            width: 100%;
+            overflow: hidden;
+
+        }
+
+        .ct_content ul li {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+        }
+
+        .ct_content ul li.ltpic {
+            float: left;
+            width: 48.95%;
+            height: 190px;
+
+        }
+
+        .ct_content ul li.rtpic {
+            float: right;
+            width: 49.25%;
+            height: 190px;
+
+        }
+
+        .ct_content ul li.ltpic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .ct_content ul li.rtpic img:nth-of-type(1) {
+            float: right;
+            width: 100%;
+            height: 92px;
+            border-radius: 0 15px 0 0;
+            margin-bottom: 6px;
+        }
+
+        .ct_content ul li.rtpic img:nth-of-type(2) {
+            float: right;
+            width: 100%;
+            height: 92px;
+            border-radius: 0 0 15px 0;
+            margin-bottom: 6px;
+        }
+
+        .bt_moreheat {
+            margin-top: 11px;
+            overflow: hidden;
+            margin-bottom: 21px;
+        }
+
+        .bt_moreheat .lt_label {
+            float: left;
+        }
+
+        .bt_moreheat .lt_label em {
+            color: #5EC4E0;;
+            font-size: 12px;
+            line-height: 19px;
+            margin-right: 5px;
+            text-decoration: underline;
+        }
+
+        .bt_moreheat .rt_apcr {
+            overflow: hidden;
+            font-size: 12px;
+            color: #9D9D9D;
+            letter-spacing: 0.25px;
+            line-height: 18px;
+            float: right;
+        }
+
+        .rt_apcr em {
+            float: left;
+            padding-left: 21px;
+            width: 16px;
+            height: 18px;
+            padding-top: 1px;
+            background-repeat: no-repeat;
+        }
+
+        .rt_apcr > :nth-child(1) {
+            background-size: 17px 16px;
+        }
+
+        .rt_apcr > :nth-child(2) {
+            background-size: 17px 16px;
+        }
+
+        .rt_apcr > :nth-child(3) {
+            background-size: 18px 18px;
+        }
+
+        .rt_apcr i {
+            float: left;
+            margin-left: 15px;
+            padding-left: 22px;
+            margin-top: 1px;
+            width: 17px;
+            height: 18px;
+            background-repeat: no-repeat;
+        }
+
+        .rt_apcr b {
+            float: left;
+            margin-left: 12px;
+            padding-left: 20px;
+            padding-right: 10px;
+            font-weight: 400;
+            width: 18px;
+            height: 18px;
+            background-repeat: no-repeat;
+        }
+
+        .left-time {
+            float: left;
+            font-size: 12px;
+            color: #999999;
+        }
+
+        .lt_label u {
+            color: #5EC4E0;
+        }
+
+        #header {
+            width: 100%;
+            height: 46px;
+            z-index: 999
+        }
+
+        #botReply {
+            width: 100%;
+            height: 33px;
+            padding: 8px 0;
+            background: #fff;
+            overflow: hidden;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 999999;
+        }
+
+        #botReply input {
+            width: 68.1%;
+            height: 22px;
+            padding: 5px;
+            border-bottom: 1px solid #5AC8E1;
+            line-height: 22px;
+            font-size: 12px;
+            color: #999;
+            margin-left: 18px;
+        }
+
+        #botReply button {
+            float: right;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0;
+            border-radius: 4px;
+            width: 16.9%;
+            height: 33px;
+            font-size: 14px;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .ct_content {
+            padding: 15px;
+        }
+        .ct_content1 {
+            padding: 15px;
+        }
+        .listone {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .listBfl {
+            width: 48.95% !important;
+            height: 192px;
+            float: left;
+            border-radius: 8px 0 0 8px;
+            overflow: hidden;
+        }
+
+        .listBfr {
+            width: 48.95% !important;
+            height: 192px;
+            float: right;
+            border-radius: 0 8px 8px 0;
+            overflow: hidden;
+        }
+
+        .listImgs {
+            float: left !important;
+            overflow: hidden;
+            border-bottom: none !important;
+            width: 32% !important;
+            margin-bottom: 5px;
+            margin-left: 1%;
+            border-radius: 6px;
+            height: 90px !important;
+        }
+        .ltpic{
+            float: left;
+            width: 48.95%;
+            height: 190px;
+            border-radius: 6px 0 0 6px;
+            overflow: hidden;
+        }
+        .ltpic span{
+            height:95px;
+            overflow:hidden;
+        }
+        .rtpic{
+            float: right;
+            width: 49.25%;
+            height: 190px;
+            border-radius:0 6px 6px 0;
+            overflow: hidden;
+        }
+        .rtpic span{
+            height:95px;
+            overflow:hidden;
+        }
+        .ltpic img {
+
+
+        }
+
+        .rtpic span:nth-of-type(1) {
+            width: 100%;
+            height: 92px;
+            float: right;
+            overflow: hidden;
+            border-radius: 0 6px 0 0;
+            margin-bottom: 6px;
+        }
+
+        .rtpic span:nth-of-type(2) {
+            float: right;
+            width: 100%;
+            height: 92px;
+            overflow: hidden;
+            border-radius: 0 0 6px 0;
+            margin-bottom: 6px;
+        }
+
+        .Images {
+            padding: 0 12px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="main" id="mainTop">
+    <div class="ct_content center" id="centerBox"></div>
+    <div class="Images" id="ImagesList">
+        <ul class="uldjh">
+        </ul>
+    </div>
+    <div id="header">
+
+    </div>
+    <ul class="wonderfulList" id="detailsList">
+    </ul>
+</div>
+<!--<div id="botReply">
+&lt;!&ndash;<button id="but" style="outline:none" class="a" onclick="Submission()">发送</button>&ndash;&gt;
+&lt;!&ndash;<input id="plListText" type="text" placeholder="请写评论"/>&ndash;&gt;
+</div>-->
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="headerHtml">
+    <div class="comment-like">
+        <div class="comment-num">
+            <span>评论&nbsp;</span>
+            <span id="NumberComment"><%=list.pinglun%></span>
+        </div>
+        <div class="like-num">
+            <span><img src="<%=list.icon%>" onerror="this.src='../../image/teacherAvatar.png'" alt=""></span>
+            <span>赞</span>
+            <span id="Numberzan"><%=list.zan%></span>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+</script>
+<script type="text/html" id="detailsHtml">
+    <%for(var i=0;i<list.length;i++){%>
+    <li>
+        <div class="tp_user">
+            <div class="userPic"><img src="<%=list[i].user.icon%>" style="<%=list[i].style%>" onerror="this.src='../../image/teacherWang.png'" alt=""/></div>
+            <div class="userInfo">
+                <p class="username"><span><%=list[i].user.name%></span></p>
+            </div>
+        </div>
+        <div class="ct_content1">
+            <p style="word-wrap:break-word;"><%=list[i].content%></p>
+        </div>
+        <div class="bt_moreheat">
+            <div class="left-time">
+                <span><%=list[i].ctime%></span>
+            </div>
+            <div class="rt_apcr">
+                <%if(list[i].supported == false){%>
+                <em onclick="Fabulous('<%=list[i].id%>',this)" type="1" style="background-image: url(../../image/dianzan2.png);">0</em>
+                <%} else {%>
+                <em onclick="Fabulous('<%=list[i].id%>',this)" type="2" style="background-image: url(../../image/dianzan03.png);"><%=list[i].supportNum%></em>
+                <%}%>
+                <i onclick="ListReply('<%=list[i].user.name%>')" style="background-image: url(../../image/pinglun2.png);"><%=list[i].commentNum%></i>
+
+                <!--<b style="background-image: url(../../icon/transmit.png);"></b>-->
+            </div>
+        </div>
+        <div id="botReply">
+            <button id="but" style="outline:none" class="a" onclick="Submission()">发送</button>
+            <!--<input id="plListText" type="text" placeholder="请写评论"/>-->
+        </div>
+    </li>
+    <%}%>
+</script>
+<script type="text/html" id="ImagesHtml">
+    <ul class="uldjh">
+        <%if(list.img.length == 1){%>
+        <li class="listone"><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(0)" data-echo="<%=list.img[0]%>" real-style="<%=list.styleJsom%>" alt=""/></li>
+        <%} else if(list.img.length == 2){%>
+        <li class="listBfl"><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(0)"  data-echo="<%=list.imagesJson_arr[0].images%>" real-style="<%=list.imagesJson_arr.style%>" alt=""/></li>
+        <li class="listBfr"><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(1)"  data-echo="<%=list.imagesJson_arr[1].images%>" real-style="<%=list.imagesJson_arr.style%>" alt=""/></li>
+        <%} else if(list.img.length == 3){%>
+
+        <li class="ltpic"><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(0)"  data-echo="<%=list.img[0]%>" real-style="<%=list.styleJsom%>" alt=""/></li>
+        <li class="rtpic">
+            <span><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(1)"  data-echo="<%=list.img[1]%>" real-style="<%=list.styleJsoma%>" alt=""/></span>
+            <span><img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(2)"  data-echo="<%=list.img[2]%>" real-style="<%=list.styleJsomb%>" alt=""/></span>
+        </li>
+        <%} else if(list.img.length == 4){%>
+        <li class="ltpic">
+            <span><img  src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(0)"   data-echo="<%=list.img[0]%>" real-style="<%=list.styleJsom%>" alt="" /></span>
+            <span><img  src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(1)"   data-echo="<%=list.img[1]%>" real-style="<%=list.styleJsoma%>" alt="" /></span>
+        </li>
+        <li class="rtpic">
+            <span><img  src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(2)"   data-echo="<%=list.img[2]%>" real-style="<%=list.styleJsomb%>" alt="" /></span>
+            <span><img  src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(3)"  data-echo="<%=list.img[3]%>" real-style="<%=list.styleJsomc%>" alt="" /></span>
+        </li>
+        <div style="clear: both"></div>
+        <%} else if(list.img.length > 4){%>
+        <%for(var x = 0;x<list.imgJson.length;x++){%>
+        <li class="listImgs">
+            <img src="../../icon/jiaxiaoTongHome.jpg" onclick="openPhotoBrowser(<%=x%>)"  style="width:100%;height:100%;" data-echo="<%=list.imgJson[x].img%>" real-style="<%=list.imgJson[x].styleJsomobj%>" alt=""/>
+        </li>
+        <%}%>
+        <div style="clear: both"></div>
+        <%}%>
+    </ul>
+</script>
+<script>
+    var tid, icon, name,Dtype;
+    var imgMagnifyarr = [];
+    var photoBrowser;
+    apiready = function () {
+        photoBrowser = api.require('photoBrowser');
+        tid = api.pageParam.tid;
+        Dtype = api.pageParam.type;
+        ajaxGet(getloadTimeline,{id:tid},function(ret,err) {
+            if(ret&&ret.success){
+                if(isNotBlack(ret.data[0])){
+                    $("#Fabulous").html(ret.data[0].zan);
+                    $("#comment").html(ret.data[0].pinglun);
+                    $("#usericon").attr("src", ret.data[0].icon);
+                    $(".center").html(ret.data[0].content);
+                    addHtml(ret.data[0]);
+                    $("#Fabulous").html(ret.data[0].zan);
+                    $("#comment").html(ret.data[0].pinglun);
+                    $("#usericon").attr("src", ret.data[0].icon);
+                    $(".center").html(ret.data[0].content);
+                    addHtml(ret.data[0]);
+                    imgMagnifyarr = ret.data[0].images;
+                    ret.data[0].styleJsom = "";
+                    ret.data[0].images = tryJsonParse(ret.data[0].images)
+                    if (ret.data[0].images.length==1) {
+                        for (var i = 0; i < ret.data[0].images.length; i++) {
+                            alert(JSON.stringify(ret.data[0].images[0]))
+                            var width = api.winWidth;
+                            var height = 190;
+                            var obj = getImgByThisSize(ret.data[0].images[0], width, height);
+                            ret.data[0].styleJsom = obj.style;
+                        }
+                    } else if (ret.data[0].images.length == 2) {
+                        var imgArr = [];
+                        for (var j = 0; j < ret.data[0].images.length; j++) {
+                            var imgSrc_obj = {};
+                            var img_src = ret.data[0].images[j];
+                            var width = api.winWidth*0.4895;
+                            var height = 190;
+                            var obj = getImgByThisSize(img_src, width, height);
+                            imgSrc_obj.images = obj.url;
+                            imgSrc_obj.style = obj.style;
+                            imgArr.push(imgSrc_obj)
+                        }
+                        listText.imagesJson_arr = imgArr;
+                    } else if (ret.data[0].images.length == 3) {
+                        for (var l = 0; l < ret.data[0].images.length; l++) {
+                            var width = (api.winWidth - 42) / 2;
+                            var widtha = api.winWidth*0.4925;
+                            var height = 190;
+                            var heighta = 90;
+                            var obj = getImgByThisSize(ret.data[0].images[0], width, height);
+                            var obja = getImgByThisSize(ret.data[0].images[1], widtha, heighta);
+                            var objb = getImgByThisSize(ret.data[0].images[2], widtha, heighta);
+                            ret.data[0].styleJsoma = obja.style;
+                            ret.data[0].styleJsomb = objb.style;
+                            ret.data[0].styleJsom = obj.style;
+                        }
+                    } else if (ret.data[0].images.length == 4) {
+                        for (var l = 0; l < ret.data[0].images.length; l++) {
+                            var width = api.winWidth*0.4895;
+                            var widtha = api.winWidth*0.4925;
+                            var height = 190;
+                            var heighta = 90;
+                            var obj = getImgByThisSize(ret.data[0].images[0], width, heighta);
+                            var obja = getImgByThisSize(ret.data[0].images[1], width, heighta);
+                            var objb = getImgByThisSize(ret.data[0].images[2], widtha, heighta);
+                            alert(ret.data[0].images[2])
+                            var objc = getImgByThisSize(ret.data[0].images[3], widtha, heighta);
+                            ret.data[0].styleJsoma = obja.style;
+                            ret.data[0].styleJsomb = objb.style;
+                            ret.data[0].styleJsom = obj.style;
+                            ret.data[0].styleJsomc = objc.style;
+                        }
+                    }else if (ret.data[0].images.length > 4) {
+                        var imgArr = [];
+                        ret.data[0].imgJson = [];
+                        for (var l = 0; l < ret.data[0].images.length; l++) {
+                            var width = api.winWidth*0.42;
+                            var height = 90;
+                            var obj = getImgByThisSize(ret.data[0].images[l], width, height);
+                            var imgArr = {
+                                img: ret.data[0].images[l],
+                                styleJsomobj: obj.style
+                            }
+                            ret.data[0].imgJson.push(imgArr);
+                        }
+                    }
+
+                    var data = {list: ret.data[0]};
+                    var html = template('ImagesHtml', data);
+                    document.getElementById('ImagesList').innerHTML = html;
+                    new datalistModel(addDataToHtml, commentpager, {type: 2, typeId: tid}, 5, 5, 100, true);
+                }
+                setTimeout(function(){
+                    echoExt.init({
+                        offset: 0,
+                        throttle: 0//设置图片延迟加载的时间
+                    });
+                },100)
+                $(".Images").html();
+                icon = ret.data[0].icon;
+            }
+        };
+        var inputField = api.require('inputField');
+        inputField.open({
+            bgColor: '#fff',
+            lineColor: '#fff',
+            fileBgColor: '#fff',
+            borderColor: '#5AC8E1',
+            lineBottomColor: '#5AC8E1',
+            sendImg: 'widget://icon/Sendout.png',
+            fixedOn: api.frameName,
+            autoFocus: true,
+            placeholder: '请输入评论'
+        }, function (ret, err) {
+            if (ret.msg != "") {
+                Submission(ret.msg)
+            } else {
+                toast("请输入评论内容！")
+            }
+        });
+    };
+
+
+
+    function addHtml(results){
+        var data = {list: results};
+        var html = template('headerHtml',data);
+        document.getElementById("header").innerHTML = html;
+    }
+    //评论动态
+    function Submission(value) {
+//		var value = $("#botReply input").val();
+        ajaxGet(commentadd, {type: 2, typeId: tid, content: value}, function (ret, err) {
+            if (ret.success == true) {
+                commentsNumber()
+                toast("发布成功！");
+                ret.data.ctime = getDateDiff(ret.data.ctime);
+                var obj = [ret.data];
+                addNewComment(obj);
+                scrollTo(0, 0);
+
+            } else {
+                toast("评论失败，请重试！");
+            }
+        })
+    }
+
+    //回复评论
+    function ListReply(name) {
+        var inputField = api.require('inputField');
+        inputField.open({
+            bgColor: '#fff',
+            lineColor: '#fff',
+            fileBgColor: '#fff',
+            borderColor: '#5AC8E1',
+            lineBottomColor: '#5AC8E1',
+            sendImg: 'widget://icon/Sendout.png',
+            fixedOn: api.frameName,
+            autoFocus: true,
+            placeholder: "回复:" + name
+        }, function (ret, err) {
+            if (ret.msg != "") {
+                Submission("回复" + name + "：" + ret.msg)
+            } else {
+                toast("请输入评论内容！")
+            }
+        });
+    }
+
+    //评论点赞
+    var repeat = null;   //防止重复点赞   声明变量
+    function Fabulous(tid, self) {
+        clearTimeout(repeat);    //清除定时器0.5秒点击一次
+        repeat = setTimeout(function () {
+            var type = $api.attr(self, "type");
+
+            if (type == 1) {
+                var supportval = $api.html(self);
+                $api.html(self, (Number(supportval) + 1));
+                $api.css(self, "background-image:url(../../image/dianzan03.png)");
+                $api.attr(self, "type", "2");
+                ajaxGet(supportadd, {type: 1, typeId: tid}, function (ret, err) {
+                    if (ret && ret.success) {
+                        toast("点赞成功！");
+                    } else {
+                        $api.html(self, (supportval));
+                        $api.css(self, "background-image:url(../../image/dianzan2.png)");
+                        $api.attr(self, "type", "1");
+                        toast("网络连接失败，请重试！")
+                    }
+                })
+            } else if (type == 2) {
+                var supportval = $api.html(self);
+                $api.html(self, (Number(supportval) - 1));
+                $api.css(self, "background-image:url(../../image/dianzan2.png)");
+                $api.attr(self, "type", "1");
+                ajaxGet(supportdelete, {type: 1, typeId: tid}, function (ret, err) {
+                    if (ret && ret.success) {
+                        toast("取消点赞成功！");
+                    } else {
+                        $api.html(self, (supportval));
+                        $api.css(self, "background-image:url(../../image/dianzan03.png)");
+                        $api.attr(self, "type", "2");
+                        toast("网络连接失败，请重试！")
+                    }
+                })
+            }
+        }, 500)
+    }
+    function commentsNumber(){
+        var commen =$("#NumberComment").html();
+        $("#NumberComment").html(Number(commen)+1);
+        document.getElementById("NumberComment").innerHTML = Number(commen)+1;
+    }
+    //评论完追加
+    function addNewComment(obj) {
+        var data = {list: obj};
+        var html = template('detailsHtml', data);
+        document.getElementById('detailsList').innerHTML = html + document.getElementById('detailsList').innerHTML;
+    }
+
+    function addDataToHtml(results, append) {
+        document.getElementById('NumberComment').innerHTML = results.length;
+        for (var i = 0; i < results.length; i++) {
+            if (results[i].ctime) {
+                results[i].ctime = getDateDiff(results[i].ctime);
+            }
+            ;
+            if (results[i].user.iocn) {
+                var listicon = results[i].user.icon;
+                var width = 100;
+                var height = 100;
+                var obj = getImgByThisSize(listicon, width, height);
+                results[i].style = obj.style;
+            }
+            //收藏、点赞
+            if (results[i].favorited == true) {
+                results[i].favorited = 2;
+            } else {
+                results[i].favorited = 1;
+            }
+        }
+
+        var data = {list: results};
+        var html = template('detailsHtml', data);
+        if (append) {
+            var div = document.createElement("li");
+            div.innerHTML = html;
+            document.getElementById('detailsList').appendChild(div);
+        } else {
+            document.getElementById('detailsList').innerHTML = html;
+        }
+        setTimeout(function(){
+            echoExt.init({
+                offset: 0,
+                throttle: 0//设置图片延迟加载的时间
+            });
+        },100)
+        if(Dtype==2){
+            var distance_top = $("#ImagesList").height()+$('#centerBox').height()+24+30;
+            var detailsListHeight = $("#detailsList").height();
+            if(detailsListHeight == 0 &&  detailsListHeight< 148){
+                var div = '<div id="kong" style="height:540px;text-align:center;font-size: 14px;color: #333333;letter-spacing: 0.29px; ">暂无内容</div>';
+                $("#kong").remove();
+                $("#mainTop").append(div);
+                $('body,html').animate({scrollTop:distance_top}, 0);
+            }else if(detailsListHeight >= 148 && detailsListHeight< 296){
+                var div = '<div style="height:392px;"></div>';
+                $("#mainTop").append(div);
+                $('body,html').animate({scrollTop:distance_top}, 0);
+            }
+            else if(detailsListHeight >= 296 && detailsListHeight< 444){
+                var div = '<div style="height:244px;"></div>';
+                $("#mainTop").append(div);
+                $('body,html').animate({scrollTop:distance_top}, 0);
+            }
+            else if(detailsListHeight >= 444 && detailsListHeight< 500){
+                var div = '<div style="height:96px;"></div>';
+                $("#mainTop").append(div);
+                $('body,html').animate({scrollTop:distance_top}, 0);
+            }else if(detailsListHeight > 500){
+                $('body,html').animate({scrollTop:distance_top}, 0);
+            }
+        }
+    }
+
+
+    function Return(){
+        var NumberComment = $("#NumberComment").html();
+        api.execScript({
+            name:'main',
+            frameName:'wonderfulTime',
+            script:'NumberComment("'+NumberComment+'")'
+        });
+        api.execScript({
+            name:'wonderfulTime',
+            frameName:'wonderfulTime_body',
+            script:'NumberComment("'+NumberComment+'")'
+        });
+        closeWin();
+    }
+    //点击查看大图
+    function openPhotoBrowser(index){
+        $api.setStorage("PhotoBrowser_flag",true);
+        photoBrowser.open({
+            images: imgMagnifyarr,
+            activeIndex:index,
+            placeholderImg: 'widget://icon/family_icon.png',
+            bgColor: '#000'
+        }, function(ret, err){
+            if (ret) {
+                if(ret.eventType == 'click'){
+                    $api.setStorage("PhotoBrowser_flag","");
+                    photoBrowser.close();
+                }else if(ret.eventType == "longPress"){
+                    var arr = ["保存到相册"];
+                    api.actionSheet({
+                        // title: '保存',
+                        cancelTitle: '取消',
+                        buttons: arr
+                    }, function(ret, err) {
+                        if(ret.buttonIndex == 1){
+                            photoBrowser.getIndex(function(ret_last,err){
+                                if (ret_last) {
+                                    var this_index = ret_last.index;
+                                    var thisImageType = allResults[id].imagesJson[this_index].slice(allResults[id].imagesJson[this_index].lastIndexOf("."));
+                                    api.download({
+                                        url: allResults[id].imagesJson[this_index],
+                                        savePath : (new Date()).getTime() + thisImageType,
+                                        report: true,
+                                        cache: true,
+                                        allowResume: true
+                                    }, function(ret, err) {
+                                        if (ret.state == 1) {
+                                            //下载成功
+                                            api.saveMediaToAlbum({
+                                                path: ret.savePath
+                                            }, function(ret, err) {
+                                                if (ret && ret.status) {
+                                                    toast('保存成功');
+                                                } else {
+                                                    toast('保存失败');
+                                                }
+                                            });
+                                        } else {
+
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    });
+                }
+            } else {
+            }
+        });
+    }
+</script>
+</html>

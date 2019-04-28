@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!--阻止自动判断电话-->
+        <meta name="format-detection" content="telephone=no" />
+		<title>预约指派</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+                color: #333333;
+                font-size: 14px;
+			}
+			.audit-list{
+                width:100%;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .audit-list>ul{
+                width:100%;
+                padding-top:14px;
+            }
+            .audit-list>ul .al-item{
+                width:100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:20px 12px 20px 18px;
+                margin-bottom:12px;
+                box-sizing: border-box;
+            }
+            .detail-info{
+                clear:both;
+                margin-top:6px;
+                padding-left:6px;
+            }
+            .di-item{
+                margin-bottom: 12px;
+            }
+            .di-item>:nth-child(1){
+                letter-spacing: 0.16px;
+                line-height:17px;
+                margin-right: 12px;
+            }
+            .di-item>:nth-child(2){
+                letter-spacing: 0.19px;
+                line-height:20px;
+            }
+            .cancelling-stocks{
+                width:98%;
+                height:44px;
+                background: #5AC8E1;
+                border-radius: 4px;
+                text-align: center;
+                line-height: 44px;
+                color:#FFFFFF;
+                font-size:16px;
+                margin-top:12px;
+            }
+            .click{
+                background: #ccc;
+                color:#fff;
+            }
+            /*老师列表*/
+            #warp{
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.30);
+                position: fixed;
+                display: none;
+            }
+            #content{
+                width: 230px;
+                height: 234px;
+                background: #FFFFFF;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                position: fixed;
+                top:0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin:50% auto;
+                font-size: 14px;
+                color: #333333;
+                text-align: center;
+            }
+            #content > :nth-child(1){
+                height: 59px;
+                line-height: 60px;
+                text-align: center;
+                border: 1px solid #F0F0F0;
+            }
+            #content > ul{
+                height:174px;
+
+                overflow: scroll;
+            }
+            #content > ul > li{
+                width: 40%;
+                height:20px;
+                margin: 0 auto;
+                line-height: 20px;
+            }
+            #content > ul > li > p{
+                margin-top: 12px;
+                text-align: center;
+            }
+            .selected{
+                width: 40%;
+                text-align: center;
+                background: #5AC8E1;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                color:#FFFFFF;
+            }
+            #phone{
+                width:18px;
+                height:18px;
+                display:inline-block;
+                background:url('../../icon/phone.png') no-repeat;
+                background-size: 100%;
+                margin-left: 12px;
+            }
+		</style>
+	</head>
+	<body id="body">
+        <div class="audit-list" id="audit-list">
+
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/html" id="temScript">
+		<%if(list.length){%>
+            <ul>
+				<%for(var i=0;i<list.length;i++){%>
+                <li class="al-item" onclick="lookRecor('<%=list[i].id%>')">
+                    <ul class="detail-info">
+                        <li class="di-item">
+                            <span>家长姓名：</span>
+                            <span><%=list[i].parentName%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>家长电话：</span>
+                            <span>
+                                <%=list[i].phone%>
+                                <div id="phone"
+                                        onclick="openCall('<%=list[i].phone%>')">
+                                </div>
+                            </span>
+                        </li>
+                        <li class="di-item">
+                            <span>预约时间：</span>
+                            <span><%=list[i].Ctime%></span>
+                        </li>
+                        <%if(list[i].sex == 1){%>
+                        <li class="di-item">
+                            <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                            <span>男</span>
+                        </li>
+                        <%}else if(list[i].sex == 2){%>
+                        <li class="di-item">
+                            <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                            <span>女</span>
+                        </li>
+                        <%}%>
+                        <li class="di-item">
+                            <span>孩子姓名：</span>
+                            <span><%=list[i].name%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>出生日期：</span>
+                            <span><%=list[i].BirthDate%></span>
+                        </li>
+                        <%if(list[i].checkStatus == 0){%>
+                        <li class="di-item">
+                            <span>是否缴纳：</span>
+                            <span>预约未交费</span>
+                        </li>
+                        <%}else if(list[i].sex == 1){%>
+                        <li class="di-item">
+                            <span>是否缴纳：</span>
+                            <span>交费未分班</span>
+                        </li>
+                        <%}else{%>
+                        <li class="di-item">
+                            <span>是否缴纳：</span>
+                            <span>已分班</span>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+				<%}%>
+            </ul>
+		<%}%>
+	</script>
+
+	<script>
+	apiready = function () {
+		new datalistModel(addDataToHtml,getAssignedByTeacher,{tid:getUserInfo().id,pager:0},10,5,100,true);
+	};
+	function addDataToHtml(results){
+		if(results){
+			for(var i = 0;i<results.length;i++){
+				var a = formatTimeToAll(results[i].birthDate);
+				var b = formatTimeToAlls(results[i].ctime);
+				results[i]['BirthDate'] = a;
+                results[i]['Ctime'] = b;
+			}
+			var data = {list: results};
+			var html = template('temScript',data);
+			document.getElementById('audit-list').innerHTML = html;
+			api.parseTapmode();
+			document.getElementById("audit-list").style.display = "block";
+		}
+	};
+
+//	查看沟通记录
+    function lookRecor(id){
+        openNewWindow('lookIndex','lookIndex.html',{urid:id});
+    }
+    </script>
+</html>

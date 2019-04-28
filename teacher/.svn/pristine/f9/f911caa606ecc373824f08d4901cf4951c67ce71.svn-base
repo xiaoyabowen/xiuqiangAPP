@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>公告通知-全部通知</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css">
+
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			background-color: #FFFFFF;
+			min-width: 320px;
+		}
+		.noticeList{
+			/* padding: 21px 17px;
+            padding-bottom: 7px; */
+			background-color: #fff;
+			box-sizing: border-box;
+		}
+		.noticeList>:nth-last-child(1){
+			border:none;
+		}
+		.noticeList li{
+			/* padding-bottom: 14px; */
+			padding:12px 15px;
+			box-sizing: border-box;
+			border-bottom: 1px solid #F2F2F2;
+			overflow: hidden;
+		}
+		.lt_pic{
+			overflow: hidden;
+			float: left;
+			width: 105px;
+			height: 97px;
+			box-shadow: 0 2px 4px 0 #CDE3E9;
+			border-radius:8px;
+		}
+		.lt_pic img{
+			display: block;
+			/*width: 105px;*/
+			/*height: 97px;*/
+			/*box-shadow: 0 2px 4px 0 #CDE3E9;*/
+			/*border-radius:8px;*/
+		}
+		.addImg{
+			width: 105px;
+			height: 97px;
+		}
+		.rt_content{
+			padding-left: 115px;
+		}
+		.rt_content .notice_title{
+			font-size: 14px;
+			color: #333333;
+			font-weight:bold;
+			line-height: 22px;
+			width: 100%;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			white-space:nowrap
+		}
+		.rt_content .notice_cnt{
+			margin-top: 3px;
+			margin-bottom: 3px;
+			font-size: 12px;
+			color: #333333;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			line-height: 17px;
+		}
+		.rt_content{
+			font-size: 12px;
+			color: #BDBDBD;
+			line-height: 17px;
+		}
+		.rt_content span{
+			/*padding-right: 10px;*/
+		}
+		.notice_sign{
+			font-size:12px;
+			color:#767676;
+			line-height:17px;
+		}
+		.notice_sign>:nth-child(2){
+			margin-left:11px;
+		}
+		.teacher_info{
+			font-size:12px;
+			color: #9c9c9c;
+			line-height:17px;
+		}
+	</style>
+</head>
+<body>
+<div id="main">
+	<ul class="noticeList" id="announcementList">
+
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="announcementHtml">
+	<%for(var i=0;i<list.length;i++){%>
+	<%if(list[i].sign==0){%>
+	<li tapmode="itemOn" onclick="noticeDetails('<%=list[i].id%>','<%=list[i].uid%>')">
+	<div class="lt_pic">
+			<img class="noticeImgIcon" src="<%=list[i].imagesJson[0]%>" style="<%=list[i].Style%>" onerror="this.src='../../image/jiaxiaoTongHome.jpg'"  alt="" />
+		</div>
+		<div class="rt_content">
+			<p class="notice_title"><%=list[i].title%> </p>
+			<div class="notice_cnt">
+				<%=list[i].content%>
+			</div>
+			<p class="notice_sign">
+				<span>不需要签收</span>
+			</p>
+			<p class="teacher_info">
+				<span><%=list[i].teacherName%>发布于</span><em><%=list[i].ctime%></em>
+			</p>
+		</div>
+	</li>
+	<%}else{%>
+	<li tapmode="itemOn" onclick="noticeDetails('<%=list[i].id%>','<%=list[i].uid%>')">
+	<div class="lt_pic">
+			<img class="noticeImgIcon" src="<%=list[i].imagesJson[0]%>" style="<%=list[i].Style%>" onerror="this.src='../../image/jiaxiaoTongHome.jpg'"  alt="" />
+		</div>
+		<div class="rt_content">
+			<p class="notice_title"><%=list[i].title%></p>
+			<div class="notice_cnt">
+				<%=list[i].content%>
+			</div>
+			<p class="notice_sign">
+				<span>已签收:<em><%=list[i].readNum%>人</em></span>
+				<span>未签收:<em><%=list[i].totalNum-list[i].readNum%>人</em></span>
+			</p>
+			<p class="teacher_info">
+				<span><%=list[i].teacherName%>发布于</span><em><%=list[i].ctime%></em>
+			</p>
+		</div>
+	</li>
+	<%}%>
+	<%}%>
+</script>
+<script>
+	apiready=function () {
+		new datalistModel(addDataToHtml,getNoticeList,{sid:getUserInfo().sid,cid:getUserInfo().cids[0]},10,5,100,true);
+
+	}
+	function noticeDetails(nid,uid) {
+	    //alert(nid)
+		if(uid==getUserInfo().id){
+			openNewWindow('classNotice_noConfirm','classNotice_noConfirm.html',{nid:nid});
+		}else{
+			openNewWindow('classNotice_detail','classNotice_detail.html',{nid:nid});
+		}
+	}
+    function addDataToHtml(results,append) {
+        if (isNotBlack(results)) {
+
+            for(var i =0;i<results.length;i++){
+                results[i].content=results[i].content;
+                results[i].imagesJson=tryJsonParse(results[i].imagesJson);
+                if(results[i].imagesJson){
+                    var width = 105;
+                    var height = 97;
+                    var obj = getImgByThisSize(results[i].imagesJson[0],width,height);
+                    if(obj&&obj.style){
+                        results[i].Style = obj.style;
+                    }else{
+                        results[i].Style = 'width:105px;height:97px;';
+                    }
+                }
+				results[i].ctime = formatTimeToDate(results[i].ctime)
+            }
+            var data = {list: results};
+            var html = template("announcementHtml", data);
+
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('announcementList').appendChild(div);
+
+            } else {
+                document.getElementById('announcementList').innerHTML = html;
+            }
+            api.parseTapmode();
+            setTimeout(function(){
+                echoExt.init({
+                    offset: 0,
+                    throttle: 0//设置图片延迟加载的时间
+                });
+            },100)
+        }
+    }
+    function tryJsonParse(value){
+        try{
+            return JSON.parse(value);
+        }catch(e){
+            return value;
+        }
+    }
+</script>
+</html>

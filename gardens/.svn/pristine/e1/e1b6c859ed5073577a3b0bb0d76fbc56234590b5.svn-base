@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>精彩瞬间</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+
+	<style type="text/css">
+		body{
+			min-width: 320px;
+		}
+		.arrow_btm{
+			padding-left: 7px;
+			padding-bottom: 2px;
+		}
+		.allWonderfulHeader{
+			width: 100px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		#topbar .right{
+			right: 15px;
+		}
+		#topbar .right img{
+			right: 20px;
+			width: 30px;
+			height: 30px;
+		}
+		.left{
+			margin-left: 40px;
+		}
+	</style>
+</head>
+<body>
+<div id="topbar" >
+	<div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		<img style="width: 30px;height: 30px;" src="../../icon/back.png">
+	</div>
+	<div id="leftButton" class="left" onclick="openwonderfulTime_examine()">
+		<img style="width:23px;height:23px;" src="../../image/shenhe.png">
+	</div>
+	<div onclick="Topselect(this)" class="allWonderfulHeader"><span id="titleText">全园</span><img src="../../image/arrow_bt_white.png" alt="" class="arrow_btm"/></div>
+	<div onclick="openwonderfulTime_release()" class="right">
+		<img style="width:20px;height:20px;" src="../../icon/addicon.png"/>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+	apiready = function () {
+		initFrameInWin(api.pageParam);
+		var topText = $api.getStorage("topText");
+		//添加安卓退出按钮事件
+		api.addEventListener({
+			name: 'keyback'
+		}, function (ret, err) {
+			closeOnKeyBack();
+		});
+	};
+	function zlHandsome(title){
+		document.getElementById("titleText").innerHTML = title;
+	}
+
+	var action = true;
+	var type = true;
+	function toggleAction(){
+		action = false
+	}
+	function Topselect(){
+		if(type == true){
+			api.openFrame({
+				name: 'cesda',
+				url: 'wonderfulTimeSelect_body.html',
+				rect: {
+					x: 0,
+					y: 66,
+					w: 'auto',
+					h: 'auto'
+				},pageParam: {
+					type: '1'
+				}
+			});
+			type = false;
+		}else{
+			if(action == true){
+				api.setFrameAttr({
+					name:"cesda",
+					hidden:true
+				});
+				action = false;
+			}else{
+				api.setFrameAttr({
+					name:"cesda",
+					hidden:false
+				});
+				action = true;
+			}
+		}
+	}
+	//打开精彩瞬间审核
+	function openwonderfulTime_examine(){
+		api.setFrameAttr({
+			name:"cesda",
+			hidden:true
+		});
+		action = false;
+		openNewWindow("wonderfulTime_examine","../wonderfulTime/wonderfulTime_examine.html")
+	}
+	//打开精彩瞬间发布
+	function openwonderfulTime_release(){
+		api.setFrameAttr({
+			name:"cesda",
+			hidden:true
+		});
+		action = false;
+		openNewWindow("wonderfulTime_release","../wonderfulTime/wonderfulTime_release.html",{},{allowEdit:true})
+	}
+
+
+	function closeOnKeyBack(){
+		api.execScript({
+			name:'wonderfulTime',
+			frameName : "wonderfulTime_body",
+			script: "listenerVideo()"
+		});
+	}
+</script>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝评语</title>
+    <style>
+        .bg{
+            width:100%;
+            height:64px;
+            box-sizing: border-box;
+        }
+        .bg>img{
+            width:100%;
+            height:64px;
+        }
+        .comment-detail{
+            width:100%;
+            height:auto;
+            background:#FFFFFF;
+            padding-left:18px;
+            padding-right:18px;
+            padding-bottom:17px;                        
+            box-sizing: border-box;
+            border-bottom:1px solid #EFEFEF;
+            position: relative;
+        }
+        .comment-detail>.teacher-info{
+            width:100%;
+            height:auto;
+            padding-top:20px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-left{
+            float:left;
+        }
+        .comment-detail>.teacher-info .info-left>img{
+            width:34px;
+            height:34px;
+            border-radius:50%;
+        }
+        .comment-detail>.teacher-info .info-right{
+            width:100%;
+            padding-left:44px;
+            font-size:12px;
+            color:#929292;
+            letter-spacing: 0.16px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-right .teacher-name{
+            line-height:18px;
+        }
+        .comment-detail>.teacher-info .info-right .comment-time>:nth-child(2){
+            margin-left:4.5px;
+        }
+        .comment-detail .comment-content{
+            clear:left;
+            margin-top:12px;
+        }
+        .comment-detail .comment-content .teacher-text{
+            width:100%;
+            padding:10px 18px;
+            font-size: 16px;
+            color: #505050;
+            letter-spacing: 0.69px;
+            line-height: 22px;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+            box-sizing: border-box;
+        } 
+        .comment-detail .comment-content .parent-reply{
+            width:68%;
+            height:auto;
+            margin:0 auto;
+            box-sizing: border-box;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list{
+            width:100%;
+            height:auto;
+            background: #FFFFFF;
+            /* padding:15px 13px 23px 9.5px; */
+            padding:16px 18px;
+            margin-top:12px;
+            margin-bottom:41px;
+            box-sizing: border-box;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li{
+            border-bottom: 1px solid #F0F0F0;
+             padding:4px 0px; 
+            box-sizing: border-box;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list>:nth-last-child(1){
+            border:none;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li .reply-info{
+            font-size: 14px;
+            color: #505050;
+            letter-spacing: 0.6px;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li .reply-person{
+            margin-top:6px;
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li .dialog-01{
+            font-size: 11px;
+            color: #929292;
+            letter-spacing: 0.15px;
+            line-height: 16px;            
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li .dialog-02{
+            font-size: 11px;
+            color: #929292;
+            letter-spacing: 0.15px;
+            line-height: 16px;                    
+        }
+        .comment-detail .comment-content .parent-reply .reply-list li .rep{
+            font-size: 11px;
+            color: #202020;
+            letter-spacing: 0.15px;
+            line-height: 16px;
+            /*margin-left:-8px;*/
+            /*margin-right: -8px;*/  
+        }
+        .c-reply>img{
+            width:17px;
+            height:18px;
+            position:absolute;
+            right:61px;
+            bottom:20px;
+        }
+        .c-delete>img{
+            width:18px;
+            height:18px;
+            position:absolute;
+            right:18px;
+            bottom:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div class="bg">
+                <img src="../../image/commentbg.png" alt="">
+            </div>
+            <div class="comment-detail">
+                <div class="teacher-info">
+                    <div class="info-left">
+                        <img src="../../image/teacherAvatar.png" alt="">
+                    </div>
+                    <div class="info-right">
+                        <div class="teacher-name">
+                            <span>许友珍老师</span>
+                        </div>
+                        <div class="comment-time">
+                            <span class="c-date">2018.06.07</span>
+                            <span class="c-time">11:13:34</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment-content">
+                    <div class="teacher-text">
+                        <p>于利宏宝宝表现的特别好，帮助同学打扫卫生，希望下周继续努力。</p>
+                    </div>
+                    <div class="parent-reply">
+                        <ul class="reply-list">
+                            <li>
+                                <p class="reply-info">谢谢许老师的鼓励，小宏很开心。</p>
+                                <p class="reply-person">
+                                    <span class="dialog-01">于利宏爸爸</span><span class="rep">回复</span><span class="dialog-02">许友珍老师</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="reply-info">小宏很乖</p>
+                                <p class="reply-person">
+                                    <span class="dialog-01">许友珍老师</span><span class="rep">回复</span><span class="dialog-02">于利宏爸爸</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="reply-info">谢谢夸奖</p>
+                                <p class="reply-person">
+                                    <span class="dialog-01">于利宏爸爸</span><span class="rep">回复</span><span class="dialog-02">许友珍老师</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="comment-operate">
+                    <div class="c-reply">
+                        <img src="../../icon/reply.png" alt="">
+                    </div>
+                    <div class="c-delete">
+                        <img src="../../icon/delete.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="comment-detail">
+                    <div class="teacher-info">
+                        <div class="info-left">
+                            <img src="../../image/teacherAvatar.png" alt="">
+                        </div>
+                        <div class="info-right">
+                            <div class="teacher-name">
+                                <span>许友珍老师</span>
+                            </div>
+                            <div class="comment-time">
+                                <span class="c-date">2018.06.07</span>
+                                <span class="c-time">11:13:34</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        <div class="teacher-text">
+                            <p>李小明宝宝把自己的玩具给其它小朋友们分享，做的很棒。</p>
+                        </div>
+                    </div>
+            </div>
+        </div>    
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

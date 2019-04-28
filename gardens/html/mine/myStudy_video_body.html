@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的学习-视频</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.videoList{
+				width: 100%;
+				background-color: #fff;
+				padding: 0 18px;
+				box-sizing: border-box;
+			}
+			.videoList li{
+				box-sizing: border-box;
+				padding-top: 20px;
+				border-bottom:1px solid #f0f0f0;
+				overflow: hidden;
+			}
+			.videoList li .videoPic{
+				width: 100%;
+				height: 140px;
+				position: relative;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.videoList .imgCon {
+				width: 100%;
+				border-radius: 5px;
+				overflow: hidden;
+			}
+			.videoPic em{
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				border: 1px solid #fff;
+				border-radius: 50%;
+				top: 50%;
+				left: 50%;
+				-ms-transform:translate(-50%,-50%); 	/* IE 9 */
+				-moz-transform:translate(-50%,-50%); 	/* Firefox */
+				-webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
+				transform: translate(-50%,-50%);
+			}
+			.videoPic i{
+				position: absolute;
+				width: 19px;
+				height: 25px;
+				background: url(../../image/play_ap.png) no-repeat;
+				top: 50%;
+				left: 50%;
+				-ms-transform:translate(-36%,-50%);
+				-moz-transform:translate(-36%,-50%);
+				-webkit-transform:translate(-36%,-50%);
+				transform: translate(-36%,-50%);
+			}
+			.videoPic span{
+				font-size: 12px;
+				color: #FFFFFF;
+				letter-spacing: 0.16px;
+				position: absolute;
+				bottom: 6px;
+				right: 10px;
+				line-height: 17px;
+			}
+			.videoList li>span{
+				font-size: 16px;
+				color: #606060;
+				letter-spacing: 0.22px;
+				line-height: 22px;
+				display: block;
+				width: 100%;
+				overflow:hidden;
+			    text-overflow:ellipsis;
+			    white-space:nowrap;
+			    padding-top: 6px;
+			}
+			.videoList li>p{
+				font-size: 13px;
+				color: #A3A3A3;
+				letter-spacing: 0.18px;
+				line-height: 18px;
+				width: 100%;
+				overflow:hidden;
+			    text-overflow:ellipsis;
+			    display: -webkit-box;
+			    -webkit-line-clamp: 2;
+			    -webkit-box-orient: vertical;
+			    padding-top: 6px;
+			}
+			.videoList li .more_hesh{
+				padding-top: 6px;
+				padding-bottom: 20px;
+				overflow: hidden;
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.25px;
+				line-height: 17px;
+				float: right;
+				clear: both;
+			}
+			.more_hesh em{
+				float: left;
+				padding-left: 24px;
+				height: 16px;
+				/*background: url(../../image/mystudy03.png) no-repeat;*/
+				background-repeat: no-repeat;
+			}
+			.more_hesh i{
+				float: left;
+				margin-left: 22px;
+				padding-left: 22px;
+				height: 16px;
+				/*background: url(../../image/dianzan01.png) no-repeat;*/
+				background-repeat: no-repeat;
+			}
+			.more_hesh b{
+				float: left;
+				margin-left: 22px;
+				padding-left: 24px;
+				font-weight: 400;
+				height: 16px;
+				/*background: url(../../image/mystudy04.png) no-repeat;*/
+				background-repeat: no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+		    <ul class="videoList" id="outline">
+		    	<!--<li>
+		    		<div class="videoPic">
+		    			<div class="imgCon">
+		    				<img src="../../image/mystudy07.jpg"/>
+		    			</div>
+		    			<em></em>
+		    			<i></i>
+		    			<span>10:10</span>
+		    		</div>
+		    		<span>幼儿课程图片集合幼儿课程图片集合幼儿课程图片集合</span>
+		    		<p>幼儿课程图片集合拥有海量精选高幼儿课程图片集合拥有海量精选高清幼儿课程图片集合拥有海量精选高幼儿课程图片集合拥有海量精选高清</p>
+		    		<div class="more_hesh">
+		    			<em style="background-image: url(../../image/mystudy03.png);">23</em>
+		    			<i style="background-image: url(../../image/dianzan04.png);">34</i>
+		    			<b style="background-image: url(../../image/mystudy04.png);">56</b>
+		    		</div>
+		    	</li>-->
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/echo.min.js"></script>
+	<script type="text/javascript" src="../../script/business.js"></script>
+	<script type="text/html" id="scriptDiv1">
+		<%for(var i=0;i<list.length;i++){%>
+			<li>
+				<div class="videoPic" tapmode="itemOn" onclick="gotoDetail('<%=list[i].id%>')">
+					<div class="imgCon" style="height: <%=list[i].imgConHeight%>;width: 100%;overflow: hidden;">
+						<img src="<%=list[i].videoCover%>" onerror="this.src='../../image/mystudy02.jpg'" style="<%=list[i].styleObjs[0]%>"/>
+					</div>
+					<em></em>
+					<i></i>
+					<span><%=list[i].videoDuration%></span>
+				</div>
+				<span><%=list[i].title%></span>
+				<p><%=list[i].content%></p>
+				<div class="more_hesh">
+					<em onclick="gotoDetail('<%=list[i].id%>')" style="background-image: url(../../image/mystudy03.png); background-size: 16px 15px;"><%=list[i].commentNum%></em>
+					<%if(list[i].supported){%>
+						<i style="background-image: url(../../image/dianzan02.png);background-size: 16px 15px;" type="2" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+					<%}else{%>
+						<i style="background-image: url(../../image/dianzan01.png);background-size: 16px 15px;" type="1" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+					<%}%>
+					<%if(list[i].favorited){%>
+						<b style="background-image: url(../../image/mystudy04.png);background-size: 16px 15px;" type="2" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+					<%}else{%>
+						<b style="background-image: url(../../image/mystudy05.png);background-size: 16px 15px;" type="1" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+					<%}%>
+				</div>
+			</li>
+		<%}%>
+	</script>
+	<script>
+        var allResults = {};
+		var time;
+        apiready = function () {
+            new datalistModel(addDataToHtml,documentGetDocList,{pathId:api.pageParam.pathId,docType:api.pageParam.docType},10,5,100,true);
+        };
+
+        function addDataToHtml(results,append){
+            if(isNotBlack(results.length)){
+            	var imgConHeight = api.winWidth*0.3733 + "px";
+                for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+                    results[i].ctime=formatTimeToDay(results[i].ctime);
+                    for(var j=0;j<results[i].videoCover.length;j++){
+                    	results[i].imgConHeight = imgConHeight;
+                        if(results[i].videoCover){
+                            //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                            var domWidth = api.winWidth;
+                            var width = api.winWidth;
+                            var height = api.winWidth*0.3733;
+                            //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                            var obj = getImgByThisSize(results[i].videoCover,width,height);
+
+                            if(!results[i].styleObjs){
+                                results[i].styleObjs=[];
+                            }
+                            results[i].styleObjs[j] = obj.style;
+                        }
+                    }
+					secondTime(results[i].videoDuration);
+					results[i].videoDuration = time
+                }
+            }
+            var data = {list: results};
+            var html = template('scriptDiv1',data);
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('outline').appendChild(div);
+            } else {
+                document.getElementById('outline').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+
+        //详情页面
+        function gotoDetail(id){
+            allResults[id].pathName=api.pageParam.pathName;
+            openNewWindow("myStudy_detail","myStudy_detail.html",allResults[id])
+        }
+		function secondTime(second){
+			var s = second;
+			s= parseInt(s.substring(0, s.indexOf('.')))
+			if(s > 59){
+				if(s == 60){
+					time = "01 : 00";
+				}else{
+					var m = parseInt(s / 60);
+					s = parseInt(s % 60);
+					if(m > 9 ){
+						if(s > 9){
+							time = m+" : "+s;
+						}else{
+							time = m+" : 0"+s;
+						}
+					}else{
+						if(s > 9){
+							time = "0" + m + " : " + s;
+						}else{
+							time ="0" + m + " : 0" + s;
+						}
+					}
+				}
+			}else{
+				if(s>9){
+					time = "00 : "+s;
+				}else{
+					time = "00 : 0"+s;
+				}
+			}
+		}
+
+
+
+	</script>
+</html>

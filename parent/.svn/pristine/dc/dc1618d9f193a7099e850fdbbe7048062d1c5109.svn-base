@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的学习-详情</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				height: auto;
+				overflow-x: hidden;
+			}
+			
+			#main{
+				padding: 0 18px 40px 18px;
+				box-sizing: border-box;
+			}
+			.title{
+				font-size: 20px;
+				color: #2C2C2C;
+				letter-spacing: 0.27px;
+				line-height: 48px;
+				border-bottom: 1px solid #f0f0f0;
+				text-align: center;
+			}
+			.publisherInfo{
+				padding-top: 12px;
+				overflow: hidden;
+			}
+			.publisherInfo .lt_pic{
+				float: left;
+				width: 34px;
+				height: 34px;overflow:hidden;
+			}
+			.publisherInfo .lt_pic img{
+				width: 100%;
+				height: 100%;
+				border-radius:50%;
+			}
+			.publisherInfo .rt_userInfo{
+				margin-left: 44px;
+			}
+			.publisherInfo .rt_userInfo span{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+				vertical-align: top;
+			}
+			.publisherInfo .rt_userInfo p{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.publisherInfo .rt_userInfo p i{
+				padding-left: 10px;
+			}
+			
+			.content{
+				width: 100%;
+				box-sizing: border-box;
+				/*padding-top: 12px;*/
+			}
+			.imgDiv{
+				width: 100%;
+				box-sizing: border-box;
+				/*padding-top: 12px;*/
+				overflow: hidden;
+				position: relative;
+			}
+			.imgDiv img{
+				width: 100%;
+				/*padding-top: 18px;*/
+				/*padding-bottom: 18px;*/
+			}
+			.imgDiv em{
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				border: 1px solid #fff;
+				border-radius: 50%;
+				top: 50%;
+				left: 50%;
+				-ms-transform:translate(-50%,-50%); 	/* IE 9 */
+				-moz-transform:translate(-50%,-50%); 	/* Firefox */
+				-webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
+				transform: translate(-50%,-50%);
+			}
+			.imgDiv i{
+				position: absolute;
+				width: 19px;
+				height: 25px;
+				background: url(../../image/play_ap.png) no-repeat;
+				top: 50%;
+				left: 50%;
+				-ms-transform:translate(-36%,-50%);
+				-moz-transform:translate(-36%,-50%);
+				-webkit-transform:translate(-36%,-50%);
+				transform: translate(-36%,-50%);
+			}
+			.imgDiv span{
+				font-size: 12px;
+				color: #FFFFFF;
+				letter-spacing: 0.16px;
+				position: absolute;
+				bottom: 10%;
+				right: 5%;
+				line-height: 17px;
+			}
+			/*.content img{*/
+				/*width: 100%;*/
+				/*padding-top: 18px;*/
+				/*padding-bottom: 18px;*/
+			/*}*/
+			/*.content p{*/
+				/*font-size: 14px;*/
+				/*color: #505050;*/
+				/*letter-spacing: 0.6px;*/
+				/*line-height: 20px;*/
+			/*}*/
+			.operation{
+				text-align: right;
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.25px;
+				line-height: 17px;
+				padding-top: 18px;
+				height: 17px;
+				position: relative;
+			}
+			/*.operation b{
+				display: block;
+				width: 8px;
+				height: 8px;
+				box-shadow:2px 2px 6px 0 rgba(90,200,225,0.30);
+				position: absolute;
+				background-color: #ffffff;
+				left: 50%;
+				bottom: -3px;
+				margin-left: -4px;
+				transform: rotate(-135deg);
+			}*/
+			.operation .message em{
+				width: 18px;
+				height: 16px;
+				background-repeat:  no-repeat;
+				background-size: 100%;
+				vertical-align: top;
+			}
+			.operation .message i{
+				padding-left: 8px;
+			}
+			.operation .dianzan{
+				padding-left: 16px;
+			}
+			.operation .dianzan em{
+				/*width: 16px;*/
+				height: 15px;
+				background-repeat: no-repeat;
+				background-size: 16px 15px;
+				vertical-align: top;
+				padding-left: 20px;
+				box-sizing: border-box;
+			}
+			.operation .dianzan i{
+				padding-left: 6px;
+			}
+			.operation .collect{
+				padding-left: 13px;
+			}
+			.operation .collect em{
+				/*width: 17px;*/
+				height: 16px;
+				background-repeat:no-repeat;
+				background-size: 17px 16px;
+				vertical-align: top;
+				padding-left: 20px;
+				box-sizing: border-box;
+			}
+			.operation .collect i{
+				padding-left: 8px;
+			}
+			
+			.messageList{
+				background: #FFFFFF;
+				box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				width: 100%;
+				box-sizing: border-box;
+				margin-bottom: 40px;
+				position: relative;
+				margin-top: 12px;
+			}
+			.messageList:before{
+				content: '';
+				width: 8px;
+				height: 8px;
+				box-shadow:2px 2px 6px 0 rgba(90,200,225,0.30);
+				position: absolute;
+				background-color: #ffffff;
+				left: 50%;
+				top: -3px;
+				margin-left: -4px;
+				-webkit-transform: rotate(-135deg);
+				transform: rotate(-135deg);
+			}
+			.messageList ul{
+				width: 100%;
+				padding-left: 18px;
+				padding-right: 18px;
+				padding-top: 10px;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.messageList ul li{
+				border-bottom: 1px solid #f0f0f0;
+				padding-bottom: 10px;
+				margin-bottom: 10px;overflow:hidden;
+			}
+			.messageList ul li .other p{
+				font-size: 14px;
+				color: #505050;
+				letter-spacing: 0.6px;
+				line-height: 20px;
+				padding-bottom: 6px;
+			}
+			.messageList ul li .other em{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.messageList ul li .other i{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+				padding-left: 10px;
+			}
+			.messageList ul li .author{
+				padding-left: 20px;
+				padding-right: 20px;
+				border-top: 1px solid #f0f0f0;
+				margin-top: 10px;
+			}
+			.messageList ul li .author p{
+				font-size: 14px;
+				color: #505050;
+				letter-spacing: 0.6px;
+				line-height: 20px;
+				padding-top: 16px;
+				padding-bottom: 6px;
+			}
+			.messageList ul li .author span{
+				font-size: 12px;
+				color: #202020;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.messageList ul li .author span em{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.messageList ul li .author span i{
+				padding-left: 10px;
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.paging{
+				padding-top: 5px;
+				text-align: center;
+				padding-bottom: 20px;
+			}
+			.paging .previous{
+				width: 5px;
+				height: 9px;
+				background: url(../../image/arrow_lt.png) no-repeat;
+				background-size: 100%;
+				margin-right: 24px;
+			}
+			.paging .next{
+				width: 5px;
+				height: 9px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				background-size: 100%;
+				margin-left: 24px;
+			}
+			.paging .page{
+				font-size: 12px;
+				color: #929292;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.paging .page.active{
+				color: #fff;
+				background-color: #5AC8E1;
+				width: 16px;
+				height: 16px;
+				border-radius: 16px;
+			}
+			.paging i{
+				color: #D8D8D8;
+			}
+
+
+
+			#botReply{
+				width:100%;height:33px;padding:8px 0;background:#fff;overflow:hidden;position:fixed;bottom:0;left:0;
+				z-index: 999999;
+			}
+			#botReply input{
+				width:68.1%;height:22px;padding:5px;border-bottom:1px solid #5AC8E1;line-height:22px;font-size: 12px;color:#999;margin-left:18px;
+			}
+			#botReply button{
+				float: right;background:#5AC8E1;box-shadow: 0 2px 4px 0;border-radius: 4px;width:16.9%;height:33px;font-size:14px;color:#fff;margin-right:18px;
+			}
+			.down{
+		    	box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				width: 100%;
+				box-sizing: border-box;
+		    	background:#f8f8f8;	
+		    	position:relative;
+		    	padding-left:12%;
+		    	margin-top:14px;
+		    }
+		    .down-le div:nth-of-type(1) {
+		    	position: absolute;
+		    	left:5%;
+		    	top:50%;
+		    	margin-top:-11px;
+		    	width:20px;
+		    	height:22px
+		    }
+		    .down-le div:nth-of-type(1) img{
+		    	width:100%;
+		    	height:100%;
+		    }
+		    .down-le div:nth-of-type(2) {
+		     	position:absolute;
+		     	top:50%;
+		     	margin-top:-16px;
+		     	right:5%;
+		    	width:24px;
+		    	height:26px
+		    }
+		    .down-le div:nth-of-type(2) img{
+		    	width:100%;
+		    	height:100%;
+		    }
+		    .down-le span:nth-of-type(1){
+		     	height: 12px;
+		     	line-height: 12px;
+		    	display: block;
+		    	color:#737373;
+		    	font-size:12px;
+		    	padding:9px 0 4px 0;
+		    }
+		     .down-le span:nth-of-type(2){
+		     	height: 14px;
+		     	line-height: 14px;
+		    	display: block;
+		    	color:#333333;
+		    	font-size:14px;
+		    	padding:5px 0 5px 0 ;
+		    }
+			.contentBody{
+				margin-top: 10px;
+				width:100%;
+				box-sizing: border-box;
+			}
+			.contentBody .ziTitle{
+				width: 100%;
+				font-size: 16px;
+			}
+			.contentBody .release_content>p{
+				text-indent: 2em;
+				margin-top: 5px;
+			}
+			.contentBody .contentImg>span{
+				width: 100%;
+			}
+			.contentBody .contentImg>span>img{
+				width: 100%;
+			}
+			.contentBody .ziTitle>p{
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="title" id="title">武痴许褚</div>
+			<div class="publisherInfo">
+				<div class="lt_pic"><img id="userIcon" src="../../image/teacherAvatar.png"/></div>
+				<div class="rt_userInfo">
+					<span id="userName">虎贲双雄</span>
+					<p><em id="ctime">2017.08.15</em><i></i></p>
+				</div>
+			</div>
+
+			<div class="content" id="content">
+				<div id="contentBody" class="contentBody">
+					<p class="text">幼儿课程图片集合拥有海量精选高清图片，大量的细节图，全方位真人展示</p>
+					<img src="../../image/mystudy07.jpg" alt="" />
+					<p class="text">幼儿课程图片集合拥有海量精选高清图片，大量的细节图，全方位真人展示幼儿课程图片集合拥有海量精选高清图片，大量的细节图，全方位真人展示幼儿课程图片集合拥有海量精选高清图片，大量的细节图，全方位真人展示</p>
+				</div>
+			</div>
+			<div id="videoDiv" onclick="openPlay()" style="display: none">
+				<div class="imgDiv" id="videoCover">
+					<img src="../../image/xqperson.jpg" alt="" />
+				</div>
+			</div>
+			<div class="operation">
+				<b></b>
+				<span class="message" ><em style="background-image: url(../../image/mystudy03.png);"></em><i id="commentNum">23</i></span>
+				<span class="dianzan" ><em id="supportIcon" style="background-image: url(../../image/dianzan01.png);">1212</em></span>
+				<span class="collect"><em id="favouriteIcon" style="background-image: url(../../image/mystudy04.png);">11232</em></span>
+			</div>
+			<div class="down" id="down" onclick="openThisFile()">
+				<div class="down-le">
+					<span>附件</span>
+					<span id="fileName"></span>
+					<div>
+						<img src="../../image/fujian.png" alt="" />
+					</div>
+					<div id="loadFile" onclick="openFileOrDownlaod()">
+						<img src="../../image/downLo.png" alt="" />
+					</div>
+				</div>
+			</div>
+			<div class="messageList">
+				<ul id="detailsList">
+					<!--<li>
+						<div class="other">
+							<p>这篇文章很好，挺不错的</p>
+							<em>于利宏</em><i>2018.02.01</i>
+						</div>
+						<div class="author">
+							<p>是挺不错的</p>
+							<span><em>张山</em>回复<em>于利宏</em></span><i>2018.02.10</i>
+						</div>
+					</li>
+
+					<li>
+						<div class="other">
+							<p>收获很多，幼儿课程图片集合拥有海量精选高幼儿课程图片集合拥有海量精选高清</p>
+							<em>张兰</em><i>2018.02.15</i>
+						</div>
+					</li>-->
+				</ul>
+
+			</div>
+		</div>
+
+		<div id="botReply">
+			<button id="but" style="outline:none" class="a"  onclick="Submission()">发送</button>
+			<input id="plListText" type="text" placeholder="请写评论"/>
+		</div>
+
+	</body>
+
+	<script type="text/html" id="detailsHtml">
+		<%for(var i=0;i<list.length;i++){%>
+			<li>
+				<div class="other" onclick="ListReply('<%=list[i].id%>','<%=list[i].icon%>','<%=list[i].supportNum%>','<%=list[i].commentNum%>','<%=list[i].replyComments%>','<%=list[i].user.name%>')" >
+					<p><%=list[i].content%></p>
+					<em><%=list[i].user.name%></em><i><%=list[i].ctime%></i>
+				</div>
+			</li>
+		<%}%>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/echo.min.js"></script>
+	<script type="text/javascript" src="../../script/business.js"></script>
+	<script>
+        var tid,icon,name,videoUrl,connectionType,DDVplay,docUrl,FileToView;
+        var fileName = "1234";//暂时写死附件名称
+        var action = false;
+        var downLoadStatus = true;//是否处于下载状态
+		var time;
+		var videoFlag = false;
+        apiready=function(){
+        	DDVplay = api.require("DDVplay");//播放视频的模块
+        	FileToView = api.require('FileToView');//打开文件的模块
+			connectionType = api.connectionType;
+			docUrl = api.pageParam.docUrl;
+        	videoUrl = api.pageParam.videoUrl;
+            tid = api.pageParam.id;
+			secondTime(api.pageParam.videoDuration)
+
+			document.getElementById("title").innerHTML=api.pageParam.title;
+			
+			//若果没有文件的下载地址  就不需要下载那一块了
+			if (isBlack(docUrl)){
+				document.getElementById("down").style.display = "none";
+			}else{
+				document.getElementById("fileName").innerHTML = api.pageParam.pathName;
+			}
+			//是否有视频判断,没有则隐藏
+			if (isBlack(videoUrl)) {
+				document.getElementById("videoDiv").style.display = "none";
+			}else{
+				var html = '<img src="'+api.pageParam.videoCover+'" alt="" />'
+				html +='<em></em><i></i><span>'+time+'</span>'
+				document.getElementById("videoCover").innerHTML =html;
+				document.getElementById("videoDiv").style.display = "block";
+			}
+			//头像判断
+			if(api.pageParam.createUser.icon){
+                var obj = getImgByThisSize(api.pageParam.createUser.icon, 34, 34);
+                document.getElementById("userIcon").setAttribute("src", obj.url);
+                document.getElementById("userIcon").setAttribute("style", obj.style);
+            }else{
+				document.getElementById("userIcon").setAttribute("src","../../icon/photo.png");
+				document.getElementById("userIcon").setAttribute("style", "width:34px;height:34px;");
+			}
+			//页面内容判断,没有则隐藏
+			if(api.pageParam.ext == undefined){
+				document.getElementById("contentBody").style.display = "none";
+			}else{
+				document.getElementById("contentBody").style.display = "block";
+				document.getElementById("contentBody").innerHTML=api.pageParam.ext;
+			}
+
+            document.getElementById("userName").innerHTML=api.pageParam.createUser.name;
+            document.getElementById("ctime").innerHTML=getDateDiff(api.pageParam.ctime);
+            document.getElementById("supportIcon").innerHTML=api.pageParam.supportNum;
+            document.getElementById("commentNum").innerHTML=api.pageParam.commentNum;
+            document.getElementById("favouriteIcon").innerHTML=api.pageParam.favoriteNum;
+
+            var supportIcon= document.getElementById("supportIcon");//
+			if(api.pageParam.supported){
+                supportIcon.setAttribute("type","2");
+                $api.css(supportIcon,"background-image:url(../../image/dianzan02.png)");
+			}else {
+                supportIcon.setAttribute("type", "1");
+            }
+            supportIcon.onclick=function () { support(tid,this,5); };
+
+            var favouriteIcon= document.getElementById("favouriteIcon");//
+            if(api.pageParam.favorited) {
+                favouriteIcon.setAttribute("type", "2");
+                $api.css(favouriteIcon,"background-image:url(../../image/mystudy04.png)");
+            }else {
+                favouriteIcon.setAttribute("type", "1");
+            }
+            favouriteIcon.onclick=function () { favorite(tid,this,5); }
+
+            //视频展示
+//          alert("视频封面:"+api.pageParam.videoUrl);
+//          alert("视频地址:"+api.pageParam.videoCover);
+
+			//附件展示
+//          alert("附件::"+api.pageParam.docUrl);
+
+
+
+            new datalistModel(addDataToHtml,commentpager,{type:5,typeId:tid},5,5,100,true);
+            
+            api.addEventListener({
+			    name:'online'
+			}, function(ret, err){        
+			    connectionType = ret.connectionType;
+			});
+			api.addEventListener({
+			    name:'offline'
+			}, function(ret, err){    
+				connectionType = "";
+			    toast('网络无连接！');
+			});
+        };
+        
+        
+        //用于头部window里面的监听   监听安卓返回键事件  如果正在播放  点击返回键关闭停止播放  否则关闭页面
+        function listenerVideo(){
+			var strDM = api.systemType;//系统
+			if(strDM == "android"){
+				DDVplay.addBackListener(function(ret){
+					if(ret.back == "true"){
+						videoFlag = false
+					}
+				})
+			}else{
+				DDVplay.removeplayer(function(ret,err){
+				});
+				videoFlag = false
+			}
+		}
+        
+        
+        function secondTime(second){
+			var s = second;
+			s= parseInt(s.substring(0, s.indexOf('.')))
+			if(s > 59){
+				if(s == 60){
+					time = "01 : 00";
+				}else{
+					var m = parseInt(s / 60);
+					s = parseInt(s % 60);
+					if(m > 9 ){
+						if(s > 9){
+							time = m+" : "+s;
+						}else{
+							time = m+" : 0"+s;
+						}
+					}else{
+						if(s > 9){
+							time = "0" + m + " : " + s;
+						}else{
+							time ="0" + m + " : 0" + s;
+						}
+					}
+				}
+			}else{
+				if(s>9){
+					time = "00 : "+s;
+				}else{
+					time = "00 : 0"+s;
+				}
+			}
+		}
+
+        function addDataToHtml(results,append){
+            for(var i=0;i<results.length;i++) {
+                if(results[i].ctime){
+                    results[i].ctime = getDateDiff(results[i].ctime);
+                };
+            }
+            var data = {list: results};
+            var html = template('detailsHtml',data);
+            if (append){
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('detailsList').appendChild(div);
+            } else {
+                document.getElementById('detailsList').innerHTML = html;
+            }
+
+            setTimeout(function(){
+                //初始化懒加载 img标签里要有属性 具体看script 模板里的写法
+                echoExt.init({
+                    offset: 0,
+                    throttle: 0//设置图片延迟加载的时间
+                });
+                api.parseTapmode(); // 单击事件
+            },100)
+        }
+
+
+
+
+        //评论动态
+        function Submission(){
+            var value = $("#botReply input").val();
+            var placeholder = $("#botReply input").attr("placeholder");
+            if (isBlack(value)) {
+            	toast("请输入评论内容！");
+            	return;
+            }
+            var activeFrame = $api.getStorage("activeFrame");
+            if(action == false){
+                ajaxGet(commentadd,{type:5,typeId:tid,content:value},function(ret,err){
+                    if(ret.success == true){
+                        toast("发布成功！");
+                        document.getElementById("commentNum").innerHTML = 1 + parseInt(document.getElementById("commentNum").innerHTML);
+                       	//评论之后  需要刷新上一页面
+                        api.execScript({
+							name : "myStudy_course",
+							frameName : activeFrame,
+				            script: "apiready()"
+				       	})
+                        $("#plListText").val("");
+                        $("#plListText").attr("placeholder","请写评论");
+                        ret.data.ctime =getDateDiff(ret.data.ctime);
+                        var obj = [ret.data];
+                        addNewComment(obj);
+                        scrollTo(0,document.getElementById("main").offsetHeight);
+                        action = false;
+                    }else{
+                        toast("网络连接失败，请重试！");
+                    }
+                })
+            }else{
+                ajaxGet(commentadd,{type:5,typeId:tid,content:placeholder + value},function(ret,err){
+                    if(ret.success == true){
+                        toast("发布成功！");
+                        document.getElementById("commentNum").innerHTML = 1 + parseInt(document.getElementById("commentNum").innerHTML);
+                        //评论之后  需要刷新上一页面
+                        api.execScript({
+							name : "myStudy_course",
+							frameName : activeFrame,
+				            script: "apiready()"
+				       	})
+                        $("#plListText").val("");
+                        $("#plListText").attr("placeholder","请写评论");
+                        ret.data.ctime =getDateDiff(ret.data.ctime);
+                        var obj = [ret.data];
+                        addNewComment(obj);
+                        scrollTo(0,document.getElementById("main").offsetHeight);
+                        action = false; 
+                    }else{
+                        toast("网络连接失败，请重试！");
+                    }
+                })
+            }
+        }
+        //回复评论
+        function ListReply(pid,icon,zan,pinglun,zpl,name){
+            $("#plListText").attr("placeholder","回复" + name + "：");
+            $("#plListText").focus();
+            action = true;
+        }
+        //评论完追加
+        function addNewComment(obj){
+            var data = {list: obj};
+            var html = template('detailsHtml',data);
+            document.getElementById('detailsList').innerHTML = html + document.getElementById('detailsList').innerHTML;
+        }
+
+
+		//点击播放视频    需要判断当前的网络类型  如果为数据  需要提醒用户
+		function openPlay(){
+			var strDM = api.systemType;//系统
+		    var strSV = parseFloat(api.systemVersion,10);//版本
+		    var titleHeight=0;
+		    var thisY = 0;
+			videoFlag = true
+		    if(strDM == 'ios' && strSV > 7){
+		       titleHeight=api.safeArea.top;
+		       thisY = headHeight+titleHeight+20;
+		    }else if(strDM == 'android' && strSV >= 4.4){
+		        titleHeight = api.safeArea.top;
+		        thisY = headHeight+titleHeight+10.5;
+		    }	
+		    if(connectionType == "none"||connectionType == "NONE"||connectionType == ""){
+		    	toast("网络无连接！");
+		    }else if (connectionType == "4G"||connectionType == "3G"||connectionType == "2G"||connectionType == "4g"||connectionType == "3g"||connectionType == "2g") {
+				showDialog("温馨提示","你当前正在使用"+connectionType+"网络，是否继续播放？","取消","确定",function(ret,err){
+					DDVplay.ddvplay({
+						vx:0,//播放视频的位置  距离屏幕左侧的距离
+						vy:thisY,//距离屏幕上面的距离
+						vw:api.winWidth,//视频的宽度
+						vh:251,//视频的高度
+						vieurl : videoUrl//播放的地址
+					})
+				})
+			}else{
+				DDVplay.ddvplay({
+					vx:0,
+					vy:thisY,
+					vw:api.winWidth,
+					vh:251,
+					vieurl : videoUrl
+				})
+			}	
+		}
+		
+		
+		//点击下载按钮   需要判断当前的文件是否已经下载过了   如果本地已经存在则打开文件  否则下载文件并打开
+		function openFileOrDownlaod(){
+		 	var suffix = docUrl.substring(docUrl.lastIndexOf("."));
+			//todo 判断是否存在当前文件    第一次点击下载附件  第二次点击如果已经下载完毕  则打开附件
+			var fs = api.require('fs');
+			var ret = fs.existSync({
+				path:'fs://xiuQiangJiayuan_jiaZhang/'+ tid + '/' +fileName+suffix
+			});
+			if (ret.exist) {
+				var fsDir = api.fsDir;
+				openThisFile(fsDir+'/xiuQiangJiayuan_jiaZhang/' + tid + '/' + fileName+suffix);//打开文件
+			}else {
+				downLoadFile();//下载文件
+			}
+		}
+		
+		
+		
+		//下载文件
+		function downLoadFile(){
+			if (!downLoadStatus) {
+				toast("正在下载中,请稍后...");
+				return;
+			}
+			downLoadStatus = false;//防止重复点击
+			stopEventBubble();//阻止冒泡 
+	//		todo 播放视频和下载都要检测一下网络
+			var suffix = docUrl.substring(docUrl.lastIndexOf("."));///获取文件的后缀
+			api.download({
+				url: docUrl,
+				savePath: 'fs://xiuQiangJiayuan_jiaZhang/' + tid + '/' + fileName + suffix,//保存本地的路径
+				report: true,
+				cache: true,
+				allowResume: true
+			}, function(ret, err) {
+				if (ret.state == 0 ) {
+					//下载中...
+				}else if (ret.state == 1) {		
+					//下载成功,
+//					var obj = {};
+//					obj.id = tid;
+//					obj.downloadUrl = "fs://xiuQiangJiayuan_jiaZhang/"+ tid + '/' +fileName + suffix;
+//					obj.name = fileName;
+//					obj.suffix = suffix;
+//					saveDownloadFile(obj);
+	//				type.parentNode.querySelector(".processbar").innerHTML = "100%"
+					toast("温馨提示：已经下载完毕！");
+					var fsDir = api.fsDir;
+					openThisFile(fsDir+'/xiuQiangJiayuan_jiaZhang/' + tid + '/' + fileName + suffix);//下载完毕  直接打开
+					downLoadStatus = true;//可以再次点击下载按钮 但是会判断当前文件本地是否存在   存在就打开文件
+				}else{
+					toast("下载失败！");
+				}
+			});
+		}
+		
+//		//本地保存一个下载过的文件的  map   如果有“我的下载”   可以通过这个把下载的相关信息展示出来
+//		function saveDownloadFile(obj){
+//			var xiuQiangJiayuan = "xiuQiangJiayuan_jiaZhang_download_file_key";
+////			$api.setStorage(xiuQiangJiayuan+"_"+obj.id,obj);
+//			//todo 保存列表
+//			var downloadIdList = $api.getStorage(xiuQiangJiayuan);
+//			if(downloadIdList){
+//				downloadIdList[obj.id] = obj;
+//			}else{
+//				downloadIdList = {};
+//				downloadIdList[obj.id] = obj;
+//			}
+//			$api.setStorage(xiuQiangJiayuan,downloadIdList);
+//		}
+		
+		
+		
+		//打开附件
+		function openThisFile(url){
+			var suffix = docUrl.substring(docUrl.lastIndexOf("."));
+			var fsDir = api.fsDir;
+			url = url||fsDir+'/xiuQiangJiayuan_jiaZhang/'+fileName+suffix
+			FileToView.filepathurl({
+	            filepath:url
+	        },function (ret){
+//	        	alert(JSON.stringify(ret))
+	        })
+		}
+	</script>
+</html>

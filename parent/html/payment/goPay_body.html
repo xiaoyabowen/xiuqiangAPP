@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>去缴费</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			#main{
+				width: 100%;
+				padding: 12px 8px 0 8px;
+				box-sizing: border-box;
+			}
+			.payBox{
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				width: 100%;
+				/*height: 295px;*/
+				padding: 20px 18px 25px 18px;
+				box-sizing: border-box;
+				box-sizing: border-box;
+				-webkit-box-sizing:border-box;
+			}
+			.paytitle{
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.22px;
+				line-height: 22px;
+			}
+			.paytime{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 18px;
+				padding-top: 6px;
+				padding-bottom: 19px;
+			}
+			.paytime span{
+				padding: 0 10px;
+			}
+			.paytime em{
+				padding-left: 10px;
+			}
+			.moneyInfo{
+				background: #F8F8F8;
+				border: 1px solid #F1F1F1;
+				border-radius: 5px;
+				padding-top: 12px;
+				box-sizing: border-box;
+				width: 100%;
+				margin-bottom: 17px;
+			}
+			.moneyInfo p{
+				overflow: hidden;
+				padding-left: 12px;
+				padding-right: 14px;
+			}
+			.moneyInfo p.money_single{
+				margin-bottom: 5px;
+			}
+			.moneyInfo p.money_single span{
+				float: left;
+				font-size: 12px;
+				color: #9D9D9D;
+				letter-spacing: 0.09px;
+				line-height: 17px;
+			}
+			.moneyInfo p.money_single em{
+				float: right;
+				font-size: 12px;
+				color: #574F60;
+				letter-spacing: 0.09px;
+				line-height: 17px;
+			}
+			.moneyInfo p.money_sum{
+				border-top: 1px solid #e7e7e7;
+				margin-top: 13.5px;
+				padding-left: 18px;
+				padding-right: 14px;
+				padding-top: 5.5px;
+				padding-bottom: 8px;
+			}
+			.moneyInfo p.money_sum span{
+				font-size: 12px;
+				color: #000;
+				letter-spacing: 0.09px;
+				line-height: 20px;
+				float: left;
+			}
+			.moneyInfo p.money_sum em{
+				font-size: 14px;
+				color: #000;
+				letter-spacing: 0.11px;
+				line-height: 20px;
+				float: right;
+			}
+			.paytool{
+				margin-left: -18px;
+				margin-right:-18px;
+				border-top: 1px solid #f0f0f0;
+				border-bottom: 1px solid #f0f0f0;
+				padding-left: 18px;
+				padding-right: 18px;
+				box-sizing: border-box;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+			.paytool p{
+				overflow: hidden;
+			}
+			.paytool span{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 26px;
+				padding-left: 36px;
+				position: relative;
+			}
+			.paytool span:before{
+				content: '';
+				width: 26px;
+				height: 26px;
+				background: url(../../image/zfb.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -13px;
+			}
+			.paytool em{
+				float: right;
+				width: 20px;
+				height: 20px;
+				/*border: 1px solid #E7E7E7;*/
+				box-sizing: border-box;
+				border-radius: 20px;
+				background: url(../../image/green_bg.png) no-repeat;
+				background-size: 100%;
+				margin-top: 3px;
+			}
+			.confirm{
+				margin: 0 10px;
+				background: #5AC8E1;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				color: #fff;
+				text-align: center;
+				font-size: 16px;
+				letter-spacing: 0.22px;
+				height: 44px;
+				line-height: 44px;
+				margin-top: 37px;
+			}
+		</style>
+	</head>
+	<body id="body" style="display: none;">
+		<div id="main" >
+		    <div class="payBox">
+		    	<span class="paytitle">2016年春季学费</span>
+		    	<p class="paytime">
+		    		开始时间<span>2018.03.01</span><i>16:26:36</i><br />
+		    		用途:<em>学费（半学期）</em>
+		    	</p>
+		    	<div class="moneyInfo">
+		    		<p class="money_single"><span>保养费</span><em>60.00元</em></p>
+		    		<p class="money_single"><span>伙食费</span><em>60.00元</em></p>
+		    		<p class="money_sum"><span>总计</span><em>120.00元</em></p>
+		    	</div>
+		    	<div class="paytool">
+		    		<p>
+		    			<span>支付宝支付</span>
+		    			<em></em>
+		    		</p>
+		    	</div>
+		    </div>
+		    <div class="confirm">确认支付</div>
+		</div>
+	<script id="scriptDiv1" type="text/html">
+		<div class="payBox">
+	    	<span class="paytitle"><%=list.name%></span>
+	    	<p class="paytime">
+	    		开始时间<span><%=list.startTime%></span><i><%=list.overtime%></i><br />
+	    		用途:<em><%=list.desc%></em>
+	    	</p>
+	    	<div class="moneyInfo">
+	    		<%for(var j = 0;j < list.chargeItemPrices.length; j++){%>
+	    			<p class="money_single"><span><%=list.chargeItemPrices[j].name%></span><em><%=list.chargeItemPrices[j].price%>元</em></p>
+                <%}%>
+	    		<p class="money_sum"><span>总计</span><em><%=list.price%>元</em></p>
+	    	</div>
+	    	<div class="paytool">
+	    		<p>
+	    			<span>支付宝支付</span>
+	    			<em></em>
+	    		</p>
+	    	</div>
+	    </div>
+	    <div class="confirm" tapmode="itemOn" onclick="confirmPay('<%=list.id%>')">确认支付</div>
+	</script> 
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/pay.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function(){
+			var parms = api.pageParam;
+			addDataToHtml(parms);
+		}
+		
+		
+		function addDataToHtml(results,append){		
+			for(var i = 0;i< results.length;i++){
+				allResults[id] = results[i];
+				for(var j = 0;j < results[i].chargeItemPricesJson.length;j++){
+					results[i].overtime = formatTimeToDay(results[i].overtime)
+					results[i].startTime = formatTimeToDay(results[i].startTime)
+				}
+			}
+			var data = {list: results};	
+			var html = template('scriptDiv1',data);
+			if (append) {
+	            var div = document.createElement("div");
+	            div.innerHTML = html;
+	            document.getElementById('main').appendChild(div);
+	        } else {
+	            document.getElementById('main').innerHTML = html;
+	        } 
+	        api.parseTapmode(); 
+	        document.getElementById("body").style.display = "block";
+		}
+		
+		
+		function confirmPay(id){
+			var userInfo = getUserInfo();
+			ajaxGetWithProgress(createAliChargeOrderUrl,{sid:userInfo.sid,cid:id,uid:getUserInfo().cids[0]},function (ret,err) {
+                if(ret && ret.success){
+                    pay("alipay",{oid:ret.data.id},aliChargeOrderPayParamUrl,function(ret,err) {
+                        if(ret.code ==  "9000"){
+                        	var activeName = $api.getStorage("activeFrame");
+                        	api.execScript({
+								name:"alreadyPay",
+								frameName : "alreadyPay1",
+					            script: "apiready()"
+					        })
+                        	api.execScript({
+								name:"alreadyPay",
+								frameName : "alreadyPay2",
+					            script: "apiready()"
+					        })
+                            showOneDialog("温馨提示","支付成功","确定",function(){
+                            	setTimeout(function(){
+                            		closeWin();
+                            	},500)
+                            });
+                        }
+                    })
+                }else{
+                    toast(err.msg)
+                }
+            })
+		}
+	</script>
+	</body>
+</html>

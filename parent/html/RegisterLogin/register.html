@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet"/>
+    <link href="../../css/mui.poppicker.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+    <title>家长注册</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: url("../../image/lrbg.png") no-repeat;
+            background-size: 100% 100%;
+            color: #FFFFFF;
+            position:relative;
+        }
+
+        .return {
+            width: 100%;
+            height: 46px;
+            position: relative;
+        }
+
+        .return > img {
+            width: 22px;
+            height: 22px;
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+        }
+
+        .title {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #FFFFFF;
+            margin-left: 15px;
+        }
+
+        .ul {
+            margin-top: 10px;
+            padding-left: 15px;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+        .ul .con {
+            width: 67.2%;
+            padding-right: 81px;
+            margin-left: 6px;
+            box-sizing: border-box;
+            position: relative;
+            display: inline-block;
+        }
+
+        .ul input {
+            width: 67.2%;
+            height: 36px;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            margin-left: 6px;
+            font-size: 14px;
+            color: #999999;
+            text-indent: 10px;
+        }
+
+        .ul > :nth-child(1) input, .ul > :nth-child(3) input {
+            background-image: url('../../icon/selectArrow.png');
+            background-position: right 10px center;
+            background-repeat: no-repeat;
+        }
+
+        @media screen and (max-width: 320px) {
+            .ul > :nth-child(4) :nth-child(3) {
+                font-size: 12px;
+                color: #FFFFFF;
+                margin-left: 5px;
+            }
+        }
+
+        .ul li:not(:nth-child(1)) {
+            margin-top: 14px;
+        }
+
+        .buttomButtom {
+            width: 83.73%;
+            margin: 0 auto;
+            margin-top: 31px;
+            line-height: 43px;
+            line-height: 43px;
+            text-align: center;
+            font-size: 18px;
+            color: #FFFFFF;
+            opacity: 0.8;
+            background: #5EC4E0;
+            border-radius: 100px;
+        }
+
+        .aggrement {
+            width: 100%;
+            margin: 0 auto;
+            /* padding-bottom:44px; */
+            font-size: 12px;
+            text-align: center;
+            display: inline-block;
+            position: absolute;
+            bottom: 41px;
+        }
+
+        .aggrement span {
+            color: #A09B9A;
+        }
+
+        .aggrement a {
+            color: #5EC4E0;
+        }
+
+        #sms {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            line-height: 38px;
+            width: 70px;
+            text-align: center;
+        }
+
+        .mui-pciker-list li.highlight, .mui-poppicker-title {
+            color: #5AC8E1;
+        }
+
+        .mui-poppicker-bottom-right {
+            background: #5AC8E1;
+        }
+
+        .mui-pciker-rule-ft {
+            border-color: #5AC8E1;
+        }
+        .kg-name{
+            height: 38px;
+            margin:0 auto;
+            border-radius: 8px;
+        }
+        .kg-name select,.kid-gender select{
+            border:none;
+            color:#999999;
+            font-size:14px;
+            border-radius: 0px;
+            background: #fff;
+            appearance:none;
+            -moz-appearance:none; /* Firefox */
+            -webkit-appearance:none; /* Safari 和 Chrome */
+            background: url("../../icon/switch.png") no-repeat right;
+            background-size: 6% 100%;
+            outline:none;
+        }
+        .border_location{
+            width: 67.2%;
+            height: 36px;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            margin-left: 20px;
+            font-size: 14px;
+            color: #999999;
+            text-indent: 10px;
+            display: inline-block;
+            line-height: 36px;
+        }
+        #province,#citys{
+            width:42%;
+            display: inline-block;
+            background-size: 8% 86%;
+        }
+    </style>
+</head>
+<body id="body">
+<div id="main">
+    <div id="wrap">
+        <div class="return" tapmode="itemOn" onclick="closeWin()">
+            <img src="../../icon/return.png" alt="">
+        </div>
+        <ul class="ul">
+            <li >
+                所在位置
+                <div class="border_location kg-name">
+                    <select id="province" name="province" class="form-control"
+                            onchange="doProvAndCityRelation();">
+                        <option id="choosePro" value="0">请选择省份</option>
+                    </select>
+                    <select id="citys" name="city" class="form-control"
+                            onchange="doCityAndCountyRelation();">
+                        <option id='chooseCity' value="0">请选择城市</option>
+                    </select>
+                </div>
+            </li>
+            <li>
+                宝宝姓名<span style="opacity: 0;">占</span>
+                <input id="name" type="text" placeholder="请输入宝宝姓名"/>
+            </li>
+            <li id="schoolTab">
+                所在幼儿园
+                <input id="schoolId" type="text" data-value="" readonly placeholder="请选择所在幼儿园"/>
+            </li>
+            <li>
+                手机号<span style="opacity: 0;">占位</span>
+                <div class="con">
+
+                    <input style="width: 100%;margin-left: 0;" id="phone" type="text" placeholder="请输入手机号"/>
+                    <div id="sms" onclick="getCode();">获取验证码</div>
+                </div>
+            </li>
+            <li>
+                验证码<span style="opacity: 0;">占位</span>
+                <input id="code" type="text" placeholder="请输入验证码"/>
+            </li>
+            <li>
+                设置密码<span style="opacity: 0;">占</span>
+                <input id="password" type="text" placeholder="请输入密码"/>
+            </li>
+        </ul>
+        <div class="buttomButtom" onclick="register()">确定</div>
+        <div class="aggrement">
+            <span>登录即代表阅读并同意</span>
+            <a>《美乐爱家园用户协议》</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+<!--<script type="text/javascript" src="../../script/util.js"></script>-->
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/dateSelect.js"></script>
+<script type="text/javascript" src="../../script/area.js"></script>
+<script>
+    /*************点击获取验证码***********/
+    var flag = true;//防止重复点击获取验证码
+    function getCode() {
+        if (!flag) {
+            return;
+        }
+        var phone = $api.byId("phone").value;
+        if (!checkMobileNum(phone)) {
+            toast("手机号码不正确");
+            return;
+        }
+        var obj = {
+            phone: phone
+        };
+
+        flag = false;
+        ajaxGetUser(createAuthCodeOnRegUrl,obj,function (ret,err){
+//            alert(JSON.stringify(ret));
+            if (ret && ret.success) {
+                setTime();
+                toast("获取成功，请注意查收！");
+            } else if (ret && !ret.success) {
+                flag = true;
+                if (ret) {
+                    var msg = ret.msg || "网络连接错误，请稍后重试！";
+                    toast(msg);
+                } else {
+                    var msg = err.msg || "网络连接错误，请稍后重试！";
+                    toast(msg);
+                }
+            }
+        })
+    }
+
+    /*******************倒计时****************************/
+    function setTime() {
+        var time;
+        var sms = document.getElementById('sms');
+        time = time || 60;
+        sms.innerHTML = time + "s";
+        var codeInterval = setInterval(function () {
+            if (time > 0) {
+                time--;
+                sms.innerHTML = time + "s";
+            } else {
+                sms.innerHTML = "获取验证码";
+                clearInterval(codeInterval);
+                flag = true;
+            }
+        }, 1000)
+    }
+
+    /*******************倒计时****************************/
+
+
+    function register() {
+        api.showProgress();
+        var data = {};
+        data.province=provinceSelect;
+        data.city=citySelect;
+        data.name = $api.byId("name").value;
+        data.phone = $api.byId("phone").value;
+        data.code = $api.byId("code").value;
+        data.password = $api.byId("password").value;
+        data.sid = schooId;
+
+        if (isBlack(data.name)) {
+            toast('请输入宝宝姓名');
+            api.hideProgress();
+            return;
+        }
+        if (isBlack(data.phone)) {
+            toast('请输入电话');
+            api.hideProgress();
+            return;
+        }
+
+
+        if (isBlack(data.sid)) {
+            toast('请选择幼儿园');
+            api.hideProgress();
+            return;
+        }
+        if (isBlack(data.password)) {
+            toast('请选择幼儿园');
+            api.hideProgress();
+            return;
+        }
+        ajaxGetUser(userRegistUrl, data, function (ret) {
+            //alert(JSON.stringify(ret));
+            api.hideProgress();
+            if (ret && ret.success) {
+                toast('注册申请成功，请等待园方审核');
+                setTimeout(function () {
+                    closeWin();
+                }, 500)
+            } else {
+                var msg = '注册失败';
+                if (ret.msg) {
+                    msg = ret.msg;
+                }
+                toast(msg);
+            }
+        });
+
+    }
+
+    var channelAndSchoolData;
+
+    var schoolSelect = document.getElementById("schoolId");
+
+    var first = true;
+    var schoolPicker;
+    var schooId,provinceSelect,citySelect;
+    apiready = function (){
+        var Height = $(window).height(); //获取当前页面高度
+        $(window).resize(function(){
+            $('body').height(Height);
+        });
+        document.getElementById("body").style.height = api.winHeight + "px";
+        document.getElementById("name").onclick = function () {
+            provinceSelect = document.getElementById("province").value;//省份
+            citySelect = document.getElementById("citys").value;//城市
+            if(provinceSelect==0){
+                toast("请选择省份");
+                return;
+            }
+            if(citySelect==0){
+                toast("请选择城市");
+                return;
+            }
+            ajaxGetUser(getAllSchoolUrl,{province:provinceSelect,city:citySelect},function (ret,err){
+                if(ret && ret.success){
+                    var schollAll=[]
+                    for(var i=0;i<ret.data.length;i++){
+                        schollAll.push({value:ret.data[i].id,text:ret.data[i].name})
+                    }
+                    mui.ready(function(){
+                        var userPicker = new mui.PopPicker();
+                        userPicker.setData(schollAll);
+                        var showUserPickerButton = document.getElementById('schoolTab');
+                        showUserPickerButton.addEventListener('tap', function(event) {
+                            userPicker.show(function(items) {
+                                document.getElementById('schoolId').value = items[0].text;
+                                schooId=items[0].value;
+                            });
+                        }, false);
+                    });
+                }else{
+                    toast("网络连接失败，请重试！")
+                }
+            })
+        }
+    }
+
+    function changeItem(key){
+        for (var channel in channelAndSchoolData){
+            if (channel == key){
+                var schoolList = channelAndSchoolData[key];
+                for (var i = 0; i < schoolList.length; i++){
+                    schoolSelect.innerHTML = '';
+                    schoolSelect.innerHTML = schoolSelect.innerHTML + '<option value="' + schoolList[i].id + '">' + schoolList[i].name + '</option>';
+                }
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

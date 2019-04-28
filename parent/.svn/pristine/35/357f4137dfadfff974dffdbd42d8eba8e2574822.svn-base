@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>修改用户名</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-width: 320px;
+			background-color: #f8f8f8;
+		}
+		#main input{
+			width: 100%;
+			height: 56px;
+			line-height: 56px;
+			background-color: #fff;
+			font-size: 14px;
+			color: #505050;
+			padding: 0 15px;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+<body>
+<div id="main" >
+	<input type="text" class="myName" value="李老师" id="userName" oninput="checkLengths(10,this)"/>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script>
+    apiready = function(){
+        var userName=api.pageParam.name
+        document.getElementById("userName").value = userName;
+    }
+
+    //点击保存
+    function setMyName(){
+        var name = document.getElementById("userName").value;
+        if(isBlack(name)){
+            toast("请输入昵称");
+            return;
+        }
+        api.execScript({
+            name:"myInformation",
+            frameName:'myInformation_body',
+            script: 'userDoc('+JSON.stringify(name)+')'
+        })
+        closeWin();
+    }
+
+
+    function checkLengths(num,type){
+        var value = type.value;
+        if(value.length > num){
+            toast("温馨提示：昵称不得超过10个字符！");
+            type.value = type.value.substring(0, num)
+            //     	return;
+        }
+    }
+
+</script>
+</html>

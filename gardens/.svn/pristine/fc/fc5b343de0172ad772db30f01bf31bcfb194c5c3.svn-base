@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>信息维护-分享</title>
+    <style>
+        body{
+            background: #FFFFFF;
+        }
+        #topbar>:nth-child(1)>img{
+            width:14px;
+            height:14px;
+            position: absolute;
+            bottom:15px;
+            left:15px;
+        }
+        #topbar{
+          background: url('../../image/myhome_bg.jpg');
+          background-repeat:no-repeat;   
+        }
+        #topbar>:nth-child(3){
+            font-size: 14px;
+            position:absolute;
+            right:12px;
+            bottom:-2px;
+        }
+    </style>
+</head>
+<body>
+    <div id="topbar" >
+        <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+            <img style="width:30px;height:30px;" src="../../icon/back.png">
+        </div>
+        <div>园所主页</div>
+        <div>编辑</div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

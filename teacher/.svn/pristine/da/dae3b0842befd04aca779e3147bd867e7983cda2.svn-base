@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>公告通知详情</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+		</style>
+	</head>
+	<body>
+		    <div id="topbar" style="display: block;">
+		    	<div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+			        <img style="width:30px;height:30px;" src="../../icon/back.png">
+			    </div>
+		    	<div>公告通知详情</div>
+				<div tapmode="itemOn" onclick="opeNShare()">
+					<img src="../../icon/share02.png" alt="">
+				</div>
+		    </div>
+		
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		//0不能分享    1能分享
+		var nid,share_type;
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+            nid=api.pageParam.nid;
+            ajaxGet(getNoticeDetail,{nid:nid},function (ret,err) {
+                if(ret && ret.success){
+					share_type=ret.data.shareStatus;
+                }
+            })
+
+		};
+        function opeNShare() {
+            if(share_type==1){
+
+			}else{
+                toast('不可以分享')
+			}
+
+        }
+	</script>
+</html>

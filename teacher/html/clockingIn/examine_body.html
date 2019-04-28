@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no" />
+    <title>请假审核-待审核</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background:#ffffff;
+        }
+        .vacate-list{
+            width:100%;
+        }
+        .list-item{
+            width:100%;
+            font-size:14px;
+            color:#333333;
+            line-height:20px;
+            padding:20px 20px 20px 15px;
+            border-bottom:1px solid #F2F2F2;
+            box-sizing: border-box;
+        }
+        .list-item .left-tag{
+            position:absolute;
+        }
+        .list-item .right-content{
+            width:100%;
+            padding-left:71px;
+            box-sizing: border-box;
+        }
+        .message{
+            width:23px;
+            height:22px;
+        }
+        .phone{
+            width:18px;
+            height:18px;
+        }
+        .parent::after{
+            content:"";
+            width:"";
+            height:"";
+            clear:left;
+        }
+        .parent .right-content>span{
+            float:left;
+        }
+        .message{
+            margin-left:20px;
+            float:left;
+        }
+        .phone{
+            margin-left:26px;
+            float:left;
+            margin-top:3px;
+        }
+        .reason{
+            clear:left;
+        }
+        .name,.time,.type,.parent,.reason{
+            margin-bottom:6px;
+        }
+        .reason .right-content{
+            text-align: justify;
+        }
+        .bottom-btn{
+            padding-top:6px;
+        }
+        .bottom-btn .agree,.bottom-btn .refuse{
+            width:34.1%;
+            height:28px;
+            text-align: center;
+            line-height:28px;
+            background: #5AC8E1;
+            font-size: 14px;
+            color: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+        }
+        .refuse{
+            margin-left:17px;
+        }
+    </style>
+</head>
+<body id="body" style="display: none;">
+<ul class="vacate-list" id="list">
+    <!--<li class="list-item">
+        <div class="name">
+            <div class="left-tag">宝宝姓名：</div>
+            <div class="right-content">王丽珍</div>
+        </div>
+
+        <div class="time">
+            <div class="left-tag">请假时间：</div>
+            <div class="right-content">2.5天&nbsp;&nbsp;(2018.02.18-2018.02.21)</div>
+        </div>
+
+        <div class="type">
+            <div class="left-tag">请假类型：</div>
+            <div class="right-content">病假</div>
+        </div>
+
+        <div class="parent">
+            <div class="left-tag">请假家长：</div>
+            <div class="right-content">
+                <span>丽珍爸爸</span>
+                <img class="message" src="../../icon/msg.png" alt="">
+                <img class="phone" src="../../icon/phone.png" alt="">
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+
+        <div class="reason">
+            <div class="left-tag">请假事由：</div>
+            <div class="right-content">
+                这几天天气太热了，担心女儿中暑，让她在家休息几天，身体健康才是一切最重要的前提,希望老师能够批准。
+            </div>
+        </div>
+
+        <div class="bottom-btn">
+            <a class="agree">批准请假</a>
+            <a class="refuse">驳回请假</a>
+        </div>
+    </li>
+    <li class="list-item">
+        <div class="name">
+            <div class="left-tag">宝宝姓名：</div>
+            <div class="right-content">王丽珍</div>
+        </div>
+
+        <div class="time">
+            <div class="left-tag">请假时间：</div>
+            <div class="right-content">2.5天&nbsp;&nbsp;(2018.02.18-2018.02.21)</div>
+        </div>
+
+        <div class="type">
+            <div class="left-tag">请假类型：</div>
+            <div class="right-content">病假</div>
+        </div>
+
+        <div class="parent">
+            <div class="left-tag">请假家长：</div>
+            <div class="right-content">
+                <span>丽珍爸爸</span>
+                <img class="message" src="../../icon/msg.png" alt="">
+                <img class="phone" src="../../icon/phone.png" alt="">
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+
+        <div class="reason">
+            <div class="left-tag">请假事由：</div>
+            <div class="right-content">
+                这几天天气太热了，担心女儿中暑，让她在家休息几天，身体健康才是一切最重要的前提,希望老师能够批准。
+            </div>
+        </div>
+
+        <div class="bottom-btn">
+            <a class="agree">批准请假</a>
+            <a class="refuse">驳回请假</a>
+        </div>
+    </li>
+    <li class="list-item">
+        <div class="name">
+            <div class="left-tag">宝宝姓名：</div>
+            <div class="right-content">王丽珍</div>
+        </div>
+
+        <div class="time">
+            <div class="left-tag">请假时间：</div>
+            <div class="right-content">2.5天&nbsp;&nbsp;(2018.02.18-2018.02.21)</div>
+        </div>
+
+        <div class="type">
+            <div class="left-tag">请假类型：</div>
+            <div class="right-content">病假</div>
+        </div>
+
+        <div class="parent">
+            <div class="left-tag">请假家长：</div>
+            <div class="right-content">
+                <span>丽珍爸爸</span>
+                <img class="message" src="../../icon/msg.png" alt="">
+                <img class="phone" src="../../icon/phone.png" alt="">
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+
+        <div class="reason">
+            <div class="left-tag">请假事由：</div>
+            <div class="right-content">
+                这几天天气太热了，担心女儿中暑，让她在家休息几天，身体健康才是一切最重要的前提,希望老师能够批准。
+            </div>
+        </div>
+
+        <div class="bottom-btn">
+            <a class="agree">批准请假</a>
+            <a class="refuse">驳回请假</a>
+        </div>
+    </li>-->
+</ul>
+</body>
+<script id="scriptDiv1" type="text/html">
+    <%for(var i = 0;i < list.length;i++){%>
+    <li class="list-item" id="<%=list[i].id%>">
+        <div class="parent">
+            <div class="left-tag">申请人：</div>
+            <div class="right-content">
+                <span><%=list[i].leaveUser.name%></span>
+                <img class="message" src="../../icon/msg.png" alt="" onclick="openUserChat('<%=list[i].leaveUser.icon%>','<%=list[i].leaveUser.chatId%>','<%=list[i].leaveUser.name%>')">
+                <img class="phone" src="../../icon/phone.png" alt="" onclick="openCall('<%=list[i].leaveUser.phone%>')">
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+        <div class="time">
+            <div class="left-tag">请假时间：</div>
+            <div class="right-content"><%=list[i].leaveNum%>天&nbsp;&nbsp;(<%=list[i].startTime%>－<%=list[i].endTime%>)</div>
+        </div>
+
+        <div class="type">
+            <div class="left-tag">请假类型：</div>
+            <div class="right-content">
+                <%if(list[i].leaveType == 1){%>
+                病假
+                <%}else if(list[i].leaveType == 0){%>
+                事假
+                <%}else{%>
+                其他
+                <%}%>
+            </div>
+        </div>
+        <div class="reason">
+            <div class="left-tag">请假事由：</div>
+            <div class="right-content">
+                <%=list[i].content%>
+            </div>
+        </div>
+
+
+    </li>
+    <%}%>
+</script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script>
+    var schoolTeacherListUrl = serverUrl + "/leave/schoolTeacherList";
+    var updateTeacherUrl = serverUrl + "/leave/updateTeacher";
+    var flag = false;
+    apiready = function(){
+        var userInfo = getUserInfo();
+        new datalistModel(addDataToHtml,clazzPersonChildList,{status:0},10,5,100,true);
+    }
+
+    //
+    function addDataToHtml(results){
+        //alert(JSON.stringify(results));
+        for (var i = 0; i < results.length; i++) {
+            results[i].startTime = formatTimeToDate(results[i].startTime).split(" ")[0];
+            results[i].endTime = formatTimeToDate(results[i].endTime).split(" ")[0];
+        }
+        var data = {list: results};
+        var html = template('scriptDiv1',data);
+        document.getElementById("list").innerHTML = html;
+        api.parseTapmode();
+        document.getElementById("body").style.display = "block";
+    }
+
+
+
+
+
+    //		status:审核通过1  审核不通过2
+    //同意请假
+    function agree(id){
+
+        var obj= {
+            leaveId : id,
+            status : 1
+        }
+//        showDialog("温馨提示","确认批准请假？","取消","确定",function(){
+//            api.showProgress();
+//            ajaxGet(updateTeacherUrl,obj,function(ret,err){
+//                api.hideProgress();
+//                if (ret&&ret.success) {
+//                    toast("已批准!");
+//                    document.getElementById(id).style.display = "none";
+//                    api.execScript({
+//                        name:'vacateCheck',
+//                        frameName : "vacateCheck2",
+//                        script: "apiready()"
+//                    });
+//                }else{
+//                    toast(ret.msg);
+//                }
+//            })
+//        })
+    }
+
+    //不同意请假
+//    function disagree(id){
+//        disagreeId = id;
+//        var obj = {
+//            rect : {
+//                x : 0,
+//                y : 0,
+//                w : api.winWidth,
+//                h : api.winHeight
+//            },
+//            bgColor : 'rgba(0,0,0,0.1)'
+//        }
+//        flag = true;//表示题目导航被打开
+//        closeThisFrame();
+//        openFrame("addRefuseReason","addRefuseReason.html",{id:id},0,0,obj);
+//    }
+
+
+    //用于点击返回键的监听事件
+    function closeThisFrame(){
+        if (flag) {
+            flag = false;
+            api.closeFrame({
+                name : "addRefuseReason"
+            })
+        }else{
+            closeWin();
+        }
+    }
+
+
+
+    //用于填写驳回理由之后   驳回成功异步刷新
+    function deleteThisDom(){
+        document.getElementById(disagreeId).style.display = "none";
+        changeFlag();
+    }
+
+
+    //关闭frame  异步刷新
+    function changeFlag(){
+        flag = false;
+    }
+
+
+    function openUserChat(icon,chatId,userName){
+        //先要通知原生  告知这个人要聊天了
+        api.accessNative({
+            name: "openChat",
+            extra: {
+                key: {
+                    icon : icon || "",
+                    id : chatId,
+                    name : userName||""
+                }
+            }
+
+        }, function(ret, err) {
+
+        });
+    };
+
+</script>
+</html>

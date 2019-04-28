@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间-待审核</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			#main{
+				margin-bottom: 60px;
+				background-color: #fff;
+			}
+			.wonderfulList{
+				margin-top: 10px;
+			}
+			.wonderfulList>li{
+				padding:0 15px;
+				padding-top: 20px;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.wonderfulList>li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.wonderfulList>li .tp_user{
+				overflow: hidden;
+				padding-bottom: 6px;
+			}
+			.wonderfulList>li .tp_user .userPic{
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				float: left;
+				margin-right: 8px;
+			}
+			.wonderfulList>li .tp_user .userPic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+			.wonderfulList>li .tp_user .userInfo{
+				font-size: 14px;
+				color: #666666;
+				letter-spacing: 0.29px;
+			}
+			.wonderfulList>li .tp_user .userInfo .username{
+				padding-top: 8px;
+				line-height: 20px;
+				position: relative;
+			}
+			.wonderfulList>li .tp_user .userInfo .username>span{
+				font-size:14px;
+				color:#333333;
+				line-height: 20px;
+			}
+			.wonderfulList>li .tp_user .userInfo .username em{
+				font-size: 12px;
+				line-height: 17px;
+				color: #999999;
+				letter-spacing: 0.21px;
+				position: absolute;
+				right: 0;
+				top: 9px;
+			}
+			.ct_content p{
+				font-size: 14px;
+				color: #333333;
+				letter-spacing: 0.5px;
+				line-height: 20px;
+				margin-bottom: 0;
+				text-align: justify;
+			}
+			.ct_content ul{
+				margin-top: 12px;
+				width: 100%;
+				overflow: hidden;
+			}
+			.ct_content ul li{
+				width: 100%;
+				height: 190px;
+				overflow: hidden;
+			}
+			.ct_content ul li.ltpic{
+				float: left;
+				width: 48.95%;
+				height: 190px;
+				
+			}
+			.ct_content ul li.rtpic{
+				float: right;
+				width: 49.25%;
+				height: 190px;
+				
+			}
+			.ct_content ul li.ltpic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 15px 0 0 15px;
+			}
+			.ct_content ul li.rtpic img:nth-of-type(1){
+				float: right;
+				width: 100%;
+				height: 92px;
+				border-radius: 0 15px 0 0;
+				margin-bottom: 6px;
+			}
+			.ct_content ul li.rtpic img:nth-of-type(2){
+				float: right;
+				width: 100%;
+				height: 92px;
+				border-radius: 0 0 15px 0;
+				margin-bottom: 6px;
+			}
+			
+			.reason{
+				background: #F8F8F8;
+				border-radius: 4px;
+				padding: 12px;
+				font-size: 14px;
+				color: #333333;
+				line-height: 20px;
+				margin: 12px 0;
+				text-align: justify;
+			}
+			.reason span{
+				font-size: 14px;
+				color: #333333;
+				padding-right: 8px;
+			}
+			
+			.bt_moreheat{
+				overflow: hidden;
+				padding-bottom: 12px;
+			}
+			.bt_moreheat .lt_label{
+				float: left;
+			}
+			.bt_moreheat .lt_label em{
+				color: #5EC4E0;
+				font-size: 12px;
+				/* border: 1px solid #9d9d9d;
+				border-radius: 5px;
+				line-height: 18px;
+				box-sizing: border-box;
+				padding: 0 6px; */
+				margin-right: 5px;
+				text-decoration:underline;
+			}
+			.bt_moreheat .rt_apcr{
+				float: right;
+				overflow: hidden;
+				position: relative;
+			}
+			.rt_apcr em{
+				font-size: 12px;
+				color: #999999;
+				vertical-align: top;
+				line-height: 12px;
+				margin: 0;
+				padding-top: 8px;
+				padding-right: 2px;
+			}
+			.mui-switch{
+				display: inline-block;
+				line-height: 24px;
+				right: 0;
+				width: 51px;
+				height: 24px;
+				border-radius: 100px;
+			}
+			.mui-switch .mui-switch-handle{
+				width: 22px;
+				height: 22px;
+			}
+			.mui-switch:before{
+				content: '';
+				display: none;
+			}
+			.mui-switch.mui-active{
+				border-color: #5AC8E1;	
+				width: 52px;
+				height: 24px;
+				background: #5AC8E1;
+			}
+			.mui-table-view:after{
+				height: 0;
+			}
+			.bottom-btn{
+				width:100%;
+				padding-left:32px;
+				padding-right:33px;
+				box-sizing: border-box;
+				display: flex;
+				justify-content: space-between;
+				white-space: nowrap;
+				padding-bottom:20px;
+			}
+			.bottom-btn a{
+				width:37.1%;
+				height:28px;
+				background: #5AC8E1;
+				box-shadow: 0 2px 4px 0 #87B2BE;
+				border-radius: 4px;
+				text-align: center;
+				line-height: 28px;
+				font-size: 14px;
+				color: #FFFFFF;
+			}
+			.lt_label u{
+				color:#5EC4E0 !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+		    <ul class="wonderfulList" id="examineList">
+		    	<!--<li>-->
+		    		<!--<div class="tp_user">-->
+		    			<!--<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>-->
+		    			<!--<div class="userInfo">-->
+		    				<!--<p class="username"><span>李老师</span> <em>1分钟</em></p>-->
+		    			<!--</div>-->
+		    		<!--</div>-->
+		    		<!--<div class="ct_content">-->
+		    			<!--<p>为人父母，常有的疑惑是：为什么从前那个听话的孩子会变得如此叛逆？其实太乖的孩子未必是好事，他们只是在顺从抚育者的需要。</p>-->
+		    			<!--<ul>-->
+		    				<!--<li class="ltpic"><img src="../../image/wonderful02.jpg" alt="" /></li>-->
+		    				<!--<li class="rtpic">-->
+		    					<!--<img src="../../image/wonderful03.jpg" alt="" />-->
+								<!--<img src="../../image/wonderful03.jpg" alt="" />-->
+
+		    				<!--</li>-->
+		    			<!--</ul>-->
+		    		<!--</div>-->
+
+		    		<!--<div class="reason">-->
+		    			<!--<span>被审原因:</span>包含敏感词xxx-->
+		    		<!--</div>-->
+
+		    		<!--<div class="bt_moreheat">-->
+		    			<!--<div class="lt_label">-->
+		    				<!--<em>#教育</em>-->
+		    			<!--</div>-->
+		    			<!--&lt;!&ndash; <div class="rt_apcr">-->
+		    				<!--<em>是否公开</em>-->
+		    				<!--<div class="mui-switch" onclick="">-->
+								<!--<div class="mui-switch-handle"></div>-->
+							<!--</div>-->
+		    			<!--</div> &ndash;&gt;-->
+					<!--</div>-->
+					<!--<div class="bottom-btn">-->
+						<!--<a>可以公开</a>-->
+						<!--<a>不能公开</a>-->
+					<!--</div>-->
+		    	<!--</li>-->
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script src="../../script/mui.min.js"></script>
+	<script type="text/html" id="examineHtml">
+		<%for(var i=0;i<list.length;i++){%>
+			<li id="list<%=list[i].id%>">
+				<div class="tp_user">
+					<div class="userPic"><img src="../../image/teacherWang.png" style="width: 100%;height: 100%; " data-echo="<%=list[i].icon%>" real-style="<%=list[i].style%>" onerror="this.src='../../image/teacherWang.png'" alt="" /></div>
+					<div class="userInfo">
+						<p class="username"><span><%=list[i].user.name%></span> <em><%=list[i].ctime%></em></p>
+					</div>
+				</div>
+				<div class="ct_content">
+					<p><%=list[i].content%></p>
+					<ul class="uldjh">
+						<%if(list[i].imagesJson.length == 1){%>
+						<li class="listone"><img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"   data-echo="<%=list[i].imagesJson[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+						<%} else if(list[i].imagesJson.length == 2){%>
+						<li class="listBfl"><img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;" data-echo="<%=list[i].imagesJson[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+						<li class="listBfr"><img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;" data-echo="<%=list[i].imagesJson[1]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+						<%} else if(list[i].imagesJson.length == 3){%>
+						<li class="ltpic"><img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  src=""  data-echo="<%=list[i].imagesJson[0]%>" real-style="<%=list[i].styleJsom%>" alt="" />" alt="" /></li>
+						<li class="rtpic">
+							<img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  src=""  data-echo="<%=list[i].imagesJson[1]%>" real-style="<%=list[i].styleJsoma%>" alt="" />
+							<img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  src=""  data-echo="<%=list[i].imagesJson[2]%>" real-style="<%=list[i].styleJsomb%>" alt="" />
+						</li>
+						<%} else if(list[i].imagesJson.length > 3){%>
+						<%for(var x = 0;x<list[i].imagesJson.length;x++){%>
+						<li class="listImgs"><img src="../../image/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  src=""  data-echo="<%=list[i].imagesJson[x]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+						<%}%>
+						<%}%>
+					</ul>
+				</div>
+
+				<div class="reason">
+					<span>被审原因:</span><%=list[i].checkReason%>
+				</div>
+
+				<div class="bt_moreheat">
+					<div class="lt_label">
+						<%for(var j=0;j<list[i].tags.length;j++){%>
+							<u><%=list[i].tags[j]%></u>
+						<%}%>
+					</div>
+					<!-- <div class="rt_apcr">
+						<em>是否公开</em>
+						<div class="mui-switch" onclick="">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</div> -->
+				</div>
+				<div class="bottom-btn">
+					<a onclick="Yesopen('<%=list[i].id%>',0,this)">可以公开</a>
+					<a onclick="Yesopen('<%=list[i].id%>',1,this)">不能公开</a>
+				</div>
+			</li>
+		<%}%>
+	</script>
+	<script>
+		apiready = function () {
+			new datalistModel(addDataToHtml,waiteExamineList,{},5,5,100,true);
+		};
+		function Yesopen(tid,type,self){
+			ajaxGet(examineHandle,{status:type,tid:tid},function(ret,err){
+ 				if(ret.success ==true){
+					toast("审核成功！");
+					self.parentNode.style.display="none";
+				}else{
+					toast("网络连接失败，请重试！")
+				}
+			})
+		}
+		function addDataToHtml(results,append){
+			for(var i=0;i<results.length;i++){
+				results[i].images = tryJsonParse(results[i].images);
+				results[i].imagesJson = tryJsonParse(results[i].imagesJson);
+				results[i].tags = tryJsonParse(results[i].tags);
+				results[i].ctime = getDateDiff(results[i].ctime);
+				//处理头像
+				if(results[i].iocn){
+					var listicon = results[i].icon;
+					var width = 100;
+					var height = 100;
+					var obj = getImgByThisSize(listicon,width,height);
+					results[i].style = obj.style;
+				}
+				//处理imagesJson
+				if(results[i].imagesJson.length == 1){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = api.winWidth - 40;
+						var height = 190;
+						var obj = getImgByThisSize(results[i].imagesJson[0],width,height);
+						results[i].styleJsom = obj.style;
+					}
+				}else if(results[i].imagesJson.length == 2){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = (api.winWidth - 42)/2;
+						var height = 190;
+						var obj = getImgByThisSize(results[i].imagesJson[l],width,height);
+						results[i].styleJsom = obj.style;
+					}
+				}else if(results[i].imagesJson.length == 3){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = (api.winWidth - 42)/2;
+						var height = 190;
+						var heighta = 90;
+						var obj = getImgByThisSize(results[i].imagesJson[0],width,height);
+						var obja = getImgByThisSize(results[i].imagesJson[1],width,heighta);
+						var objb = getImgByThisSize(results[i].imagesJson[2],width,heighta);
+						results[i].styleJsoma = obja.style;
+						results[i].styleJsomb = objb.style;
+						results[i].styleJsom = obj.style;
+					}
+				}else if(results[i].imagesJson.length > 3){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = (api.winWidth - 43)/3;
+						var height = 90;
+						var obj = getImgByThisSize(results[i].imagesJson[l],width,height);
+						results[i].styleJsom = obj.style;
+					}
+				}
+			}
+//			alert(JSON.stringify(results));
+			var data = {list: results};
+			var html = template('examineHtml',data);
+			if (append){
+				var div = document.createElement("div");
+				div.innerHTML = html;
+				document.getElementById('examineList').appendChild(div);
+			} else {
+				document.getElementById('examineList').innerHTML = html;
+			}
+			api.parseTapmode();
+//			document.getElementById("body").style.display = "block";
+//			setTimeout(function(){
+//				echoExt.init({
+//					offset: 0,
+//					throttle: 0//设置图片延迟加载的时间
+//				});
+//			},100)
+		}
+	</script>
+</html>

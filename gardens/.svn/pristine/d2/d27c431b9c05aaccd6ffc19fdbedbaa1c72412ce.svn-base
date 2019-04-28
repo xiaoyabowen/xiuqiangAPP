@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!--阻止自动判断电话-->
+        <meta name="format-detection" content="telephone=no" />
+		<title>查看详情</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+        <link href="../../css/dateSelect.css" rel="stylesheet">
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+
+			}
+            .resource-detail{
+                width:100%;
+                padding-top:12px;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .top-pi{
+                padding-left:7px;
+                padding-right:7px;
+                box-sizing: border-box;
+            }
+            .p-info{
+                width:100%;
+                height:60px;
+                line-height:60px;
+                margin-bottom:12px;
+                border-bottom:1px solid #F0F0F0;
+                box-sizing: border-box;
+            }
+            .p-info li{
+                float:left;
+            }
+            .p-info>:nth-child(1){
+                margin-right:3px;
+            }
+            .p-info>:not(:nth-child(1)){
+                margin-left:13px;
+            }
+            .p-info li>:nth-child(1){
+                font-size:11px;
+                color:#A3A3A3;
+                letter-spacing: 0.15px;
+            }
+            .p-info li>:nth-child(2){
+                font-size:14px;
+                color:#505050;
+                letter-spacing: 0.19px;
+            }
+            .rd-info{
+                width:100%;
+                background: #FFFFFF;
+                padding:0px 12px 17px;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .top-tab{
+                width:100%;
+                height:43px;
+                line-height:43px;
+                padding-left:8px;
+                padding-right:20px;
+                background: #EBFBFF;
+                display:-webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap:nowrap;
+                font-size: 14px;
+                color: #505050;
+                box-sizing: border-box;
+            }
+            .top-tab>:nth-child(4){
+                padding-right:15px;
+            }
+            .bottom-line{
+                width:100%;
+                height:1px;
+                background: #F0F0F0;
+                box-sizing: border-box;
+            }
+            .rd-list>:nth-last-child(1){
+                border:none;
+            }
+            .apply-record{
+                width:100%;
+                height:18px;
+                border-left:2px solid #5AC8E1;
+                font-size: 16px;
+                color: #505050;
+                margin-bottom:12px;
+                padding-left:10px;
+                line-height:18px;
+                letter-spacing: 0.22px;
+                font-weight:bold;
+            }
+            .sort-menu{
+                width:100%;
+                height:24px;
+                margin-bottom:12px;
+            }
+
+            .sort-menu>:not(:nth-child(1)){
+                margin-left:10px;
+            }
+            .sort-menu li{
+                float:left;
+                height:24px;
+                font-size: 14px;
+                color: #505050;
+                text-align:center;
+                line-height:24px !important;
+                padding-left:9px;
+                padding-right:9px;
+                letter-spacing: 0.17px;
+                background: #FFFFFF;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                text-align:center;
+                line-height:14px;
+                box-sizing: border-box;
+            }
+            .sort-menu .selected{
+                background: #5AC8E1;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                color:#FFFFFF;
+            }
+            table{
+                width:100%;
+            }
+            .t-title{
+                width:100%;
+                height:44px;
+                background: #EBFBFF;
+                border-radius: 4px;
+            }
+            .t-title th{
+                width:20%;
+                font-size: 12px;
+                color: #505050;
+                font-weight:normal;
+                letter-spacing: 0.19px;
+            }
+            .t-content{
+                height:32px;
+                border-bottom: 1px solid #F0F0F0;
+            }
+            td{
+                text-align: center;
+                font-size: 12px;
+                color: #505050;
+                letter-spacing: 0.17px;
+            }
+            #warp{
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.30);
+                position: fixed;
+                display: none;
+            }
+            #contont{
+                width: 230px;
+                height: 180px;
+                background: #FFFFFF;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                position: fixed;
+                top:0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin:50% auto;
+                font-size: 14px;
+                color: #333333;
+                border-radius: 4px;
+            }
+            #contont > :nth-child(1){
+                height: 59px;
+                line-height: 60px;
+                text-align: center;
+                border: 1px solid #F0F0F0;
+            }
+            #contont > ul{
+                height:120px;
+                overflow: scroll;
+            }
+            #contont > ul > li{
+                height:30px;
+                line-height: 30px;
+            }
+            #contont > ul > li > p{
+                margin-top: 10px;
+                text-align: center;
+            }
+            #contont  > ul > li > span{
+                display: none;
+            }
+            #pickDateBtn{
+                width: 80px;
+                font-size: 14px;
+                color: #333333;
+            }
+		</style>
+	</head>
+	<body id="body">
+        <div id="warp">
+
+        </div>
+		<div class="resource-detail">
+            <div class="rd-info">
+                <div class="top-pi">
+                    <ul class="p-info">
+                        <li>
+                            <span>单位:</span>
+                            <span id="unit"></span>
+                        </li>
+                        <li>
+                            <span>型号:</span>
+                            <span id="version"></span>
+                        </li>
+                        <li>
+                            <span>数量:</span>
+                            <span id="num"></span>
+                        </li>
+                        <li>
+                            <span>价值:</span>
+                            <span id="totalP"></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="apply-record">领用记录</div>
+                <ul class="sort-menu" >
+                    <li><input id="pickDateBtn" type="text" readonly="readonly" placeholder="按时间"></li>
+                    <li id="department" onclick="getDpartment(this,1,'listScript','warp')">按部门</li>
+                    <li id="Tname" onclick="getDpartment(this,2,'listScript2','warp')">按申请人</li>
+                </ul>
+                <table id="table">
+
+                </table>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/dateSelect.js"></script>
+    <script type="text/html" id="tmpScript">
+        <tr class="t-title">
+            <th>申请人</th>
+            <th>部门</th>
+            <th>数量</th>
+            <th>用途</th>
+            <th>申请时间</th>
+        </tr>
+        <%for(var i=0;i<list.length;i++){%>
+            <tr class="t-content">
+                <td><%=list[i].reqUserName%></td>
+                <td><%=list[i].reqDepartment%></td>
+                <td><%=list[i].num%></td>
+                <td><%=list[i].reqDepartment%></td>
+                <td><%=list[i].Utime%></td>
+            </tr>
+        <%}%>
+    </script>
+    <script type="text/html" id="listScript">
+        <%if(list.length){%>
+            <div id="contont">
+                <div>请选择部门</div>
+                <ul>
+                    <%for(var i=0;i<list.length;i++){%>
+                        <li onclick="getDparData('<%=list[i].id%>','<%=list[i].name%>')"><p><%=list[i].name%></p></li>
+                    <%}%>
+                </ul>
+            </div>
+        <%}%>
+    </script>
+    <script type="text/html" id="listScript2">
+        <%if(list.length){%>
+            <div id="contont">
+                <div>请选择申请人</div>
+                <ul>
+                    <%for(var i=0;i<list.length;i++){%>
+                    <li onclick="getTnameData('<%=list[i].id%>','<%=list[i].name%>')"><p><%=list[i].name%></p></li>
+                    <%}%>
+                </ul>
+            </div>
+        <%}%>
+    </script>
+	<script>
+        var reqTime = 0;
+        var did = 0;
+        var reqUid = 0;
+        var itemInfoId;
+        apiready = function(){
+            itemInfoId = parseInt(api.pageParam.itemInfoId);
+            $("#pickDateBtn").dateSelect();
+            // 顶部赋值
+            $api.byId('unit') .innerHTML = api.pageParam.unit;
+            $api.byId('num') .innerHTML = api.pageParam.num;
+            $api.byId('version') .innerHTML = api.pageParam.version;
+            $api.byId('totalP') .innerHTML = api.pageParam.totalP + api.pageParam.unit;
+            //初始化
+            getData(itemInfoId,reqTime,did,reqUid);
+
+
+        };
+        //获取数据
+        function getData(itemInfoId,reqTime,did,reqUid) {
+            ajaxGet(getWarehouseClassIndex,{
+                itemInfoId:itemInfoId,
+                reqTime:reqTime,
+                did:did,
+                reqUid:reqUid
+            },function (ret,err) {
+                if(ret){
+                    addDataToHtml(ret);
+                }
+
+            });
+        }
+        function addDataToHtml(results){
+            if(results){
+                for(var i=0;i<results.data.length;i++){
+                    var a = formatTimeToDays(results.data[i].utime);
+                    results.data[i]['Utime'] = a;
+                    var data = {list: results.data};
+                    var html = template('tmpScript',data);
+                    document.getElementById('table').innerHTML = html;
+                    api.parseTapmode();
+                    document.getElementById("body").style.display = "block";
+                }
+            }
+        }
+        //获取部门 及 申请人
+        function getDpartment(li,type,tmpDom,dom){
+            $(li).addClass("selected");
+            var url;
+            if(type == 1){
+                url = getAlldepartment //获取部门
+            }else if(type == 2){
+                url = getAllTeacher //获取申请人
+            };
+            ajaxGet(url,{sid:getUserInfo().sid},function(ret,err) {
+                if(ret){
+                    var data = {list: ret.data};
+                    var html = template(tmpDom,data);
+                    document.getElementById(dom).innerHTML = html;
+                    api.parseTapmode();
+                    document.getElementById(dom).style.display = 'block';
+                }
+            });
+        }
+        //获取部门id
+        function getDparData(id,name) {
+            did = id;
+            document.getElementById('department').innerHTML = name;
+            document.getElementById('warp').style.display = 'none';
+            getData(itemInfoId,reqTime,did,reqUid)
+        }
+        //获取申请人id
+        function getTnameData(id,name) {
+            reqUid = id;
+            document.getElementById('Tname').innerHTML = name;
+            document.getElementById('warp').style.display = 'none';
+            getData(itemInfoId,reqTime,did,reqUid)
+        }
+
+	</script>
+</html>

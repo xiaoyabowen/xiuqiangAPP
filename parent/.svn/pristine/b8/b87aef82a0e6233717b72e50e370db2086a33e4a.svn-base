@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝家长</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #f2f2f2;
+			}
+			#main{
+				padding:12px 8px 0;
+				box-sizing: border-box;
+			}
+			.Parent{padding:12px;background:#fff;box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);}
+			.ParentTitle{height:44px;background: #EBFBFF;border-radius: 3px;overflow:hidden;}
+			.ParentTitle span{display:block;font-size:14px;color:#333;height:44px;line-height:44px;float:left;}
+			.ParentTitle span:nth-child(1){padding:0 77px 0 24px;}
+			.ParentList li{height:41px;line-height:44px;font-size:12px;color: #505050;overflow:hidden;border-bottom: 1px solid #F2F2F2;}
+			.ParentList li span{display:block;}
+			.ParentList li span:nth-child(2){float:left;width:86px;padding-left:24px;margin-right:40px;}
+			.ParentList li span:nth-child(3){float:left;}
+			.ParentList li span:nth-child(1){float:right;margin-right:22px;}
+			.ParentList li span:nth-child(1) img{width:18px;height:18px;margin-top:12px;}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="Parent">
+				<div class="ParentTitle">
+					<span>家长称呼</span>
+					<span>手机号</span>
+				</div>
+				<div class="ParentList">
+					<ul id="addParentList">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/html" id="addParent">
+		<%for(var i=0;i<list.length;i++){%>
+			<li>
+				<span onclick="deleteijj('<%=list[i].id%>',this)"><img src="../../icon/delete.png" alt=""/></span>
+				<%if(list[i].name){%>
+					<span><%=list[i].name%></span>
+				<%}%>
+				<%if(list[i].phone){%>
+					<span><%=list[i].phone%></span>
+				<%}%>
+			</li>
+		<%}%>
+	</script>
+	<script>
+		var uid;
+		apiready=function(){
+			uid = api.pageParam.uid;
+			ajaxGet(usersearchUserParentsUrl,{childId:uid},function(ret,err){
+				if(isNotBlack(ret)){
+					var data = {list: ret};
+					var html = template('addParent',data);
+					document.getElementById('addParentList').innerHTML = html;
+				}
+			})
+		};
+		//i++++++++++++++++++++删除
+		function deleteijj(id,self){
+			ajaxGet(userdeleteUserUrl,{id:id},function(ret,err){
+				if(isNotBlack(ret.success)){
+					toast("删除成功！");
+					$(self).parent().css("display","none");
+				}
+			})
+		}
+	</script>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>预览食谱</title>
+    <style>
+        body{
+            background: #F2F2F2;
+            height:auto;
+        }
+        #wrap{
+            padding-bottom:20px;
+        }
+        .select-menu{
+            width:100%;
+            margin-top:12px;
+            margin-bottom:12px;
+            padding-left:8px;
+            padding-right:8px;
+            box-sizing: border-box;
+        }
+        .select-menu .sm{
+            width:100%;
+            height:42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:18px;
+            padding-right:15px;
+            padding-top:9px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: flex-start;
+            position: relative;
+        }
+        .select-version{
+            height:24px;
+            width: 68px;
+            line-height:24px;
+            background: #92CA55;
+            color:#FFFFFF;
+            font-size: 12px;
+            border-radius: 100px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-right:6px ;
+            text-align: center;
+            /* display: inline-block; */
+            box-sizing: border-box;
+            /* position: absolute;
+            left:18px; */
+        }
+        @media screen and (max-width: 345px) {
+            .select-menu .sm{
+                padding-left:5px;
+                padding-right:3px;
+            }
+            .select-version,.select-date,.select-cookbook{
+                padding-left:5px;
+                padding-right:5px;
+            }
+            .select-version .version-name::after,.select-date .sd::after,.select-cookbook .sc::after{
+                margin-left:5px;
+            }
+        }
+        .select-version .version-name::after{
+            /*content:url('../../icon/arrowup.png');*/
+            width:12px;
+            height:12px;
+            vertical-align: middle;
+            margin-left:7px;
+        }
+        .select-date{
+            /* display: inline-block;             */
+            height:24px;
+            line-height:24px;
+            font-size: 12px;
+            color: #FFFFFF;
+            padding-left:13px;
+            padding-right:13px;
+            background: #67C49C;
+            border-radius: 100px;
+            box-sizing: border-box;
+        }
+        /* .select-date div{
+            float:left;
+        } */
+        .select-date .sd::after{
+            /* float:left; */
+            /*content:url('../../icon/arrowup.png');*/
+            width:12px;
+            height:12px;
+            vertical-align: middle;
+            margin-left:7px;
+        }
+        .select-cookbook{
+            height:24px;
+            line-height:24px;
+            font-size: 12px;
+            color: #FFFFFF;
+            padding-left:13px;
+            padding-right:13px;
+            background: #FFC100;
+            border-radius: 100px;
+            box-sizing: border-box;
+        }
+        .select-cookbook .sc::after{
+            /*content:url('../../icon/arrowup.png');*/
+            width:12px;
+            height:12px;
+            vertical-align: middle;
+            margin-left:7px;
+        }
+        .cookbook-content{
+            width:100%;
+            padding-left:8px;
+            padding-right:8px;
+            padding-bottom:18px;
+            box-sizing: border-box;
+        }
+        .cookbook-content .cc{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            position: relative;
+            padding:20px 18px;
+            box-sizing: border-box;
+        }
+        .cookbook-content .cc .cc-title{
+            font-size: 16px;
+            color: #5AC8E1;
+        }
+        .breakfast{
+            margin-top:18px;
+        }
+        .breakfast .b-title{
+            font-size: 14px;
+            margin-bottom:18px;
+        }
+        .ci-title div {
+            float: left;
+        }
+
+        .ci-menu {
+            padding-top: 11px;
+        }
+
+        .ci-content {
+            clear: left;
+            margin-bottom: 12px;
+        }
+
+        .ci-title {
+            height: 22px;
+        }
+
+        .ci-title .ci-name {
+            font-size: 14px;
+            color: #333333;
+            line-height: 20px;
+        }
+
+        .ci-title .ci-time {
+            font-size: 12px;
+            color: #999999;
+            line-height: 25px;
+            margin-left: 15px;
+        }
+        .b-list li{
+            padding-bottom:12px;
+        }
+        .b-list>li:last-child{
+            border:none;
+        }
+        .l-title{
+            margin-bottom:20px;
+        }
+        .l-list li{
+            padding-bottom:16px;
+        }
+        .l-list>li:last-child{
+            border:none;
+        }
+        .d-title{
+            margin-bottom:18px;
+        }
+        .d-list li{
+            padding-bottom:16px;
+        }
+        .d-list>li:last-child{
+            border:none;
+        }
+        .ce-title{
+            font-size: 14px;
+            color: #333333;
+        }
+        .ce-text{
+            font-size: 12px;
+            color: #999999;
+            margin-top:6px;
+            margin-bottom:20px;
+        }
+        .cookbook-explain{
+            margin-top:12px;
+            font-size: 14px;
+            color: #333333;
+            font-family: PingFangSC-Regular;
+        }
+        .btnbox{
+            width:100%;
+            height: 44px;
+            padding:0 22px;
+            box-sizing: border-box;
+            clear: both;
+        }
+        .btn1,.btn2{
+            width:45%;
+            height:44px;
+            text-align: center;
+            line-height: 44px;
+            background: #5AC8E1;
+            font-size: 16px;
+            color:#FFFFFF;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn1{
+            margin-right: 23px;
+            float: left;
+        }
+        .btn2{
+            float: right;
+        }
+
+        .b-list > img{
+            width: 105px;
+            height: 105px;
+            background-size: 100%;
+            border-radius: 10px;
+            display: inline-block;
+            margin-right:12px;
+            float: left;
+        }
+        /*图片排列*/
+        #imgWrap{
+            width: 105px;
+            height: 105px;
+            float: left;
+        }
+        #imgWrap > img{
+            width: 50px;
+            height: 50px;
+            float: left;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+        #imgWrap > img:nth-child(1),#imgWrap > img:nth-child(2){
+            margin-bottom: 5px;
+        }
+        #imgWrap > img:nth-child(1){
+            margin-right: 5px;
+        }
+        #imgWrap > img:nth-child(3){
+            margin-right: 5px;
+        }
+        .cil-left{
+            clear:left;
+
+        }
+        #imgWrap > .imgOne{
+            width:105px;
+            height:105px;
+            border-radius:4px;
+        }
+        .ci-list li .cil-right {
+            width: 100%;
+            height: 105px;
+            padding-left: 117.5px;
+            box-sizing: border-box;
+        }
+
+        .ci-list li .cil-right .cr-item {
+            height: 17px;
+            line-height: 17px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #333333;
+        }
+        .cil-right{
+            width:100%;
+            height:105px;
+            padding-left:117.5px;
+            box-sizing: border-box;
+        }
+        #imgWrap > .dotted{
+            width: 105px;
+            height: 105px;
+            border: 1px dotted #cccccc;
+        }
+        /*图片排列*/
+        /*食谱详情显示*/
+
+        .weight,.foodName{
+            width: 100%;
+            display:inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space:nowrap;
+        }
+
+    </style>
+</head>
+<body id="body">
+<div id="main">
+    <div id="wrap">
+
+    </div>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+
+
+<!--食谱模板-->
+<script type="text/html" id="previewTmp">
+    <%if(list.length){%>
+    <div class="select-menu">
+        <div class="sm">
+            <%for(var i = 0;i < list.length; i++){%>
+            <div class="select-version sm-item">
+                <%if(list[i].type == 0 || list[i].type == "0"){%>
+                <div class="version-name">大众版</div>
+                <%}else{%>
+                <div class="version-name">清真版</div>
+                <%}%>
+            </div>
+            <div class="select-date sm-item">
+                <div class="sd" id="date"><%=list[i].DAY%></div>
+            </div>
+            <!--<div class="select-cookbook sm-item">-->
+            <!--<div class="sc">请选择食谱</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="cookbook-content">
+        <div class="cc">
+            <div class="cc-title">食谱内容</div>
+            <div class="breakfast">
+                <div class="ci-title">
+                    <div class="ci-name">早餐</div>
+                    <div class="ci-time">
+                        <span><%=list[i].DAY%></span>
+                    </div>
+                </div>
+                <ul class="ci-menu">
+                    <li class="ci-content">
+                        <ul class="ci-list">
+                            <%for(var j=0;j < list[i].zaoCanJson.length;j++){%>
+                            <li>
+                                <div class="cil-left" id="imgWrap">
+                                    <%if(list[i].zaoCanJson[j].imgs.length == 1){%>
+                                    <img class="imgOne" src="<%=list[i].zaoCanJson[j].imgs[0]%>" alt="">
+                                    <%}else if(list[i].zaoCanJson[j].imgs.length == 2){%>
+                                    <%for(var l=0;l < list[i].zaoCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].zaoCanJson[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                    <%}%>
+                                    <%}else if(list[i].zaoCanJson[j].imgs.length > 2){%>
+                                    <%for(var l=0;l < list[i].zaoCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].zaoCanJson[j].imgs[l]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="cil-right">
+                                    <div class="food-name cr-item">
+                                        <span>菜名：</span>
+                                        <span><%=list[i].zaoCanJson[j].name%></span>
+                                    </div>
+
+                                    <div class="food-material cr-item">
+                                            <span class="foodName">
+                                                食材：
+                                            <%for(var n=0;n < list[i].zaoCanJson[j].materials.length;n++){%>
+                                               <%=list[i].zaoCanJson[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-weight cr-item">
+                                            <span class="weight">
+                                                 重量：
+                                                <%for(var n=0;n < list[i].zaoCanJson[j].materials.length;n++){%>
+                                                  <%=list[i].zaoCanJson[j].materials[n].num%><%=list[i].zaoCanJson[j].materials[n].unit%>,
+                                                <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-attribute cr-item">
+                                        <span>属性：</span>
+                                        <%if(list[i].zaoCanJson[j].desc == 0){%>
+                                            <span>其他</span>
+                                        <%}else{%>
+                                            <span><%=list[i].zaoCanJson[j].desc%></span>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="breakfast">
+                <div class="ci-title">
+                    <div class="ci-name">早点</div>
+                </div>
+                <ul class="ci-menu">
+                    <li class="ci-content">
+                        <ul class="ci-list">
+                            <%for(var j=0;j < list[i].zaoDianJson.length;j++){%>
+                            <li>
+                                <div class="cil-left" id="imgWrap">
+                                    <%if(list[i].zaoDianJson[j].imgs.length == 1){%>
+                                    <img class="imgOne" src="<%=list[i].zaoDianJson[j].imgs[0]%>" alt="">
+                                    <%}else if(list[i].zaoDianJson[j].imgs.length == 2){%>
+                                    <%for(var l=0;l < list[i].zaoDianJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].zaoDianJson[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                    <%}%>
+                                    <%}else if(list[i].zaoDianJson[j].imgs.length > 2){%>
+                                    <%for(var l=0;l < list[i].zaoDianJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].zaoDianJson[j].imgs[l]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="cil-right">
+                                    <div class="food-name cr-item">
+                                        <span>菜名：</span>
+                                        <span><%=list[i].zaoDianJson[j].name%></span>
+                                    </div>
+                                    <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].zaoDianJson[j].materials.length;n++){%>
+                                               <%=list[i].zaoDianJson[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].zaoDianJson[j].materials.length;n++){%>
+                                               <%=list[i].zaoDianJson[j].materials[n].num%><%=list[i].zaoDianJson[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-attribute cr-item">
+                                        <span>属性：</span>
+                                        <%if(list[i].zaoDianJson[j].desc == 0){%>
+                                        <span>其他</span>
+                                        <%}else{%>
+                                        <span><%=list[i].zaoDianJson[j].desc%></span>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="breakfast">
+                <div class="ci-title">
+                    <div class="ci-name">午餐</div>
+                </div>
+                <ul class="ci-menu">
+                    <li class="ci-content">
+                        <ul class="ci-list">
+                            <%for(var j=0;j < list[i].wuCanJson.length;j++){%>
+                            <li>
+                                <div class="cil-left" id="imgWrap">
+                                    <%if(list[i].wuCanJson[j].imgs.length == 1){%>
+                                    <img class="imgOne" src="<%=list[i].wuCanJson[j].imgs[0]%>" alt="">
+                                    <%}else if(list[i].wuCanJson[j].imgs.length == 2){%>
+                                    <%for(var l=0;l < list[i].wuCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wuCanJson[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                    <%}%>
+                                    <%}else if(list[i].wuCanJson[j].imgs.length > 2){%>
+                                    <%for(var l=0;l < list[i].wuCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wuCanJson[j].imgs[l]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="cil-right">
+                                    <div class="food-name cr-item">
+                                        <span>菜名：</span>
+                                        <span><%=list[i].wuCanJson[j].name%></span>
+                                    </div>
+                                    <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].wuCanJson[j].materials.length;n++){%>
+                                               <%=list[i].wuCanJson[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wuCanJson[j].materials.length;n++){%>
+                                               <%=list[i].wuCanJson[j].materials[n].num%><%=list[i].wuCanJson[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-attribute cr-item">
+                                        <span>属性：</span>
+                                        <%if(list[i].wuCanJson[j].desc == 0){%>
+                                        <span>其他</span>
+                                        <%}else{%>
+                                        <span><%=list[i].wuCanJson[j].desc%></span>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="breakfast">
+                <div class="ci-title">
+                    <div class="ci-name">午点</div>
+                </div>
+                <ul class="ci-menu">
+                    <li class="ci-content">
+                        <ul class="ci-list">
+                            <%for(var j=0;j < list[i].wuDianJson.length;j++){%>
+                            <li>
+                                <div class="cil-left" id="imgWrap">
+                                    <%if(list[i].wuDianJson[j].imgs.length == 1){%>
+                                    <img class="imgOne" src="<%=list[i].wuDianJson[j].imgs[0]%>" alt="">
+                                    <%}else if(list[i].wuDianJson[j].imgs.length == 2){%>
+                                    <%for(var l=0;l < list[i].wuDianJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wuDianJson[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                    <%}%>
+                                    <%}else if(list[i].wuDianJson[j].imgs.length > 2){%>
+                                    <%for(var l=0;l < list[i].wuDianJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wuDianJson[j].imgs[l]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="cil-right">
+                                    <div class="food-name cr-item">
+                                        <span>菜名：</span>
+                                        <span><%=list[i].wuDianJson[j].name%></span>
+                                    </div>
+                                    <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].wuDianJson[j].materials.length;n++){%>
+                                               <%=list[i].wuDianJson[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wuDianJson[j].materials.length;n++){%>
+                                               <%=list[i].wuDianJson[j].materials[n].num%><%=list[i].wuDianJson[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-attribute cr-item">
+                                        <span>属性：</span>
+                                        <%if(list[i].wuDianJson[j].desc == 0){%>
+                                        <span>其他</span>
+                                        <%}else{%>
+                                        <span><%=list[i].wuDianJson[j].desc%></span>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="breakfast">
+                <div class="ci-title">
+                    <div class="ci-name">晚餐</div>
+                </div>
+                <ul class="ci-menu">
+                    <li class="ci-content">
+                        <ul class="ci-list">
+                            <%for(var j=0;j < list[i].wanCanJson.length;j++){%>
+                            <li>
+                                <div class="cil-left" id="imgWrap">
+                                    <%if(list[i].wanCanJson[j].imgs.length == 1){%>
+                                    <img class="imgOne" src="<%=list[i].wanCanJson[j].imgs[0]%>" alt="">
+                                    <%}else if(list[i].wanCanJson[j].imgs.length == 2){%>
+                                    <%for(var l=0;l < list[i].wanCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wanCanJson[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                    <%}%>
+                                    <%}else if(list[i].wanCanJson[j].imgs.length > 2){%>
+                                    <%for(var l=0;l < list[i].wanCanJson[j].imgs.length;l++){%>
+                                    <img src="<%=list[i].wanCanJson[j].imgs[l]%>" alt="">
+                                    <%}%>
+                                    <%}%>
+                                </div>
+                                <div class="cil-right">
+                                    <div class="food-name cr-item">
+                                        <span>菜名：</span>
+                                        <span><%=list[i].wanCanJson[j].name%></span>
+                                    </div>
+                                    <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].wanCanJson[j].materials.length;n++){%>
+                                               <%=list[i].wanCanJson[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wanCanJson[j].materials.length;n++){%>
+                                               <%=list[i].wanCanJson[j].materials[n].num%><%=list[i].wanCanJson[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                    </div>
+                                    <div class="food-attribute cr-item">
+                                        <span>属性：</span>
+                                        <span>属性：</span>
+                                        <%if(list[i].wanCanJson[j].desc == 0){%>
+                                        <span>其他</span>
+                                        <%}else{%>
+                                        <span><%=list[i].wanCanJson[j].desc%></span>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </li>
+                            <%}%>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="cookbook-explain">
+                <div class="ce-title">食谱说明</div>
+                <div class="ce-text"><%=list[i].desc%></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnbox">
+        <div class="btn1"  tapmode="click" onclick="closeWin()">返回修改</div>
+        <div class="btn2"  tapmode="click" onclick="addCookBook()">发布</div>
+        <!---->
+    </div>
+    <%}%>
+    <%}%>
+</script>
+<script>
+    var cookJson = [];
+    apiready = function(){
+        cookJson.push(api.pageParam.cookbookJson);
+        addToHtml(cookJson);
+        api.pageParam.cookbookJson.day = formatTimeToDayYang(api.pageParam.cookbookJson.day);
+    };
+    //渲染
+    function addToHtml(results){
+        if(results){
+            var data;
+            for(var i = 0;i < results.length;i++){
+                results[i].sid = getUserInfo().sid;
+                results[i].id = getUserInfo().id;
+                results[i].DAY = formatTimeToDay(results[i].day);
+            }
+            data = {list: results};
+            var html = template('previewTmp', data);
+            document.getElementById('wrap').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }else{
+        }
+    }
+    //添加
+    function addCookBook(){
+
+        api.showProgress({
+            title: '请求中...',
+            modal: false
+        });
+        ajaxGet(addCook,api.pageParam.cookbookJson,function(ret,err){
+            if(ret.success != true){
+                api.hideProgress();
+                toast(ret.msg);
+            }else if(ret.success == true){
+                api.hideProgress();
+                toast('添加成功！');
+            }else{
+                api.hideProgress();
+                toast('添加失败，请稍后重试！');
+            }
+        })
+    };
+
+</script>
+</body>
+</html>

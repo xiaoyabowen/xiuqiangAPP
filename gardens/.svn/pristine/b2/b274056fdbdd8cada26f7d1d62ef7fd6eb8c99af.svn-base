@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>请假</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #FFFFFF;
+			}
+            .vacate{
+                width:100%;
+                padding-top:12px;
+                padding-left:18px;
+                padding-right:18px;
+                box-sizing: border-box;
+            }
+            
+            .end-date,.vacate-type{
+                margin-top:5px;
+            }
+            .start-date,.end-date,.vacate-type{
+                width:100%;
+                height:40px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                padding-top:8px;
+                box-sizing: border-box;
+            }
+            .start-date .float,.end-date .float{
+                height:23px;
+                float:left;
+                /* text-align: center; */
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .vacate-type .tag{
+                height:23px;
+                float:left;
+                text-align: center;
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .start-date .tag,.end-date .tag,.vacate-type .tag{
+                border-right:1px solid #D7D7D7;
+                font-size: 16px;
+                color: #505050; 
+                text-align: right;
+                padding-left:18px;
+                padding-right:18px;
+            }
+            .sd-date,.sd-time,.ed-date,.ed-time{
+                font-size: 14px;
+                color: #C8C8C8;
+                position: relative;
+            }
+            .sd-date,.ed-date{
+                padding-left:18px;
+                padding-right:15px;
+            }
+            .sd-time,.ed-time{
+                float:right;
+                padding-right:38px;
+                line-height: 23px;
+                box-sizing: border-box;
+            }
+            .sd-date>:nth-child(2)>img,.ed-date>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:0px;
+                top:3px;
+            }
+            .sd-time>:nth-child(2)>img,.ed-time>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:18px;
+                top:3px;
+            }
+            .vacate-type .type-info{
+                height:23px;
+                line-height:23px;
+                float:left;
+                padding-left:18px;
+                font-size: 16px;
+                color: #C8C8C8;
+                box-sizing: border-box;
+            }
+            .type-info span{
+                display:block;
+            }
+            .type-info>:nth-child(2){
+                float:right;
+            }
+            @media screen and (max-width: 320px) {
+                .sd-date,.ed-date{
+                    padding-right:10px;
+                }
+                .sd-time,.ed-time{
+                    padding-right:25px;
+                }
+            }
+            .switch-icon{
+                float:right;
+                padding-right:18px;
+                padding-top:3px;
+            }
+            .switch-icon>img{
+                width:9px;
+            }
+            .vacate-type{
+                position: relative;
+            }
+            .vt-list{  
+                position:absolute;
+                right:-7px;
+                top:30px;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:6px 7px;
+                background: #FFFFFF;
+                box-sizing: border-box;
+            } 
+            .vt-list ul li{
+                width:100%;
+                height:29px;
+                text-align: center;                
+                line-height:29px;
+                font-size: 12px;
+                color: #505050;
+                padding-left:11px;
+                padding-right:11px;
+                letter-spacing: 0.16px;
+                box-sizing: border-box;                
+                border-bottom:1px solid #F0F0F0;
+            }
+            .vt-list ul>:nth-last-child(1){
+                border:none;
+            }
+            .vacate-reason{
+                width:100%;
+                height:139px;
+                border:1px solid #D7D7D7;               
+                margin-top:5px;
+                border-radius:4px;
+                box-sizing: border-box;
+            }
+            .vacate-reason>textarea{
+                width:100%;
+                height:100%;
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                color:#505050;
+                padding:8px 18px;
+                line-height: 22px;
+                box-sizing: border-box;
+                overflow-y: scroll;
+            }
+            .submit{
+                width:100%;
+                height:44px;
+                background:#5AC8E1;
+                line-height:44px;
+                text-align: center;
+                font-size:20px;
+                color:#FFFFFF;
+                margin-top:30px;
+                border-radius:4px;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="vacate">
+            <div class="start-date">
+                <div class="tag float">开始日期</div>
+                <div class="sd-date float">
+                   <span>2018.02.01</span>
+                   <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+                <div class="sd-time">
+                    <span>8:00</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+            </div>
+            <div class="end-date">
+                <div class="tag float">结束日期</div>
+                <div class="ed-date float">
+                    <span>2018.02.01</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+                <div class="ed-time">
+                    <span>17:00</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+            </div>
+            <div class="vacate-type">
+                <div class="tag">请假类型</div>
+                <div class="type-info">
+                   <span>病假</span>
+                </div>
+                <div class="switch-icon">
+                    <img src="../../icon/switch.png" alt="">
+                </div>
+                <div class="vt-list">
+                    <ul>
+                        <li>病假</li>
+                        <li>事假</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="vacate-reason">
+                <textarea name="" id="" cols="30" rows="10">请假原因：</textarea>
+            </div>
+            <div class="submit">提交</div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+	</script>
+</html>

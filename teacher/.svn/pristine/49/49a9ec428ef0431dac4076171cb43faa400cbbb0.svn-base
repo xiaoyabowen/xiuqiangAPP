@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>我的学习-照片</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-width: 320px;
+			background-color: #f8f8f8;
+		}
+		.photoList{
+			width: 100%;
+			overflow: hidden;
+			padding: 0 12px;
+			width: 100%;
+			font-size: 0;
+			box-sizing: border-box;
+			background-color: #fff;
+			padding-bottom: 20px;
+		}
+
+		.photoList:after{
+			content: "";
+			display: block;
+			clear: both;
+			height: 0;
+			overflow: hidden;
+			visibility: hidden;
+		}
+		.photoList li{
+			margin-top: 8px;
+			list-style: none;
+			float: left;
+			width: 33.33%;
+			height: 101px;
+			padding: 0 8px;border-radius:4px;
+			box-sizing: border-box;
+			overflow:hidden;
+		}
+		.photoList figure{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			margin: 0;
+			/*padding-bottom: 100%;*/
+			/*background-position: center;*/
+			background-repeat: no-repeat;
+			background-size: cover;
+			border-radius: 4px;
+		}
+		.photoList figure a{
+			display: block;
+			position: absolute;
+			width: 100%;
+			top: 0;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body>
+<div id="main" >
+
+			<!--<figure style="background-image:url(../../image/mystudy06.jpg)">-->
+			<!--<a href="javascript:;"></a>-->
+			<!--</figure>-->
+
+</div>
+</body>
+
+
+<script id="scriptDiv1" type="text/html">
+	<ul class="photoList clearfix" id="outline">
+	<%for(var i = 0;i < list.length; i++){%>
+	<!--FIXME 要调整改页面结构，否则无法适用裁图-->
+	<li tapmode="itemOn" onclick="gotoDetail('<%=list[i].id%>')">
+		<img src="<%=list[i].imgs[0]%>" style="<%=list[i].styleObjs[0]%>"
+			 onclick="gotoDetail('<%=list[i].id%>')" alt=""/>
+	</li>
+	<%}%>
+	</ul>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript" src="../../script/business.js"></script>
+<script>
+    var allResults = {};
+
+    apiready = function (){
+        var pathId=api.pageParam.id
+        new datalistModel(addDataToHtml,documentGetDocList,{pathId:pathId,docType:3},10,5,100,true);
+    };
+
+    function addDataToHtml(results,append){
+        if(isNotBlack(results.length)){
+            for(var i = 0;i< results.length;i++){
+                allResults[results[i].id] = results[i];
+                for(var j=0;j<results[i].imgs.length;j++){
+                    if(results[i].imgs[j]){
+                        //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                        var domWidth = api.winWidth;
+                        var width = domWidth*0.3333;
+                        var height = domWidth*0.3333;
+                        //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                        var obj = getImgByThisSize(results[i].imgs[j],width,height);
+                        if(!results[i].styleObjs){
+                            results[i].styleObjs=[];
+                        }
+                        results[i].styleObjs[j] = obj.style;
+                    }
+                }
+            }
+        }
+        var data = {list: results};
+        var html = template('scriptDiv1',data);
+        if (append) {
+            var div = document.createElement("div");
+            div.innerHTML = html;
+            document.getElementById('main').appendChild(div);
+        } else {
+            document.getElementById('main').innerHTML = html;
+        }
+        api.parseTapmode();
+    }
+
+
+
+    //详情页面
+    function gotoDetail(id){
+        allResults[id].pathName=api.pageParam.pathName;
+        openNewWindow("myStudy_detail","myStudy_detail.html",allResults[id])
+    }
+
+</script>
+</html>

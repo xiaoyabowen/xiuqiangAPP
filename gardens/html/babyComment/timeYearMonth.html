@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link rel="stylesheet" href="../../css/mui.picker.all.css">
+    <title>宝宝评语-全部</title>
+    <style>
+        body{
+            background:rgba(0,0,0,0.1);
+        }
+        .rt-calendar{
+            width:91px;
+            height:23px;
+            line-height: 25px;
+            background: #FFFFFF;
+            box-sizing: border-box;
+            position: absolute;
+            bottom:10.5px;
+            right:15px;
+            border-radius:4px;
+        }
+        .calendar-info{
+            width:100%;
+            height:100%;
+            padding-left:6px;
+            padding-right:6px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .calendar-info .current-time{
+            float:left;
+        }
+        .calendar-info .c-icon{
+            float:right;
+        }
+        .rt-calendar .calendar-info .current-time{
+            font-size: 10px;
+            color: #5AC8E1;
+            letter-spacing: 0.14px;
+        }
+        .rt-calendar>.calendar-info>:nth-child(2)>img{
+            width:15px;
+            height:15px;
+        }
+        .nav-list{
+            width:100%;
+            height:66px;
+            padding:12px 8px;
+            box-sizing: border-box;
+        }
+        .nav-list .nav-info{
+            width:100%;
+            height:42px;
+            border-radius:4px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+        }
+        .nav-list .nav-info .selected{
+            color:#5AC8E1 !important;
+            background: url('../../icon/selected-bg.png');
+            background-repeat:no-repeat;
+            background-position:center bottom;
+        }
+        .nav-list .nav-info .fl-item{
+            width:33.33%;
+            height:42px;
+            float:left;
+            color: #A3A3A3;
+            box-sizing: border-box;
+        }
+        .nav-list .nav-info .fl-item>:nth-child(1){
+            width:100%;
+            height:30px;
+            line-height: 30px;
+            margin-top:6px;
+            text-align: center;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .nav-list .nav-info .written-comment>:nth-child(1){
+            border-left: 1px solid #F0F0F0;
+            border-right: 1px solid #F0F0F0;
+        }
+        .mui-dtpicker-header button:last-child{
+            background: #5AC8E1;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="beginM">1111111111</div>
+<div class="current-time" id="YearMonth"><span id="year">2018</span>年<span id="month">4</span>月</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker_01.all.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        var cityResult4
+        apiready=function () {
+//            cityResult4=api.pageParam.cityResult4;
+        }
+        var YearMonth;
+        var cityPicker4 = new mui.DtPicker({
+            type:"month",
+        });
+        var showCityPickerButton2 = document.getElementById('beginM');
+        cityResult4 = document.getElementById('YearMonth');
+        var Year=document.getElementById('year');
+        var Month=document.getElementById('month');
+        showCityPickerButton2.addEventListener('tap', function(event) {
+            cityPicker4.show(function(items) {
+                Year.innerHTML = items.text.split("-")[0];
+                Month.innerHTML=items.text.split("-")[1];
+                YearMonth=items.value.split("-").join("");
+            });
+        }, false);
+
+        setTimeout(function () {
+            cityPicker4.show(function(items) {
+                Year.innerHTML = items.text.split("-")[0];
+                Month.innerHTML=items.text.split("-")[1];
+                YearMonth=items.value.split("-").join("");
+            });
+        },3000)
+
+    </script>
+</body>
+</html>

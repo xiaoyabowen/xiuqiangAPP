@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝评语</title>
+    <style>
+        .bg{
+            width:100%;
+            height:64px;
+            box-sizing: border-box;
+        }
+        .bg>img{
+            width:100%;
+            height:64px;
+        }
+        .comment-list{
+            margin-top:10px;
+        }
+        .comment-detail{
+            width:100%;
+            height:auto;
+            background:#FFFFFF;
+            padding-left:20px;
+            padding-right:20px;
+            padding-bottom:14px;                        
+            box-sizing: border-box;
+            border-bottom:1px solid #EFEFEF;
+            position: relative;
+        }
+        .comment-detail>.teacher-info{
+            width:100%;
+            height:auto;
+            padding-top:20px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-left{
+            float:left;
+        }
+        .comment-detail>.teacher-info .info-left>img{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+        }
+        .comment-detail>.teacher-info .info-right{
+            width:100%;
+            padding-left:44px;
+            font-size:12px;
+            color:#999999;
+            letter-spacing: 0.16px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-right .teacher-name{
+            line-height:20px;
+        }
+        .comment-detail>.teacher-info .info-right .comment-time>:nth-child(2){
+            margin-left:4.5px;
+        }
+        .comment-detail .comment-content{
+            clear:left;
+            margin-top:10px;
+        }
+        .comment-detail .comment-content .teacher-text{
+            width:100%;
+            padding:10px 12px;
+            font-size: 16px;
+            color: #505050;
+            letter-spacing: 0.69px;
+            line-height: 22px;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .teacher-text textarea{
+            line-height: 24px;
+            outline: none;
+        }
+        .comment-detail .comment-content .parent-reply{
+            width:100%;
+            height:auto;
+            margin:0 auto;
+            box-sizing: border-box;
+        }
+        .reply{
+            width:100%;
+            padding:12px;
+            font-size: 12px;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+            margin-top:12px;
+            box-sizing: border-box;
+        }
+        .reply-list>:not(:nth-child(1)){
+            margin-top:6px;
+        }
+        .reply-list li p{
+            color:#151515;
+        }
+        .reply-list li p .name{
+            color:#B4B4B4 !important;
+        }
+        .comment-operate{
+            height:32px;
+        }
+        .c-reply>img{
+            width:17px;
+            height:16px;
+            position:absolute;
+            right:63px;
+            bottom:14px;
+        }
+        .c-delete>img{
+            width:16px;
+            height:16px;
+            position:absolute;
+            right:20px;
+            bottom:14px;
+        }
+        .teacher-name>span{
+            font-size:14px;
+            color:#333333;
+        }
+        .voice-msg{
+            width:68px;
+            height:35px;
+            background: #F8F8F8;
+            border-radius:10px;
+            box-sizing: border-box;
+            background-image:url('../../icon/voice01.png');
+            background-repeat:no-repeat;
+            background-size:15px;
+            background-position:left 12px center;
+            /* display:inline-block; */
+            float:left;
+        }
+        .second{
+            line-height:35px;
+            font-size: 16px;
+            color: #AAAAAA;
+            margin-left:6px;
+        }
+        .reply-name{
+            float:left;
+            font-size: 12px;
+            color: #666666;
+            line-height:35px;
+        }
+        .parent-voice{
+            background: #5ac8e1;
+            background-image:url('../../icon/voice02.png');
+            background-repeat:no-repeat;
+            background-size:15px;
+            background-position:left 12px center;
+        }
+        .voice-info{
+            padding:10px 15px !important;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <img src="../../image/commentbg.png" alt="">
+    </div>
+    <ul class="baby-comment" id="concent">
+        <li class="comment-detail">
+            <div class="teacher-info">
+                <div class="info-left">
+                    <img src="../../image/teacherAvatar.png" alt="">
+                </div>
+                <div class="info-right">
+                    <div class="teacher-name">
+                        <span>许友珍老师</span>
+                    </div>
+                    <div class="comment-time">
+                        <span class="c-date">2018.06.07</span>
+                        <span class="c-time">11:13:34</span>
+                    </div>
+                </div>
+            </div>
+            <div class="comment-content">
+                <div class="teacher-text">
+                    <p>于利宏表现的特别好，很早到教室，还帮同学打扫卫生，下周继续努力。</p>
+                    <!--<textarea style="list-style: none;width: 100%;outline:none;" placeholder="于利宏表现的特别好，很早到教室，还帮同学打扫卫生，下周继续努力。"></textarea>-->
+                </div>
+
+                <div class="reply">
+                    <ul class="reply-list">
+                        <li>
+                            <p>
+                                <span class="name">于立宏爸爸：</span>
+                                愿孩子每天开开心心，健康成长
+                            </p>
+                            <p></p>
+                        </li>
+                        <li>
+                            <p>
+                                <span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>
+                                孩子的开心就是我们最大的收获
+                            </p>
+                            <p></p>
+                        </li>
+                        <li>
+                            <p>
+                                <span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>
+                                孩子太乖未必是好事，只是在顺从抚育者的需要。
+                            </p>
+                            <p></p>
+                        </li>
+                        <li>
+                            <p>
+                                <span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>
+                                的确是。
+                            </p>
+                            <p></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="comment-operate">
+                <div class="c-reply" onclick="initCheckBox()">
+                    <img src="../../icon/grayComment.png" alt="">
+                </div>
+                <div class="c-delete">
+                    <img src="../../icon/grayDelete.png" alt="">
+                </div>
+            </div>
+        </li>
+
+        <li class="comment-detail">
+            <div class="teacher-info">
+                <div class="info-left">
+                    <img src="../../image/teacherAvatar.png" alt="">
+                </div>
+                <div class="info-right">
+                    <div class="teacher-name">
+                        <span>许友珍老师</span>
+                    </div>
+                    <div class="comment-time">
+                        <span class="c-date">2018.06.07</span>
+                        <span class="c-time">11:13:34</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="comment-list">
+                <li class="comment-content">
+                    <div class="teacher-text voice-info">
+                        <span class="voice-msg"></span>
+                        <span class="second">3''</span>
+                    </div>
+                </li>
+
+                <li class="comment-content">
+                    <div class="teacher-text  voice-info">
+                        <span class="reply-name">于利宏爸爸：</span>
+                        <span class="voice-msg parent-voice"></span>
+                        <span class="second">3''</span>
+                    </div>
+                </li>
+
+                <li class="comment-content">
+                    <div class="teacher-text  voice-info">
+                        <span class="reply-name">许友珍老师回复于利宏爸爸：</span>
+                        <span class="voice-msg"></span>
+                        <span class="second">3''</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="comment-operate">
+                <div class="c-reply">
+                    <img src="../../icon/grayComment.png" alt="">
+                </div>
+                <div class="c-delete">
+                    <img src="../../icon/grayDelete.png" alt="">
+                </div>
+            </div>
+        </li>
+    </ul>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript0" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+
+</body>
+</html>

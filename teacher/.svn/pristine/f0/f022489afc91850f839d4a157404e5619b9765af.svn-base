@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝健康-每天体检</title>
+    <style>
+        body{
+            height:100%;
+            background: #F8F8F8;
+        }
+        .exam{
+            width:100%;
+            padding:0px 8px 12px;
+            box-sizing: border-box;
+        }
+        .exam-list{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius:4px;
+        }
+        .list-title{
+            width:100%;
+        }
+        .exam-list .el{
+            width:100%;
+            border-bottom:1px solid #F2F2F2;
+            padding:12px 18px;
+            box-sizing: border-box;
+        }
+        .item-list{
+            width:100%;
+            /* padding-left:18px;
+            padding-right:33px; */
+            box-sizing:border-box;
+        }
+        .list-title>:nth-child(1){
+            font-size:14px;
+            color:#333333;
+            line-height:20px;
+        }
+        .exam-date,.exam-time{
+            font-size:14px;
+            color:#333333;
+            line-height:20px;
+        }
+        .charge-people{
+            font-size:14px;
+            color:#333333;
+            float:right;
+            line-height:20px;
+            letter-spacing: 0.26;
+        }
+        .item-list{
+            margin-top:12px;
+            display:-webkit-box;
+            display:flex;
+            justify-content: space-between;
+            white-space: nowrap;
+        }
+        .item-list li>:nth-child(1){
+            /* width:46px; */
+            /* height:21px;*/
+            line-height:17px; 
+            font-size:12px;
+            color:#6F6F6F;
+            text-align: center;
+            /* border: 1px solid #5AC8E1; */
+            border-radius: 4px;
+            box-sizing:border-box;
+        }
+        .synthesize-comment>:nth-child(1){
+            width:68px !important;
+        }
+        .item-list li>:nth-child(2){
+            width:62px;
+            margin:0 auto;
+            height:21px;
+            font-size:12px;
+            color:#666666;
+            text-align: center;
+            margin-top:12px;
+            line-height:21px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            padding-left:6px;
+            padding-right:6px;
+            box-sizing: border-box;
+        }
+        .item-list li .unnormal{
+            color:#D4602C;
+            border:1px solid #D4602C;
+        }
+        .unnormal-data{
+            font-size:14px;
+            color:#D4602C;
+            text-align: center;
+            margin-top:14px;
+        }
+        .edit{
+            text-align: right;
+            margin-top:12px;
+        }
+        .edit>img{
+            width:17px;
+            height:18px;
+        }
+        .warn{
+            color:#D4602C !important;
+        }
+        .unnormal-data{
+            background: url('../../icon/warn.png');
+            background-size:15px;
+            background-repeat:no-repeat;
+            background-position:left 6px center; 
+        }
+       .unnormal-data>span{
+            padding-left:22px;
+        }
+        .remark{
+            font-size:12px;
+            line-height:17px;
+            padding:12px 0;
+            box-sizing: border-box;
+        }
+        .remark>:nth-child(1){
+            color:#333333;
+         }
+        .remark>:nth-child(2){
+            color:#666666;
+            text-align: justify;
+        }
+        .mc_detail{
+            width:100%;
+            padding-left:54px;
+            padding-right:18px;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            white-space:nowrap;
+        }
+        .mc_detail li{
+            font-size:12px;
+            color:#333333;
+            text-align: center;
+            margin-top:12px;
+        }
+        .mc_detail li>:nth-child(2){
+            width:60px;
+            height:21px;
+            text-align: center;
+            line-height:21px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            margin:0 auto;
+            box-sizing: border-box;
+            margin-top:12px;
+        }
+        .mc_detail li>:nth-child(3){
+            margin-top:12px;
+        }
+        .mc_detail .unnormal{
+            color:#D4602C;
+        }
+        .mc_detail .unnormal>:nth-child(2){
+            border:1px solid #D4602C;
+        }
+        .mc_detail .unnormal>:nth-child(3){
+            padding-left:12px;
+            background: url(../../icon/warn.png);
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+    </style>
+</head>
+<body>
+<div class="exam">
+    <ul class="exam-list" id="YangcheckL">
+    </ul>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="YangcheckH">
+    <%for(var i=0;i<list.length;i++){%>
+        <li class="el">
+            <div class="list-title">
+                <span>检查时间：</span>
+                <span class="exam-date"><%=list[i].ctime%></span>
+                <span class="charge-people"><%=list[i].teacherName%></span>
+            </div>
+            <ul class="item-list">
+                <%if(list[i].temperatureStatus == 1){%>
+                    <li class="body-tem">
+                        <div class="warn">体温</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data">
+                            <span><%=list[i].temperatureAnomalies%></span>
+                        </div>
+                    </li>
+                <%}else if(list[i].temperatureStatus == 0){%>
+                    <li>
+                        <div>体温</div>
+                        <div>未见异常</div>
+                        <div></div>
+                    </li>
+                <%}%>
+                <%if(list[i].fingernailStatus == 1){%>
+                    <li class="body-tem">
+                        <div class="warn">指甲</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data">
+                            <span><%=list[i].fingernailAnomalies%></span>
+                        </div>
+                    </li>
+                <%}else if(list[i].fingernailStatus == 0){%>
+                    <li>
+                        <div>指甲</div>
+                        <div>未见异常</div>
+                        <div></div>
+                    </li>
+                <%}%>
+                <%if(list[i].oralStatus== 1){%>
+                    <li class="body-tem">
+                        <div class="warn">口腔</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data">
+                            <span><%=list[i].oralAnomalies%></span>
+                        </div>
+                    </li>
+                <%}else if(list[i].oralStatus == 0){%>
+                    <li>
+                        <div>口腔</div>
+                        <div>未见异常</div>
+                        <div></div>
+                    </li>
+                <%}%>
+                <li>
+                   <img src="../../icon/reply.png" style="width:20px;height:20px;margin-top: 4em" onclick="updatejiank('<%=list[i].id%>')">
+                </li>
+            </ul>
+            <%if(list[i].summarize){%>
+                <div class="remark">
+                    <p>备注</p>
+                    <p><%=list[i].summarize%></p>
+                </div>
+            <%}%>
+        </li>
+    <%}%>
+</script>
+    <script>
+        var uid;
+        var BabyName;
+        apiready=function(){
+
+           uid = api.pageParam.uid;
+            BabyName = api.pageParam.name;
+            new datalistModel(addDataToHtml,DayCheckgetChildDayCheckList,{uid:uid},5,5,100,true);
+
+        };
+
+        function addDataToHtml(results,append){
+            if(results.length != 0){
+                for(var i=0;i<results.length;i++){
+                    results[i].ctime = formatTimeToDate(results[i].ctime);
+
+                }
+            }
+            var data = {list: results};
+            var html = template('YangcheckH',data);
+            if (append){
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('YangcheckL').appendChild(div);
+            } else {
+                document.getElementById('YangcheckL').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+
+        function updatejiank(id){
+            openNewWindow("updataBabyHealth","updataBabyHealth.html",{ID:id});
+        }
+    </script>
+</body>
+</html>

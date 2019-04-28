@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝评语</title>
+    <style>
+        #topbar{
+            position:relative;
+        }
+        .add-comment>img{
+            width:22px;
+            height:22px;
+            position:absolute;
+            right:15px;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="topbar" >
+        <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+            <img src="../../icon/back.png">
+        </div>
+        <div>宝宝评语</div>
+
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+
+    </script>
+</body>
+</html>

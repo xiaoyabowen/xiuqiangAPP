@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>人员审核</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+                min-width: 320px;
+                background: #fff;
+            }
+            .main{
+                padding:0 18px;
+            }
+            .main_title{height:44px;line-height:44px;font-size:14px;color:#333;}
+            .main p{
+                height:20px;line-height: 20px;border:1px solid #d7d7d7;border-radius:4px;overflow:hidden;position:relative;color:#333;padding:10px 0;margin-bottom:5px;
+            }
+            .list_title{
+                width:25%;height:20px;border-right:1px solid #d7d7d7;margin-left:5%;float:left;
+            }
+            .list_text{
+                width:65%;height:20px;line-height:20px;overflow:hidden;float:left;margin-left:10px;
+            }
+            .main p img{
+                width:9px;height:15px;position:absolute;right:18px;top:50%;
+                margin-top: -7px;
+            }
+            .bot_bom{
+                padding:15px 10px;text-align:center;
+            }
+            .bot_bom button{
+                width:45%;height:44px;line-height:44px;color:#fff;background:#5AC8E1;box-shadow: 0 2px 4px 0 #87B2BE;border-radius: 4px;margin:0 5px;outline:none;
+            }
+            #RefusalMain{
+                width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.3);display:none;
+            }
+            #Refusal{
+                width:229px;height:250px;background: #FFFFFF;border-radius: 4px;position:absolute;top:20%;left:50%;margin-left:-114px;
+            }
+            #Refusa_text{
+                width:195px;height:134px;border: 1px solid #D8D8D8;border-radius: 4px;margin:12px 11px 0 11px;resize:none;padding:5px;
+            }
+            #Refusal p{
+               height:44px;margin-top:20px;text-align:center;
+            }
+            #Refusal p button{
+                width:112px;height:44px; background:#5AC8E1;border-radius: 4px;color:#fff;font-size:16px;outline: none;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="main">
+            <div class="main_title">教职工资料</div>
+            <p>
+                <span class="list_title">姓名</span>
+                <span class="list_text name"></span>
+            </p>
+            <p>
+                <span class="list_title">性别</span>
+                <span class="list_text sex"></span>
+                <!--<img src="../../icon/switch.png" alt=""/>-->
+            </p>
+            <p>
+                <span class="list_title">身份证号</span>
+                <span class="list_text idCard"></span>
+            </p>
+            <p>
+                <span class="list_title">部门</span>
+                <span class="list_text did"></span>
+                <!--<img src="../../icon/switch.png" alt=""/>-->
+            </p>
+            <p>
+                <span class="list_title">岗位</span>
+                <span class="list_text positionId"></span>
+                <!--<img src="../../icon/switch.png" alt=""/>-->
+            </p>
+            <p>
+                <span class="list_title">手机号</span>
+                <span class="list_text phone"></span>
+            </p>
+            <p>
+                <span class="list_title">邮箱</span>
+                <span class="list_text eMail"></span>
+            </p>
+            <p>
+                <span class="list_title">毕业院校</span>
+                <span class="list_text school"></span>
+            </p>
+            <p>
+                <span class="list_title">居住地</span>
+                <span class="list_text place"></span>
+            </p>
+            <p>
+                <span class="list_title">毕业时间</span>
+                <span class="list_text graduationDate"></span>
+            </p>
+            <p>
+                <span class="list_title">入职时间</span>
+                <span class="list_text workingDate"></span>
+            </p>
+            <div class="bot_bom">
+                <button onclick="refuse()">拒绝</button>
+                <button onclick="adopt()">通过</button>
+            </div>
+        </div>
+        <div id="RefusalMain">
+            <div id="Refusal">
+                <textarea name="" id="Refusa_text" cols="30" rows="10" placeholder="请输入拒绝原因..."></textarea>
+                <p>
+                    <button id="qsdljc">保存</button>
+                </p>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript">
+    var id;
+    apiready = function(){
+        id = api.pageParam.id;
+        ajaxGetRelease(backendgetInformations,{uid:id},function(ret,err){
+
+            // return
+            if(ret.success == true){
+                $(".name").html(ret.data.name);
+                if(ret.data.sex == 1){
+                    $(".sex").html("男");
+                }else if(ret.data.sex == 2){
+                    $(".sex").html("女");
+                }else if(ret.data.sex == 3){
+                    $(".sex").html("未知");
+                }
+                $(".idCard").html(ret.data.idCard);
+                $(".did").html(ret.data.departmentName);   //部门
+
+
+                $(".positionId").html(ret.data.roleName);      //岗位
+                $(".positionId").html(ret.data.positionId);
+                $(".phone").html(ret.data.phone);
+                $(".school").html(ret.data.school);
+                $(".eMail").html(ret.data.mail);
+                $(".place").html(ret.data.place);
+                $(".graduationDate").html(formatTimeToDay(ret.data.graduationDate));
+                $(".workingDate").html(formatTimeToDay(ret.data.workingDate));
+            }
+        })
+    }
+    //拒绝
+    function refuse(){
+        document.getElementById("RefusalMain").style.display="block";
+
+        $("#qsdljc").click(function(){
+            var ext = $("#Refusa_text").val();
+            if(ext !=""){
+                ajaxGet(backupdateBackendUser,{id:id,checkStatus:2,ext:ext},function(ret,err){
+                    if(ret.success){
+                        toast("驳回成功！");
+                        api.execScript({
+                            name:'ExamineList',
+                            frameName: 'ExamineList_body',
+                            script:'apiready()'
+                        });
+                        setTimeout(function(){
+                            closeWin();
+                        },500);
+                    }else{
+                        toast("设置失败，请重试！")
+                    }
+                })
+            }else{
+                toast("请输入拒绝原因！");
+            }
+
+        })
+    }
+    //通过
+    function adopt(){
+//        alert(id);
+        ajaxGet(backupdateBackendUser,{id:id,checkStatus:1},function(ret,err){
+            if(ret.success){
+                toast("设置成功！");
+                api.execScript({
+                    name:'ExamineList',
+                    frameName: 'ExamineList_body',
+                    script:'apiready()'
+                });
+                closeWin();
+                /*setTimeout(function(){
+
+                },100);*/
+            }else{
+                toast("设置失败，请重试！")
+            }
+        })
+    }
+</script>
+</html>

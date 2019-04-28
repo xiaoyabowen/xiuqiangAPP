@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>我的设置</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<link rel="stylesheet" href="../../css/mui.min.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			text-align: center;
+			background: #f2f2f2;
+		}
+		.list{
+			position: relative;
+			width: 100%;
+			background: #fff;
+			border-top: 10px solid #edecee;
+		}
+		.mui-table-view:before{background-color:#fff}
+		.list li{
+			width: 90.4%;
+			height: 52px;
+			line-height: 52px;
+			font-size: 16px;
+			color: #505050;
+			letter-spacing: 0.33px;
+			margin: 0 auto;
+			text-align: left;
+		}
+		.list li:first-child{
+			border-bottom: 1px solid #F0F0F0;
+		}
+		.mui-table-view-cell{
+			padding: 0;
+		}
+		.mui-table-view-cell>.mui-switch{
+			line-height: 16px;
+			right: 0;
+			width: 26px;
+			height: 16px;
+			border-radius: 16px;
+		}
+		.mui-switch .mui-switch-handle{
+			width: 13px;
+			height: 13px;
+			top: -1px;
+		}
+		.mui-switch:before{
+			content: '';
+			display: none;
+		}
+		.mui-table-view .mui-switch.mui-active {
+			border-color: #5AC8E1;
+			width: 26px;
+			height: 16px;
+			background: #5AC8E1;
+		}
+		.mui-table-view:after{
+			height: 0;
+		}
+		.exit{
+			position: relative;
+			box-sizing: initial;
+			width: 90.4%;
+			padding: 0 4.8%;
+			height: 52px;
+			line-height: 52px;
+			background: #fff;
+			font-size: 16px;
+			color: #505050;
+			letter-spacing: 0.33px;
+			margin: 10px auto 0;
+			text-align: left;
+		}
+		.next{
+			/*position: absolute;*/
+			/*right: 11px;*/
+			/*top: 13px;*/
+			width: 24px;
+			height: 26px;
+			float: right;
+			margin-top: 13px;
+		}
+		.mui-table-view-cell.mui-active{
+			background-color: #fff !important;
+		}
+		.mui-active{
+			background-color: #fff;
+		}
+		.popup{
+			width: 100%;
+			height:100%;
+			position:fixed;
+			background: rgba(0,0,0,0.30);
+			top:0;
+			display:none;
+		}
+		.popupbox{
+			width:229px;
+			height:137px;
+			border-radius: 4px;
+			margin:140px auto 0;
+			background: #FFFFFF;
+			box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+		}
+		.popupbox div:first-child{
+			padding-top: 32px;
+			font-family: PingFang-SC-Regular;
+			font-size: 14px;
+			color: #333333;
+			letter-spacing: 0.29px;
+			text-align: center;
+		}
+		.popupbox div:last-child{
+			background: #5AC8E1;
+			border-radius: 4px;
+			margin: 20px auto 0;
+			width:112px;
+			height:44px;
+			line-height: 44px;
+			font-family: PingFangSC-Regular;
+			font-size: 16px;
+			color: #FFFFFF;
+			letter-spacing: 0.33px;
+		}
+		.mui-table-view-cell>.mui-switch{
+			width: 44px;
+			height: 20px;
+		}
+		.mui-switch .mui-switch-handle{
+			width: 17px;
+			height: 17px;
+		}
+		.mui-table-view .mui-switch.mui-active{
+			width: 44px;
+			height: 20px;
+		}
+		.amendPassword{border-bottom: 1px solid #F0F0F0;}
+
+		/*消息提醒开关样式*/
+		#div1{
+			width: 44px;
+			height: 20px;
+			border-radius: 50px;
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+		#div2{
+			width: 18px;
+			height: 18px;
+			border-radius: 50px;
+			position: absolute;
+			background: #fff;
+		}
+		.open1{
+			background: #5AC8E1;
+		}
+		.open2{
+			top: 1px;
+			right: 1px;
+		}
+		.close1{
+			background: #D8D8D8;
+			border-left: transparent;
+		}
+		.close2{
+			left: 1px;
+			top: 1px;
+		}
+
+	</style>
+</head>
+<body id="body" style="display: none;">
+<ul class="mui-table-view list">
+	<li tapmode="itemOn" onclick="chPhone()">更换手机号<img class="next" src="../../icon/next.png" alt="" /></li>
+	<li tapmode="itemOn" class="amendPassword" onclick="amendPassword()">更换密码<img class="next" src="../../icon/next.png" alt="" /></li>
+	<li class="mui-table-view-cell clickDisabled" style="display: flex;">
+		<span style="flex: 1;">接受消息提醒</span>
+		<!--<div id="status" class="mui-switch">
+            <div class="mui-switch-handle mui-disabled" id="infoStatus" onclick="selectSubTask()"></div>
+        </div>-->
+		<div id="div1" class="open1">
+			<div id="div2" class="open2" onclick="selectSubTask()"></div>
+		</div>
+	</li>
+</ul>
+<div class="exit"  onclick="logout()">退出<img class="next" src="../../icon/next.png" alt="" /></div>
+<div class="popup" id="changePhoto">
+	<div class="popupbox">
+		<div >确定要退出此账号吗</div>
+		<div onclick="exit()">
+			退出
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+
+    apiready=function () {
+        // alert(JSON.stringify(getUserInfo()))
+        ajaxGet(getMyInformations,{uid:getUserInfo().id},function (ret,err) {
+
+            if(ret.data && ret.success){
+                type=ret.data.remindStatus;
+                if(ret.data.remindStatus==0){
+                    div1.className="open1";
+                    div2.className="open2";
+                }else if(ret.data.remindStatus==1){
+                    div1.className="close1";
+                    div2.className="close2";
+
+                }
+                document.getElementById("body").style.display = "block";
+            }
+
+        })
+    }
+
+    //开启消息提醒
+    //全部开启
+    var type;
+    function selectSubTask() {
+        // 开关js
+        var div2=document.getElementById("div2");
+        var div1=document.getElementById("div1");
+        div1.className=(div1.className=="close1")?"open1":"close1";   //关闭状态
+        div2.className=(div2.className=="close2")?"open2":"close2";		//开启状态
+        // 开关结束
+        if(type == 0){
+            ajaxGet(CommentRemindStatus,{remindStatus:1},function (ret,err) {
+                if(ret && ret.success){
+                    toast('已关闭消息提醒')
+                    type=1;
+                    api.accessNative({
+                        name: 'userlogin',
+                        extra: {
+                            open:type
+                        }
+                    });
+                }
+            })
+
+        }else if(type == 1){
+            ajaxGet(CommentRemindStatus,{remindStatus:0},function (ret,err) {
+                if(ret && ret.success){
+                    toast('已开启消息提醒');
+                    type=0;
+                    api.accessNative({
+                        name: 'userlogin',
+                        extra: {
+                            open:type
+                        }
+                    });
+                }
+            })
+        }
+
+    }
+
+    //退出登录
+    function logout() {
+        document.getElementById('changePhoto').style.display = 'block';
+    }
+    //关闭遮罩层
+    document.getElementById('changePhoto').onclick=function(){
+        document.getElementById('changePhoto').style.display = 'none';
+    }
+
+
+    //退出登录
+    function exit(){
+    	api.showProgress();
+    	api.closeWin({
+        	name:"main"
+        })
+        stopEventBubble();
+        setUserInfo("");
+        api.accessNative({
+            name: 'LoggedOut'
+        });
+//      api.execScript({
+//          name:rootWindowName,
+//          script: "apiready()"
+//      });
+		openNewWindow("login","../RegisterLogin/login.html",{},{bgColor : "widget://image/lrbg02.png",slidBackEnabled:false})
+        api.hideProgress();
+        document.getElementById('changePhoto').style.display = 'none';
+        setTimeout(function(){
+        	closeWin();
+        	api.closeWin({
+	        	name:"main"
+	        })
+        },500)
+    }
+
+
+
+    //更换手机号
+    function chPhone(){
+        openNewWindow('setphone','./setphone.html',{});
+    }
+    function amendPassword() {
+        openNewWindow('setPassword','setPassword.html',{})
+    }
+</script>
+</html>

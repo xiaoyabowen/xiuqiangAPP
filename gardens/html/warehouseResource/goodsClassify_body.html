@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>物品分类</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            .resource-detail{
+                width:100%;
+                padding-top:12px;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .rd-info{
+                width:100%;
+                background: #FFFFFF;
+                padding-left:18px;
+                padding-right:18px;
+                padding-top:12px;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            table{
+                width:100%;
+            }
+            .t-title{
+                width:100%;
+                height:44px;
+                background: #EBFBFF;
+                border-radius: 4px;
+            }
+            .t-title th{
+                width:20%;
+                font-size: 12px;
+                color: #505050;
+                font-weight:normal;
+                letter-spacing: 0.19px;
+            }
+            .t-content{
+                height:32px;
+                border-bottom: 1px solid #F0F0F0;
+            }
+            td{
+                text-align: center;
+                font-size: 12px;
+                color: #505050;
+                letter-spacing: 0.17px;
+            }
+
+            .total-assets{
+				width:100%;
+				height:50px;
+				 background: #5AC8E1;
+				text-align: center;
+				line-height:50px;
+				box-sizing: border-box;
+				margin-top:8px;
+				font-size:16px;
+                border-top: 1px solid #E6E6E6;
+                border-bottom: 1px solid #E6E6E6;                
+			}
+			.total-assets>:nth-child(1){
+				color:#fff;
+			}
+			.total-assets>:nth-child(2){
+				color:#fff;
+				margin-left:15px;
+			}
+
+            .rd-content>:nth-child(1){
+                padding-left:12px;
+            }
+            .rd-content>:nth-child(4){
+                padding-right:12px;
+            }
+		</style>
+	</head>
+	<body id="body">
+        <div class="resource-detail" id="listDom">
+
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="listScript">
+        <div class="resource-detail">
+            <div class="rd-info">
+                <table>
+                    <thead>
+                    <tr class="t-title">
+                        <th>物品</th>
+                        <th>型号</th>
+                        <th>数量</th>
+                        <th>单位</th>
+                        <th>总价(元)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <%for(var i=0;i<list.itemInfos.length;i++){%>
+
+                    <tr class="t-content" onclick="lookIndex('<%=list.itemInfos[i].id%>','<%=list.itemInfos[i].unit%>','<%=list.itemInfos[i].totalNum%>','<%=list.itemInfos[i].version%>','<%=list.itemInfos[i].totalPrice%>','<%=list.itemInfos[i].name%>')">
+                        <td><%=list.itemInfos[i].name%></td>
+                        <td><%=list.itemInfos[i].version%></td>
+                        <td><%=list.itemInfos[i].totalNum%></td>
+                        <td><%=list.itemInfos[i].unit%></td>
+                        <td><%=list.itemInfos[i].totalPrice%></td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total-assets">
+                <span>类别资产总额</span>
+                <span><%=list.totalPrice%>元</span>
+            </div>
+        </div>
+    </script>
+	<script>
+        apiready = function(){
+            ajaxGet(getWarehouseClassList,{sid:getUserInfo().sid,kid:api.pageParam.kid,wid:api.pageParam.wid},function (ret,err) {
+                if(ret.success){
+                    addDataToHtml(ret);
+                }
+            });
+        };
+        function addDataToHtml(results){
+            if(results){
+                var data = {list: results.data};
+                al(data);
+                var html = template('listScript',data);
+                document.getElementById('listDom').innerHTML = html;
+                api.parseTapmode();
+                document.getElementById("body").style.display = "block";
+            }
+        }
+        //查看详情
+        function lookIndex(ItemInfoId,unit,num,version,totalP,name) {
+            openNewWindow('viewDetails','viewDetails.html',{itemInfoId:ItemInfoId,unit:unit,num:num,version:version,totalP:totalP,name:name});
+        }
+	</script>
+</html>

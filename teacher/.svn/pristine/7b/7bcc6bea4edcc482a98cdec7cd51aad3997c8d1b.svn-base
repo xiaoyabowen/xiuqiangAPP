@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			#topbar{
+				height:44px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" onclick="closeWin()">
+		        <img src="../../icon/back.png">
+		    </div>
+	    	<div>回复评论</div>
+		</div>
+		<div id="header">
+			<div class="comment-like">
+				<div class="comment-num">
+					<span>评论&nbsp;</span>
+					<span>32</span>
+				</div>
+				<div class="like-num">
+					<span><img src="../../image/teacherAvatar.png" alt=""></span>
+					<span>赞</span>
+					<span>81</span>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+	</script>
+</html>

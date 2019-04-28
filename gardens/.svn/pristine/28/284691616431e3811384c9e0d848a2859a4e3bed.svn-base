@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>人员审核</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background:#F8F8F8;
+			}
+            .main{
+                padding:12px 8px 0 8px;
+            }
+            .mc-record{
+                padding:20px 12px 0 12px;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+                margin-bottom:12px;
+            }
+            .titie{height:20px;line-height:20px;color:#333;font-size:14px;}
+            .mc-record li{
+                height:41px;line-height:41px;padding:0 3px;border-bottom:1px solid #f2f2f2;position:relative;font-size:12px;color:#333;
+            }
+            .mc-record li:last-child{border:0}
+            .mc-record li img{width:18px;height:18px;position:absolute;right:3px;top:50%;margin-top:-9px;}
+		</style>
+	</head>
+	<body>
+        <div class="main">
+            <div class="mc-record">
+                <p class="titie">审核人员列表</p>
+                <ul id="examineList">
+                    <div style="height:41px;line-height:41px;text-align:center;">暂无审核人员</div>
+                </ul>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="examineHtml">
+        <%if(list.length != 0){%>
+            <%for(var i=0;i<list.length;i++){%>
+                <li><%=list[i].name%> <img onclick="Gnmdsh('<%=list[i].id%>')" src="../../icon/lqsh.png" /></li>
+            <%}%>
+        <%}else{%>
+            <div style="height:41px;line-height:41px;text-align:center;">暂无审核人员</div>
+        <%}%>
+    </script>
+	<script>
+		apiready = function (){
+            var sid = getUserInfo().sid;
+            ajaxGetRelease(backendgetAllTeachers,{sid:sid},function(ret,err){
+                if(ret.success == true){
+                    var data = {list: ret.data};
+                    var html = template('examineHtml',data);
+                    document.getElementById('examineList').innerHTML = html;
+                }
+            })
+		};
+        function Gnmdsh(Yid){
+            openNewWindow("PersonnelExamine","PersonnelExamine.html",{id:Yid});
+        }
+	</script>
+</html>

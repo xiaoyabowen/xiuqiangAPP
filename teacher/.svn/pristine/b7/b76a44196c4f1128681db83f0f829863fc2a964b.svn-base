@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>精彩瞬间</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-width: 320px;
+			background-color: #f8f8f8;
+		}
+		#main{
+			background-color: #fff;
+		}
+		.wonderfulList>li{
+			padding:20px 20px 0;
+			border-bottom: 1px solid #f0f0f0;
+		}
+		.wonderfulList>li:nth-last-of-type(1){
+			border-bottom: 0;
+		}
+		.wonderfulList>li .tp_user{
+			overflow: hidden;
+			padding-bottom: 10px;
+		}
+		.wonderfulList>li .tp_user .userPic{
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			float: left;
+			margin-right: 8px;
+			border:none;
+		}
+		.wonderfulList>li .tp_user .userPic img{
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			border:none;
+		}
+		.wonderfulList>li .tp_user .userInfo{
+			font-size: 14px;
+			color: #666666;
+			letter-spacing: 0.29px;
+		}
+		.wonderfulList>li .tp_user .userInfo .username{
+			padding-top: 8px;
+			line-height: 20px;
+			position: relative;
+		}
+		.wonderfulList>li .tp_user .userInfo .username em{
+			line-height: 10px;
+			font-size: 10px;
+			color: #909090;
+			letter-spacing: 0.21px;
+			position: absolute;
+			right: 0;
+			top: 14px;
+		}
+		.ct_content p{
+			font-size: 15px;
+			color: #000000;
+			letter-spacing: 0.5px;
+			line-height: 19px;
+		}
+		.ct_content ul{
+			padding-top: 10px;
+			width: 100%;
+			overflow: hidden;
+
+		}
+		.ct_content ul li{
+			width: 100%;
+			height: 190px;
+			overflow: hidden;
+		}
+		.ct_content ul li.ltpic{
+			float: left;
+			width: 48.95%;
+			height: 190px;
+			border-radius: 6px 0 0 6px;
+		}
+		.ct_content ul li.rtpic{
+			float: right;
+			width: 49.25%;
+			height: 190px;
+			overflow: hidden;
+		}
+		.ct_content ul li.rtpic span{
+			height:95px;
+			overflow:hidden;
+		}
+		.ct_content ul li.ltpic img{
+
+		}
+		.ct_content ul li.rtpic span:nth-of-type(1){
+			border-radius: 0 6px 0 0;
+		}
+		.ct_content ul li.rtpic span:nth-of-type(2){
+			border-radius: 0 0 6px 0;
+		}
+		.bt_moreheat{
+			padding-top: 10px;
+			/*overflow: hidden;*/
+		}
+		.bt_moreheat .lt_label{
+			float: left;overflow:hidden;
+		}
+		.bt_moreheat .lt_label em{
+			color: #9d9d9d;
+			font-size: 12px;
+			border: 1px solid #9d9d9d;
+			border-radius: 5px;
+			line-height: 18px;
+			box-sizing: border-box;
+			padding: 0 6px;
+			margin-right: 5px;
+		}
+		.bt_moreheat .rt_apcr{
+			float: right;
+			font-size: 12px;
+			color: #A3A3A3;
+			letter-spacing: 0.25px;
+			line-height: 18px;
+			float: right;
+			position:relative;
+			height:19px;width:124px;
+		}
+
+		.rt_apcr em{
+			float: left;
+			padding-left: 21px;
+			width: 16px;
+			height: 18px;
+			padding-top: 1px;
+			background-image: url(../../image/dianzan2.png);
+			background-repeat: no-repeat;
+			background-size:16px 17px;
+		}
+		.rt_apcr i{
+			float: left;
+			margin-left: 5px;
+			padding-left: 22px;
+			margin-top: 1px;
+			width: 17px;
+			height: 18px;
+			background-image: url(../../image/more02.png);
+			background-repeat: no-repeat;
+			background-size:17px 16px;
+		}
+		.rt_apcr b{
+			float: left;
+			margin-left: 5px;
+			padding-left: 15px;
+			font-weight: 400;
+			width: 6px;
+			height: 18px;
+			background-image: url(../../image/pinglun2.png);
+			background-repeat: no-repeat;
+			background-size:18px 18px;
+		}
+
+
+		/*4张图*/
+		.ct_content .four_pic{
+			overflow: hidden;
+			padding-top: 4px;
+		}
+		.ct_content .four_pic li.fourpic{
+			width: 48%;
+			float: left;
+			height: 180px;
+			margin-top: 6px;
+
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(2n+1){
+			margin-right: 6px;
+		}
+		.ct_content .four_pic li.fourpic img{
+			width: 100%;
+			height: 100%;
+			margin-bottom: 6px;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(1) img{
+			border-radius: 6px 0 0 0;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(2) img{
+			border-radius: 0 6px 0 0;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(3) img{
+			border-radius: 0 0 0 6px;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(4) img{
+			border-radius: 0 0 6px 0;
+		}
+
+		/*视频*/
+		.ct_content div.video{
+			width: 100%;
+			height: 150px;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			margin-top: 10px;
+			position: relative;
+			border-radius: 6px;
+		}
+		.ct_content div.video span{
+			display: block;
+			width: 50px;
+			height: 50px;
+			border: 1px solid #fff;
+			border-radius: 50px;
+			box-sizing: border-box;
+			position: absolute;
+			top: 50%;
+			margin-top: -25px;
+			left: 50%;
+			margin-left: -25px;
+
+		}
+		.ct_content div.video em{
+			display: block;
+			width: 18px;
+			height: 23px;
+			background: url(../../image/play_ap.png) no-repeat;
+			background-size: 100%;
+			position: absolute;
+			top: 50%;
+			margin-top: -11px;
+			left: 50%;
+			margin-left: -7px;
+		}
+
+
+		/*4张图*/
+		.ct_content .four_pic{
+			overflow: hidden;
+			padding-top: 4px;
+		}
+		.ct_content .four_pic li.fourpic{
+			width: 48%;
+			float: left;
+			height: 180px;
+			margin-top: 6px;
+
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(2n+1){
+			margin-right: 6px;
+		}
+		.ct_content .four_pic li.fourpic img{
+			width: 100%;
+			height: 100%;
+			margin-bottom: 6px;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(1) img{
+			border-radius: 6px 0 0 0;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(2) img{
+			border-radius: 0 6px 0 0;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(3) img{
+			border-radius: 0 0 0 6px;
+		}
+		.ct_content .four_pic li.fourpic:nth-of-type(4) img{
+			border-radius: 0 0 6px 0;
+		}
+
+		/*视频*/
+		.ct_content div.video{
+			width: 100%;
+			height: 150px;
+			background-repeat: no-repeat;
+			background-size: 100%;
+			margin-top: 10px;
+			position: relative;
+			border-radius: 6px;
+		}
+		.ct_content div.video span{
+			display: block;
+			width: 50px;
+			height: 50px;
+			border: 1px solid #fff;
+			border-radius: 50px;
+			box-sizing: border-box;
+			position: absolute;
+			top: 50%;
+			margin-top: -25px;
+			left: 50%;
+			margin-left: -25px;
+
+		}
+		.ct_content div.video em{
+			display: block;
+			width: 18px;
+			height: 23px;
+			background: url(../../image/play_ap.png) no-repeat;
+			background-size: 100%;
+			position: absolute;
+			top: 50%;
+			margin-top: -11px;
+			left: 50%;
+			margin-left: -7px;
+		}
+		u{
+			color:#5EC4E0;font-size:12px !important;
+		}
+		.Morewin{display:none;width:95px;height:80px;border-radius:4px;box-shadow:0 2px 4px 0 #87B2BE;position:absolute;top:32px;right:0px;background:url("../../icon/arrowup.png") no-repeat 80% 0 #fff;z-index: 99999;overflow:hidden;opacity: 1}
+		.Morewin li{height:20px;line-height:20px;color:#666;font-size:14px;padding-left:36px;margin-top:13px;}
+		.Morewin li{background-size:17px 17px !important;}
+		/*图片*/
+		.listone{
+			width:100%;height:190px;overflow: hidden;border-radius:8px;
+		}
+		.listBfl{
+			width:48.95% !important;height:192px;float:left;border-radius:8px 0 0 8px;
+		}
+		.listBfr{
+			width:48.95% !important;height:192px;float:right;border-radius:0 8px 8px 0;
+		}
+		.listImgs{float:left !important;overflow:hidden;border-bottom:none !important;width: 32% !important;margin-bottom:5px;margin-left:1%;border-radius:4px;height:90px !important;}
+		/*.listone img{width:100%;height:100%;}*/
+		/*.listBfr img{width:100%;height:100%;}*/
+		/*.listBfl img{width:100%;height:100%;}*/
+		/*.listImgs img{float:left;margin-left:10px;margin-top:10px;border-radius:4px;}*/
+		#share{
+			width:100%;height:154px;background:#fff;position:fixed;bottom:0;left:0;display:none;
+		}
+		#sharelist{
+			height:50px;padding:30px 0;
+			overflow:hidden;overflow-x: scroll;
+		}
+		#sharelist ul{
+			display: -webkit-box;
+			display: -mz-flexbox;
+			justify-content: space-between;
+			flex-wrap: nowrap;
+			box-sizing: border-box;
+		}
+		#sharelist ul li{
+			width:50px;height:50px;margin-left:30px;
+		}
+		#sharelist ul li img{
+			width:100%;height:100%;
+		}
+		#share button{
+			width:100%;height:44px;border:0;
+		}
+		.uldjh{overflow:hidden;width:100%;}
+		.clearfix:after,.clearfix:before{
+			content:".";/*加一段内容*/
+			display:table;/*创建匿名的表格单元，触发bfc*/
+		}
+		.clearfix:after{
+			clear:both;/*清除浮动*/
+		}
+		.clearfix{zoom:1;/*为IE6，7的兼容性设置*/}
+	</style>
+</head>
+<body>
+<div id="main" >
+	<ul class="wonderfulList" id="MarvellousList">
+
+	</ul>
+</div>
+<div id="share">
+	<div id="sharelist">
+		<ul>
+			<li><img src="../../image/wx.png" alt=""/></li>
+			<li><img src="../../image/wb.png" alt=""/></li>
+			<li><img src="../../image/qq.png" alt=""/></li>
+			<li><img src="../../image/qqkj.png" alt=""/></li>
+			<li><img src="../../image/pyq.png" alt=""/></li>
+			<li><img src="../../image/pyq.png" alt=""/></li>
+			<li><img src="../../image/qq.png" alt=""/></li>
+		</ul>
+	</div>
+	<button>取消</button>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="MarvellousHtml">
+	<%for(var i=0;i<list.length;i++){%>
+	<li>
+		<div class="tp_user">
+			<div class="userPic">
+				<img src="<%=list[i].user.icon%>" style="<%=list[i].style%>" onerror="this.src='../../image/teacherWang.png'" alt="" />
+			</div>
+			<div class="userInfo">
+				<p class="username"><span><%=list[i].user.name%></span> <em><%=list[i].ctime%></em></p>
+			</div>
+		</div>
+		<div class="ct_content">
+			<p style="overflow:hidden;word-wrap:break-word;">
+				<%=list[i].content%>
+			</p>
+			<ul class="uldjh">
+				<%if(list[i].imagesJson.length == 1){%>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',0)" class="listone"><img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"   data-echo="<%=list[i].imagesJson[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+				<%} else if(list[i].imagesJson.length == 2){%>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',0)" class="listBfl"><img src="../../icon/jiaxiaoTongHome.jpg" data-echo="<%=list[i].imagesJson_arr[0].images%>" real-style="<%=list[i].imagesJson_arr[0].style%>" alt="" /></li>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',1)"  class="listBfr"><img src="../../icon/jiaxiaoTongHome.jpg" data-echo="<%=list[i].imagesJson_arr[1].images%>" real-style="<%=list[i].imagesJson_arr[1].style%>" alt="" /></li>
+				<%} else if(list[i].imagesJson.length == 3){%>
+
+				<li class="ltpic"><img onclick="openPhotoBrowser('<%=list[i].id%>',0)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].imagesJson[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+				<li class="rtpic">
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',1)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].imagesJson[1]%>" real-style="<%=list[i].styleJsoma%>" alt="" /></span>
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',2)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].imagesJson[2]%>" real-style="<%=list[i].styleJsomb%>" alt="" /></span>
+				</li>
+				<%} else if(list[i].imagesJson.length > 3){%>
+				<%for(var x = 0;x<list[i].imgJson.length;x++){%>
+				<li class="listImgs" >
+					<img onclick="openPhotoBrowser('<%=list[i].id%>','<%=x%>')" src="../../icon/jiaxiaoTongHome.jpg" style="width:100%;height:100%;" data-echo="<%=list[i].imgJson[x].img%>" real-style="<%=list[i].imgJson[x].styleJsomobj%>"  alt="" />
+				</li>
+				<%}%>
+				<div style="clear: both"></div>
+				<%}%>
+			</ul>
+		</div>
+		<div class="bt_moreheat clearfix">
+			<div class="lt_label">
+				<%for(var j=0;j<list[i].tags.length;j++){%>
+				<u onclick="togDetails('<%=i%>','<%=list[i].tags[j].index%>')"><%=list[i].tags[j].name%></u>
+				<%}%>
+			</div>
+			<div class="rt_apcr">
+				<%if(list[i].supported == 1){%>
+				<em onclick="Fabulous('<%=list[i].id%>',this)" type="1" style="background-image: url(../../image/dianzan2.png);"><%=list[i].supportNum%></em>
+				<%} else {%>
+				<em onclick="Fabulous('<%=list[i].id%>',this)" type="2" style="background-image: url(../../image/dianzan03.png);"><%=list[i].supportNum%></em>
+				<%}%>
+				<i onclick="Linkdetails('<%=list[i].id%>','<%=list[i].user.icon%>','<%=list[i].supportNum%>','<%=list[i].commentNum%>','<%=list[i].content%>','<%=list[i].imagesJson%>')" style="background-image: url(../../image/pinglun2.png);"><%=list[i].commentNum%></i>
+				<b onclick="ListMore(this)" style="background-image: url(../../image/more02.png);"></b>
+				<div class="Morewin">
+					<ul>
+						<%if(list[i].favorited == 1){%>
+						<li onclick="Collection('<%=list[i].id%>',this)" type="1" style="background:url('../../image/sc.png') no-repeat 13px center;">收藏</li>
+						<%} else {%>
+						<li onclick="Collection('<%=list[i].id%>',this)" type="2" style="background:url('../../image/scgh.png') no-repeat 13px center;">收藏</li>
+						<%}%>
+						<li onclick="share(this)" style="background:url('../../image/Path.png') no-repeat 13px center;">分享</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</li>
+	<%}%>
+</script>
+<script>
+	var cid = getUserInfo().cids[0]
+	var imgArr = [];
+	var allResults = {};
+	var tags = {};
+	apiready = function (){
+		var content = api.pageParam.content;
+		new datalistModel(addDataToHtml,getTagTimeline,{name:content},10,5,100,true);
+	};
+
+	//点击查看大图并保存
+	function openPhotoBrowser (id,index){
+		var photoBrowser = api.require('photoBrowser');
+		photoBrowser.open({
+			images: allResults[id].imagesJson,
+			activeIndex:index,
+//			placeholderImg: 'widget://icon/family_icon.png',
+			bgColor: '#000'
+		}, function(ret, err){
+			if (ret) {
+				if(ret.eventType == 'click'){
+					photoBrowser.close();
+				}else if(ret.eventType == "longPress"){
+					var arr = ["保存到相册"];
+					api.actionSheet({
+						title: '保存',
+						cancelTitle: '取消',
+						buttons: arr
+					}, function(ret, err) {
+						if(ret.buttonIndex == 1){
+							photoBrowser.getIndex(function(ret_last,err){
+								if (ret_last) {
+									var this_index = ret_last.index;
+									var thisImageType = allResults[id].imagesJson[this_index].slice(allResults[id].imagesJson[this_index].lastIndexOf("."));
+									api.download({
+										url: allResults[id].imagesJson[this_index],
+										savePath : (new Date()).getTime() + thisImageType,
+										report: true,
+										cache: true,
+										allowResume: true
+									}, function(ret, err) {
+										if (ret.state == 1) {
+											//下载成功
+											api.saveMediaToAlbum({
+												path: ret.savePath
+											}, function(ret, err) {
+												if (ret && ret.status) {
+													toast('保存成功');
+												} else {
+													toast('保存失败');
+												}
+											});
+										} else {
+
+										}
+									});
+								}
+							})
+						}
+					});
+				}
+			} else {
+			}
+		});
+	}
+	function ListMore(self){
+		$(self).next().slideDown();
+		$("#main").bind('click',function(e){
+			var target = e.target;
+			if(target.closest(".rt_apcr")==null){
+				$(".Morewin").slideUp();
+			};
+		})
+	};
+	$(".Morewin li").click(function(){
+		$(this).parent().css("display","none")
+	})
+	//点击标签渲染
+	function togDetails(i,j){
+		var content = tags[i].tags[j].name;
+		new datalistModel(addDataToHtml,getTagTimeline,{name:content},10,5,100,true);
+		api.execScript({
+			name:"wonderfulTimeTeg",
+			script:'toggleAction("'+content+'")'
+		})
+	}
+	//点赞
+	function Fabulous(tid,self){
+		stopEventBubble();
+		var type = $api.attr(self,"type");
+
+		if(type == 1){
+			var supportval = $api.html(self);
+			$api.html(self,(Number(supportval) +1));
+			$api.css(self,"background-image:url(../../image/dianzan03.png)");
+			$api.attr(self,"type","2");
+			ajaxGet(supportadd,{type:2,typeId:tid},function(ret,err){
+				if(ret&&ret.success){
+					toast("点赞成功！");
+				}else{
+					$api.html(self,(supportval));
+					$api.css(self,"background-image:url(../../image/dianzan2.png)");
+					$api.attr(self,"type","1");
+					toast("网络连接失败，请重试！")
+				}
+			})
+		}else if(type == 2){
+			var supportval =  $api.html(self);
+			$api.html(self,(Number(supportval) -1));
+			$api.css(self,"background-image:url(../../image/dianzan2.png)");
+			$api.attr(self,"type","1");
+			ajaxGet(supportdelete,{type:2,typeId:tid},function(ret,err){
+				if(ret&&ret.success){
+					toast("取消点赞成功！");
+				}else{
+					$api.html(self,(supportval));
+					$api.css(self,"background-image:url(../../image/dianzan03.png)");
+					$api.attr(self,"type","2");
+					toast("网络连接失败，请重试！")
+				}
+			})
+		}
+	}
+	//收藏
+	function Collection(sid,self){
+		var type = $(self).attr("type");
+		if(type == 1){
+			ajaxGet(favoriteadd,{type:2,typeId:sid},function(ret,err){
+				if(ret.success == true){
+					toast("收藏成功！");
+					$(self).css("background","url('../../image/scgh.png') no-repeat 13px center");
+					$(self).attr("type","2");
+				}else{
+					toast("网络连接失败，请重试！")
+				}
+			})
+		}else{
+			ajaxGet(favoritedelete,{type:2,typeId:sid},function(ret,err){
+				if(ret.success == true){
+					toast("取消收藏成功！");
+					$(self).css("background","url('../../image/sc.png') no-repeat 13px center");
+					$(self).attr("type","1");
+				}else{
+					toast("网络连接失败，请重试！")
+				}
+			})
+		}
+	}
+	//跳转详情
+	function Linkdetails(tid,icon,zan,pinglun,text,img){
+		var listnr = {};
+		listnr.icon = icon;
+		listnr.zan = zan;
+		listnr.pinglun = pinglun;
+		listnr.text = text;
+		listnr.img = img;
+		$api.setStorage('listdetails' ,listnr);
+		openNewWindow("wonderfulTime_detail","wonderfulTime_detail.html",{tid:tid});
+	}
+	//分享
+	function share(self){
+		$(self).parent().parent().css("display","none");
+		$("#share").css("display","block");
+	}
+	$("#share button").click(function(){
+		$(this).parent().css("display","none")
+	})
+	function getDateDiff(dateTimeStamp){
+		var minute = 1000 * 60;
+		var hour = minute * 60;
+		var day = hour * 24;
+		var halfamonth = day * 15;
+		var month = day * 30;
+		var now = new Date().getTime();
+		var diffValue = now - dateTimeStamp;
+		if(diffValue < 0){return;}
+		var monthC =diffValue/month;
+		var weekC =diffValue/(7*day);
+		var dayC =diffValue/day;
+		var hourC =diffValue/hour;
+		var minC =diffValue/minute;
+		if(monthC>=1){
+			result="" + parseInt(monthC) + "月前";
+		}
+		else if(weekC>=1){
+			result="" + parseInt(weekC) + "周前";
+		}
+		else if(dayC>=1){
+			result=""+ parseInt(dayC) +"天前";
+		}
+		else if(hourC>=1){
+			result=""+ parseInt(hourC) +"小时前";
+		}
+		else if(minC>=1){
+			result=""+ parseInt(minC) +"分钟前";
+		}else
+			result="刚刚";
+		return result;
+	}
+	function addDataToHtml(results,append){
+		for(var i=0;i<results.length;i++){
+			var tagsArr = [];
+			if(isNotBlack(results[i].tags)){
+				for(var j=0;j<results[i].tags.length;j++){
+					var obj = {
+						name : results[i].tags[j],
+						index :j
+					}
+					tagsArr.push(obj);
+				}
+			}
+			results[i].tags = tagsArr;
+			allResults[results[i].id] = results[i]
+			results[i].images = tryJsonParse(results[i].images);
+			results[i].imagesJson = tryJsonParse(results[i].imagesJson);
+			results[i].imagesJson = tryJsonParse(results[i].imagesJson);
+//				results[i].tags = results[i].tags;
+			results[i].ctime = getDateDiff(results[i].ctime);
+			if(results[i].iocn){
+				var listicon = results[i].icon;
+				var width = 100;
+				var height = 100;
+				var obj = getImgByThisSize(listicon,width,height);
+				results[i].style = obj.style;
+			}
+			//处理imagesJson
+			if(isNotBlack(results[i].imagesJson)){
+				if(results[i].imagesJson.length == 1){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = api.winWidth - 40;
+						var height = 190;
+						var obj = getImgByThisSize(results[i].imagesJson[0],width,height);
+						results[i].styleJsom = obj.style;
+					}
+				}else if(results[i].imagesJson.length == 2){
+					var imgArr = [];
+					for(var j=0;j<results[i].imagesJson.length;j++){
+						var imgSrc_obj = {};
+						var img_src = results[i].imagesJson[j];
+						var width = (api.winWidth - 42)/2;
+						var height = 190;
+						var obj = getImgByThisSize(img_src,width,height);
+						imgSrc_obj.images = obj.url;
+						imgSrc_obj.style = obj.style;
+						imgArr.push(imgSrc_obj)
+					}
+					results[i].imagesJson_arr = imgArr;
+				}else if(results[i].imagesJson.length == 3){
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = (api.winWidth - 42)/2;
+						var height = 190;
+						var heighta = 90;
+						var obj = getImgByThisSize(results[i].imagesJson[0],width,height);
+						var obja = getImgByThisSize(results[i].imagesJson[1],width,heighta);
+						var objb = getImgByThisSize(results[i].imagesJson[2],width,heighta);
+						results[i].styleJsoma = obja.style;
+						results[i].styleJsomb = objb.style;
+						results[i].styleJsom = obj.style;
+					}
+				}else if(results[i].imagesJson.length > 3){
+					var imgArr = [];
+					results[i].imgJson = [];
+					for(var l=0;l<results[i].imagesJson.length;l++){
+						var width = (api.winWidth - 43) / 3;
+						var height = 90;
+						var obj = getImgByThisSize(results[i].imagesJson[l], width, height);
+						var imgArr = {
+							img:results[i].imagesJson[l],
+							styleJsomobj:obj.style
+						}
+						results[i].imgJson.push(imgArr);
+					}
+				}
+			}else{
+				results[i].imagesJson = [];
+			}
+
+			//收藏、点赞
+			if(results[i].supported == true){
+				results[i].supported = 2;
+			}else{
+				results[i].supported = 1;
+			}
+			if(results[i].favorited == true){
+				results[i].favorited = 2;
+			}else{
+				results[i].favorited = 1;
+			}
+		}
+
+		tags = results;
+		var data = {list: results};
+		var html = template('MarvellousHtml',data);
+		if (append){
+			var div = document.createElement("li");
+			div.innerHTML = html;
+			document.getElementById('MarvellousList').appendChild(div);
+		} else {
+			document.getElementById('MarvellousList').innerHTML = html;
+		}
+		api.parseTapmode();
+//			document.getElementById("body").style.display = "block";
+		setTimeout(function(){
+			echoExt.init({
+				offset: 0,
+				throttle: 0//设置图片延迟加载的时间
+			});
+		},100)
+	}
+</script>
+</html>

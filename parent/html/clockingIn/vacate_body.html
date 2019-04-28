@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no" />
+		<title>请假</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link href="../../css/mui.picker.all.css" rel="stylesheet" />
+	    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #FFFFFF;
+			}
+            .vacate{
+                width:100%;
+                padding-top:12px;
+                padding-left:18px;
+                padding-right:18px;
+                box-sizing: border-box;
+            }
+            
+            .end-date,.vacate-type,.vacate-count{
+                margin-top:5px;
+            }
+            .start-date,.end-date,.vacate-type,.vacate-count{
+                width:100%;
+                height:40px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                padding-top:8px;
+                box-sizing: border-box;
+            }
+            .start-date .float,.end-date .float{
+                height:23px;
+                float:left;
+                /* text-align: center; */
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .vacate-type .tag,.vacate-count .tag{
+                height:23px;
+                float:left;
+                text-align: center;
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .start-date .tag,.end-date .tag,.vacate-type .tag,.vacate-count .tag{
+                border-right:1px solid #D7D7D7;
+                font-size: 14px;
+                color: #333333; 
+                text-align: right;
+                padding-left:18px;
+                padding-right:18px;
+            }
+            .sd-date,.sd-time,.ed-date,.ed-time{
+                font-size: 14px;
+                color: #999999;
+                position: relative;
+            }
+            .sd-date,.ed-date{
+                padding-left:18px;
+                padding-right:15px;
+            }
+            .sd-time,.ed-time{
+                float:right;
+                padding-right:38px;
+                line-height: 23px;
+                box-sizing: border-box;
+            }
+            .sd-date>:nth-child(2)>img,.ed-date>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:0px;
+                top:3px;
+            }
+            .sd-time>:nth-child(2)>img,.ed-time>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:18px;
+                top:3px;
+            }
+            .vacate-type .type-info,.vacate-count .count-info{
+                height:23px;
+                line-height:23px;
+                float:left;
+                padding-left:18px;
+                font-size: 14px;
+                color: #999999;
+                box-sizing: border-box;
+            }
+            .type-info span,.count-info span{
+                display:block;
+            }
+            .type-info>:nth-child(2),.count-info>:nth-child(2){
+                float:right;
+            }
+            @media screen and (max-width: 320px) {
+                .sd-date,.ed-date{
+                    padding-right:10px;
+                }
+                .sd-time,.ed-time{
+                    padding-right:25px;
+                }
+            }
+            .switch-icon{
+                float:right;
+                padding-right:18px;
+                padding-top:3px;
+            }
+            .switch-icon>img{
+                width:9px;
+            }
+            .vacate-type,.vacate-count{
+                position: relative;
+            }
+            .vt-list{  
+                width:33.33%;
+                position:absolute;
+                right:-1px;
+                top:35px;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:6px 7px;
+                background: #FFFFFF;
+                box-sizing: border-box;
+                display: none;
+            } 
+            .vt-list::before{
+                content:"";
+                width:0px;
+                height:0px;
+                position:absolute;  
+                top:-7px;  
+               right:18px; 
+                border-left:7px solid transparent;  
+                border-right:7px solid transparent;  
+                border-bottom:7px solid #FFFFFF;  
+            }
+            .vt-list ul li{
+                width:100%;
+                height:29px;
+                text-align: left;                
+                line-height:29px;
+                font-size: 14px;
+                color: #666666;
+                padding-left:12px;
+                padding-right:12px;
+                letter-spacing: 0.16px;
+                box-sizing: border-box;                
+            }
+            .vacate-reason{
+                width:100%;
+                height:139px;
+                border:1px solid #D7D7D7;               
+                margin-top:5px;
+                border-radius:4px;
+                box-sizing: border-box;
+            }
+            .vacate-reason>textarea{
+                width:100%;
+                height:100%;
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                color:#505050;
+                padding:8px 18px;
+                line-height: 20px;
+                box-sizing: border-box;
+                overflow-y: scroll;
+            }
+			.vacate-reason>textarea::-webkit-scrollbar {
+				display:none;
+			}
+            .submit{
+                width:100%;
+                height:44px;
+                background:#5AC8E1;
+                line-height:44px;
+                text-align: center;
+                font-size:16px;
+                color:#FFFFFF;
+                margin-top:30px;
+                border-radius:4px;
+            }
+            .mui-btn-blue, .mui-btn-primary, input[type=submit]{
+				background-color: #5AC8E1;
+				border: 1px solid #5AC8E1;
+			}
+		</style>
+	</head>
+	<body id="body" style="display: none;">
+		<div class="vacate">
+            <div class="start-date">
+                <div class="tag float">开始日期</div>
+                <div class="sd-date float" id="beginY">
+                   <span id="beginY_value">2018.02.01</span>
+                   <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+                <div class="sd-time" id="beginM">
+                    <span id="beginM_value">8:00</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+            </div>
+            <div class="end-date">
+                <div class="tag float">结束日期</div>
+                <div class="ed-date float" id="endY">
+                    <span id="endY_value">2018.02.01</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+                <div class="ed-time" id="endM">
+                    <span id="endM_value">17:00</span>
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+            </div>
+            <div class="vacate-count" id="time">
+                <div class="tag">请假天数</div>
+                <div class="count-info">
+                    <span id="timeResult">0天</span>
+                </div>
+                <div class="switch-icon">
+                    <!--<img src="../../icon/switch.png" alt="">-->
+                </div>
+            </div>
+            <div class="vacate-type"  onclick="hideOrShow()">
+                <div class="tag">请假类型</div>
+                <div class="type-info">
+                   <span id="reason">病假</span>
+                </div>
+                <div class="switch-icon">
+                    <img src="../../icon/switch.png" alt="">
+                </div>
+                <div class="vt-list">
+                    <ul>
+                    	<li>事假</li>
+                        <li>病假</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="vacate-reason">
+                <textarea name="" cols="30" rows="10" id="reasonCon" placeholder="请假原因"></textarea>
+            </div>
+            <div class="submit" onclick="ask_leave()">保存</div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		
+		var addChildUrl = serverUrl + "/leave/addChild";//
+		var flag = true;
+		var thisDom;
+		var submitObj = {
+			leaveType : 1,
+			leaveNum : 1,
+			status : 0,
+			uid : ''
+		};
+		apiready = function(){
+            var userInfo = getUserInfo();
+            submitObj.uid = userInfo.cids[0];
+			var thisTime = new Date();
+			thisTime = thisTime.getTime();
+			document.getElementById("beginY_value").innerHTML = formatTimeToDays(thisTime);
+			document.getElementById("beginM_value").innerHTML = formatTimeToMinute(thisTime);
+			document.getElementById("endY_value").innerHTML = formatTimeToDays(thisTime);
+			document.getElementById("endM_value").innerHTML = formatTimeToMinute(thisTime);
+			document.getElementById("body").style.display = "block";
+			thisDom = document.getElementsByClassName("vt-list")[0];
+			var list = thisDom.querySelectorAll("li");
+			for (var i = 0; i < list.length; i++) {
+				list[i].index = i;
+				list[i].onclick = function(){
+					document.getElementById("reason").innerHTML = list[this.index].innerHTML;
+					submitObj.leaveType = this.index;
+					thisDom.style.display = "none";
+				}
+			}
+			
+			(function($, doc) {
+				var time = (new Date().format("yyyy/MM/dd/hh")).split("/");
+				$.ready(function() {
+					var beginTimes = new $.DtPicker({
+						beginDate: new Date(parseInt(time[0]), parseInt(time[1]-3), parseInt(time[2])),//设置开始日期
+						type:'date'
+					});
+					var showCityPickerButton1 = doc.getElementById('beginY');
+					var beginTimes3 = doc.getElementById('beginY_value');
+					showCityPickerButton1.addEventListener('tap', function(event) {
+						beginTimes.show(function(items) {
+							beginTimes3.innerHTML = items.text;
+						});
+					}, false);
+					
+					var cityPicker4 = new $.DtPicker({
+						type:'time'
+					});
+					var showCityPickerButton2 = doc.getElementById('beginM');
+					var cityResult4 = doc.getElementById('beginM_value');
+					showCityPickerButton2.addEventListener('tap', function(event) {
+						cityPicker4.show(function(items) {
+	//						console.log(JSON.stringify(items));
+							cityResult4.innerHTML = items.text;
+						});
+					}, false);
+					/****************************上面是选择开始日期***********************/
+		
+					/****************************下面选择截止日期***********************/
+					var endTimes = new $.DtPicker({
+						beginDate: new Date(parseInt(time[0]), parseInt(time[1]-3), parseInt(time[2])),//设置开始日期
+						type:'date'
+					});
+					var endY = doc.getElementById('endY');
+					var endsTime = doc.getElementById('endY_value');
+					endY.addEventListener('tap', function(event) {
+						endTimes.show(function(items) {
+							endsTime.innerHTML = items.text;
+                            var beginY_value = document.getElementById("beginY_value").innerHTML;
+                            var beginM_value = document.getElementById("beginM_value").innerHTML;
+                            var endY = items.text;
+                            var endM = document.getElementById("endM_value").innerHTML;
+                            var days = showDays(beginY_value,beginM_value,endY,endM);
+                            if(days=="err"){
+                                doc.getElementById('timeResult').innerHTML="0天";
+                                toast("结束日期不能小于开始日期")
+                            }else if(days=="smallerr"){
+                                doc.getElementById('timeResult').innerHTML="0天";
+                            } else{
+                                doc.getElementById('timeResult').innerHTML=days;
+                            }
+						});
+					}, false);
+					
+					var endTimesM = new $.DtPicker({
+						type:'time'
+					});
+					var showCityPickerButton = doc.getElementById('endM');
+					var endTimesM4 = doc.getElementById('endM_value');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						endTimesM.show(function(items) {
+							endTimesM4.innerHTML = items.text;
+                            var beginY_value = document.getElementById("beginY_value").innerHTML;
+                            var beginM_value = document.getElementById("beginM_value").innerHTML;
+                            var endY = document.getElementById("endY_value").innerHTML;
+                            var endM = items.text;
+                            var days = showDays(beginY_value,beginM_value,endY,endM);
+                            if(days=="err"){
+                                doc.getElementById('timeResult').innerHTML="0天";
+                                toast("结束日期不能小于开始日期")
+                            }else if(days=="smallerr"){
+                                doc.getElementById('timeResult').innerHTML="0天";
+                                toast("请假时长最低为半小时")
+                            } else{
+                                doc.getElementById('timeResult').innerHTML=days;
+                            }
+						});
+					}, false);
+					
+					
+					/*var timePicker = new $.PopPicker();
+					var timeList = [
+						{text:"1天",value:1},{text:"2天",value:2},{text:"3天",value:3},{text:"4天",value:4},{text:"5天",value:5},{text:"6天",value:6},{text:"7天",value:7}
+					]
+		            timePicker.setData(timeList);
+		            timePicker.setTitle("选择请假天数");
+		            var timeButton = doc.getElementById('time');
+		            var timeResult = doc.getElementById('timeResult');
+		            timeButton.addEventListener('tap', function (event) {
+		                timePicker.show(function (items) {
+		                    timeResult.innerHTML = items[0].text;
+		                    submitObj.leaveNum = items[0].value;
+		                });
+		            }, false); */
+				});
+			})(mui, document);
+		/****************************上面选择截止日期***********************/
+		}
+		
+		function hideOrShow(){
+			if (flag) {
+				flag = false;
+				thisDom.style.display = "block";
+			}else{
+				flag = true;
+				thisDom.style.display = "none";
+			}
+		}
+
+        //计算请假天数
+        function showDays(beginY_value,beginM_value,endY,endM){
+            var beginDate = beginY_value.replace(/-/g,"/")+ " " + beginM_value;
+            var endDate = endY.replace(/-/g,"/") + " " + endM;
+            submitObj.startTime = new Date(beginDate).getTime();
+            submitObj.endTime = (new Date(endDate)).getTime();
+            var beginTime=new Date(beginDate).getTime(),
+                endTime=new Date(endDate).getTime();
+            var dateTime = 1000*60*60*24; //每一天的毫秒数
+            var str="";
+            if(Math.floor((endTime-beginTime)/dateTime)>=0){
+                if((endTime-beginTime)%dateTime/(1000*60*60)<0.5){
+                    if(Math.floor((endTime-beginTime)/dateTime)==0){
+                        str="smallerr";
+                    }else{
+                        str+=Math.floor((endTime-beginTime)/dateTime)+"天"
+                    }
+                }else if((endTime-beginTime)%dateTime/(1000*60*60)<=4){
+                    str+=Math.floor((endTime-beginTime)/dateTime)+0.5+"天"
+                }else{
+                    str+=Math.floor((endTime-beginTime)/dateTime)+1+"天"
+                }
+            } else{
+                str="err";
+            }
+            return str;
+        }
+		
+		//教师发起请假
+		function ask_leave(){
+			api.showProgress();
+			var beginY_value = document.getElementById("beginY_value").innerHTML;
+			var beginM_value = document.getElementById("beginM_value").innerHTML;
+			var endM = document.getElementById("endM_value").innerHTML;
+			var endY = document.getElementById("endY_value").innerHTML;
+			
+			var beginDate = beginY_value.replace(/-/g,"/")+ " " + beginM_value;
+			var endDate = endY.replace(/-/g,"/") + " " + endM;
+			submitObj.startTime = new Date(beginDate).getTime();
+			submitObj.endTime = (new Date(endDate)).getTime();
+			/*if(endDate <= beginDate){
+				toast("结束时间不得早于开始时间！");
+				api.hideProgress();
+				return;
+			}*/
+            var days = showDays(beginY_value,beginM_value,endY,endM);
+            if(days=="err"){
+                document.getElementById('timeResult').innerHTML="0天";
+                toast("结束日期不能小于开始日期");
+                api.hideProgress();
+                return;
+            }else if(days=="smallerr"){
+                document.getElementById('timeResult').innerHTML="0天";
+                toast("请假时长最低为半小时")
+                api.hideProgress();
+                return;
+            }else{
+                document.getElementById('timeResult').innerHTML=days;
+                submitObj.leaveNum = parseFloat(days.substring(0,days.length-1));
+            }
+			if (isBlack(document.getElementById("reasonCon").value)) {
+				toast("请输入请假理由");
+				api.hideProgress();
+				return;
+			}
+            submitObj.content = document.getElementById("reasonCon").value;
+//			alert(JSON.stringify(submitObj))
+			ajaxGet(addChildUrl,submitObj,function(ret,err){
+//		    alert(JSON.stringify(ret));
+//				alert(JSON.stringify(err));
+				api.hideProgress();
+				if (ret&&ret.success) {
+					toast("请求已发出，等待教师审核！");
+					setTimeout(function(){
+						closeWin()
+					},1200)
+				}
+			})
+		}
+	</script>
+</html>

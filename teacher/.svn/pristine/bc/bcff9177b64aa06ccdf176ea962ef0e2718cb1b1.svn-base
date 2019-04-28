@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>教师主页</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		body{
+			min-width: 320px;
+		}
+	</style>
+</head>
+<body>
+<div id="topbar" >
+	<div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		<img style="width:25px;height:25px;" src="../../icon/back.png">
+	</div>
+	<div ><span id="Tname"></span>（<span id="roleName"></span>）</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+	apiready = function () {
+		initFrameInWin(api.pageParam);
+		var tname = api.pageParam.name;
+		document.getElementById("Tname").innerHTML = getUserInfo().name;
+		document.getElementById("roleName").innerHTML = getUserInfo().roleName;
+	};
+</script>
+</html>

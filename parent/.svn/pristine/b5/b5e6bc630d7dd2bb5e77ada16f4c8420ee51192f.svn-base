@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>课程表</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.cardTime{
+				margin: 12px 8px;
+				margin-top: 0;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				height: 42px;
+				line-height: 42px;
+				text-align: center;
+				font-size: 17px;
+				color: #505050;
+				letter-spacing: 0.23px;
+			}
+			.cardTime span{
+				float: left;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_lt.png) no-repeat;
+				margin-top: 13px;
+				margin-left: 18px;
+			}
+			.cardTime em{
+				float: right;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				margin-top: 13px;
+				margin-right: 18px;
+			}
+			.classCardList{
+				margin: 0 8px;
+				margin-bottom: 12px;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+			}
+			.classCardList>li{
+				border-bottom: 1px solid #f0f0f0;
+				overflow: hidden;
+				padding: 20px 18px;
+				padding-bottom: 15px;
+			}
+			.classCardList>li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.classCardList>li .lt_pic{
+				float: left;
+				width: 28px;
+				height: 28px;
+			}
+			.classCardList>li .lt_pic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+				-webkit-border-radius: 50%;
+			}
+			.classCardList>li .rt_name{
+				/*float: left;*/
+				margin-left: 38px;
+			}
+			.rt_name>p{
+				position: relative;
+			}
+			.rt_name>p em{
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.22px;
+				line-height: 22px;
+			}
+			.rt_name>p i{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.rt_name>ul{
+				margin-top: 13px;
+			}
+			.rt_name>ul>li{
+				line-height: 17px;
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+			}
+			.rt_name>ul>li.teachingPlan img{
+				width: 13px;
+				height: 13px;
+				vertical-align: top;
+				margin-left: 10px;
+			}
+			.rt_name>ul>li.realia>span{
+				float: left;
+				margin-top: 10px;
+				padding-top: 8px;
+			}
+			.rt_name>ul>li.realia ul{
+				display: inline-block;
+				background: #FFFFFF;
+				border-radius: 4px;
+				padding: 0 8px;
+				margin-top: 12px;
+			}
+			.rt_name>ul>li.realia ul li{
+				line-height: 21px;
+				overflow: hidden;
+				margin-bottom: 3px;
+			}
+			.rt_name>ul>li.realia ul li i{
+				display: inline-block;
+				width: 80px;
+			}
+			.rt_name>ul>li.realia ul li span{
+				display: inline-block;
+				vertical-align: middle;
+				margin-top: 5px;
+			}
+			.rt_name>ul>li.realia ul li span img{
+				width: 30px;
+				height: 20px;
+				border-radius: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+			<div style="width: 100%;height: 12px;"></div>
+			<div class="cardTime">
+				<span></span>
+				2018.04.01
+				<em></em>
+			</div>
+		    <ul class="classCardList">
+		    	<li>
+		    		<div class="lt_pic"><img src="../../image/art.png" alt="" /></div>
+		    		<div class="rt_name">
+		    			<p>
+		    				<em>手工课</em>
+		    				<i>时间:&nbsp;&nbsp;09:10-09:50</i>
+		    			</p>
+		    			<ul>
+		    				<li>老师:&nbsp;&nbsp;王老师</li>
+		    				<li>位置:&nbsp;&nbsp;小猴2班</li>
+		    				<li class="teachingPlan">教案:&nbsp;&nbsp;超轻黏土手工课<img src="../../image/href.png" alt="" /></li>
+		    				<li class="realia"><span>教具:</span>&nbsp;&nbsp;
+		    					<ul>
+		    						<li><i>超轻黏土</i><span><img src="../../image/sgk01.png" alt="" /></span></li>
+		    						<li><i>彩色KT板</i><span><img src="../../image/sgk02.png" alt="" /></span></li>
+		    						<li><i>水彩笔</i><span><img src="../../image/sgk03.png" alt="" /></span></li>
+		    					</ul>
+		    				</li>
+		    			</ul>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="lt_pic"><img src="../../image/pe.png" alt="" /></div>
+		    		<div class="rt_name">
+		    			<p>
+		    				<em>体育课</em>
+		    				<i>时间:&nbsp;&nbsp;10:10-10:50</i>
+		    			</p>
+		    			<ul>
+		    				<li>老师:&nbsp;&nbsp;李老师</li>
+		    				<li>位置:&nbsp;&nbsp;操场</li>
+		    				<li class="teachingPlan">教案:&nbsp;&nbsp;攻打灰太狼<img src="../../image/href.png" alt="" /></li>
+		    				<li class="realia"><span>教具:</span>&nbsp;&nbsp;
+		    					<ul>
+		    						<li><i>灰太狼面具</i><span><img src="../../image/pe01.png" alt="" /></span></li>
+		    						<li><i>拳套</i><span><img src="../../image/pe02.jpg" alt="" /></span></li>
+		    					</ul>
+		    				</li>
+		    			</ul>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="lt_pic"><img src="../../image/yyk.png" alt="" /></div>
+		    		<div class="rt_name">
+		    			<p>
+		    				<em>语言课</em>
+		    				<i>时间:&nbsp;&nbsp;14:30-15:10</i>
+		    			</p>
+		    			<ul>
+		    				<li>老师:&nbsp;&nbsp;刘老师</li>
+		    				<li>位置:&nbsp;&nbsp;绘本馆</li>
+		    				<li class="teachingPlan">教案:&nbsp;&nbsp;猪太太生宝宝<img src="../../image/href.png" alt="" /></li>
+		    				<li class="realia"><span>教具:</span>&nbsp;&nbsp;
+		    					<ul>
+		    						<li><i>绘本</i><span><img src="../../image/yyk01.png" alt="" /></span></li>
+		    						<li><i>小猪头饰</i><span><img src="../../image/yyk02.png" alt="" /></span></li>
+		    						<li><i>手偶</i><span><img src="../../image/yyk03.png" alt="" /></span></li>
+		    					</ul>
+		    				</li>
+		    			</ul>
+		    		</div>
+		    	</li>
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			
+		};
+		
+		
+	
+	</script>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间-评论</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			#main{
+				width: 100%;
+				background-color: #fff;
+				box-sizing: border-box;
+			}
+			.thisSaid{
+				width: 100%;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				height: 42px;
+				box-sizing: border-box;
+				padding: 0 18px;
+				overflow: hidden;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 99;
+			}
+			.thisSaid .comment_num{
+				font-size: 16px;
+				color: #333;
+				line-height: 42px;
+				float: left;
+				position: relative;
+			}
+			.thisSaid .comment_num:before{
+				content: '';
+				width: 54px;
+				height: 2px;
+				background: url(../../icon/selected-bg.png) no-repeat;
+				background-repeat-x: repeat;
+				position: absolute;
+				bottom: 0;
+				left: 50%;
+				margin-left: -27px;
+			}
+			.thisSaid .comment_num i{
+				padding-left: 12px;
+			}
+			.thisSaid .admiration_num{
+				float: right;
+				font-size: 14px;
+				color: #BDBDBD;
+				
+			}
+			.thisSaid .admiration_num img{
+				width: 24px;
+				height: 24px;
+				border-radius: 24px;
+				margin-top: -3px;
+				vertical-align: middle;
+			}
+			.thisSaid .admiration_num em{
+				padding-left: 6px;
+				padding-right: 10px;
+				line-height: 42px;
+			}
+			.thisSaid .admiration_num i{
+				line-height: 42px;
+			}
+			
+			.wonderfulList{
+				margin-top: 42px;
+				margin-bottom: 42px;
+			}
+			.wonderfulList>li{
+				padding:0 18px;
+				padding-top: 20px;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.wonderfulList>li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.wonderfulList>li .tp_user{
+				overflow: hidden;
+				padding-bottom: 10px;
+			}
+			.wonderfulList>li .tp_user .userPic{
+				width: 36px;
+				height: 36px;
+				border-radius: 50%;
+				float: left;
+				margin-right: 8px;
+			}
+			.wonderfulList>li .tp_user .userPic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+			.wonderfulList>li .tp_user .userInfo{
+				font-size: 14px;
+				color: #666666;
+				letter-spacing: 0.29px;
+			}
+			.wonderfulList>li .tp_user .userInfo .username{
+				padding-top: 8px;
+				line-height: 20px;
+				position: relative;
+			}
+			.wonderfulList>li .tp_user .userInfo .username em{
+				line-height: 10px;
+				font-size: 10px;
+				color: #909090;
+				letter-spacing: 0.21px;
+				position: absolute;
+				right: 0;
+				top: 14px;
+			}
+			.ct_content p{
+				font-size: 14px;
+				color: #000;
+				line-height: 20px;
+			}
+			.ct_content ul{				
+				padding-top: 10px;
+				width: 100%;
+				overflow: hidden;
+				
+			}
+			.ct_content ul li{
+				width: 100%;
+				height: 190px;
+				overflow: hidden;
+			}
+			.ct_content ul li.ltpic{
+				float: left;
+				width: 48.95%;
+				height: 190px;
+				
+			}
+			.ct_content ul li.rtpic{
+				float: right;
+				width: 49.25%;
+				height: 190px;
+				
+			}
+			.ct_content ul li.ltpic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 15px 0 0 15px;
+			}
+			.ct_content ul li.rtpic img:nth-of-type(1){
+				float: right;
+				width: 100%;
+				height: 92px;
+				border-radius: 0 15px 0 0;
+				margin-bottom: 6px;
+			}
+			.ct_content ul li.rtpic img:nth-of-type(2){
+				float: right;
+				width: 100%;
+				height: 92px;
+				border-radius: 0 0 15px 0;
+				margin-bottom: 6px;
+			}
+			.bt_moreheat{
+				margin-top: 10px;
+				overflow: hidden;
+				padding-bottom: 12px;
+				height: 19px;
+			}
+			.bt_moreheat .lt_label{
+				float: left;
+				font-size: 12px;
+				color: #999;
+				line-height: 19px;
+			}
+			.bt_moreheat .rt_apcr{
+				float: right;
+				overflow: hidden;
+				font-size: 12px;
+				color: #999;
+				float: right;
+				
+			}
+			
+			.rt_apcr span.dianzan{
+				float: left;
+			}
+			.rt_apcr span.dianzan  a{
+				display: inline-block;
+				width: 19px;
+				height: 20px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				margin-right: 3px;
+				
+			}
+			.rt_apcr span.dianzan em{
+				padding-left: 4px;
+				vertical-align: top;
+				margin-top: 6px;
+			}
+			
+			.rt_apcr span.pinglun{
+				float: left;
+			}
+			.rt_apcr span.pinglun a{
+				margin-top: 4px;
+				display: inline-block;
+				margin-left: 12px;
+				width: 17px;
+				height: 17px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+			.rt_apcr span.pinglun i{
+				padding-left: 4px;
+				display: inline-block;
+				vertical-align: top;
+				margin-top: 6px;
+			}
+			
+			.rt_apcr span.zhaunfa{
+				float: left;
+			}
+			.rt_apcr span.zhaunfa a{
+				margin-top: 5px;
+				margin-left: 12px;
+				font-weight: 400;
+				width: 17px;
+				height: 17px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+			}
+			.rt_apcr span.zhaunfa b{
+				padding-left: 4px;
+				display: inline-block;
+				vertical-align: top;
+				margin-top: 6px;
+				font-weight: 400;
+			}
+			
+			.comment_cnt{
+				background: #F2F2F2;
+				border-radius: 4px;
+				padding: 12px;
+				padding-bottom: 6px;
+				margin-top: 12px;
+			}
+			.comment_cnt p{
+				font-size: 12px;
+				color: #151515;
+				line-height: 17px;
+				padding-bottom: 6px;
+			}
+			.comment_cnt em i{
+				font-size: 12px;
+				color: #5AC8E1;
+			}
+			.comment_cnt p.more_cnt{
+				font-size: 12px;
+				color: #5AC8E1;
+				line-height: 17px;
+			}
+			
+			.thisSaid_operation{
+				background: #F2F2F2;
+				border-top: 1px solid #D8D8D8;
+				width: 100%;
+				box-sizing: border-box;
+				height: 42px;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				padding: 6px 0;
+			}
+			.thisSaid_operation>div{
+				border-right: 1px solid #e8e7e7;
+				text-align: center;
+				box-sizing: border-box;
+				line-height: 30px;
+				width: 50%;
+				font-size: 14px;
+				color: #999;
+			}
+			.thisSaid_operation>div:nth-last-of-type(1){
+				border-right:0;
+			}
+			.thisSaid_operation .comment_operation{
+				float: left;
+				
+			}
+			.thisSaid_operation .comment_operation span{
+				padding-left: 28px;
+				position: relative;
+				padding-right: 8px;
+			}
+			.thisSaid_operation .comment_operation span:before{
+				content: '';
+				width: 22px;
+				height: 22px;
+				background: url(../../image/pinglun2.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				top: 50%;
+				margin-top: -11px;
+				left: 0;
+			}
+			
+			.thisSaid_operation .admiration_operation{
+				float: right;
+			}
+			.thisSaid_operation .admiration_operation em{
+				width: 20px;
+				height: 22px;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				vertical-align: top;
+				margin-top: 1px;
+			}
+			.thisSaid_operation .admiration_operation span{
+				padding-left: 6px;
+				padding-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+			<div class="thisSaid">
+				<div class="comment_num">评论<i>32</i></div>
+				<div class="admiration_num">
+					<img src="../../image/teacherAvatar.png"/><em>赞</em><i>81</i>
+				</div>
+			</div>
+		    <ul class="wonderfulList">
+		    	<li>
+		    		<div class="tp_user">
+		    			<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    			<div class="userInfo">
+		    				<p class="username"><span>李老师</span></p>
+		    			</div>
+		    		</div>
+		    		<div class="ct_content">
+		    			<p>我家宝宝也是这样，以前非常听话，现在比之前叛逆多了，所以宝宝的教育一定要重视。</p>
+		    			
+		    		</div>
+		    		<div class="bt_moreheat">
+		    			<div class="lt_label">
+		    				1分钟
+		    			</div>
+		    			<div class="rt_apcr">
+		    				<span class="dianzan"><a style="background-image: url(../../image/dianzan2.png);"></a><em>223</em></span>
+			    			<span class="pinglun"><a style="background-image: url(../../image/pinglun2.png);"></a><i>342</i></span>
+			    			<span class="zhaunfa"><a style="background-image: url(../../image/zhuanfa.png);"></a><b>22</b></span>
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="tp_user">
+		    			<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    			<div class="userInfo">
+		    				<p class="username"><span>雪花</span></p>
+		    			</div>
+		    		</div>
+		    		<div class="ct_content">
+		    			<p>感觉好棒！</p>
+		    			
+		    		</div>
+		    		<div class="comment_cnt">
+		    			<p><em><i>淑静：</i></em>愿孩子每天开开心心，健康成长。</p>
+		    			<p><em><i>雪花</i>回复<i>淑静：</i></em>孩子的开心就是我们的最大收获。</p>
+		    			<p class="more_cnt">查看更多回复</p>
+		    		</div>
+		    		<div class="bt_moreheat">
+		    			<div class="lt_label">
+		    				1分钟
+		    			</div>
+		    			<div class="rt_apcr">
+		    				<span class="dianzan"><a style="background-image: url(../../image/dianzan2.png);"></a><em>223</em></span>
+			    			<span class="pinglun"><a style="background-image: url(../../image/pinglun2.png);"></a><i>342</i></span>
+			    			<span class="zhaunfa"><a style="background-image: url(../../image/zhuanfa.png);"></a><b>22</b></span>
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="tp_user">
+		    			<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    			<div class="userInfo">
+		    				<p class="username"><span>戏精</span></p>
+		    			</div>
+		    		</div>
+		    		<div class="ct_content">
+		    			<p>感觉好棒！</p>
+		    			
+		    		</div>
+		    		<div class="comment_cnt">
+		    			<p><em><i>戏精：</i></em>什么样的年龄做什么样的事情，不泯灭了童年的记忆，让孩子好好享受童年的时光。</p>
+		    		</div>
+		    		<div class="bt_moreheat">
+		    			<div class="lt_label">
+		    				1分钟
+		    			</div>
+		    			<div class="rt_apcr">
+		    				<span class="dianzan"><a style="background-image: url(../../image/dianzan2.png);"></a><em>223</em></span>
+			    			<span class="pinglun"><a style="background-image: url(../../image/pinglun2.png);"></a><i>342</i></span>
+			    			<span class="zhaunfa"><a style="background-image: url(../../image/zhuanfa.png);"></a><b>22</b></span>
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="tp_user">
+		    			<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    			<div class="userInfo">
+		    				<p class="username"><span>戏精</span></p>
+		    			</div>
+		    		</div>
+		    		<div class="ct_content">
+		    			<p>感觉好棒！</p>
+		    			
+		    		</div>
+		    		<div class="comment_cnt">
+		    			<p><em><i>戏精：</i></em>什么样的年龄做什么样的事情，不泯灭了童年的记忆，让孩子好好享受童年的时光。</p>
+		    		</div>
+		    		<div class="bt_moreheat">
+		    			<div class="lt_label">
+		    				1分钟
+		    			</div>
+		    			<div class="rt_apcr">
+		    				<span class="dianzan"><a style="background-image: url(../../image/dianzan2.png);"></a><em>223</em></span>
+			    			<span class="pinglun"><a style="background-image: url(../../image/pinglun2.png);"></a><i>342</i></span>
+			    			<span class="zhaunfa"><a style="background-image: url(../../image/zhuanfa.png);"></a><b>22</b></span>
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<div class="tp_user">
+		    			<div class="userPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    			<div class="userInfo">
+		    				<p class="username"><span>戏精</span></p>
+		    			</div>
+		    		</div>
+		    		<div class="ct_content">
+		    			<p>感觉好棒！</p>
+		    			
+		    		</div>
+		    		<div class="comment_cnt">
+		    			<p><em><i>戏精：</i></em>什么样的年龄做什么样的事情，不泯灭了童年的记忆，让孩子好好享受童年的时光。</p>
+		    		</div>
+		    		<div class="bt_moreheat">
+		    			<div class="lt_label">
+		    				1分钟
+		    			</div>
+		    			<div class="rt_apcr">
+		    				<span class="dianzan"><a style="background-image: url(../../image/dianzan2.png);"></a><em>223</em></span>
+			    			<span class="pinglun"><a style="background-image: url(../../image/pinglun2.png);"></a><i>342</i></span>
+			    			<span class="zhaunfa"><a style="background-image: url(../../image/zhuanfa.png);"></a><b>22</b></span>
+		    			</div>
+		    		</div>
+		    	</li>
+		    </ul>
+		    
+		    <div class="thisSaid_operation">
+		    	<div class="comment_operation">
+		    		<span>评论</span><i>22</i>
+		    	</div>
+		    	<div class="admiration_operation">
+		    		<em style="background-image: url(../../image/dianzan03.png);"></em><span>赞</span><i>81</i>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			
+		};
+		
+		
+	
+	</script>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>教学管理-我的收藏</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/myCollect.css">
+	</head>
+	<body>
+		<div id="main" >
+			<ul class="navlist">
+				<li onclick="changeNav(this,'nomoreSelects')" class="act"><span>课程</span></li>
+				<li onclick="changeNav(this,'videoSelects')"><span>视频</span></li>
+				<li onclick="changeNav(this,'photoSelects')"><span>照片</span></li>
+				<li onclick="changeNav(this,'documentSelects')"><span>文档</span></li>
+			</ul>
+			<div id="content-warp">
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/business.js"></script>
+	<!--课程-->
+	<script id="nomoreTmp" type="text/html">
+		<ul class="courseList" id="outline">
+			<%for(var i = 0;i < list.length; i++){%>
+			<li>
+				<%if(list[i].imgs.length>2){%>
+				<div class="imgDiv">
+					<img src="<%=list[i].imgs[0]%>" onerror="this.src='../../image/mystudy02.jpg'" style="<%=list[i].styleObjs[0]%>"/>
+				</div>
+				<%}%>
+				<div class="coursename">
+					<div tapmode="itemOn" onclick="gotoDetail('<%=list[i].id%>')">
+						<span><%=list[i].title%></span>
+						<p><%=list[i].content%></p>
+						<strong><%=list[i].createUser.name%>发布于<%=list[i].ctime%></strong>
+					</div>
+					<div>
+						<em onclick="gotoDetail(<%=list[i].id%>)" style="background-image: url(../../image/mystudy03.png);background-size: 16px 15px;"><%=list[i].commentNum%></em>
+						<%if(list[i].supported){%>
+						<i style="background-image: url(../../image/dianzan02.png);background-size: 16px 15px;" type="2" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+						<%}else{%>
+						<i style="background-image: url(../../image/dianzan01.png);background-size: 16px 15px;" type="1" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+						<%}%>
+						<%if(list[i].favorited){%>
+						<b style="background-image: url(../../image/mystudy04.png);background-size: 16px 15px;" type="2" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+						<%}else{%>
+						<b style="background-image: url(../../image/mystudy05.png);background-size: 16px 15px;" type="1" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+						<%}%>
+					</div>
+				</div>
+			</li>
+			<%}%>
+		</ul>
+	</script>
+
+	<!--文档-->
+	<script id="documentTmp" type="text/html">
+		<ul class="fileList">
+			<%for(var i = 0;i < list.length; i++){%>
+			<li onclick="gotoDetail('<%=list[i].id%>')">
+				<div class="documentImg">
+					<img src="../../image/yellow.png">
+				</div>
+				<div class="filename">
+					<p><%=list[i].title%></p>
+					<span><%=list[i].ctime%></span>
+				</div>
+			</li>
+			<%}%>
+		</ul>
+	</script>
+
+	<!--视频-->
+	<script id="videoTmp" type="text/html">
+		<ul class="videoList" id="outline">
+		<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<div class="videoPic" tapmode="itemOn" onclick="gotoDetail('<%=list[i].id%>')">
+				<div class="imgCon" style="height: <%=list[i].imgConHeight%>;width: 100%;overflow: hidden;">
+					<img src="<%=list[i].imgs[0]%>" onerror="this.src='../../image/mystudy02.jpg'" style="<%=list[i].styleObjs[0]%>"/>
+				</div>
+				<em></em>
+				<i></i>
+				<span>10:10</span>
+			</div>
+			<span><%=list[i].title%></span>
+			<p><%=list[i].content%></p>
+			<strong><%=list[i].createUser.name%>发布于<%=list[i].ctime%></strong>
+			<div class="more_hesh">
+				<em onclick="gotoDetail('<%=list[i].id%>')" style="background-image: url(../../image/mystudy03.png);background-size: 16px 15px;"><%=list[i].commentNum%></em>
+				<%if(list[i].supported){%>
+				<i style="background-image: url(../../image/dianzan02.png);background-size: 16px 15px;" type="2" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+				<%}else{%>
+				<i style="background-image: url(../../image/dianzan01.png);background-size: 16px 15px;" type="1" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+				<%}%>
+				<%if(list[i].favorited){%>
+				<b style="background-image: url(../../image/mystudy04.png);background-size: 16px 15px;" type="2" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+				<%}else{%>
+				<b style="background-image: url(../../image/mystudy05.png);background-size: 16px 15px;" type="1" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+				<%}%>
+			</div>
+		</li>
+		<%}%>
+		</ul>
+	</script>
+
+	<!--图片-->
+	<script id="photoTmp" type="text/html">
+		<ul class="photoList clearfix" id="outline">
+			<%for(var i = 0;i < list.length; i++){%>
+			<!--FIXME 要调整改页面结构，否则无法适用裁图-->
+			<li tapmode="itemOn" onclick="gotoDetail('<%=list[i].id%>')">
+				<img src="<%=list[i].imgs[0]%>" style="<%=list[i].styleObjs[0]%>"
+					 onclick="gotoDetail('<%=list[i].id%>')" alt=""/>
+			</li>
+			<%}%>
+		</ul>
+	</script>
+
+	<script>
+		var collectList = {};
+        var allResults = {};
+		apiready = function () {
+			ajaxGet(getMyFavorite,{type:5},function (ret,err) {
+				if(ret.success != true){
+				   toast('请求失败，请重试');
+				}else{
+				    collectList = ret.data;
+				    //初始化课程
+                    nomoreToHtml(collectList.nomoreSelects,false);
+				}
+            });
+
+        };
+		//切换
+		function changeNav(self,type) {
+            $(self).siblings('li').removeClass('act');
+            $(self).addClass('act');
+            if(type == 'nomoreSelects'){
+                nomoreToHtml(collectList[type],false);
+			}
+			if(type == 'videoSelects'){
+                videoToHtml(collectList[type],false);
+            }
+            if(type == 'photoSelects'){
+                photoToHtml(collectList[type],false);
+            }
+            if(type == 'documentSelects'){
+                documentToHtml(collectList[type],false)
+            }
+        }
+        //课程
+        function nomoreToHtml(results,append) {
+            allResults = {};
+			if(isNotBlack(results.length)){
+				for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+					results[i].ctime=formatTimeToDates(results[i].ctime);
+					for(var j=0;j<results[i].imgs.length;j++){
+						if(results[i].imgs[j]){
+							//处理图片变形 width 和 height的值分别为img标签外边div的宽高
+							var domWidth = api.winWidth;
+							var width = 72;
+							var height = 109;
+							//把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+							var obj = getImgByThisSize(results[i].imgs[j],width,height);
+							if(!results[i].styleObjs){
+								results[i].styleObjs=[];
+							}
+							results[i].styleObjs[j] = obj.style;
+						}
+					}
+				}
+			}
+			var data = {list: results};
+			var html = template('nomoreTmp',data);
+			if (append){
+				var div = document.createElement("div");
+				div.innerHTML = html;
+				document.getElementById('content-warp').appendChild(div);
+			} else {
+				document.getElementById('content-warp').innerHTML = html;
+			}
+			api.parseTapmode();
+
+        }
+        //图片
+        function photoToHtml(results,append) {
+            allResults = {};
+            if(isNotBlack(results.length)){
+                for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+                    for(var j=0;j<results[i].imgs.length;j++){
+                        if(results[i].imgs[j]){
+                            //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                            var domWidth = api.winWidth;
+                            var width = domWidth*0.3333;
+                            var height = domWidth*0.3333;
+                            //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                            var obj = getImgByThisSize(results[i].imgs[j],width,height);
+                            if(!results[i].styleObjs){
+                                results[i].styleObjs=[];
+                            }
+                            results[i].styleObjs[j] = obj.style;
+                        }
+                    }
+                }
+            }
+            var data = {list: results};
+            var html = template('photoTmp',data);
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('content-warp').appendChild(div);
+            } else {
+                document.getElementById('content-warp').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+        // 文档
+        function documentToHtml(results,append) {
+            allResults = {};
+            if(isNotBlack(results.length)){
+                for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+                    results[i].ctime=formatTimeToDates(results[i].ctime);
+                    for(var j=0;j<results[i].imgs.length;j++){
+                        if(results[i].imgs[j]){
+                            //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                            var domWidth = api.winWidth;
+                            var width = 65;
+                            var height = 65;
+                            //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                            var obj = getImgByThisSize(results[i].imgs[j],width,height);
+                            if(!results[i].styleObjs){
+                                results[i].styleObjs=[];
+                            }
+                            results[i].styleObjs[j] = obj.style;
+                        }
+                    }
+                }
+            }
+            var data = {list: results};
+            var html = template('documentTmp',data);
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('content-warp').appendChild(div);
+            } else {
+                document.getElementById('content-warp').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+        // 视频
+        function videoToHtml(results,append) {
+            allResults = {};
+            if(isNotBlack(results.length)){
+                var imgConHeight = api.winWidth*0.3733 + "px";
+                for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+                    results[i].ctime=formatTimeToDates(results[i].ctime);
+                    for(var j=0;j<results[i].imgs.length;j++){
+                        results[i].imgConHeight = imgConHeight;
+                        if(results[i].imgs[j]){
+                            //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                            var domWidth = api.winWidth;
+                            var width = api.winWidth;
+                            var height = api.winWidth*0.3733;
+                            //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                            var obj = getImgByThisSize(results[i].imgs[j],width,height);
+                            if(!results[i].styleObjs){
+                                results[i].styleObjs=[];
+                            }
+                            results[i].styleObjs[j] = obj.style;
+                        }
+                    }
+                }
+            }
+            var data = {list: results};
+            var html = template('videoTmp',data);
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('content-warp').appendChild(div);
+            } else {
+                document.getElementById('content-warp').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+
+        //详情页面
+        function gotoDetail(id){
+            allResults[id].pathName = api.pageParam.pathName;
+            openNewWindow("myStudy_detail","myStudy_detail.html",allResults[id])
+        }
+	</script>
+</html>

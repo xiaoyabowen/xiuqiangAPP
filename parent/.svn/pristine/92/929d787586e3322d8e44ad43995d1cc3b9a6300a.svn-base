@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>班级教师-在线沟通</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #F2F2F2;
+			}
+			.chatbox{
+				width: 100%;
+				padding: 0 18px;
+				padding-top: 20px;
+				box-sizing: border-box;
+				margin-bottom: 42px;
+			}
+			.chatbox ul{
+				overflow: hidden;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.chatbox li{
+				margin-bottom: 21px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.teacher{
+				overflow: hidden;
+				box-sizing: border-box;
+			}
+			.teacher .t_pic{
+				float: left;
+				width: 37px;
+				height: 37px;
+			}
+			.teacher .t_pic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 37px;
+			}
+			.teacher .cnt_box{
+				/*box-sizing: border-box;*/
+				width: 60%;
+				margin-left: 49px;
+				font-size: 14px;
+				color: #666666;
+				line-height: 20px;
+				background-color: #fff;
+				border-radius: 4px;
+				padding: 8px 12px;
+				position: relative;
+			}
+			.teacher .cnt_box:before{
+				content: '';
+				width: 8px;
+				height: 10px;
+				background: url(../../image/lt_tail.png) no-repeat;
+				position: absolute;
+				left: -8px;
+				top: 19px;
+			}
+			
+			.parent{
+				overflow: hidden;
+				/*float: right;*/
+				box-sizing: border-box;
+			}
+			.parent .p_pic{
+				float: right;
+				width: 37px;
+				height: 37px;
+			}
+			.parent .p_pic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 37px;
+			}
+			.parent .cnt_box{
+				/*box-sizing: border-box;*/
+				float: right;
+				width: 60%;
+				margin-right: 12px;
+				font-size: 14px;
+				color: #FFFFFF;
+				line-height: 20px;
+				background-color: #5AC8E1;
+				border-radius: 4px;
+				padding: 8px 12px;
+				position: relative;
+			}
+			.parent .cnt_box:before{
+				content: '';
+				width: 8px;
+				height: 10px;
+				background: url(../../image/rt_tail.png) no-repeat;
+				position: absolute;
+				right: -8px;
+				top: 19px;
+			}
+			
+			.inputbox{
+				height: 42px;
+				width: 100%;
+				padding: 0 18px;
+				box-sizing: border-box;
+				font-size: 14px;
+				line-height: 42px;
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				overflow: hidden;
+				background-color: #fff;
+				z-index: 99;
+			}
+			.inputbox input{
+				float: left;
+				height: 100%;
+				width: 86%;
+			}
+			.inputbox span{
+				float: right;
+				color: #333333;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="chatbox">
+				<ul>
+					<li class="teacher">
+						<div class="t_pic"><img src="../../image/teacherAvatar.png"/></div>
+						<div class="cnt_box">请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？</div>
+					</li>
+					<li class="parent">
+						<div class="p_pic"><img src="../../image/babyAvatar.png"/></div>
+						<div class="cnt_box">我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？</div>
+					</li>
+					<li class="teacher">
+						<div class="t_pic"><img src="../../image/teacherAvatar.png"/></div>
+						<div class="cnt_box">请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？</div>
+					</li>
+					<li class="parent">
+						<div class="p_pic"><img src="../../image/babyAvatar.png"/></div>
+						<div class="cnt_box">我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？</div>
+					</li>
+					<li class="teacher">
+						<div class="t_pic"><img src="../../image/teacherAvatar.png"/></div>
+						<div class="cnt_box">请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？</div>
+					</li>
+					<li class="parent">
+						<div class="p_pic"><img src="../../image/babyAvatar.png"/></div>
+						<div class="cnt_box">我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？</div>
+					</li>
+					<li class="teacher">
+						<div class="t_pic"><img src="../../image/teacherAvatar.png"/></div>
+						<div class="cnt_box">请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？请问有什么可以帮助您的吗？</div>
+					</li>
+					<li class="parent">
+						<div class="p_pic"><img src="../../image/babyAvatar.png"/></div>
+						<div class="cnt_box">我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？我家宝宝在学校表现怎么样？</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="inputbox">
+		    	<input type="text" placeholder="请输入你想说的话..."/>
+		    	<span>发送</span>
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		
+	</script>
+</html>

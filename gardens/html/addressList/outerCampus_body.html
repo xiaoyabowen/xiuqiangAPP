@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝秀</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            min-width: 320px;
+            background-color: #f8f8f8;
+        }
+        .phone_box{
+            padding: 10px 5%;
+            /*height: 70px;*/
+        }
+        .images{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            float: left;
+            overflow: hidden;
+        }
+
+        .phone_Tel{
+            margin-top: 4px;
+            margin-left: 12px;
+            float: left;
+            /*line-height:70px ;*/
+        }
+        .phone_Tel p{
+            font-size: 12px;
+            color: #666;
+            line-height: 16px;
+        }
+        .phone_img_tx{
+            float: right;
+            margin-top: 6px;
+        }
+        .phone_img_t{
+            margin-right: 10px;
+        }
+        .interleaveColor:nth-child(odd){
+            background: #F2F2F2;
+        }
+    </style>
+</head>
+<body>
+<ul id="phoneHm">
+    <!--<li>-->
+        <!--<div class="phone_box">-->
+            <!--<div class="images">-->
+                <!--<img style="width: 100%;height:100% " src="../../image/fcoushead.png" alt="">-->
+            <!--</div>-->
+            <!--<div class="phone_Tel">-->
+                <!--<p>姓名</p>-->
+                <!--<p>手机号</p>-->
+            <!--</div>-->
+            <!--<div class="phone_img_tx">-->
+                <!--<img style="width: 24px;height: 24px" class="phone_img_t" src="../../icon/gray_phone.png" alt="">-->
+                <!--<img style="width: 24px;height: 24px" src="../../icon/gray_msg.png" alt="">-->
+            <!--</div>-->
+            <!--<div style="clear:both;"></div>-->
+        <!--</div>-->
+    <!--</li>-->
+</ul>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="phoneTm">
+    <%for(var i=0;i<list.length;i++){%>
+    <li class="interleaveColor">
+        <div class="phone_box">
+            <div class="images">
+                <!--<img src="../../image/fcoushead.png" style="width:100%;height:100%;" data-echo="<%=list[i].imgpath%>" real-style="<%=list[i].style%>"  alt="" />-->
+                <!--<img src="../../image/fcoushead.png" style="width:100%;height:100%;" data-echo="<%=list[i].imgpath%>" real-style="<%=list[i].style%>" onerror="this.src='../../image/fcoushead.png'"  alt="" />-->
+                <%if(list[i].imgpath==""){%>
+                <img style="width:100%;height:100%;" src="../../image/fcoushead.png" alt="">
+                <%} else {%>
+                <img style="<%=list[i].style%>" src="<%=list[i].imgpath%>" alt="">
+                <%}%>
+
+            </div>
+            <div class="phone_Tel">
+                <p><%=list[i].name%></p>
+                <p><%=list[i].phone%></p>
+            </div>
+            <div class="phone_img_tx">
+                <img style="width: 24px;height: 24px" class="phone_img_t" onclick="openPhone(<%=list[i].phone%>)" src="../../icon/gray_phone.png" alt="">
+                <img style="width: 24px;height: 24px" src="../../icon/gray_msg.png" alt="" onclick="openUserChat(<%=list[i].phone%>)">
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    </li>
+    <%}%>
+    <li>
+        <div style="text-align: center;font-size: 14px;color: #f8f8f8">以显示全部</div>
+    </li>
+
+
+</script>
+<script>
+    apiready=function () {
+        ajaxGet(getSotozonoList,{sid:getUserInfo().sid},function (ret,err) {
+//            alert(JSON.stringify(ret))
+            if(ret.success && ret.data.length>=0){
+                for(var i=0;i<ret.data.length;i++){
+                    if(ret.data[i].imgpath!=''){
+                        var width = 52;
+                        var height = 52;
+                        var obj = getImgSizeBySize(ret.data[i].imgpath,width,height);
+                        ret.data[i].imgpath=obj.url
+                        ret.data[i].style=obj.style;
+                    }
+                }
+            }
+//            alert(JSON.stringify(ret.data))
+            var data={list:ret.data};
+            var html=template("phoneTm",data);
+            document.getElementById("phoneHm").innerHTML=html;
+            setTimeout(function(){
+                echoExt.init({
+                    offset: 0,
+                    throttle: 0//设置图片延迟加载的时间
+                });
+            },100)
+        })
+    }
+    function openPhone(call) {
+        openCall(call)
+    }
+    function openUserChat(phone){
+        api.sms({
+            numbers: [phone]
+//            text: '测试短信'
+        }, function(ret, err) {
+            if (ret && ret.status) {
+                //已发送
+            } else {
+                //发送失败
+            }
+        });
+    };
+</script>
+</html>

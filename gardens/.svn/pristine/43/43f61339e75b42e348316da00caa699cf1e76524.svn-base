@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+    <title>注册</title>
+    <style>
+        body{
+            background:url("../../image/lrbg.png") no-repeat;
+            background-size:100% 100%;
+            color:#FFFFFF; 
+            height:auto;
+        }
+        .return{
+            width:30%;
+            height:46px;
+            position: relative;
+        }
+        .return>img{
+            width:22px;
+            height:22px;
+            position: absolute;
+            bottom:10px;
+            left:15px;
+        }
+        .leader-info{
+            width:100%;
+            margin-top:8px;
+            padding-left:15px;
+            box-sizing: border-box;
+        }
+        .leader-title,.kg-title,.ri-title{
+            font-size: 18px;
+        }
+        .tag{
+            font-size: 14px;
+            position:absolute;
+            line-height: 35px;
+        }
+        .leader-name,.leader-phone,.leader-mail,.leader-id{
+            margin-top:10px;
+            box-sizing: border-box;
+        }
+        .leader-info input,.kindergarten-info input,.referrer-info input,.kindergarten-info select{
+            width:67.2%;
+            height:36px;
+            margin-left:76px;
+            border: 1px solid #B8B7BB;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color:#FFFFFF;
+            padding:8px 10px;
+        }
+        .kindergarten-info select{
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+            background-color:transparent;
+            outline: none; 
+            color:#999999;
+            background: url('../../icon/selectarrow.png');
+            background-repeat:no-repeat;
+            background-position: 95% 50%;
+        }
+        .kindergarten-info select option{
+           background-color: transparent;
+        }
+        input::-webkit-input-placeholder{
+            color:#999999;
+        }
+        input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+            color:#999999;
+        }
+        input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+            color:#999999;
+        }
+        input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+            color:#999999;
+        }
+        .kindergarten-info,.referrer-info{
+            width:100%;
+            margin-top:20px;
+            padding-left:15px;
+            box-sizing: border-box;
+        }
+        .kg-name,.kg-nature,.kg-class-count,.kg-address,.kg-detailed-address{
+            margin-top:10px;
+            box-sizing: border-box;
+        }
+        .ri-name,.ri-phone{
+            margin-top:10px;
+            box-sizing: border-box;
+        }
+        .reg-now{
+            width:100%;
+            padding-top:20px;
+            padding-bottom:62px;            
+        }
+        .reg-now>a{
+            width:83.7%;
+            margin:0 auto;
+            height:43px;
+            background:rgba(94,196,224,0.7);
+            border-radius: 100px;
+            text-align: center;
+            line-height: 43px;
+            color:#FFFFFF;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+           <div class="return" onclick="closeWin()">
+                <img src="../../icon/return.png" alt="">
+           </div>
+           <!-- 园长信息 -->
+           <div class="leader-info">
+                <div class="leader-title">园长基本信息</div>
+                <div class="leader-name">
+                    <span class="tag">园长姓名</span>
+                    <input id="adminName" type="text" placeholder="请输入姓名">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="leader-phone">
+                    <span class="tag">手机号</span>
+                    <input id="phone" type="number" placeholder="请输入手机号">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="leader-mail">
+                    <span class="tag">邮箱</span>
+                    <input id="mail" type="email" placeholder="请输入邮箱">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="leader-id">
+                    <span class="tag">身份证号</span>
+                    <input id="idCard" type="text" placeholder="请输入身份证号">
+                    <span style="color: red">*</span>
+                </div>
+           </div>
+           <!-- 幼儿园信息 -->
+           <div class="kindergarten-info">
+                <div class="kg-title">幼儿园基本信息</div>
+                <div class="kg-name">
+                    <span class="tag">幼儿园名称</span>
+                    <input id="name" type="text" placeholder="请输入名称">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-nature" id="schoolType">
+                    <span class="tag">性质</span>
+                    <input id="schoolName" type="text" placeholder="请选择性质" readonly>
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-class-count">
+                    <span class="tag">班级数量</span>
+                    <input id="clazzNum" type="number" placeholder="请输入班级数量">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-class-count">
+                    <span class="tag">学生数量</span>
+                    <input id="studentNum" type="number" placeholder="请输入学生数量">
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-address">
+                    <span class="tag">省</span>
+                    <select id="province" name="province" class="form-control"
+                            onchange="doProvAndCityRelation();">
+                        <option id="choosePro" value="0">请选择省份</option>
+                    </select>
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-address">
+                    <span class="tag">市</span>
+                    <select id="citys" name="city" onchange="doCityAndCountyRelation();">
+                        <option id='chooseCity' value="0">请选择城市</option>
+                    </select>
+                    <span style="color: red">*</span>
+                </div>
+                <div class="kg-detailed-address">
+                    <span class="tag">详细地址</span>
+                    <input id="address" type="text" placeholder="请输入地址">
+                    <span style="color: red">*</span>
+                </div>
+           </div>
+           <!-- 推荐人信息 -->
+           <div class="referrer-info">
+                <div class="ri-title">推荐人信息</div>
+                <div class="ri-name">
+                    <span class="tag">姓名</span>
+                    <input id="recommendName" type="text" placeholder="请输入姓名">
+                </div>
+                <div class="ri-phone">
+                    <span class="tag">手机号</span>
+                    <input id="recommendPhone" type="number" placeholder="请输入手机号">
+                </div>
+           </div>
+           <!-- 立即注册 -->
+           <div class="reg-now" onclick="register()">
+                <a><span>立即注册</span></a>
+            </div>
+        </div>    
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/area.js"></script>
+    <script>
+
+        var isCommitted = false;  //表单是否应提交标识，默认为false
+        function register(){
+            var data={};
+            data.adminName = $api.byId("adminName").value;
+            data.phone = $api.byId("phone").value;
+            data.mail = $api.byId("mail").value;
+            data.idCard = $api.byId("idCard").value;
+
+            data.name = $api.byId("name").value;
+            data.clazzNum = $api.byId("clazzNum").value;
+            data.studentNum = $api.byId("studentNum").value;
+            data.province = parseInt($api.byId("province").value);
+            data.city = parseInt($api.byId("citys").value);
+            data.address = $api.byId("address").value;
+            var schoolType = $api.byId("schoolName").value;
+            if(schoolType == '公办'){
+                data.schoolType = 1;
+            }else if(schoolType == '民营'){
+                data.schoolType = 2;
+            }else if(schoolType == '公私合办'){
+                data.schoolType = 3;
+            }else if(schoolType == '其他'){
+                data.schoolType = 4;
+            }
+            data.recommendName = $api.byId("recommendName").value;
+            data.recommendPhone = parseInt($api.byId("recommendPhone").value);
+
+            if(isBlack(data.adminName)){
+                toast('请输入姓名');
+                return;
+            }
+            if(isBlack(data.phone)){
+                toast('请输入手机号');
+                return;
+            }
+            // 判断输入手机是否正确
+            if(!checkMobileNum(data.phone)){
+                toast("手机号码不正确");
+                return;
+            }
+            if(isBlack(data.mail)){
+                toast('请输入邮箱');
+                return;
+            }
+            // 判断输入邮箱是否正确
+            if(!checkEmail(data.mail)){
+                toast("邮箱不正确");
+                return;
+            }
+            if(isBlack(data.idCard)){
+                toast('请输入身份证号码');
+                return;
+            }
+            // 判断输入身份证是否正确
+            if(!checkIdentity(data.idCard)){
+                toast("身份证不正确");
+                return;
+            }
+
+
+            if(isBlack(data.name)){
+                toast('请输入幼儿园名字');
+                return;
+            }
+            if(isBlack(schoolType)){
+                toast('请选择园所性质');
+                return;
+            }
+            if(isBlack(data.clazzNum)){
+                toast('请输入班级数量');
+                return;
+            }
+            if(isBlack(data.studentNum)){
+                toast('请输入学生数量');
+                return;
+            }
+            if(isBlack(data.province)){
+                toast('请选择所在省份');
+                return;
+            }
+            if(isBlack(data.city)){
+                toast('请选择所在城市');
+                return;
+            }
+            if(isBlack(data.city)){
+                toast('请选择所在城市');
+                return;
+            }
+            if(isBlack(data.address)){
+                toast('请输入详细地址');
+                return;
+            }
+
+            if(isCommitted == false){    //提交表单后，将表单是否已经提交设置为true
+
+                isCommitted = true; //返回true让表单正常提交
+                ajaxGetUser(adminRegistUrl,data,function(ret){
+                    if (ret&&ret.success) {
+                        toast('注册成功');
+                        setTimeout(function(){
+                            closeWin();
+                        },600)
+                    }else{
+                        var msg='注册失败';
+                        if(ret.msg){
+                            msg=ret.msg;
+                        }
+                        toast(msg);
+                    }
+                });
+            }else{
+                return false; //返回false表单不提交
+            }
+
+
+        }
+
+        apiready = function () {
+        	(function($, doc) {
+				$.ready(function() {
+					var schoolList = [{
+		        			text : "公办",
+		        			value: 1
+		        		},{
+		        			text : "民营",
+		        			value: 2
+		        		},{
+		        			text : "公私合办",
+		        			value: 3
+		        		},{
+		        			text : "其他",
+		        			value: 4
+		        		}
+		        	];
+					var schoolPicker = new $.PopPicker();
+		            schoolPicker.setData(schoolList);
+		            schoolPicker.setTitle("选择性质");
+		            var schoolType = doc.getElementById('schoolType');
+		            var schoolName = doc.getElementById('schoolName');
+		            schoolType.addEventListener('tap', function (event) {
+		                schoolPicker.show(function (items) {
+		                    schoolName.value = items[0].text;
+
+		                });
+		            }, false);   
+				});
+			})(mui, document);	
+		};
+		
+    </script>
+</body>
+</html>

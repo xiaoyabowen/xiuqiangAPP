@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>主页交互-分享</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				position: relative;
+				background-color: rgba(0,0,0,0.3);
+			}
+			.share{
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				background: #fff;
+			}
+			.sharemain{
+				width: 100%;
+				background-color: #f8f8f8;
+				text-align: center;
+			}
+			.sharebar {
+				padding-top: 21px;
+				overflow: hidden;
+			}
+			.sharebar li{
+				width: 25%;
+				float: left;
+			}
+			.sharebar li img{
+				width: 47px;
+				width: 47px;
+				border-radius: 50%;
+			}
+			.sharebar li p{
+				padding-top: 6px;
+				font-size: 14px;
+				color: #A4A4A4;
+				padding-bottom: 12px;
+			}
+			.cancel{
+				font-size: 16px;
+				color: #A4A4A4;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>	
+		<div class="share">
+			<div class="sharemain">
+				<ul class="sharebar">
+					<li>
+						<img src="../../image/wx.png" alt="" />
+						<p>微信朋友</p>
+					</li>
+					<li >
+						<img src="../../image/pyq.png" alt="" />
+						<p>朋友圈</p>
+					</li>
+					<li >
+						<img src="../../image/qq.png" alt="" />
+						<p>QQ好友</p>
+					</li>
+					<li >
+						<img src="../../image/qqkj.png" alt="" />
+						<p>QQ空间</p>
+					</li>
+				</ul>
+			</div>
+			<p class="cancel">取消</p>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function(){
+			
+		}
+	</script>
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>发布公告通知</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <link rel="stylesheet" href="../../css/mui.css"/>
+
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F8F8F8;
+        }
+        #main{
+            width:100%;
+            height: 100%;
+            padding-left:8px;
+            padding-right:8px;
+            padding-top:12px;
+            box-sizing: border-box;
+            overflow: auto;
+            padding-bottom: 50px;
+        }
+        .top-input{
+            width:100%;
+            height:47px;
+            background: #FFFFFF;
+            line-height:47px;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:12px;
+            padding-right:12px;
+            font-size:14px;
+            color:#BDBDBD;
+            /*overflow: hidden;*/
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .top-input img{
+            position:absolute;
+            top:-10px;
+            right:-10px;
+        }
+        .release_content{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            margin-top:5px;
+            padding:12px 12px 0px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .release_content>img{
+            position:absolute;
+            top:-10px;
+            right:-10px;
+        }
+        .contentImg{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding:12px 12px 0px;
+            box-sizing: border-box;
+            position:relative;
+
+        }
+        .contentImg span{
+            position: relative;
+            float: left;
+            margin-right:10px;
+            margin-top:10px;
+            margin-bottom: 10px;
+            display: block;
+            width: 80px;
+            height: 80px;
+            top: 0px;
+        }
+        .contentImg span>img{
+            display: block;
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            float: left;
+        }
+        .contentImg span i{
+            position: absolute;
+            right: -5px;
+            top: -10px;
+            width:10px;
+            height:10px;
+            margin-top:12px;
+            color:red;
+            font-size: 20px
+        }
+        .release_text{
+            width:100%;
+            font-size: 14px;
+            color:#000;
+            text-align: justify;
+            height: 120px;
+            outline: none;
+        }
+        .loaded_img{
+            width:100%;
+            margin-top:37px;
+            overflow: hidden;
+        }
+        .loaded_img>:nth-child(3n+1){
+            padding-left:0px !important;
+        }
+        .loaded_img>:nth-child(3n){
+            padding-right:0px;
+        }
+        .loaded_img>li{
+            /*width:33.33%;*/
+            /*height:97px;*/
+            overflow: hidden;
+            /*border-radius:8px;*/
+            float:left;
+            /* margin-right:12px;
+            margin-bottom:12px; */
+            padding:0px 6px 12px;
+            box-sizing: border-box;
+        }
+        .loaded_img>li>img{
+            width:100%;
+            height:100%;
+            border-radius:8px;
+        }
+        .bottom_count{
+            font-size:12px;
+            color:#999999;
+            text-align: right;
+            /* position:absolute;
+            right:12px;
+            bottom:12px; */
+        }
+        .add_btn{
+            width:100%;
+            padding:12px 19px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+        .add_btn li{
+            width:98px;
+            height:92px;
+            border-radius:4px;
+            background: #F2F2F2;
+            font-size:10px;
+            color:#999999;
+            text-align: center;
+            padding-top:56px;
+            border-radius:4px;
+            box-sizing: border-box;
+        }
+        .add_btn>:nth-child(1){
+            background-image: url("../../icon/addPhoto.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+        }
+        .add_btn>:nth-child(2){
+            background-image: url("../../icon/addNotice.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+            margin-left:12px;
+            margin-right:12px;
+        }
+        .add_btn>:nth-child(3){
+            background-image: url("../../icon/addNotice.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+        }
+        .controller{
+            width:100%;
+            padding-left:9px;
+            box-sizing: border-box;
+            /*overflow: hidden;*/
+            position: relative;
+        }
+        /*.select_target{*/
+        /*float:left;*/
+        /*height:20px;*/
+        /*background: #92CA55;*/
+        /*font-size:12px;*/
+        /*color:#FFFFFF;*/
+        /*line-height:20px;*/
+        /*padding-left:10px;*/
+        /*padding-right:27px;*/
+        /*border-radius:100px;*/
+        /*background-image:url('../../icon/arrowup.png');*/
+        /*background-repeat:no-repeat;*/
+        /*background-position:right 10px center;*/
+        /*}*/
+        .select_target{
+            float:left;
+            height:20px;
+            background: #92CA55;
+            font-size:12px;
+            color:#FFFFFF;
+            line-height:20px;
+            padding-left:10px;
+            padding-right:10px;
+            border-radius:100px;
+        }
+        .select_target>span{
+            width:60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .addLabel{
+            /* padding: 0 15px; */
+            float:left;
+            margin-left:12px;
+            margin-top:-2px;
+        }
+        .addLabel em{
+            font-size: 12px;
+            color: #333333;
+            line-height: 24px;
+
+        }
+        .mui-switch{
+            display: inline-block;
+            line-height: 24px;
+            right: 0;
+            width: 44px;
+            height: 20px;
+            border-radius: 100px;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+        .mui-switch .mui-switch-handle{
+            width: 17px;
+            height: 17px;
+        }
+        .mui-switch:before{
+            content: '';
+            display: none;
+        }
+        .mui-switch.mui-active{
+            border-color: #5AC8E1;
+            width:44px;
+            height:20px;
+            background: #5AC8E1;
+        }
+        .mui-table-view:after{
+            height: 0;
+        }
+        .preview{
+            width:90.4%;
+            height:44px;
+            line-height:44px;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            text-align: center;
+            margin:24px auto 0px;
+            font-size:16px;
+            color:#FFFFFF;
+        }
+        .sanjiao:before{
+            content: '';
+            width:0;
+            height:0;
+            display:block;
+            border:6px solid transparent;
+            border-bottom-color:#fff;
+            position:absolute;
+            top:-10px;
+            left:38%;
+        }
+        .xialaUl{
+            display: none;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 6px;
+            position: absolute;
+            left: 16px;
+            top: 22px;
+            background: #fff;
+            padding: 6px 10px;
+            border: 1px solid #CDE3E9;
+            z-index: 1000;
+        }
+        .xialaUl:before{
+            content: '';
+            width:0;
+            height:0;
+            display:block;
+            border:8px solid transparent;
+            border-bottom-color:#fff;
+            position:absolute;
+            top:-14px;
+            left:16%;
+        }
+        .xialaUl li{
+            width: 134px;
+            font-size: 14px;
+            color: #666666;
+            line-height: 28px;
+
+        }
+        .select_target{
+            float:left;
+            height:20px;
+            background: #92CA55;
+            font-size:12px;
+            color:#FFFFFF;
+            line-height:20px;
+            padding-left:10px;
+            padding-right:27px;
+            border-radius:100px;
+            background-image:url('../../icon/arrowup.png');
+            background-repeat:no-repeat;
+            background-position:right 10px center;
+        }
+        .select_target>span{
+            width:60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .tongzhiTitle{width: 100%}
+
+        .itemO{background: #f6f6f6}
+        .add_Img{
+            width:98px;
+            height:92px;
+            border-radius:4px;
+            background: #F2F2F2;
+            font-size:10px;
+            color:#999999;
+            text-align: center;
+            padding-top:56px;
+            border-radius:4px;
+            box-sizing: border-box;
+            background-image: url("../../icon/addPhoto.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <div class="top-input">
+        <input id="tongzhiTitle" class="tongzhiTitle" type="text" placeholder="请输入通知标题">
+    </div>
+    <div id="contentBody"  class="contentBody" style="width:100%;padding-left:8px;padding-right:8px;padding-top:12px;box-sizing: border-box;">
+        <div class='top-input' style='margin-top: 12px'> <img onclick="deletText(this,0)" style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''><input id='title0' class='tongzhiTitle' class='detectionCharactery' type='text' placeholder='请输入章节标题'> </div>
+        <div class='release_content' id='release_content' style='margin-top: 12px'> <img onclick="deletText(this)" style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''><textarea  id='text0'class='release_text detectionCharacter ' style='resize:none;' placeholder='亲子活动是孩子们期盼的快乐聚会，也是家长们展示活力的舞台'></textarea></div>
+
+    </div>
+
+    <ul class="add_btn">
+        <li onclick="getImgUrl(0,this)">
+            <div>添加照片视频</div>
+        </li>
+        <li onclick="addTitle()">
+            <div>添加章节标题</div>
+        </li>
+        <li onclick="addDetails()">
+            <div>添加文字内容</div>
+        </li>
+    </ul>
+    <div class="controller" >
+
+        <div class="addLabel">
+            <em>可以分享</em>
+            <div class="mui-switch mui-active" id="shareSwitch"onclick="">
+                <div class="mui-switch-handle" style="transition-duration: 0.2s; transform: translate(24px, 0px);"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="preview" onclick="yulan()">预览</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+
+<script>
+    var imgU = [];
+    var informArr={};
+    var spanNum =0;
+    var spanSmall = 0;
+    var spanArr =[];
+    var htmlArr = ["<div class='ziTitle'><p id='title0'></p></div>","<div class='release_content' ><p id='text0'></p></div>"];
+    var title =  1;
+    var text = 1;
+    var img = 0;
+    var staffTeacher=1;
+    var signfor='0';
+    var share='1';
+    var num =1;
+    apiready=function () {
+        pathId = api.pageParam.pathId;
+        pathType =api.pageParam.pathType
+        // console.log(pathId)
+    }
+    window.onload=function () {
+        var firstli=document.getElementById("firstli");
+        // selectStaff(firstli,0)
+    }
+    //判断多少字符
+    function jiance(self){
+        var thisSpan=$(self).next().children()
+        $(self).text($(self).val().length);//这句是在键盘按下时，实时的显示字数
+        if($(self).val().length > 300){
+            thisSpan.text(300);//长度大于100时0处显示的也只是100
+            $(self).val($(self).val().substring(0,300));//长度大于100时截取钱100个字符
+        }
+        thisSpan.text($(self).val().length);//这句是在刷新的时候仍然显示字数
+    }
+
+
+    //    $('#detectionCharacter').bind('input propertychange', function(){
+    //        var thisSpan=$(".detectionCharacter").next().children()
+    //        $(".detectionCharacter").text($(".detectionCharacter").val().length);//这句是在键盘按下时，实时的显示字数
+    //        if($(".detectionCharacter").val().length > 300){
+    //            thisSpan.text(300);//长度大于100时0处显示的也只是100
+    //            $(".detectionCharacter").val($(".detectionCharacter").val().substring(0,300));//长度大于100时截取钱100个字符
+    //        }
+    //        thisSpan.text($(".detectionCharacter").val().length);//这句是在刷新的时候仍然显示字数
+    //    });
+
+    //按钮
+    //        obj.tongzhiSignfor='0';
+    //        obj.tongzhiShare='0'
+    //删除模板
+    function deletText(self,index){
+        $(self).parent().remove();
+        htmlArr[parseInt(index)] = "";
+    }
+    //分享
+    document.getElementById("shareSwitch").addEventListener("toggle",function(event){
+        if(event.detail.isActive){
+//               toast("您开启了分享");
+            share='1'
+        }else{
+//               toast("您关闭了分享");
+            share='0'
+        }
+    })
+    /* //签收
+     document.getElementById("signSwitch").addEventListener("toggle",function(event){
+     if(event.detail.isActive){
+     //                toast("您开启了签收");
+     signfor='1';
+     }else{
+     //                toast("您关闭了签收");
+     signfor='0';
+     }
+     })*/
+    //预览
+    function yulan() {
+        var titleZ = [];
+        var textA = [];
+        var imgU = [];
+        var htmlD = "";
+        var tongzhiTxt;
+        for(var i=0;i<$('#tongzhiTitle').length;i++) {
+            if($('#tongzhiTitle').eq(i).val()==''){
+                console.log('您还没有填完');
+                toast('您还没有填完');
+                return;
+            }
+            tongzhiTxt =$('#tongzhiTitle').val();
+        }
+
+        if(text>0){
+            for(var j=0;j<text;j++){
+                var str = $("#text"+j).val();
+                textA.push(str);
+            }
+        }
+
+        if(title>0){
+            for(var j=0;j<title;j++){
+                var str = $("#title"+j).val();
+                titleZ.push(str);
+            }
+        }
+        if(img>0){
+            for(var k=0;k<img;k++){
+                if($("#img"+k)[0]){
+                    var str = $("#img"+k)[0].src;
+                    imgU.push(str);
+                }else{
+                    imgU.push("");
+                }
+            }
+        }
+        for(var j=0;j<htmlArr.length;j++){
+            htmlD+=htmlArr[j]
+        }
+
+//        alert(htmlD);
+        textA[0] = textA.length>0 ? textA[0] : "暂无内容";
+        textA[0] = textA[0] == null ? "暂无内容" : textA[0];
+        informArr.htmlD=htmlD;
+        informArr.title = title;
+        informArr.text = text;
+        informArr.img = img;
+        informArr.textCont=textA;
+        informArr.textTitle=titleZ;
+        informArr.imgU = imgU;
+        informArr.noticeTitle=tongzhiTxt;
+        informArr.noticeSignfor=signfor;
+        informArr.noticeShare=share;
+        informArr.staffTeacher=staffTeacher
+//        alert(JSON.stringify(informArr));
+        localStorage.setItem('tongzhiObj',JSON.stringify(informArr));
+        openNewWindow('myStudyAddMeans','./myStudyAddMeans.html',{pathId:pathId,pathType:pathType});
+    }
+
+    var xialaUl =document.getElementById('xialaUl');
+    var zhigong =document.getElementById('zhigong');
+    //选择职工
+    function popout() {
+        if( xialaUl.style.display=="block"){
+            xialaUl.style.display="none";
+            document.getElementById("potarget").style.backgroundImage='url("../../icon/arrowup.png")';
+        }else{
+            xialaUl.style.display="block";
+            document.getElementById("potarget").style.backgroundImage='url("../../icon/arrowdown1.png")';
+        }
+    }
+    /*function selectStaff(self,index) {
+     // zhigong.innerHTML=self.innerHTML;
+     staffTeacher=index;
+     setTimeout(function () {
+     xialaUl.style.display="none";
+     },100)
+     }*/
+    function addTitle() {
+        num++;
+        htmlArr.push("<div class='ziTitle'><p id='title"+title+"'></p></div>");
+        var str =  "<div class='top-input' style='margin-top: 12px'> <img onclick=\"deletText(this,'"+ num +"')\" style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''><input id='title"+title+"' class='tongzhiTitle' class='detectionCharactery' type='text' placeholder='请输入章节标题'> </div>";
+        $("#contentBody").append(str);
+        title++;
+
+    }
+    function addDetails() {
+        num++;
+        htmlArr.push("<div class='release_content' ><p id='text"+text+"'></p></div>");
+        var str = "<div class='release_content' id='release_content' style='margin-top: 12px'><img onclick=\"deletText(this,'"+ num +"')\" style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''> <textarea  id='text"+text+"'class='release_text detectionCharacter '' style='resize:none;' placeholder='亲子活动是孩子们期盼的快乐聚会，也是家长们展示活力的舞台'></textarea></div>";
+        $("#contentBody").append(str);
+        text++;
+    }
+    // 上传照片、
+    //    var imgNum = 9;
+    var imglist=[];
+    var imgNum_add = 9;
+    function getImgUrl(type,imgThis,indexspan,indexhtml){
+        if(type==0){
+            var spanSmallArr = [];
+            spanArr.push(spanSmallArr);
+            imgNum_add = 9;
+            var Multiplechoice = api.require('Multiplechoice');
+            Multiplechoice.choice({
+                maxstr : 9,
+                uploadflowUrl:uploadImageUrl
+            },function(ret,err){
+                num++;
+                imgNum_add = imgNum_add-ret.allimgjs.length;
+                var imgHtml = "";
+                if(ret.allimgjs.length>0){
+                    spanSmall = 0;
+                    for(var i=0;i<ret.allimgjs.length;i++){
+                        var objimg = {};
+                        objimg.img = ret.allimgjs[i];
+                        objimg.flag = true;
+                        imglist.push(objimg.img);
+                        //处理图片变形
+                        var width = 41;
+                        var height = 41;
+                        var obj = getImgByThisSize(objimg.img,width,height);
+
+//                        imgU.push(objimg.img);
+//                        alert(spanNum)
+                        var ende = 'Endes(this,"'+spanSmall+'","'+spanNum+'","'+num+'")';
+                        imgHtml += "<span onclick='"+ende+"'><img id='img"+img+"' src='"+objimg.img+"'/><i><img style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''></i></span>"
+                        spanArr[spanNum].push("<span style='overflow: hidden'><img src='' id='img"+img+"' style='border-radius: 5px;'/></span>");
+                        img++;
+                        spanSmall++;
+                    }
+                    var on = 'getImgUrl(1,this,"'+spanNum+'","'+num+'")';
+                    $("#contentBody").append ("<div id='imglist1' class='contentImg release_content'style='margin-top: 12px'> <img onclick=\"deletText(this,'"+ num +"')\" style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''>"+ imgHtml +"<span class='add_Img' onclick='"+on+"'><div>添加照片视频</div></span><div style='clear: both;'></div></div>");
+                    var span = "";
+                    for(var i=0;i<spanArr[parseInt(spanNum)].length;i++){
+                        span += spanArr[parseInt(spanNum)][i]
+                    }
+                    htmlArr.push("<div id='imglist1' class='contentImg' style='border-radius: 5px;'>"+span+"<div style='clear: both;'></div></div>");
+//                    alert(spanArr);
+                    spanNum++;
+                }else{
+                    toast('上传失败')
+                }
+            })
+        }else{
+            var s = $(imgThis).siblings();
+            if(s.length-1 >= 9 ){
+                toast("最多上传九张");
+                return;
+            }
+            var Multiplechoice = api.require('Multiplechoice');
+            Multiplechoice.choice({
+                maxstr : (9-s.length)+1,
+                uploadflowUrl:uploadImageUrl
+            },function(ret,err){
+                var imgHtml = "";
+                var imgHtmlD ="";
+                if(ret.allimgjs.length>0){
+                    for(var i=0;i<ret.allimgjs.length;i++){
+                        var objimg = {};
+                        objimg.img = ret.allimgjs[i];
+                        objimg.flag = true;
+                        imglist.push(objimg.img);
+                        //处理图片变形
+                        var width = 41;
+                        var height = 41;
+                        var obj = getImgByThisSize(objimg.img,width,height);
+//                        imgU.push(objimg.img);
+                        var ende = 'Endes(this,"'+spanSmall+'","'+indexspan+'","'+indexhtml+'")';
+//                        alert(ende);
+                        imgHtml += "<span onclick='"+ende+"' style='border-radius: 5px;'><img  id='img"+img+"' src='"+objimg.img+"'/><i><img style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''></i></span>";
+                        spanArr[parseInt(indexspan)].push("<span style='overflow: hidden'><img src='' id='img"+img+"' style='border-radius: 5px;'/></span>");
+                        img++;
+                        spanSmall++
+                    }
+                    $(imgThis).before(imgHtml);
+                    var span = "";
+                    for(var i=0;i<spanArr[parseInt(indexspan)].length;i++){
+                        span += spanArr[parseInt(indexspan)][i];
+                    }
+                    htmlArr[parseInt(indexhtml)] = "<div id='imglist1' class='contentImg' style='border-radius: 5px;'>"+span+"<div style='clear: both;'></div></div>";
+                }else{
+                    toast('上传失败')
+                }
+            })
+        }
+    };
+
+
+
+    // 删除
+    function Endes(self,indexSmall,indexSpan,indexNum){
+//        alert("indexSmall="+indexSmall);
+//        alert("indexSpan="+indexSpan);
+//        alert("indexNum="+indexNum);
+
+        $(self).remove();
+//        alert(JSON.stringify(spanArr[parseInt(indexSpan)]));
+        spanArr[parseInt(indexSpan)][parseInt(indexSmall)] = "";
+        var span = "";
+        for(var j=0;j<spanArr[parseInt(indexSpan)].length;j++){
+//            alert(spanArr[parseInt(indexSpan)][j]);
+            span += spanArr[parseInt(indexSpan)][j];
+        }
+//        alert(indexNum)
+//        alert(span);
+        htmlArr[parseInt(indexNum)] = "<div id='imglist1' class='contentImg'>"+span+"<div style='clear: both;'></div></div>";
+        var actionUrl = self.firstChild.getAttribute("src");
+        for(var i=0;i<imglist.length;i++){
+            if(imglist[i] == actionUrl){
+                imglist.splice(i,1);
+                imgNum_add++;
+            }
+        }
+    }
+
+    function publiComment() {
+        var informArr={};
+        var noticeTxt_one;
+        var noticeCon_one;
+        var tongzhiTxt=[];
+        var tongzhiCon=[];
+        for(var i=0;i<$('.tongzhiTitle').length;i++) {
+            if($('.tongzhiTitle').eq(i).val()==''){
+                console.log('您还没有填完');
+                toast('您还没有填完');
+                return;
+            }
+//                noticeTxt_one = $('.tongzhiTitle').eq(0).val()
+            tongzhiTxt.push( $('.tongzhiTitle').eq(i).val());
+        }
+        for(var j=0;j<$('textarea').length;j++) {
+            if($('textarea').eq(j).val()==''){
+                console.log('您还没有填完');
+                toast('您还没有填完');
+                return;
+            }
+//                noticeCon_one=$('textarea').eq(0).val()
+            tongzhiCon.push($('textarea').eq(j).val());
+        }
+        if(tongzhiTxt.length!=tongzhiCon.length){
+            var num= tongzhiTxt.length-tongzhiCon.length;
+            var count =tongzhiCon.length-tongzhiTxt.length;
+            if(num>0){
+                for(var i=0;i<num;i++){
+                    tongzhiCon.push("");
+                }
+            }
+            if(count>0){
+                for(var i=0;i<count;i++){
+                    tongzhiTxt.push("");
+                }
+            }
+        }
+
+        var contentArr=[];
+        for(var n=0;n<tongzhiTxt.length;n++){
+            var obj={};
+            obj.noticeTitle=tongzhiTxt[n];
+            obj.noticeCon=tongzhiCon[n];
+            contentArr.push(obj)
+        }
+        informArr.noticeContent=contentArr;
+        informArr.img=imglist;
+        informArr.noticeSignfor=signfor;
+        informArr.noticeShare=share;
+        informArr.staffTeacher=staffTeacher
+
+
+
+
+        var noticeObj=informArr;
+        var Informobj={}//传的参数对象
+        var noticetitle_one;
+        var noticecontent_one;
+
+        noticetitle_one=noticeObj.noticeContent[0].noticeTitle;
+        noticecontent_one=noticeObj.noticeContent[0].noticeCon;
+        Informobj.title=noticetitle_one;
+        Informobj.content=noticecontent_one;
+
+        if(noticeObj.noticeContent.length > 1){
+            var notice_Content_title = "";
+//            var notice_Content_content = "";
+            for(var i=1;i<noticeObj.noticeContent.length;i++){
+                notice_Content_title += "<h5 class='section_title'>"+noticeObj.noticeContent[i].noticeTitle+"</h5>"+"<p class='section_Content'>"+noticeObj.noticeContent[i].noticeCon+"</p>";
+//                notice_Content_content += "<p>"+noticeObj.noticeContent[i].noticeCon+"</p>";
+            }
+//            Informobj.contemt+=notice_Content_title+notice_Content_content;
+            Informobj.content+=notice_Content_title;
+        }
+        var image_list=[]
+        for(var i=0;i<noticeObj.img.length;i++){
+            image_list.push( noticeObj.img[i].url);
+        }
+        Informobj.imagesJson=image_list;
+        Informobj.sign=noticeObj.noticeSignfor;
+        Informobj.shareStatus=noticeObj.noticeShare
+        Informobj.recvType=noticeObj.staffTeacher;
+        Informobj.sid=getUserInfo().sid;
+        Informobj.uid=getUserInfo().id;
+        Informobj.cid=getUserInfo().cids[0];
+        Informobj.status=0;
+        Informobj.userType=1;
+
+//        function announcement() {
+//            al(Informobj);
+        ajaxGet(addDocument,Informobj,function (ret,err) {
+//                al(ret)
+//                al(err)
+            api.showProgress();
+            if(ret && ret.success){
+                toast("发布成功！");
+                api.execScript({
+                    name:"schoolNotice",
+                    frameName:"classNoticeBody",
+                    script:"apiready()"
+                });
+                api.execScript({
+                    name:"schoolNotice",
+                    frameName:"classNotice_mine",
+                    script:"apiready()"
+                });
+                setTimeout(function () {
+                    api.closeWin();
+                },300)
+            }
+        })
+//        }
+    }
+    function tryJsonParse(value){
+        try{
+            return JSON.parse(value);
+        }catch(e){
+            return value;
+        }
+    }
+</script>
+</html>

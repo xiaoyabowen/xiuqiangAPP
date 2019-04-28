@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝秀</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+        <link rel="stylesheet" href="../../css/commonWindow.css" />
+        <style>
+            html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.videoList{
+				width: 100%;
+				background-color: #fff;
+				padding: 0 15px;
+				box-sizing: border-box;
+			}
+			.videoList li{
+				box-sizing: border-box;
+				/* padding-top: 20px; */
+				border-bottom:1px solid #f0f0f0;
+                margin-bottom:8px;                
+				overflow: hidden;
+			}
+			.videoList li .videoPic{
+				width: 100%;
+				height: 172px;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 8px;
+				position: relative;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.videoPic img{
+				width: 100%;
+				height: 100%;
+			}
+			.videoPic em{
+				position: absolute;
+				width:9.3%;
+				border-radius: 50%;
+                background: url('../../icon/display.png');
+                background-size:100% 100%; 
+				top: 50%;
+				left: 50%;
+			    -ms-transform:translate(-50%,-50%); 	/* IE 9 */
+				-moz-transform:translate(-50%,-50%); 	/* Firefox */
+				-webkit-transform:translate(-50%,-50%); /* Safari 和 Chrome */
+				transform: translate(-50%,-50%); 
+			}
+            .video-title{
+                margin-top:12px;
+                margin-bottom:12px;
+                text-align: left;
+                font-size:16px;
+                color:#333333;
+                font-weight:bold;
+            }
+        </style>
+	</head>
+	<body>
+		<div id="main" >
+		    <ul class="videoList">
+		    	<li>
+                    <div class="video-title">教学区</div>
+		    		<div class="videoPic">
+                        <img src="../../image/babyShow01.png"/>
+                        <em></em>
+		    		</div>
+		    	</li>
+		    	<li>
+                    <div class="video-title">休息区</div>
+		    		<div class="videoPic">
+                        <img src="../../image/babyShow02.png"/>
+                        <em></em>
+		    		</div>
+				</li>
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script>
+		apiready = function () {
+			//设置播放/暂停按钮的高度
+			var em = document.querySelectorAll("em");
+			var emWidth = (api.winWidth-30)*0.093 + "px";
+				for (var i = 0; i < em.length; i++) {
+					em[i].style.height = emWidth;
+			}
+		};
+	</script>
+</html>

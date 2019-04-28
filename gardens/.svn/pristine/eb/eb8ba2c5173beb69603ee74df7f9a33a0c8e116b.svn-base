@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>设为毕业班</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css">
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			background-color: #f9f8f8;
+			min-width: 320px;
+		}
+		#RefusalMain{
+			width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.2);z-index: 99999;
+		}
+		#Refusal{
+			width:229px;height:171px;background: #FFFFFF;border-radius:4px;position:absolute;top:200px;left:50%;margin-left:-114px;
+		}
+		#Refusal p{
+			height:44px;margin-top:20px;text-align:center;
+		}
+		#Refusal p button{
+			width:112px;height:44px; background:#5AC8E1;border-radius:4px;color:#fff;font-size:16px;outline: none;;
+		}
+		.titleTk{
+			height:63px;line-height:63px;border-bottom: 1px solid #F0F0F0;text-align:center;
+		}
+	</style>
+</head>
+<body>
+<div id="RefusalMain">
+	<div id="Refusal">
+		<div class="titleTk">是否设置为毕业班？</div>
+		<p>
+			<button onclick="OnBut()">保存</button>
+		</p>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script>
+	var cid;
+	apiready=function(){
+		cid = api.pageParam.cid;
+	}
+	$('#RefusalMain').bind('click',function(e){
+		var target = e.target;
+		if(target.closest('#Refusal')==null){
+			api.closeFrame({
+				name:'cesda'
+			});
+		};
+	})
+	function OnBut(){
+		ajaxGet(clazzupdateStatus,{cid:cid},function(ret,err){
+			if(ret.success == true){
+				toast("设置成功！");
+				api.closeFrame({
+					name:'cesda'
+				});
+				setTimeout(function(){
+					apiready();
+				},300)
+			}else{
+				toast("设置失败，请检查网络连接重新设置！");
+			}
+		})
+	}
+</script>
+</html>

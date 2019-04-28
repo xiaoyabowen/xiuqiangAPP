@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>编辑主页</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.myInfo_list{
+				width: 100%;
+				background-color: #fff;
+			}
+			.myInfo_list li{
+				padding: 0 15px;
+				box-sizing: border-box;
+				height: 56px;
+				line-height: 56px;
+				border-bottom: 1px solid #f0f0f0;
+				overflow: hidden;
+				position: relative;
+			}
+			.myInfo_list li:after{
+				content: '';
+				width: 8px;
+				height: 14px;
+				background: url(../../image/arrow_rt.png) no-repeat;
+				position: absolute;
+				right: 18px;
+				top: 50%;
+				margin-top: -7px;
+			}
+			.myInfo_list li span{
+				color: #505050;
+				font-size: 16px;
+				float: left;position:relative;z-index:100;
+			}
+			.submit{
+				margin: 30px 18px;
+				background: #5AC8E1;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				font-size: 20px;
+				color: #fff;
+			}
+			.popupbox div{
+				width:100%;
+				height:62px;
+				line-height: 62px;
+				text-align: center;
+				font-family: PingFang-SC-Regular;
+				font-size: 14px;
+				color: #666666;
+			}
+			.popupbox div:first-child{
+				border-bottom: 2px solid #F0F0F0;
+			}
+			.sexbox div{
+				width:100%;
+				height:62px;
+				line-height: 62px;
+				text-align: center;
+				font-family: PingFang-SC-Regular;
+				font-size: 14px;
+				color: #666666;
+			}
+			.sexbox div:first-child{
+				border-bottom: 2px solid #F0F0F0;
+			}
+			.sexbox .blue{
+				font-family: PingFang-SC-Regular;
+				font-size: 14px;
+				color: #53C8E3;
+			}
+			.myHeadpic{position:relative;}
+			.myHeadpic p{ width:36px;height:36px;border-radius: 50%;overflow:hidden;position:absolute;top:50%;margin-top:-18px;right:34px;}
+			.myInfo_list li input{
+				height:20px;line-height:20px;width:100px;max-width:50%;position:absolute;top:16px;right:34px;color:#999;font-size:14px;text-align:right;
+			}
+            .myInfo_list li select{
+                width:auto;height:20px;line-height:20px;max-width:40%;position:absolute;top:16px;right:20px;color:#999;font-size:14px;text-align:right !important;
+                /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+                border: solid 1px transparent;
+                /*很关键：将默认的select选择框样式清除*/
+                appearance:none;
+                -moz-appearance:none;
+                -webkit-appearance:none;
+                /*将背景改为红色*/
+                background:#fff;
+                /*加padding防止文字覆盖*/
+                outline: none;
+				margin-right:5px;
+            }
+            /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
+			.myInfo_list li select option{
+				text-align:right;width:auto;
+			}
+            select::-ms-expand { display: none; }
+			#province{float:right;position:relative;}
+			#citys{float:right;position:relative;}
+			#introduction{
+				width: 100%;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body id="body">
+		<div id="main" >
+		    <ul class="myInfo_list" id="contuntHm">
+		    	<li class="myHeadpic" onclick="getImgUrl()">
+		    		<span>头像</span>
+					<p><img id="icon" src="../../image/teacherAvatar.png" style="width: 100%;height: 100%;" onerror="this.src='../../image/teacherAvatar.png'" alt="" /></p>
+		    		<i></i>
+		    	</li>
+		    	<li>
+		    		<span>园所名称</span>
+					<input id="myName" type="text" placeholder="请填写园所名称"/>
+		    		<i></i>
+		    	</li>
+		    	<li>
+		    		<span>电话号码</span>
+					<input id="phOne" type="text" placeholder="请填写手机号"/>
+					<i></i>
+		    	</li>
+				<li>
+					<span>地址</span>
+                    <select id="citys" name="city" class="form-control"
+                            onchange="doCityAndCountyRelation();">
+                        <option id='chooseCity' value="0">请选择城市</option>
+                    </select>
+                    <select id="province" name="province" class="form-control"
+                            onchange="doProvAndCityRelation();">
+                        <option id="choosePro" value="0">请选择省份</option>
+                    </select>
+                    <i></i>
+				</li>
+				<li onclick="introDuction()">
+					<span>园所简介</span>
+					<input id="introduction" type="text" placeholder="请填写园所简介" disabled="disabled"/>
+					<i></i>
+				</li>
+		    </ul>
+		    <div class="submit" onclick="save()">保存</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/area.js"></script>
+	<script>
+		var id;
+		var cid;
+		var rand;
+        apiready = function (){
+			id = getUserInfo().sid;
+			ajaxGet(schoolgetschool,{id:id},function(ret,err){
+                cid = ret.data.cid;
+				if(ret.success){
+					document.getElementById("myName").value = ret.data.name;
+					document.getElementById("phOne").value = ret.data.phone;
+					document.getElementById("introduction").value = ret.data.content||"";
+                    rand=ret.data.content;
+					id = ret.data.id;
+					if(ret.data.icon && ret.data.icon.startWith("http")){
+						var width = 36;
+						var height = 36;
+						var obj = getImgSizeBySize(ret.data.icon,width,height);
+						document.getElementById("icon").src = ret.data.icon;
+						$("#icon").attr("style",obj.style);
+					}
+                     $("#province").val(ret.data.province);
+                    doProvAndCityRelation();
+                    $("#citys").val(ret.data.city);
+					document.getElementById("body").style.display = "block";
+				}
+			})
+
+        };
+		////从相册选择
+		function  getImgUrl(){
+//			event.stopPropagation();
+			var Multiplechoice = api.require('Multiplechoice');
+			Multiplechoice.Takingone({
+				uploadflowUrl : uploadImageUrl
+			},function(ret,err){
+				if (ret) {
+					var picList = ret.oneimgjs[0];
+					var width = 36;
+					var height = 36;
+					var obj = getImgSizeBySize(picList,width,height);
+					$("#icon").attr("src",picList);
+					$("#icon").attr("style",obj.style);
+				}else{
+				}
+			})
+		}
+        //园所主页
+        function introDuction(){
+            openNewWindow('schoolWebsite','./schoolWebsite.html',{Rand:rand||""});
+        }
+        function introduct(countnt){
+            rand=countnt;
+            document.getElementById('introduction').value=countnt;
+        }
+		function save(){
+			var icon = $("#icon").attr("src");
+			var phone = $("#phOne").val();
+			var province = $("#province").val();
+			var city = $("#citys").val();
+			var name = $("#myName").val();
+			var content = rand;
+		
+			ajaxGet(scholupdateschool,{icon:icon,phone:phone,id:id,province:province,city:city,content:content,name:name,cid:cid},function(ret,err){
+			    if(ret.success){
+			    	var userInfo = getUserInfo();
+		   			userInfo.schoolName = name;
+		   			setUserInfo(userInfo);
+		   			api.execScript({
+			    		name:"main",
+			            script: "changeName()"
+			        })
+		   			api.execScript({
+			    		name:"leaderHomepage",
+			    		frameName:"leaderHomepage_body",
+			            script: "apiready()"
+			        })
+                    toast("修改成功！");
+                    setTimeout(function(){
+                    	closeWin();
+                    },800)
+                }else{
+					toast("保存失败，请检查网络，重新保存！");
+				}
+			})
+		}
+
+	</script>
+</html>

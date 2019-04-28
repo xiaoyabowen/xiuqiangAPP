@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝成长</title>
+    <link rel="stylesheet" href="../../css/api.css"/>
+    <link rel="stylesheet" href="../../css/commonWindow.css"/>
+    <style type="text/css">
+        html, body {
+            min-width: 320px;
+            width: 100%;
+            background-color: #f2f2f2;
+        }
+
+        #main {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .top_teacherInfo {
+            width: 100%;
+            height: 145px;
+            background-size: cover;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .top_teacherInfo .teacherpic {
+            width: 68px;
+            height: 68px;
+            border-radius: 68px;
+            margin: 0 auto;
+            padding-top: 32px;
+            padding-bottom: 12px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .top_teacherInfo .teacherpic img {
+            width: 100%;
+            height: 100%;
+            border-radius: 68px;
+            border: 1px solid #5AC8E1;
+        }
+
+        .top_teacherInfo > p {
+            width: 100%;
+            font-size: 12px;
+            color: #FFFFFF;
+            line-height: 17px;
+            box-sizing: border-box;
+        }
+
+        .top_teacherInfo > p span:nth-of-type(1) {
+            box-sizing: border-box;
+            text-align: right;
+            width: 50%;
+            padding-right: 20px;
+            display: inline-block;
+            float: left;
+        }
+
+        .top_teacherInfo > p span:nth-of-type(2) {
+            box-sizing: border-box;
+            text-align: left;
+            width: 50%;
+            padding-left: 20px;
+            display: inline-block;
+        }
+
+        .top_teacherInfo p span em {
+            font-size: 12px;
+            color: #59c0d7;
+        }
+
+        .tt_info .height span:nth-of-type(1) em {
+            padding-left: 12px;
+            font-size: 14px;
+            color: #333333;
+            line-height: 20px;
+        }
+
+        .tt_info .height span:nth-of-type(2) {
+            float: right;
+        }
+
+        .tt_info .height span:nth-of-type(2) i {
+            border: 1px solid #5AC8E1;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 1em;
+            box-sizing: border-box;
+            width: 46px;
+            padding-top: 4px;
+            padding-bottom: 3px;
+            text-align: center;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .tt_info .height span:nth-of-type(2) i:nth-of-type(2) {
+            border: 1px solid #67C49C;
+            margin-left: 12px;
+        }
+
+        .tt_info .weight {
+            padding-top: 12px;
+            font-size: 14px;
+            color: #666666;
+            line-height: 20px;
+            overflow: hidden;
+        }
+
+        .tt_info .weight span:nth-of-type(1) em {
+            padding-left: 12px;
+            font-size: 14px;
+            color: #333333;
+            line-height: 20px;
+        }
+
+        .tt_info .weight span:nth-of-type(2) {
+            float: right;
+
+        }
+
+        .tt_info .weight span:nth-of-type(2) i {
+            border: 1px solid #5AC8E1;
+            border-radius: 4px;
+            font-size: 12px;
+            line-height: 1em;
+            box-sizing: border-box;
+            width: 46px;
+            padding-top: 4px;
+            padding-bottom: 3px;
+            text-align: center;
+            display: inline-block;
+            text-align: center;
+
+        }
+
+        .tt_info .weight span:nth-of-type(2) i:nth-of-type(2) {
+            border: 1px solid #67C49C;
+            margin-left: 12px;
+        }
+
+        .tt_pic {
+            padding-top: 8px;
+            width: 37px;
+            height: 34px;
+            float: left;
+        }
+
+        .helth_content .tt_pic {
+            width: 27px;
+            height: 27px;
+        }
+
+        .tt_pic img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tt_pic.eyes {
+            padding-top: 15px;
+            width: 28px;
+            height: 16px;
+            float: left;
+        }
+
+        .tt_info {
+            margin-left: 48px;
+        }
+        .tt_info .title{
+            padding-top: 13px;
+            padding-bottom: 14px;
+        }
+        .tt_info .title span {
+            font-size: 16px;
+            color: #666;
+            line-height: 22px;
+        }
+
+        .tt_info .title em {
+            font-size: 12px;
+            color: #bdbdbd;
+            letter-spacing: 0.25px;
+            line-height: 22px;
+            float: right;
+        }
+
+        .tt_info .tt_info_cnt {
+            font-size: 12px;
+            color: #B2B3B5;
+            letter-spacing: 0.25px;
+            line-height: 17px;
+            margin-top: 4px;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tt_piclist li {
+            list-style: none;
+            float: left;
+            width: 23%;
+            height: 60px;
+            margin-right: 2%;
+            /*box-sizing: border-box;*/
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .tt_piclist figure {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            /*padding-bottom: 100%;*/
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .tt_piclist figure a {
+            display: block;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+
+        .tt_piclist.wondertfultime li {
+            width: 96%;
+            height: 128px;
+        }
+
+        .tt_piclist.wondertfultime li img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        .tt_pic.notice {
+            padding-top: 10px;
+            width: 26px;
+            height: 26px;
+            float: left;
+        }
+
+        .kqbox {
+            width: 100%;
+            box-sizing: border-box;
+            padding-left: 14px;
+            padding-right: 13px;
+            padding-bottom: 17px;
+            margin-top: 14px;
+        }
+
+        .kqbox .kq_content {
+            width: 100%;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            padding: 12px 18px;
+
+        }
+
+        .kqbox .kq_content .situation {
+            overflow: hidden;
+            padding-top: 9px;
+        }
+
+        .kqbox .kq_content .situation span {
+            font-size: 12px;
+            color: #999999;
+            line-height: 17px;
+        }
+
+        .kqbox .kq_content .situation span em {
+            font-size: 14px;
+            color: #2A2A2A;
+            line-height: 17px;
+        }
+
+        .kqbox .kq_content .situation i {
+            float: right;
+            font-size: 14px;
+            line-height: 20px;
+            color: #FFFFFF;
+            background: #5AC8E1;
+            border-radius: 4px;
+            width: 51px;
+            text-align: center;
+        }
+
+        .herderBack {
+            width: 100%;
+            height: 145px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .herderBack img {
+            width: 100%;
+            height: 100%;
+            filter: blur(10px);
+        }
+
+        .mc_info {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding-top: 13px;
+            padding-bottom: 12px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .mc_top {
+            width: 100%;
+            padding-left: 54px;
+            box-sizing: border-box;
+        }
+
+        .mc_top img {
+            width: 20px;
+            position: absolute;
+            top: 12px;
+            left: 20px;
+        }
+
+        .mc_top span {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .check_info {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 24px;
+            font-size: 12px;
+            color: #333333;
+            line-height: 17px;
+            margin-top: 12px;
+            box-sizing: border-box;
+        }
+
+        .check_info > :nth-child(1) > :nth-child(2) {
+            margin-left: 5px;
+        }
+
+        .check_info > :nth-child(2) {
+            float: right;
+        }
+
+        .mc_detail {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 18px;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            white-space: nowrap;
+        }
+
+        .mc_detail li {
+            font-size: 12px;
+            color: #333333;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .mc_detail li > :nth-child(2) {
+            width: 60px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            margin-top: 12px;
+        }
+
+        .mc_detail li > :nth-child(3) {
+            margin-top: 12px;
+        }
+
+        .mc_detail .unnormal {
+            color: #D4602C;
+        }
+
+        .mc_detail .unnormal > :nth-child(2) {
+            border: 1px solid #D4602C;
+        }
+
+        .mc_detail .unnormal > :nth-child(3) {
+            padding-left: 12px;
+            background: url(../../icon/warn.png);
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+
+        .wdf_timeFj {
+            padding: 0 8px 12px 8px;
+            padding-left: 14px;
+            padding-right: 13px;;
+        }
+
+        .wdf_time, .clockin {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding-top: 13px;
+            padding-bottom: 12px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .wdf_time .wt_top, .clockin .clockin_top {
+            width: 100%;
+            padding-left: 54px;
+            box-sizing: border-box;
+        }
+
+        .wdf_time .wt_top img, .clockin .clockin_top img {
+            width: 24px;
+            position: absolute;
+            top: 12px;
+            left: 18px;
+        }
+
+        .wdf_time .wt_top span, .clockin .clockin_top span {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .wdf_info, .clockin_info {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 18px;
+            margin-top: 6px;
+            line-height: 17px;
+            font-size: 12px;
+            color: #666666;
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        .wdf_info .info_img {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .wdf_info .info_img span {
+            display: block;
+        }
+
+        .imgOne {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .imgTowa {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: right;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .imgTowb {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: left;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .imgThreea {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .imgThreeb {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: right;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .imgThreec {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: left;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .imglist {
+            width: 30%;
+            float: left;
+            height: 90px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .babyParent {
+            width: 55px;
+            height: 21px;
+            border-radius: 4px;
+            padding-left: 25px;
+            font-size: 12px;
+            color: #FFF;
+            position: absolute;
+            top: 20px;
+            right: 18px;
+            z-index: 5;
+            line-height: 21px;
+            background: url("../../icon/babyParent.png") no-repeat 6px center #5AC8E1;
+            background-size: 14px 11px;
+        }
+
+        .left-icon > img {
+            width: 34px;
+            height: 34px;
+            position: absolute;
+            top: 17px;
+            left: 16px;
+        }
+
+        .right-info {
+            width: 100%;
+            padding-left: 48px;
+            box-sizing: border-box;
+        }
+
+        .info-title .left-name {
+            padding-top: 13px;
+            padding-bottom: 5px;
+            font-size: 15px;
+            color: #333333;
+            line-height: 21px;
+            float: left;
+        }
+
+        .info-title .right-date {
+            padding-top: 13px;
+            font-size: 12px;
+            color: #C1C1C1;
+            line-height: 17px;
+            float: right;
+        }
+
+        .info-detail {
+            clear: both;
+            font-size: 12px;
+            color: #B2B3B5;
+            line-height: 17px;
+        }
+
+        .info-img {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .info-img::after {
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .info-img li {
+            float: left;
+            width: 22%;
+            margin: 0 4% 4% 0;
+        }
+
+        .info-img > :nth-child(4n) {
+            margin-right: 0px !important;
+        }
+
+        .info-img li figure {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+        }
+
+        .info-img li figure img {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            border-radius: 8px;
+        }
+
+        .st-img {
+            width: 100%;
+        }
+
+        .st-img li {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .st-img li figure {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 52%;
+        }
+
+        .st-img li figure img {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            border-radius: 8px;
+        }
+
+        /*图片*/
+        .listone {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .listBfl {
+            width: 48.95% !important;
+            height: 145px;
+            float: left;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .listBfr {
+            width: 48.95% !important;
+            height: 145px;
+            float: right;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .listImgs {
+            float: left !important;
+            overflow: hidden;
+            border-bottom: none !important;
+            width: 32% !important;
+            margin-bottom: 5px;
+            margin-left: 1%;
+            border-radius: 4px;
+            height: 90px !important;
+        }
+
+        #sharelist ul {
+            display: -webkit-box;
+            display: -mz-flexbox;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            box-sizing: border-box;
+        }
+
+        #sharelist ul li {
+            width: 50px;
+            height: 50px;
+            margin-left: 30px;
+        }
+
+        #sharelist ul li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #share button {
+            width: 100%;
+            height: 44px;
+            border: 0;
+        }
+
+        .bachImg {
+            width: 100%;
+            height: 128px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .bachImg img {
+            width: 100%;
+            height: 100%;
+            filter: blur(10px);
+            margin: 0 !important;
+            padding: 0;
+        }
+
+        .ltpic {
+            width: 100%;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .rtpic {
+            float: right;
+            width: 49.25%;
+            height: 110px;
+
+        }
+
+        .ltpic img {
+            border-radius: 6px;
+        }
+
+        .ct_content ul li.rtpic img:nth-of-type(1) {
+            float: right;
+            width: 100%;
+            height: 92px;
+            border-radius: 0 6px 0 0;
+            margin-bottom: 6px;
+        }
+
+        .ct_content ul li.rtpic img:nth-of-type(2) {
+            float: left;
+            width: 100%;
+            height: 92px;
+            border-radius: 0 0 6px 0;
+            margin-bottom: 6px;
+        }
+
+        .splendid-time {
+            width: 100%;
+            padding-left: 14px;
+            padding-right: 13px;
+            box-sizing: border-box;
+        }
+
+        .st {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            padding: 8px 14px 0px 16px;
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .st {
+            padding-bottom: 44px !important;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <div class="top_teacherInfo">
+        <div class="herderBack">
+            <img src="../../image/mebg.jpg" alt=""/>
+        </div>
+        <div class="teacherpic"><img id="BabyIcon" src="" alt=""/></div>
+        <p style="position:relative;z-index:5;color:#333 !important;">
+            <span>所在班级：<em class="clazzName"></em></span>
+            <span>获得荣誉：<em id="rongyu">文明之星</em></span>
+        </p>
+
+        <div class="babyParent" onclick="babyParent()">宝宝家长</div>
+    </div>
+    <div class="wdf_timeFj" onclick="OpenChenjian()">
+        <div class="mc_info" id="Htmlcheck">
+
+        </div>
+    </div>
+    <!--<div class="wdf_timeFj">-->
+    <!--<div class="wdf_time">-->
+    <!--<div class="wt_top">-->
+    <!--<img src="../../icon/jcsj_01.png" alt="">-->
+    <!--<span>精彩瞬间</span>-->
+    <!--</div>-->
+    <!--<div class="wdf_info" id="timelineL">-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="splendid-time" onclick="Marvellous()">
+        <div class="st" id="YmarvellousL">
+            <div style="height:44px;line-height:44px;text-align:center;">暂无美乐瞬间</div>
+        </div>
+    </div>
+    <div class="kqbox" id="kaoqinbox" onclick="OpenKaoqin()">
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="Listcheck">
+    <div class="mc_top">
+        <img src="../../icon/left_mc.png" alt="">
+        <span style="font-weight: 700">晨检信息</span>
+    </div>
+    <div class="check_info">
+        <span>检查时间：<em><%=list.day%></em></span>
+        <span><%=list.teacherName%></span>
+    </div>
+    <ul class="mc_detail">
+        <%if(list.temperatureStatus == 1){%>
+        <li class="unnormal">
+            <div>体温</div>
+            <div>发现异常</div>
+            <div><%=list.temperatureAnomalies%></div>
+        </li>
+        <%}else if(list.temperatureStatus == 0){%>
+        <li>
+            <div>体温</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+        <%if(list.oralStatus == 1){%>
+        <li class="unnormal">
+            <div>指甲</div>
+            <div>发现异常</div>
+            <div><%=list.oralAnomalies%></div>
+        </li>
+        <%}else if(list.oralStatus == 0){%>
+        <li>
+            <div>指甲</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+        <%if(list.fingernailStatus == 1){%>
+        <li class="unnormal">
+            <div>口腔</div>
+            <div>发现异常</div>
+            <div><%=list.fingernailAnomalies%></div>
+        </li>
+        <%}else if(list.fingernailStatus == 0){%>
+        <li>
+            <div>口腔</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+    </ul>
+</script>
+<!--<script type="text/html" id="timelineH">-->
+<!--<p class="info_text"><%=list.centent%></p>-->
+<!--&lt;!&ndash;<div class="info_img">&ndash;&gt;-->
+<!--&lt;!&ndash;<%if(list.images.length == 1){%>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgOne"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<%} else if(list.images.length == 2){ %>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgTowa"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgTowb"><img src="<%=list.images[1]%>" style="<%=list.stylea%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<%} else if(list.images.length == 3){ %>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgThreea"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgThreeb"><img src="<%=list.images[1]%>" style="<%=list.stylea%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imgThreec"><img src="<%=list.images[2]%>" style="<%=list.styleb%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<%} else if(list.images.length > 3){ %>&ndash;&gt;-->
+<!--&lt;!&ndash;<%for(var i=0;i<list.images.length;i++){%>&ndash;&gt;-->
+<!--&lt;!&ndash;<span class="imglist"><img src="<%=list.images[i]%>" style="<%=list.style%>" alt=""></span>&ndash;&gt;-->
+<!--&lt;!&ndash;<%}%>&ndash;&gt;-->
+<!--&lt;!&ndash;<%}%>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!-- -->
+<!--</script>-->
+<script type="text/html" id="YmarvellousH">
+    <div class="left-icon">
+        <img src="../../icon/home/home_01.png" alt="">
+    </div>
+    <div class="right-info">
+        <div class="info-title">
+            <div class="left-name"  style="font-weight: 700">美乐瞬间</div>
+            <div class="right-date"><%=list.ctime%></div>
+        </div>
+        <div class="info-detail">
+            <%=list.content%>
+        </div>
+
+        <!--data-echo="<%=list.images[0]%>" real-style="<%=list.styleJsom%>"-->
+        <!--data-echo="<%=list.images[0]%>" real-style="<%=list.styleJsom%>"-->
+        <!--data-echo="<%=list.images[1]%>" real-style="<%=list.styleJsom%>"-->
+        <!--data-echo="<%=list.images[0]%>" real-style="<%=list.styleJsom%>"-->
+        <!--data-echo="<%=list.styleJsoma%>" real-style="<%=list.styleJsoma%>"-->
+        <!--data-echo="<%=list.styleJsomb%>" real-style="<%=list.styleJsomb%>"-->
+        <ul class="uldjh">
+            <%if(list.images.length == 1){%>
+            <li class="listone"><img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/></li>
+            <%} else if(list.images.length == 2){%>
+            <li class="listBfl"><img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/></li>
+            <li class="listBfr"><img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/></li>
+            <%} else if(list.images.length == 3){%>
+            <li class="ltpic"><img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/></li>
+            <li class="rtpic">
+                <img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/>
+                <img src="../../icon/jiaxiaoTongHome.jpg" style="width: 100%;height: 100%;"  alt=""/>
+            </li>
+            <%} else if(list.images.length > 3){%>
+            <%for(var i = 0;i
+            <list.images.length
+            ;i++){%>
+            <li class="listImgs">
+                <img src="../../icon/jiaxiaoTongHome.jpg" style="width:100%;height:100%;" data-echo="<%=list.imgJson[i].img%>" real-style="<%=list.imgJson[i].styleJsomobj%>" alt=""/>
+            </li>
+            <%}%>
+            <div style="clear: both"></div>
+            <%}%>
+        </ul>
+    </div>
+</script>
+<script type="text/html" id="kaoqin">
+    <div class="kq_content">
+        <div class="tt_pic notice"><img src="../../icon/blueclock.png" alt="" /></div>
+        <div class="tt_info">
+            <p class="title"><span  style="font-weight: 700">宝宝考勤</span><em><%=list.day%></em></p>
+            <div class="situation">
+                <span>考勤情况：<em><%=list.type%></em></span>
+            </div>
+        </div>
+    </div>
+</script>
+<script>
+    var uid;
+    apiready = function () {
+        uid = getUserInfo().cids[0];
+        ajaxGet(mainuser, {uid: uid}, function (ret, err) {
+//            alert(JSON.stringify(ret.data.user));
+            if (ret.success) {
+                if (isNotBlack(ret.data.user)) {
+                    if (isNotBlack(ret.data.user.clazz)) {
+                        $(".clazzName").html(ret.data.user.clazz);
+                    }
+                        if (isNotBlack(ret.data.user.icon)) {
+                            //头像
+                            var listicon = ret.data.user.icon;
+                            var width = 80;
+                            var height = 80;
+                            var obj = getImgByThisSize(listicon, width, height);
+                            ret.data.user.style = obj.style;
+                            //背景
+                            var width = api.winWidth;
+                            var height = 145;
+                            var objback = getImgByThisSize(listicon, width, height);
+                            ret.data.user.styleback = objback.style;
+
+                            //宝宝头像
+                            $("#BabyIcon").attr("src", ret.data.user.icon);
+                        } else {
+                            //宝宝头像
+                            $("#BabyIcon").attr("src", "../../image/teacherWang.png");
+                            $("#BabyIcon").attr("style", "width:80px;height:80px;");
+                        }
+                }
+                //宝宝所在班级
+                $(".class_name").html("所在班级：" + ret.data.user.clazz);
+                if(ret.data.user.honor){
+                    document.getElementById("rongyu").innerText =ret.data.user.honor;
+                }else{
+                    document.getElementById("rongyu").innerText = "暂无荣耀";
+                }
+
+                //判断并渲染宝宝晨检
+                if (ret.data.dayCheck) {
+                    if (ret.data.dayCheck.day) {
+                        ret.data.dayCheck.day = formatTimeToAlls(ret.data.dayCheck.ctime);
+                    }
+                    var data = {list: ret.data.dayCheck};
+                    var html = template('Listcheck', data);
+                    document.getElementById('Htmlcheck').innerHTML = html;
+                } else {
+                    document.getElementById("Htmlcheck").innerHTML = "<p style='height:54px;line-height:54px;text-align:center;'>暂无宝宝晨检信息</p>"
+                }
+
+                //判断并渲染宝宝精彩瞬间
+                if (ret.data.timeline) {
+                    if (ret.data.timeline.images) {
+//							alert(JSON.stringify(ret.data.timeline.images))
+                        if (ret.data.timeline.images) {
+                            ret.data.timeline.images = tryJsonParse(ret.data.timeline.images)
+                        }
+                        ;
+                        if (ret.data.timeline.ctime) {
+                            //渲染精彩瞬间
+                            ret.data.timeline.ctime = formatTimeToDates(ret.data.timeline.ctime);
+                        }
+                        if (ret.data.timeline.imagesJson.lenght > 2) {
+                            ret.data.timeline.imagesJson = JSON.parse(ret.data.timeline.imagesJson);
+                            ret.data.timeline.imagesJson = JSON.parse(ret.data.timeline.imagesJson);
+                        }
+                        //处理精彩瞬间
+                        if (ret.data.timeline.images) {
+                            //处理imagesJson
+                            if (ret.data.timeline.images.length == 1) {
+                                for (var l = 0; l < ret.data.timeline.images; l++) {
+                                    var width = api.winWidth - 40;
+                                    var height = 145;
+                                    var obj = getImgByThisSize(ret.data.timeline.images[0], width, height);
+                                    ret.data.timeline.styleJsom = obj.style;
+                                }
+                            } else if (ret.data.timeline.images.length == 2) {
+                                for (var l = 0; l < ret.data.timeline.images; l++) {
+                                    var width = (api.winWidth - 42) / 2;
+                                    var height = 145;
+                                    var obj = getImgByThisSize(ret.data.timeline.images[l], width, height);
+                                    ret.data.timeline.styleJsom = obj.style;
+                                }
+                            } else if (ret.data.timeline.images.length == 3) {
+                                var width = api.winWidth - 42;
+                                var widtha = (api.winWidth - 42) / 2;
+                                var heighta = 90;
+                                var obj = getImgByThisSize(ret.data.timeline.images[0], width, heighta);
+                                var obja = getImgByThisSize(ret.data.timeline.images[1], widtha, heighta);
+                                var objb = getImgByThisSize(ret.data.timeline.images[2], widtha, heighta);
+//                                ret.data.timeline.styleJsoma = obja.style;
+//                                ret.data.timeline.styleJsomb = objb.style;
+//                                ret.data.timeline.styleJsom = obj.style;
+                            } else if (ret.data.timeline.images.length > 3) {
+                                var imgArr = [];
+                                ret.data.timeline.imgJson = [];
+                                for (var l = 0; l < ret.data.timeline.images.length; l++) {
+                                    var width = (api.winWidth - 43) / 3;
+                                    var height = 90;
+                                    var obj = getImgByThisSize(ret.data.timeline.images[l], width, height);
+                                    var imgArr = {
+                                        img: ret.data.timeline.images[l],
+                                        styleJsomobj: obj.style
+                                    };
+                                    ret.data.timeline.imgJson.push(imgArr);
+                                }
+                            }
+                        }
+                    }
+                    var data = {list: ret.data.timeline};
+                    var html = template('YmarvellousH', data);
+                    document.getElementById('YmarvellousL').innerHTML = html;
+
+//                    setTimeout(function () {
+//                        echoExt.init({
+//                            offset: 0,
+//                            throttle: 0//设置图片延迟加载的时间
+//                        });
+//                    }, 100)
+                }
+                //判断并渲染宝宝今日考勤
+                if (ret.data.attendanceLog) {
+                    switch (ret.data.attendanceLog.type) {
+                        case 0:
+                            ret.data.attendanceLog.type = "正常";
+                            break;
+                        case 1:
+                            ret.data.attendanceLog.type = "迟到";
+                            break;
+                        case 2:
+                            ret.data.attendanceLog.type = "早退";
+                            break;
+                        case 3:
+                            ret.data.attendanceLog.type = "缺卡";
+                            break;
+                        case 4:
+                            ret.data.attendanceLog.type = "旷工";
+                            break;
+                        case 5:
+                            ret.data.attendanceLog.type = "未排版";
+                            break;
+                        case 6:
+                            ret.data.attendanceLog.type = "请假";
+                            break;
+                        case 7:
+                            ret.data.attendanceLog.type = "没有考勤数据";
+                            break;
+                    }
+                    var thisDay = ret.data.attendanceLog.day.toString();
+                    ret.data.attendanceLog.day = thisDay.substring(0,4) + "." + thisDay.substring(4,6) + "." + thisDay.substring(6,8);
+                    var data = {list: ret.data.attendanceLog}
+                    var html = template('kaoqin', data);
+                    document.getElementById('kaoqinbox').innerHTML = html;
+                }
+            }
+        })
+    }
+    //宝宝家长
+    function babyParent() {
+        openNewWindow("babyParent", "babyParent.html", {uid: uid})
+    }
+
+    //打开精彩瞬间
+    function Marvellous() {
+        openNewWindow("wonderfulTime", "../wonderfulTime/wonderfulTime.html");
+    }
+
+    //打开考勤
+    function OpenKaoqin(){
+        openNewWindow("mybaby_clockingin", "../clockingIn/mybaby_clockingin.html");
+    }
+
+    //打开晨检
+    function OpenChenjian(){
+        openNewWindow("everydayHealthExam","../babyHealth/everydayHealthExam.html");
+    }
+
+</script>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>园长信箱</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			.ap_topnav{
+				color: #a3a3a3;
+				width: 100%;
+				background-color: #f8f8f8;
+				padding:12px 0;
+				box-sizing: border-box;
+				font-size: 16px;
+			}
+			.ap_topnav_cnt{
+				width: 95.7%;
+				height: 42px;
+				padding: 6px 0;
+				margin: 0 auto;
+				background-color: #fff;
+				text-align: center;
+				border-radius: 4px;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			.ap_topnav_cnt li{
+				line-height: 30px;
+				float: left;
+				width: 49.82%;
+				box-sizing: border-box;
+			}
+			.ap_topnav_cnt li.ap_line{
+				width: 1px;
+				height: 30px;
+				background-color: #f0f0f0;
+			}
+			li.active span{
+				color: #525252;
+				padding-bottom: 5px;
+				margin-bottom: 5px;
+				border-bottom: 1px solid #5AC8E1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		        <img style="width:30px;height:30px;" src="../../icon/back.png">
+		    </div>
+	    	<div>园长信箱</div>
+	    	
+		</div>
+		<div class="ap_topnav">
+	    	<ul class="ap_topnav_cnt">
+	    		<li class="havenot active"><span>待处理</span></li>
+	    		<li class="ap_line"></li>
+	    		<li class="already "><span>已处理</span></li>
+	    	</ul>
+	   </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+		
+		
+	
+	</script>
+</html>

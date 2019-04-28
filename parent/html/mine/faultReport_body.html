@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>故障报告</title>
+    <link rel="stylesheet" type="text/css" href="../../css/commonWindow.css">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css">
+    <style>
+        .bg-box{
+            width:100%;
+            background:#fff;
+            padding-bottom: 18px;
+        }
+        ul{
+            width:90%;
+            margin:0 5%;
+
+        }
+        ul li{
+            width:100%;
+            height:48px;
+        }
+        .chose{
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            border: 1px solid #A4A4A4;
+            float:left;
+            margin-top: 14px;
+        }
+        ul li div{
+            height:48px;
+            line-height: 48px;
+            text-align: left;
+            font-family: PingFang-SC-Regular;
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.19px;
+            float:left;
+            margin-left: 22px;
+            width:84%;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .textbox{
+            width:90%;
+            margin:20px 5% 0;
+            min-height:184px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+        }
+        .textbox textarea{
+            margin:12px 0 0 5%;
+            width:90%;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #999999;
+            letter-spacing: 0.19px;
+            padding:0;
+            min-height: 96px;
+            border:none;
+        }
+        #imglist1{
+            width: 90%;
+            margin:0 5% 18px;
+            min-height: 50px;
+        }
+        .imgbox{
+            width:50px;
+            height:50px;
+            background: #EFEFEF;
+            border-radius: 4px;
+            position: relative;
+            float:left;
+            margin:0 10px 10px 0;
+        }
+        .deleteimg{
+            width:18px;
+            height:18px;
+            position:absolute;
+            top:-9px;
+            right:-9px;
+        }
+        .putimg{
+            width:50px;height:50px;float: left;
+            margin-top: 10px;
+        }
+        .btnbox{
+            width:90%;
+            margin:20px 5% 0;
+            height:44px;
+            line-height: 44px;
+            text-align: center;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            font-family: PingFangSC-Regular;
+            font-size: 16px;
+            color: #FFFFFF;
+            letter-spacing: 0.22px;
+        }
+        .truechose{
+            background: url("../../icon/moren.png") no-repeat; background-size: 20px 20px;
+            border:none;
+        }
+        #imglist2 span{
+            position:relative;float: left;margin-right:10px;margin-top:10px;display: block;
+            width: 50px;
+            height: 50px;
+            top: 0px;
+            /*overflow: hidden;*/
+        }
+        #imglist2 span img{display: block; width: 50px;height: 50px; border-radius: 4px;}
+        #imglist2 span i{width:10px;height:10px;position:absolute;right:0px;top:-4px;color:red;font-size: 10px}
+    </style>
+</head>
+<body style="background:#ebf0f3;">
+    <div style="width:100%;height:12px;background:#ebf0f3;">
+
+    </div>
+    <div class="bg-box">
+        <ul>
+            <li>
+                <span class="chose truechose" onclick="choosePayType(1,this)"></span>
+                <div>
+                    功能异常：功能不可用
+                </div>
+            </li>
+            <li>
+                <span class="chose" onclick="choosePayType(1,this)"></span>
+                <div>
+                    其他问题
+                </div>
+            </li>
+            <li>
+                <span class="chose" onclick="choosePayType(1,this)"></span>
+                <div>
+                    其他问题
+                </div>
+            </li>
+        </ul>
+        <div class="textbox">
+            <textarea placeholder="输入您的详细故障" id="text-box"></textarea>
+            <div id="imglist1" >
+                <div id="imglist2" style="float: left;">
+                    <!--<span><img src='../../image/wonderful00.png' /><i onclick='Endes(this)'><img style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''></i></span>-->
+                    <!--<span><img src='../../image/wonderful00.png' /><i onclick='Endes(this)'><img style='width: 20px;height: 20px;' src='../../icon/delet.png' alt=''></i></span>-->
+                </div>
+                <img src="../../icon/group.png" class='putimg' onclick="getImgUrl()">
+            </div>
+        </div>
+    </div>
+    <div class="btnbox" onclick="refer()">
+        保存
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/javascript">
+    var ftype=1;
+    var imgIndex=3;
+    var imglist=[];
+    function getImgUrl() {
+        if(imgIndex <= 0){
+            toast("最多能上传三张照片");
+            return;
+        }
+        var Multiplechoice = api.require('Multiplechoice');
+//      api.showProgress();
+        Multiplechoice.choice({
+            maxstr : imgIndex,
+            uploadflowUrl : uploadImageUrl
+        },function(ret,err){
+            if(ret.allimgjs.length>0){
+                imgIndex = imgIndex - ret.allimgjs.length;
+                for(var i=0;i<ret.allimgjs.length;i++){
+                    var width = 100;
+                    var height = 80;
+                    var obj = getImgSizeBySize(ret.allimgjs[i],width,height);
+                    imglist.push(obj.url);
+                    document.getElementById("imglist2").innerHTML +="<span><img src='"+obj.url+"' style='width: 50px;height: 50px' /><i onclick='Endes(this)'><img style='width: 16px;height: 16px;' src='../../icon/delet.png' alt=''></i></span>";
+                }
+            }else{
+                toast('上传失败')
+            }
+        })
+    }
+    //删除图片
+    function Endes (self){
+        self.parentNode.remove();
+        var actionUrl = self.previousSibling.getAttribute("src");
+        for(var i=0;i<imglist.length;i++){
+            if(imglist[i].url == actionUrl){
+                imglist.splice(i,1);
+                imgIndex++;
+            }
+        }
+    }
+    //选择理由
+    function choosePayType(type,self) {
+        ftype = type;
+        var choseList = document.getElementsByClassName('chose');
+        for(var i=0;i<choseList.length;i++){
+           $(choseList[i]).removeClass('truechose')
+        }
+        $(self).addClass('truechose');
+    }
+    //提交故障报告
+    function refer(){
+        var textCount=document.getElementById('text-box').value;
+        if(textCount==''){
+            toast("请输入故障原因！");
+            return;
+        }
+        var obj ={
+            uid:getUserInfo().id,
+            totaltype:ftype,
+            content :textCount,
+            images:JSON.stringify(imglist)
+        };
+        ajaxGet(getdefaultUrl,obj,function(ret,err){
+            if(ret&&ret.success){
+                toast('提交成功')
+                setTimeout(function () {
+                    closeWin();
+                },300)
+            }else{
+                toast(err)
+            }
+        })
+    }
+
+</script>
+</html>

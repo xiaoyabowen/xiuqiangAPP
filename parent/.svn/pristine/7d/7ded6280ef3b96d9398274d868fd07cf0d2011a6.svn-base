@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link rel="stylesheet" href="../../css/dateSelect.css">
+    <title>新生预报名</title>
+    <style>
+        body{
+            background: #fff;
+        }
+        .freshman-info{
+            width:100%;
+            padding-top:12px;
+            box-sizing: border-box;
+        }
+        .fi-item{
+            width:100%;
+            height:36px;
+        }
+        .fi-item>:nth-child(1){
+            font-size: 14px;
+            color:#666666;
+        }
+        .parent-phone,
+        .vcode,
+        .parent-name,
+        .kid-gender,
+        .kid-birth,
+        .kg-name{
+            width: 337px;
+            height: 38px;
+            border: 1px solid #D7D7D7;
+            margin:0 auto;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .parent-phone > :nth-child(1),
+        .vcode > :nth-child(1),
+        .parent-name > :nth-child(1),
+        .kid-name > :nth-child(1),
+        .kid-gender > :nth-child(1),
+        .kid-birth > :nth-child(1),
+        .kg-name > :nth-child(1){
+            width: 57px;
+            height: 20px;
+            line-height: 20px;
+            margin: 10px 26px 10px 18px;
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.19px;
+        }
+
+
+        .parent-phone input,
+        .vcode input,
+        .parent-name input,
+        .kid-gender input,
+        .kid-birth input{
+            width:120px;
+            border-left: 1px solid #D8D8D8;
+            border-radius: 0px;
+            padding-left: 18px;
+            color:#999999;
+            font-size:14px;
+            box-sizing: border-box;
+        }
+        .vcode input,
+        .parent-name input,
+        .kid-birth input{
+            width: 67%;
+            height: 40px;
+        }
+        .parent-phone>:nth-child(3){
+            width: 74px;
+            height: 24px;
+            margin-left: 20px;
+            background: #5AC8E1;
+            line-height: 25px;
+            border-radius: 4px;
+            text-align: center;
+            font-size:12px;
+            color:#fff;
+        }
+        .kg-name select,.kid-gender select{
+            width: 60%;
+            height: 17px;
+            border:none;
+            color:#999999;
+            font-size:14px;
+            border-left: 1px solid #D8D8D8;
+            border-radius: 0px;
+            background: #fff;
+            padding-left: 18px;
+            appearance:none;
+            -moz-appearance:none; /* Firefox */
+            -webkit-appearance:none; /* Safari 和 Chrome */
+            background: url("../../icon/switch.png") no-repeat 98%;
+            background-size: 6% 100%;
+            outline:none;
+        }
+        #province,#citys{
+            display: inline-block;
+            background-size: 8% 86%;
+        }
+        #province{
+            width: 34%;
+        }
+        #citys {
+            border-left: 0px;
+            width: 31%;
+        }
+
+        #hide-unit{
+            width:100%;
+            padding-left:20px;
+            margin:6px 0 10px 0;
+            font-size: 12px;
+            color: #D4602C;
+            letter-spacing: 0.16px;
+            box-sizing: border-box;
+            display: none;
+        }
+        #hide-unit>span{
+            position:relative;
+            padding-left:20px;
+        }
+        #hide-unit>span img{
+            width:16px;
+            height:16px;
+            position:absolute;
+            left:0px;
+            top:0px;
+        }
+        .btnbox{
+            width:100%;
+            height: 44px;
+            margin:20px auto;
+            padding:0 22px;
+            box-sizing: border-box;
+            clear: both;
+        }
+        .btn1,.btn2{
+            width:45%;
+            height:44px;
+            text-align: center;
+            line-height: 44px;
+            background: #5AC8E1;
+            font-size: 17px;
+            color:#FFFFFF;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+        }
+        .btn1{
+            margin-right: 23px;
+            float: left;
+        }
+        .btn2{
+            float: right;
+        }
+        .click{
+            background: #ccc;
+            color:#fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="freshman-info">
+        <div class="parent-phone fi-item">
+            <span>家长电话</span>
+            <input type="text" id="phone" placeholder="请输入电话号码" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')">
+            <span id="sms" onclick="getCode()" >获取验证码</span>
+        </div>
+        <div id="hide-unit">
+            <span><img src="../../icon/warn.png" alt=""><i id="msg"></i></span>
+        </div>
+        <div class="vcode ">
+            <span>验证码：</span>
+            <input type="text" id="code" type="number" placeholder="请输入验证码" onkeyup="this.value=this.value.replace(/\D/g,'')">
+        </div>
+        <div class="kg-name">
+            <span>所在位置</span>
+            <select id="province" name="province" class="form-control"
+                    onchange="doProvAndCityRelation();">
+                <option id="choosePro" value="0">请选择省份</option>
+            </select>
+            <select id="citys" name="city" class="form-control"
+                    onchange="doCityAndCountyRelation();">
+                <option id='chooseCity' value="0">请选择城市</option>
+            </select>
+        </div>
+        <div class="kg-name">
+            <span>预约园所</span>
+            <select name="" id="school">
+                <option value="0">请选择园所</option>
+            </select>
+        </div>
+        <div class="parent-name">
+            <span>家长姓名</span>
+            <input type="text" placeholder="请输入家长姓名" id="parentName">
+        </div>
+        <div class="parent-name">
+            <span>孩子姓名</span>
+            <input type="text" placeholder="请输入孩子姓名" id="name">
+        </div>
+        <div class="kid-gender">
+            <span>性别</span>
+            <select name="" id="sex">
+                <option value="0">--请选择性别--</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+            </select>
+        </div>
+        <div class="kid-birth">
+            <span>出生日期</span>
+            <input type="text" id="pickDateBtn" placeholder="请选择出生日期" readonly>
+        </div>
+    </div>
+    <div class="btnbox">
+        <div class="btn1" onclick="submitMsg()" tapmode="click">提交预约信息</div>
+        <div class="btn2" onclick="placeholder()" tapmode="click">我要交占位费</div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/dateSelect.js"></script>
+    <script type="text/javascript" src="../../script/area.js"></script>
+
+    <script type="text/html" id="tmpScript">
+        <%if(list.length){%>
+            <option value="">请选择园所</option>
+            <%for(var i=0;i<list.length;i++){%>
+                <option value="<%=list[i].id%>"><%=list[i].name%></option>
+            <%}%>
+        <%}%>
+    </script>
+    <script>
+        var urid = 0;
+        var msgData = {};
+        apiready = function () {
+            $('#pickDateBtn').dateSelect();
+        }
+
+        var flag = true;//防止重复点击获取验证码
+        function getCode(){
+            if(!flag){
+                return;
+            }
+            var tel = parseInt(document.getElementById('phone').value);
+
+            if(!checkMobileNum(tel)){
+                document.getElementById('hide-unit').style.display = 'block';
+                document.getElementById('msg').innerHTML = '手机号码不正确';
+                return;
+            }else{
+                document.getElementById('hide-unit').style.display = 'none';
+                document.getElementById('msg').innerHTML = '';
+            }
+            var obj = {
+                phone : tel
+            }
+            ajaxGetUser(createAuthCodeOnRegUrl,obj,function(ret,err) {
+                if (ret && ret.success) {
+                    toast("获取成功，请注意查收！");
+                    setTime();
+                    flag = false;
+                }else if(ret && !ret.success){
+                    if(ret){
+                        var msg = ret.msg || "网络连接错误，请稍后重试！";
+                        toast(msg);
+                    }else{
+                        var msg = err.msg || "网络连接错误，请稍后重试！";
+                        toast(msg);
+                    }
+                }
+            })
+        }
+
+        /*******************倒计时****************************/
+        function setTime(){
+            var time;
+            var sms = document.getElementById('sms');
+            time = time||60;
+            sms.innerHTML = time+"s";
+            var codeInterval = setInterval(function(){
+                if(time > 0){
+                    time--;
+                    sms.innerHTML = time+"s";
+                }else{
+                    sms.innerHTML = "获取验证码";
+                    clearInterval(codeInterval);
+                    flag = true;
+                }
+            },1000)
+        };
+
+        // 提交信息
+        function submitMsg(){
+            var phone = $("#phone").val();
+            var code = $("#code").val();
+            var province =  $("#province").val();
+            var citys = $("#citys").val();
+            var school = $("#school").val();
+            var parentName = $("#parentName").val();
+            var name = $("#name").val();
+            var sex = $("#sex").val();
+            var birthDate = Date.parse($("#pickDateBtn").val());
+            if( phone == '' ){
+                toast('请输入电话');
+            }else if( code == '' ){
+                toast('请输入验证码');
+            }else if( province == 0 || province == '0' ){
+                toast('请选择省份');
+            }else if( citys == 0 || citys == '0' ){
+                toast('请选择城市');
+            }else if( school == 0 || school == '0' ){
+                toast('请选择学校');
+            }else if( parentName == '' ){
+                toast('请输入家长姓名');
+            }else if( name == '' ){
+                toast('请输入宝宝姓名');
+            }else if( sex == 0 || sex == '0' ){
+                toast('请选择性别');
+            }else if( birthDate == '' ){
+                toast('请选择出生日期');
+            }else{
+                var parme = {
+                    'phone':phone,
+                    'code':code,
+                    'province':province,
+                    'city':citys,
+                    'sid':school,
+                    'parentName':parentName,
+                    'name':name,
+                    'sex':sex,
+                    'birthDate':birthDate,
+                    'askRcordsJson':[],
+                }
+                api.showProgress({
+                    title: '请求中...',
+                    text: '请稍等...',
+                });
+                ajaxGetUser(freshmanBooking,parme,function(ret,err){
+                    if(ret.success){
+                        api.hideProgress();
+                        toast('预约成功')
+                        urid = ret.data.id;
+                        msgData = ret.data;
+                    }else if(ret.success == false){
+                        api.hideProgress();
+                        toast(ret.msg)
+                    }
+                });
+            }
+        }
+        // 打开付费
+        function placeholder() {
+            if(urid == 0){
+                toast('请先提交预约信息！')
+            }else{
+                openNewWindow('occupyFee','occupyFee.html',{msg:msgData});
+            }
+        }
+    </script>
+</body>
+</html>

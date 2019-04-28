@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>请假</title>
+		<link rel="stylesheet" href="../../css/api.css">
+	    <link rel="stylesheet" href="../../css/commonWindow.css">
+	    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+	    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #FFFFFF;
+			}
+            .vacate{
+                width:100%;
+                padding-top:12px;
+                padding-left:18px;
+                padding-right:18px;
+                box-sizing: border-box;
+            }
+            
+            .end-date,.vacate-type{
+                margin-top:5px;
+            }
+            .start-date,.end-date,.vacate-type{
+                width:100%;
+                height:40px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                padding-top:8px;
+                box-sizing: border-box;
+            }
+            .start-date .float,.end-date .float{
+                height:23px;
+                float:left;
+                /* text-align: center; */
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .vacate-type .tag{
+                height:23px;
+                float:left;
+                text-align: center;
+                line-height:23px;
+                box-sizing: border-box;
+            }
+            .start-date .tag,.end-date .tag,.vacate-type .tag{
+                border-right:1px solid #D7D7D7;
+                font-size: 16px;
+                color: #505050; 
+                text-align: right;
+                padding-left:18px;
+                padding-right:18px;
+            }
+            .sd-date,.sd-time,.ed-date,.ed-time{
+                font-size: 14px;
+                color: #C8C8C8;
+                position: relative;
+            }
+            .sd-time input{
+            	width: 60%;
+            	box-sizing: border-box;
+            	padding: 5px;
+            }
+            .sd-date,.ed-date{
+                padding-left:18px;
+                padding-right:15px;
+            }
+            .sd-time,.ed-time{
+               	width: 100%;
+                padding-right:38px;
+                line-height: 23px;
+               	text-indent: 9px;
+                box-sizing: border-box;
+            }
+            .sd-date>:nth-child(2)>img,.ed-date>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:0px;
+                top:3px;
+            }
+            .sd-time>:nth-child(2)>img,.ed-time>:nth-child(2)>img{
+                width:9px;
+                position: absolute;
+                right:18px;
+                top:3px;
+            }
+            .vacate-type .type-info{
+                height:23px;
+                line-height:23px;
+                float:left;
+                padding-left:18px;
+                font-size: 16px;
+                color: #C8C8C8;
+                box-sizing: border-box;
+            }
+            .type-info span{
+                display:block;
+            }
+            .type-info>:nth-child(2){
+                float:right;
+            }
+            @media screen and (max-width: 320px) {
+                .sd-date,.ed-date{
+                    padding-right:10px;
+                }
+                .sd-time,.ed-time{
+                    padding-right:25px;
+                }
+            }
+            .switch-icon{
+                float:right;
+                padding-right:18px;
+                padding-top:3px;
+            }
+            .switch-icon>img{
+                width:9px;
+            }
+            
+            .submit{
+                width:100%;
+                height:44px;
+                background:#5AC8E1;
+                line-height:44px;
+                text-align: center;
+                font-size:20px;
+                color:#FFFFFF;
+                margin-top:30px;
+                border-radius:4px;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="vacate">
+            <div class="start-date" id="study">
+                <div class="tag float">所属目录</div>
+                <div class="sd-time">
+                    <input id="studyName" type="text" value="" placeholder="请选择教学目录" />
+                    <span><img src="../../icon/switch.png" alt=""></span>
+                </div>
+            </div>
+            <div class="start-date" style="margin-top: 5px;">
+                <div class="tag float">资料标题</div>
+                <div class="sd-time">
+                   <input type="" name="" id="docName" value="" />
+                </div>
+            </div>
+            <div class="submit" tapmode="itemOn" onclick="submits()">保存</div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		var pathId;
+		var studyName;
+		var docType;
+		apiready = function(){
+			ajaxGet(pathGetUserAllList,{},function(ret,err){
+				var studyArr = [];
+				if (ret&&ret.success) {
+//					alert(JSON.stringify(ret))
+					for(var i = 0;i < ret.data.length;i++){
+						var obj = {
+							text : ret.data[i].name,
+							value : ret.data[i].id,
+							type : ret.data[i].type
+						}
+						studyArr.push(obj);
+					}
+					
+					(function($, doc) {
+						$.ready(function() {
+							var studyPicker = new $.PopPicker();
+				            studyPicker.setData(studyArr);
+				            studyPicker.setTitle("教学目录");
+				            var study = doc.getElementById('study');
+				            var studyName = doc.getElementById('studyName');
+				            study.addEventListener('tap', function (event) {
+				                studyPicker.show(function (items) {
+				                	if (isNotBlack(items[0].text)) {
+				                		studyName.value = items[0].text;
+				                		pathId = items[0].value;
+				                		docType = items[0].type;
+				                	}
+			 	                });
+				            }, false);
+						});
+					})(mui, document);
+				}
+			})
+		}
+		
+		
+		//保存
+		function submits(){
+			var obj = {};
+			if (isBlack(pathId)) {
+				toast("请选择教学目录");
+				return;
+			}
+//			alert(JSON.stringify({name : document.getElementById("docName").value,pathId : pathId,docType : docType}))
+			ajaxGet(searchUrl,{name : document.getElementById("docName").value,pathId : pathId,docType : docType},function(ret,err){
+//  			alert(JSON.stringify(ret));
+//  			alert(JSON.stringify(err))
+    			if (ret) {
+    				
+    			}
+    		})
+		}
+	</script>
+</html>

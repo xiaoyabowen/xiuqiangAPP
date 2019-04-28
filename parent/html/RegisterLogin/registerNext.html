@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>注册</title>
+    <style>
+        html,body{
+        	width: 100%;
+        	height: auto;
+            background:url("../../image/lrbg.png") no-repeat;
+            background-size:100% 100%;
+            color:#FFFFFF; 
+        }
+        .return{
+            width:100%;
+            height:46px;
+            position: relative;
+        }
+        .return>img{
+            width:22px;
+            height:22px;
+            position: absolute;
+            bottom:12px;
+            left:15px;
+        }
+        .title{
+        	margin-top: 10px;
+        	font-size: 18px;
+			color: #FFFFFF;
+			margin-left: 15px;
+        }
+        .ul{
+        	margin-top: 10px;
+        	padding-left: 15px;
+        	margin-bottom: 60px;
+        }
+        .ul input{
+        	width: 67.2%;
+        	height: 36px;
+        	border: 1px solid #DDDDDD;
+			border-radius: 8px;
+			margin-left: 16px;
+			font-size: 14px;
+			color: #999999;
+			text-indent: 10px;
+        }
+        .ul .selectarrow{
+        	background:url(../../icon/selectarrow.png) 0 10px no-repeat;
+        	background-size: 16px 16px;
+        	background-position: 95% 50%;
+        }
+        .ul li{
+        	margin-top: 14px;
+        }
+        .ul li:nth-child(1){
+        	margin-top: 0;
+        }
+        
+        .buttomButtom{
+        	position: fixed;
+        	left: 8.135%;
+        	bottom: 9px;
+        	width: 83.73%;
+        	margin: 0 auto;
+        	margin-top: 31px; 
+        	line-height: 43px;
+        	line-height: 43px;
+        	text-align: center;
+        	font-size: 18px;
+			color: #FFFFFF;
+			opacity: 0.8;
+			background: #5EC4E0;
+			border-radius: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div class="return">
+                <img src="../../icon/return.png" alt="">
+            </div> 
+            <div class="title">教职工资料填写</div>
+            <ul class="ul">
+           	    <li>
+           	    	姓名<span style="opacity: 0;">占位</span><input readonly="readonly" type="text" placeholder="请输入姓名"/>
+           	    </li>
+           	    <li>
+           	    	性别<span style="opacity: 0;">占位</span><input class="selectarrow" type="text" placeholder="女" />
+           	    </li>
+           	    <li>
+           	    	身份证号<input type="text" placeholder="请输入身份证号" />
+           	    </li>
+           	    <li>
+           	    	部门<span style="opacity: 0;">占位</span><input class="selectarrow" type="text" placeholder="老师组" />
+           	    </li>
+           	    <li>
+           	    	岗位<span style="opacity: 0;">占位</span><input class="selectarrow" type="text" placeholder="园长" />
+           	    </li>
+           	    <li>
+           	    	手机号<span style="opacity: 0;">位</span><input type="text" placeholder="请输入手机号" />
+           	    </li>
+           	    <li>
+           	    	邮箱<span style="opacity: 0;">占位</span><input type="text" placeholder="请输入邮箱" />
+           	    </li>
+           	    <li>
+           	    	毕业院校<input type="text" placeholder="请输入毕业院校" />
+           	    </li>
+           	    <li>
+           	    	居住地<span style="opacity: 0;">位</span><input type="text" placeholder="请输入居住地" />
+           	    </li>
+           	    <li>
+           	    	毕业时间<input type="text" placeholder="请输入毕业时间" />
+           	    </li>
+           	    <li>
+           	    	入职时间<input type="text" placeholder="请输入入职时间" />
+           	    </li>
+            </ul>
+            <div class="buttomButtom">立即注册</div>
+        </div>       </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        function register(){
+        	closeWin()
+        }
+    </script>
+</body>
+</html>

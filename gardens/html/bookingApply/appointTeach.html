@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>仓库选择</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0);
+        }
+        /*老师列表*/
+        #warp{
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.30);
+            position: fixed;
+        }
+        #content{
+            width: 230px;
+            height: 234px;
+            background: #FFFFFF;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            position: fixed;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin:50% auto;
+            font-size: 14px;
+            color: #333333;
+            text-align: center;
+        }
+        #content > :nth-child(1){
+            height: 59px;
+            line-height: 60px;
+            text-align: center;
+            border: 1px solid #F0F0F0;
+        }
+        #content > ul{
+            height:174px;
+
+            overflow: scroll;
+        }
+        #content > ul > li{
+            width: 40%;
+            height:20px;
+            margin: 0 auto;
+            line-height: 20px;
+        }
+        #content > ul > li > p{
+            margin-top: 12px;
+            text-align: center;
+        }
+        .selected{
+            width: 40%;
+            text-align: center;
+            background: #5AC8E1;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            color:#FFFFFF;
+        }
+    </style>
+</head>
+<body id="body">
+    <div id="warp">
+
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+
+<script type="text/html" id="listScript">
+    <%if(list.length){%>
+    <div id="content">
+        <div>请选择老师</div>
+        <ul>
+            <%for(var i=0;i<list.length;i++){%>
+            <li onclick="getTid(this,'<%=list[i].id%>')"><p><%=list[i].name%></p></li>
+            <%}%>
+        </ul>
+    </div>
+    <%}%>
+</script>
+<script>
+    var aid;
+    apiready = function () {
+        $("#warp").bind('click',function(e){
+            var target = e.target;
+            if(target.closest('#content')==null){
+                api.closeFrame({
+                    name:'appointTeach'
+                });
+            };
+        });
+        ajaxGet(teacherListUrl,{sid:getUserInfo().sid,checkStatus:1},function(ret,err) {
+            if(ret){
+                var data = {list: ret.data};
+                var html = template('listScript',data);
+                document.getElementById('warp').innerHTML = html;
+                api.parseTapmode();
+            }
+        });
+        aid = api.pageParam.id;//获取传过来的指派Id
+    };
+
+    //获取老师ID 指派
+    function getTid(self,id){
+        $(self).addClass("selected");
+        api.showProgress({
+            title: '指派中...',
+        });
+        ajaxGet(updateAssignedTeacher,{id:aid,teacherId:id},function(ret,err){
+            if(ret.success){
+                api.hideProgress();
+                toast('指派成功！');
+                api.execScript({
+                    name:'bookingApply',
+                    frameName:'bookingApply_body',
+                    script:'apiready()'
+                });
+                api.execScript({
+                    name:'bookingApply_true',
+                    frameName:'bookingApply_true_body',
+                    script:'apiready()'
+                });
+                api.closeFrame({
+                    name:'appointTeach'
+                });
+            }else{
+                api.hideProgress();
+                toast('指派失败，请重试！')
+            }
+        });
+
+    }
+</script>
+</html>

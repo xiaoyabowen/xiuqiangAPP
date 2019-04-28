@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的学习-详情</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			#topbar{
+				/*background-color: #fff;*/
+				/*color: #505050;*/
+				/*font-size: 17px;*/
+				/*border-bottom: 1px solid #f0f0f0;*/
+			}
+			#topbar>:nth-child(1)>img{
+				/*width: 8px;*/
+				/*height: 14px;*/
+				/*left: 15px;*/
+				/*bottom: 15px;*/
+			}
+			#topbar .right{
+				/*font-size: 14px;*/
+				/*color: #A3A3A3;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" style="display: block;">
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		        <!--<img src="../../image/arrow_lt.png">-->
+				<img style="width:30px;height:30px;" src="../../icon/back.png">
+		    </div>
+	    	<div id="title">目录1</div>
+	    	<!--<div onclick="searchCourse()" class="right"><img src="../../icon/search.png" alt="" /></div>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+		    document.getElementById("title").innerHTML=api.pageParam.path;
+			initFrameInWin(api.pageParam);
+			//添加安卓退出按钮事件
+	        api.addEventListener({
+	            name: 'keyback'
+	        }, function (ret, err) {
+	            closeOnKeyBack();
+	        }); 
+		};
+		
+		
+		function closeOnKeyBack(){
+			api.execScript({
+	        	name:'myStudy_detail',
+		        frameName:'myStudy_detail_body',
+		        script: 'listenerVideo()'
+		   });
+		}
+		
+	</script>
+</html>

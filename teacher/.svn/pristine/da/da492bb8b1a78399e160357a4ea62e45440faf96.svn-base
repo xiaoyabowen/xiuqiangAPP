@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>自定义消息详情</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            width: 100%;
+            background-color: #f8f8f8;
+        }
+        #main{
+            width: 100%;
+            padding-top: 12px;
+            padding-left: 8px;
+            padding-right: 8px;
+            box-sizing: border-box;
+        }
+        .detailbox{
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            box-sizing: border-box;
+            padding: 20px 18px 62px 18px;
+        }
+        .title{
+            font-size: 16px;
+            color: #333333;
+            line-height: 22px;
+            text-align: center;
+            padding-bottom: 12px;
+        }
+        .content{
+            padding-bottom: 8px;
+            text-indent: 2em;
+            font-size: 14px;
+            color: #333333;
+            line-height: 20px;
+            word-break: break-word;
+        }
+        .customImg{
+            width: 40px;
+            height: 40px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<div id="mains">
+    <div class="detailbox">
+        <div class="customImg">
+            <img src="../../image/cookfood.png" id="icon" alt="">
+        </div>
+        <div class="title">自定义消息详情</div>
+        <div class="content">
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="detailTm">
+    <div class="detailbox">
+        <div class="customImg">
+            <img src="../../image/cookfood.png" id="icon" alt="">
+        </div>
+        <div class="title">自定义消息详情</div>
+        <div class="content">
+
+        </div>
+    </div>
+</script>
+<script>
+    var mid;
+    apiready=function () {
+        mid=api.pageParam.mid;
+        ajaxGet(getNoticeDetail,{nid:mid},function (ret,err) {
+            if(ret && ret.success){
+                ret.data.ctime=formatTimeToDate(ret.data.ctime);
+                var data={list:ret.data};
+                var html=template("detailTm",data);
+                document.getElementById("mains").innerHTML=html;
+
+                setTimeout(function(){
+                    echoExt.init({
+                        offset: 0,
+                        throttle: 0//设置图片延迟加载的时间
+                    });
+                },100)
+            }
+        })
+    }
+
+</script>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>举报描述</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<!--<link rel="stylesheet" href="../../css/commonWindow.css" />-->
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #f8f8f8;
+			}
+			#main{
+				width:100%;
+				padding-top: 12px;
+				padding-left: 8px;
+				padding-right: 8px;
+				box-sizing: border-box;
+			}
+			.replybox{
+				width: 100%;
+				height: 319px;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 4px;
+				box-sizing: border-box;
+				position:relative;
+			}
+			textarea{
+				width: 100%;
+				height: 100%;
+				font-size: 14px;
+				color: #505050;
+				line-height: 20px;
+				padding: 20px 18px;
+				box-sizing: border-box;
+				outline: none;
+				resize: none;
+			}
+			#main p{
+				height:44px;line-height:44px;padding:0 26px;
+			}
+			#main em{
+				position:absolute;bottom:5px;right:5px;color:#999;
+			}
+			#main em i{font-style: normal;}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<p>举报描述(选填）</p>
+			<div class="replybox">
+				<textarea  id="textarerText" name="" rows="" cols="" placeholder="详细描述举报理由…"></textarea>
+				<em><i id="length">0</i>/300</em>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		var complaintType,TypeId;
+		apiready=function(){
+			complaintType = api.pageParam.ctype;
+			TypeId = api.pageParam.TypeId;
+		};
+        var isCommitted = false;  //表单是否应提交标识，默认为false
+		function Parent(){
+            if(isCommitted == false){return}    //提交表单后，将表单是否已经提交设置为true
+                isCommitted = true; //返回true让表单正常提交
+			var textinner = document.getElementById("textarerText").value;
+			//参数：type、typeId、complaintType、content
+			ajaxGet(complainadd,{type:2,typeId:TypeId,complaintType:complaintType,content:textinner},function(ret,err){
+				if(ret.success == true){
+					toast("发布成功！");
+					api.execScript({
+						name:"wonderfulTime",
+						frameName:"wonderfulTime_body",
+						script:"apiready()"
+					});
+					setTimeout(function(){
+						closeWin();
+					},1000)
+				}else{
+					toast("发布投诉！请检查网络重新投诉。")
+                    isCommitted = false;
+				}
+			})
+		}
+		//文本域字数变化
+		var textnr = document.getElementById("textarerText");
+		var textlength = document.getElementById("length");
+		textnr.onkeyup = function(){
+			var textvalue = textnr.value;
+			if(textvalue.length <= 299){
+				textlength.innerHTML = textvalue.length;
+			}else{
+				textlength.innerHTML = textvalue.length;
+				textnr.setAttribute("disabled","disabled");
+			}
+		}
+	</script>
+</html>

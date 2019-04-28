@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>我们班</title>
+    <style>
+    	html,body{
+    		min-width:320px;
+    		height: 100%;
+    		background: #F8F8F8;
+    	}
+		.top-slide{
+			width:100%;
+			overflow: hidden;
+			overflow-x: scroll;
+    		box-sizing: border-box;
+		}
+		.top-slide::-webkit-scrollbar{
+			display:none;
+		}
+    	.top{
+			padding:12px 14px;						
+			display: -webkit-box;
+			display: -mz-flexbox;
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: nowrap;
+			box-sizing: border-box;
+    	}
+    	.top li{
+    		text-align: center;
+			border-radius: 8px;
+			box-sizing: border-box;			
+    	}
+		.top li>:nth-child(1){
+			position:relative;
+			width:100%;
+			height:0;
+			padding-bottom:100%;
+        }
+		.top li>:nth-child(1)>:nth-child(1){
+			display:block;
+			position: absolute;
+			width:100%;
+			height:100%;
+			top:0;
+			bottom:0;
+			border-radius:8px; 
+			text-align: center;
+			font-size: 12px;
+			color: #FFFFFF;
+			letter-spacing: 0.25px;
+			padding-top:70%;
+			box-sizing: border-box;
+        }
+		.top>:nth-child(1){
+            background: #5AC8E1;
+        }
+		.top>:nth-child(2){
+            background: #92CA55;
+        }
+		.top>:nth-child(3){
+            background: #31CACF;
+        }
+		.top>:nth-child(4){
+            background: #67C49C;
+        }
+		.top>:nth-child(5){
+            background: #5AC8E1;
+        }
+		.top>:nth-child(1){
+			background-image:url('../../icon/sicon.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%; 
+		}
+		.top>:nth-child(2){
+			background-image:url('../../icon/fwsb.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%; 
+		}
+		.top>:nth-child(3){
+			background-image:url('../../icon/mzsp.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%; 
+		}
+		.top>:nth-child(4){
+			background-image:url('../../icon/mzpy.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%; 
+		}
+		.top>:nth-child(5){
+			background-image:url('../../icon/health.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%; 
+		}
+		.key-indicator{
+			width:100%;
+			height:181px;
+			padding-left:8px;
+			padding-right:8px;
+			box-sizing: border-box;
+		}
+		.ki{
+			width:100%;
+			height:100%;
+        	background: #FFFFFF;
+			box-shadow: 0 2px 4px 0 #CDE3E9;
+			border-radius:8px;
+			box-sizing: border-box;			
+		}
+		.class-info{
+			width:100%;
+			padding-left:8px;
+			padding-right:8px;
+			margin-top:13px;
+			padding-bottom:33px;			
+			box-sizing: border-box;
+		}
+		.ci{
+			width:100%;
+        	background: #FFFFFF;
+			box-shadow: 0 2px 4px 0 #CDE3E9;
+			border-radius:8px;
+			box-sizing: border-box;
+			padding-bottom:18px;
+		}
+        .keyTitle,.teachers,.students{
+        	width: 100%;
+        	font-size: 14px;
+			color: #333333;
+			padding-top:8px;
+			padding-left:18px;
+			letter-spacing: -1.42px;
+        	background: #FFFFFF;
+			border-radius:8px;						
+			box-sizing: border-box;						
+        }
+		.students{
+			padding-top:13px;
+		}
+        .con{
+        	width: 100%;
+        	height: 181px;
+			padding-top:20px;
+        	background: #FFFFFF;
+			border-radius:4px;
+			box-sizing: border-box;
+        }
+        .con li{
+        	float: left;
+        	width: 50%;
+			text-align: center;
+			position: relative;
+			box-sizing: border-box;
+        }
+		.od-border,.mc-border{
+			width:224px;
+			height:224px;
+			margin:0 auto;
+			background: #FFFFFF;
+			border-radius:50%;
+			text-align: center;
+			box-shadow: 0 2px 6px 0 #CDE3E9;
+			position: relative;
+			zoom:0.5;
+		}
+		#on-duty,#morning-check{
+			position:absolute;
+			left:0px;
+		}
+		.od-title{
+			font-size: 12px;
+			color: #A4A4A4;
+			margin-top:12px;
+		}
+		.mc-title,.od-title{
+			font-size: 12px;
+			color: #5EC4E0;
+			margin-top:12.5px;
+			text-decoration:underline;			
+		}
+		.teacher-list,.students-list{
+			width:100%;
+			background: #FFFFFF;
+			padding-left:12px;
+			padding-right:12px;
+			border-radius:8px;
+			box-sizing: border-box;
+		}
+		.teacher-list li,.students-list li{
+			width:100%;
+			/* height:58px; */
+			border-bottom:1px solid #F2F2F2;
+			padding-top:10px;
+			padding-left:6px;
+			padding-right:6px;
+			line-height: 38px;
+			box-sizing: border-box;
+			background-image:url('../../icon/teacherinfo.png'); 
+			background-size:16px 16px; 
+			background-repeat:no-repeat;
+			background-position:right  center;
+		}
+		.teacher-list li{
+			height:53px;
+		}
+		.students-list li{
+			height:54px;
+		}
+		.teacher-list li .fl-item,.students-list li .fl-item{
+			float:left;
+		}
+		.t-avatar,.s-avatar{
+			width:36px;
+			height:36px;
+			border-radius:50%;
+			overflow: hidden;
+		}
+		.t-avatar>img,.s-avatar>img{
+			/*width:36px;
+			height:36px;*/
+			/*border-radius:50%;*/
+		}
+		.t-name,.s-name{
+			font-size: 14px;
+			color: #666666;
+			margin-left:8px;
+		}		
+    </style>
+</head>
+<body>
+	<div class="top-slide">
+		<ul class="top">
+			<li>
+				<div class="title" onclick="openWonderfulTime()">
+					<div>精彩瞬间</div>
+				</div>
+			</li>
+			<li>
+				<div class="title" onclick="openServiceEquipment()">
+					<div>服务设备</div>
+				</div>
+			</li>
+			<li>
+				<div class="title" onclick="openbabyCookBook()">
+					<div>宝宝食谱</div>
+				</div>
+			</li>
+			<li>
+				<div class="title" onclick="openAllComment()">
+					<div>宝宝评语</div>
+				</div>
+			</li>
+			<li>
+				<div class="title" onclick="openBabyHealth()">
+					<div>全班晨检</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+<div class="key-indicator">
+   <div class="ki">
+  	<ul class="con">
+  		<li class="on-duty">
+			<div class="od-border">
+				<canvas id="on-duty"></canvas>
+			</div>
+			<div class="od-title" onclick="openAbsenceBaby()">缺勤宝宝</div>
+		</li>
+		<li class="morning-check">
+			<div class="mc-border">
+				<canvas id="morning-check"></canvas>
+			</div>
+			<div class="mc-title" onclick="openUnnormalBaby()">异常宝宝</div>
+		</li>
+	  </ul>
+	</div>
+</div>
+<div class="class-info">
+   <div class="ci">
+	  <div class="teachers">班级老师</div>
+	  <ul class="teacher-list" id="TeacherList">
+		  <li>
+			  <!--<div class="t-avatar fl-item"><img src="../../image/tea.cherAvatar.png" alt=""></div>-->
+			  <div class="t-name fl-item">暂无数据</div>
+		  </li>
+	  </ul>
+	  <div class="students">班级宝宝</div>
+	  <ul class="students-list" id="BabyList">
+		<li>
+			<!--<div class="s-avatar fl-item"><img src="../../image/teacherAvatar.png" alt=""></div>-->
+			<div class="s-name fl-item">暂无数据</div>
+		</li>
+	  </ul>
+   </div>
+</div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/html" id="TeacherHtml">
+		<%for(var i=0;i<list.length;i++){%>
+			<li onclick="JumpTeacherDetails('<%=list[i].id%>','<%=list[i].name%>')">
+				<div class="t-avatar fl-item">
+					<img src="<%=list[i].icon%>" style="<%=list[i].style%>" onerror="this.src='../../image/teacherWang.png'" alt="" />
+				</div>
+				<div class="t-name fl-item"><%=list[i].name%></div>
+			</li>
+		<%}%>
+	</script>
+	<script type="text/html" id="BabyHtml">
+		<%for(var i=0;i<list.length;i++){%>
+			<li onclick="JumpBabyDetails('<%=list[i].id%>','<%=list[i].name%>')">
+				<div class="s-avatar fl-item">
+					<img src="<%=list[i].icon%>" style="<%=list[i].style%>" onerror="this.src='../../image/teacherWang.png'" alt="" />
+				</div>
+				<div class="s-name fl-item"><%=list[i].name%></div>
+			</li>
+		<%}%>
+	</script>
+    <script>
+		apiready=function(){
+//			alert(JSON.stringify(getUserInfo()));
+			var cid = getUserInfo().cids[0];
+			//老师列表
+			ajaxGet(clazzgetAllTeacher,{cid:cid},function(ret,err){
+				if(ret.success == true){
+					for(var i=0;i<ret.data.length;i++){
+						if(ret.data[i].icon){
+							var width = 36;
+							var height = 36;
+							var obj = getImgByThisSize(ret.data[i].icon,width,height);
+							ret.data[i].style = obj.style;
+						}
+					}
+					var data = {list: ret.data};
+					var html = template("TeacherHtml",data);
+					document.getElementById('TeacherList').innerHTML = html;
+				}
+			})
+			//宝宝列表
+			ajaxGet(clazzgetAllchild,{cid:cid},function(ret,err){
+				if(ret.success == true){
+					for(var i=0;i<ret.data.length;i++){
+						if(ret.data[i].icon){
+							var width = 36;
+							var height = 36;
+							var obj = getImgByThisSize(ret.data[i].icon,width,height);
+							ret.data[i].style = obj.style;
+						}
+					}
+					var data = {list: ret.data};
+					var html = template("BabyHtml",data);
+					document.getElementById('BabyList').innerHTML = html;
+				}
+			})
+			//出勤率
+			ajaxGet(getClazzgetChildMonth,{day:formatTimeToDayYang(new Date()),clazzId:cid},function(ret,err){
+//				alert(JSON.stringify(ret));
+				if(ret.attendanceRate){
+					drawRingone(224,224,ret.attendanceRate * 100);
+				}
+			})
+//			//合格率
+			ajaxGet(getClazzAllDayCheck,{cid:cid,day:Date.parse(new Date())},function(ret,err){
+				if(ret.success == true){
+					drawRingtwo(224,224,100 - ret.data.yield * 100);
+				}
+			})
+		}
+		//跳转老师详情
+		function JumpTeacherDetails(id,name){
+			openNewWindow("teacherHomepage","../main/teacherHomepage.html",{id:id,name:name});
+		}
+		//跳转宝宝详情
+		function JumpBabyDetails(id,name){
+			openNewWindow("classBaby","../ourClas/classBaby.html",{id:id,name:name})
+		}
+
+		//进度条
+		function drawRingone(w,h,val){  
+            var c=document.getElementById('on-duty');  
+            var ctx=c.getContext('2d'); 
+			ctx.scale(2,2); 
+            ctx.canvas.width=w;  
+            ctx.canvas.height=h;          
+            ctx.beginPath();  
+            ctx.lineWidth=10;
+            var g = ctx.createLinearGradient(0,0,200,100);
+            g.addColorStop(0,'#5AC8E1'); 
+            g.addColorStop(1,'#93C85C');
+            ctx.strokeStyle= g ;   
+            ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180); 
+            ctx.stroke();  
+            ctx.font='bold 32px Arial';  
+            ctx.fillStyle='#484848';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText(val+'%',112,100);
+
+			ctx.font='28px Arial';  
+            ctx.fillStyle='#333333';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText("出勤率",112,150);
+        }
+
+		function drawRingtwo(w,h,val){
+            var c=document.getElementById('morning-check');  
+            var ctx=c.getContext('2d');
+			ctx.scale(2,2); 			  
+            ctx.canvas.width=w;  
+            ctx.canvas.height=h;          
+            ctx.beginPath();  
+            ctx.lineWidth=10;
+            var g = ctx.createLinearGradient(0,0,200,100);
+            g.addColorStop(0,'#5AC8E1'); 
+            g.addColorStop(1,'#93C85C');
+            ctx.strokeStyle= g ;   
+            ctx.arc(112,112,92,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);  
+            ctx.stroke();  
+            ctx.font='bold 32px Arial';  
+            ctx.fillStyle='#484848';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText(val+'%',112,100); 
+
+			ctx.font='28px Arial';  
+            ctx.fillStyle='#333333';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText("晨检合格率",112,150);   
+		}
+
+		//设置顶部滑动栏相关尺寸
+		var dw = document.getElementsByClassName('top-slide')[0].offsetWidth;
+		var liWidth = dw*0.216;
+		var topLi = document.getElementsByClassName('top')[0].getElementsByTagName('li');
+		for(var i=0;i<topLi.length;i++){
+			topLi[i].style.width = liWidth + "px";
+		}
+		document.getElementsByClassName('top')[0].style.width = dw + liWidth + "px";
+
+		//打开精彩瞬间
+		function openWonderfulTime(){
+			openNewWindow("wonderfulTime","../wonderfulTime/wonderfulTime.html")
+		}
+		//打开服务设备
+		function openServiceEquipment(){
+			openNewWindow("serviceEquipment","../serviceEquipment/serviceEquipment.html")
+		}
+		//打开宝宝食谱
+		function openbabyCookBook(){
+			openNewWindow("babyCookBook","../babyCookBook/babyCookBook.html")
+		}
+		//打开宝宝评语
+		function openAllComment(){
+			openNewWindow("allComment.html","../babyComment/allComment.html")
+		}
+		//设置全班合格
+		function openBabyHealth(){
+			openNewWindow("morningCheckDialog","../babyHealth/morningCheckDialog.html")
+		}
+		//打开缺勤宝宝
+		function openAbsenceBaby(){
+			openNewWindow("baby_normal","../clockingIn/baby_normal.html",{type:2});
+		}
+		//打开体检异常宝宝
+		function openUnnormalBaby(){
+			openNewWindow("showBabyHealth_normal","../babyHealth/showBabyHealth_normal.html")
+		}
+    </script>
+</body>
+</html>

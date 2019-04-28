@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>班级宝宝</title>
+    <style>
+        body {
+            background: #F8F8F8;
+        }
+
+        #main {
+            padding-bottom: 16px;
+        }
+
+        .top_bg {
+            width: 100%;
+            height: 145px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: left top;
+            position: relative;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .top_back {
+            width: 100%;
+            height: 145px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .top_back img {
+            width: 100%;
+            height: 100%;
+            filter: blur(10px);
+        }
+
+        .baby_avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid #5AC8E1;
+            margin: auto;
+            position: relative;
+            z-index: 47;
+            overflow: hidden;
+        }
+
+        .baby_avatar > img {
+            /*border-radius:50%;*/
+        }
+
+        .class_name {
+            text-align: center;
+            color: #333;
+            font-size: 14px;
+            line-height: 20px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 7;
+        }
+
+        .clockin_status, .health_status {
+            width: 56px;
+            height: 21px;
+            background: #D4602C;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            line-height: 21px;
+            text-align: center;
+            position: absolute;
+            z-index: 5
+        }
+
+        .clockin_status {
+            top: 12px;
+            right: 70px;
+        }
+
+        .health_status {
+            top: 12px;
+            right: 8px;
+        }
+
+        .baby_info {
+            width: 100%;
+            padding: 12px 8px 0px;
+            box-sizing: border-box;
+        }
+
+        .info_list {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            padding: 12px 12px 0px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .info_list > :not(:nth-child(1)) {
+            width: 100%;
+            height: 44px;
+            line-height: 44px;
+            padding-left: 6px;
+            font-size: 14px;
+            color: #333333;
+            border-top: 1px solid #F2F2F2;
+            box-sizing: border-box;
+            background-image: url('../../icon/teacherinfo.png');
+            background-repeat: no-repeat;
+            background-size: 14px;
+            background-position: right 10px center;
+            position: relative;
+        }
+
+        .baby_performance > .left_icon > img {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            top: 12px;
+            left: 6px;
+        }
+
+        .baby_performance > :nth-child(2) {
+            width: 100%;
+            padding-left: 38px;
+            box-sizing: border-box;
+        }
+
+        .baby_comment > .left_icon > img {
+            width: 19px;
+            height: 18px;
+            position: absolute;
+            top: 14px;
+            left: 7px;
+        }
+
+        .baby_comment > :nth-child(2) {
+            width: 100%;
+            padding-left: 38px;
+            box-sizing: border-box;
+        }
+
+        .baby_clockin > .left_icon > img {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+            top: 13px;
+            left: 8px;
+        }
+
+        .baby_clockin > :nth-child(2) {
+            width: 100%;
+            padding-left: 38px;
+            box-sizing: border-box;
+        }
+
+        .baby_morningCheck > .left_icon > img {
+            width: 19px;
+            height: 19px;
+            position: absolute;
+            top: 13px;
+            left: 7px;
+        }
+
+        .baby_morningCheck > :nth-child(2) {
+            width: 100%;
+            padding-left: 38px;
+            box-sizing: border-box;
+        }
+
+        .baby_health > .left_icon > img {
+            width: 19px;
+            height: 17px;
+            position: absolute;
+            top: 14px;
+            left: 7px;
+        }
+
+        .baby_health > :nth-child(2) {
+            width: 100%;
+            padding-left: 38px;
+            box-sizing: border-box;
+        }
+
+        .family_title {
+            overflow: hidden;
+            height: 44px;
+            line-height: 44px;
+        }
+
+        .family_title > :nth-child(1) {
+            padding-top: 2px;
+            padding-left: 6px;
+            float: left;
+        }
+
+        .family_title > :nth-child(1) > img {
+            width: 20px;
+            height: 16px;
+        }
+
+        .family_title > :nth-child(2) {
+            float: left;
+            font-size: 14px;
+            color: #333333;
+            height: 44px;
+            line-height: 44px;
+            margin-left: 18px;
+        }
+
+        .family_title > :nth-child(3) {
+            float: right;
+            margin-right: 10px;
+            margin-top: 16px;
+        }
+
+        .family_list > :nth-child(2n+1) {
+            background: #F8F8F8;
+        }
+
+        .family_list > li {
+            width: 100%;
+            height: 72px;
+            position: relative;
+            padding-top: 18px;
+            box-sizing: border-box;
+        }
+
+        .family_list > li .left_avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            position: absolute;
+            left: 12px;
+            top: 18px;
+            overflow: hidden;
+        }
+
+        .family_list > li .left_avatar > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .family_list > li .right_name, .family_list > li .right_phone {
+            width: 100%;
+            padding-left: 60px;
+            font-size: 14px;
+            line-height: 20px;
+            padding-right: 74px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        .family_list > li .right_name {
+            color: #666666;
+        }
+
+        .family_list > li .right_phone {
+            color: #999999;
+        }
+
+        .family_list > li .tel > img {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: 24px;
+            right: 50px;
+        }
+
+        .family_list > li .msg > img {
+            width: 26px;
+            height: 26px;
+            position: absolute;
+            top: 24px;
+            right: 12px;
+        }
+
+        .mc_info {
+            width: 100%;
+            background: #FFFFFF;
+
+            border-radius: 8px;
+            margin-top: 12px;
+            padding-top: 13px;
+            padding-bottom: 12px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .mc_top {
+            width: 100%;
+            padding-left: 54px;
+            box-sizing: border-box;
+        }
+
+        .mc_top img {
+            width: 20px;
+            position: absolute;
+            top: 12px;
+            left: 20px;
+        }
+
+        .mc_top span {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .check_info {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 24px;
+            font-size: 12px;
+            color: #333333;
+            line-height: 17px;
+            margin-top: 12px;
+            box-sizing: border-box;
+        }
+
+        .check_info > :nth-child(1) > :nth-child(2) {
+            margin-left: 5px;
+        }
+
+        .check_info > :nth-child(2) {
+            float: right;
+        }
+
+        .mc_detail {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 18px;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            white-space: nowrap;
+        }
+
+        .mc_detail li {
+            font-size: 12px;
+            color: #333333;
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .mc_detail li > :nth-child(2) {
+            width: 60px;
+            height: 21px;
+            text-align: center;
+            line-height: 21px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            margin-top: 12px;
+        }
+
+        .mc_detail li > :nth-child(3) {
+            margin-top: 12px;
+        }
+
+        .mc_detail .unnormal {
+            color: #D4602C;
+        }
+
+        .mc_detail .unnormal > :nth-child(2) {
+            border: 1px solid #D4602C;
+        }
+
+        .mc_detail .unnormal > :nth-child(3) {
+            padding-left: 12px;
+            background: url(../../icon/warn.png);
+            background-size: 15px;
+            background-repeat: no-repeat;
+            background-position: left center;
+        }
+
+        .wdf_time, .clockin {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            margin-top: 12px;
+            padding-top: 13px;
+            padding-bottom: 12px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .wdf_time .wt_top, .clockin .clockin_top {
+            width: 100%;
+            padding-left: 54px;
+            box-sizing: border-box;
+        }
+
+        .wdf_time .wt_top img, .clockin .clockin_top img {
+            width: 24px;
+            position: absolute;
+            top: 12px;
+            left: 18px;
+        }
+
+        .wdf_time .wt_top span, .clockin .clockin_top span {
+            color: #333333;
+            font-size: 14px;
+        }
+
+        .wdf_info, .clockin_info {
+            width: 100%;
+            padding-left: 54px;
+            padding-right: 18px;
+            margin-top: 6px;
+            line-height: 17px;
+            font-size: 12px;
+            color: #666666;
+            text-align: justify;
+            box-sizing: border-box;
+        }
+
+        .wdf_info .info_img {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .wdf_info .info_img span {
+            display: block;
+        }
+
+        .imgOne {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .imgTowa {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: right;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .imgTowb {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: left;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .imgThreea {
+            width: 100%;
+            height: 145px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 5px;
+        }
+
+        .imgThreeb {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: right;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .imgThreec {
+            width: 49%;
+            height: 145px;
+            overflow: hidden;
+            float: left;
+            border-radius: 8px 0 0 8px;
+        }
+
+        .imglist {
+            width: 30%;
+            float: left;
+            height: 90px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div style="height: 100%;overflow: auto">
+    <div id="main">
+        <div class="top_bg">
+            <div clas="top_info">
+                <div class="top_back"><img src="../../image/mebg.jpg" alt=""/></div>
+                <div class="baby_avatar">
+                    <img id="BabyIcon" src="" alt="">
+                </div>
+                <div class="class_name">所在班级：</div>
+                <div class="clockin_status" onclick="checkChildInfo()">考勤异常</div>
+                <div class="health_status" onclick="openUnnormalBaby()">体检异常</div>
+            </div>
+        </div>
+        <div class="baby_info">
+            <ul class="info_list">
+                <li class="baby_family">
+                    <div class="family_title">
+                        <span><img src="../../icon/family_icon.png" alt=""></span>
+                        <span>宝宝家长</span>
+                        <img src="../../icon/wj.png" style="width:14px" alt="">
+                    </div>
+                    <ul class="family_list" id="ParentList">
+                        <!--<li>-->
+                        <!--<div class="left_avatar">-->
+                        <!--<img src="../../image/teacherWang.png" alt="">-->
+                        <!--</div>-->
+                        <!--<div class="right_name">爸爸</div>-->
+                        <!--<div class="right_phone">12345678900</div>-->
+                        <!--<div class="tel"><img src="../../icon/gray_phone.png" alt=""></div>-->
+                        <!--<div class="msg"><img src="../../icon/gray_msg.png" alt=""></div>-->
+                        <!--</li>-->
+                    </ul>
+                </li>
+                <li class="baby_performance" onclick="babyPerformance()">
+                    <div class="left_icon">
+                        <img src="../../icon/left_face.png" alt="">
+                    </div>
+                    <div>宝宝表现</div>
+                </li>
+                <li class="baby_comment" onclick="openClassBaby()">
+                    <div class="left_icon">
+                        <img src="../../icon/left_msg.png" alt="">
+                    </div>
+                    <div>宝宝评语</div>
+                </li>
+                <li class="baby_clockin" onclick="Babyattendance()">
+                    <div class="left_icon">
+                        <img src="../../icon/left_cal.png" alt="">
+                    </div>
+                    <div>宝宝考勤</div>
+                </li>
+                <li class="baby_morningCheck" onclick="Recordmorning()">
+                    <div class="left_icon">
+                        <img src="../../icon/left_health.png" alt="">
+                    </div>
+                    <div>记录晨检</div>
+                </li>
+                <li class="baby_health" onclick="YBabyHealthy()">
+                    <div class="left_icon">
+                        <img src="../../icon/left_heart.png" alt="">
+                    </div>
+                    <div>宝宝健康</div>
+                </li>
+            </ul>
+            <div class="wdf_time">
+                <div class="wt_top">
+                    <img src="../../icon/left_mc.png" alt="">
+                    <span>晨检信息</span>
+                </div>
+                <div class="mc_info" id="Htmlcheck">
+
+                </div>
+            </div>
+            <div class="wdf_time">
+                <div class="wt_top">
+                    <img src="../../icon/home/home_01.png" alt="">
+                    <span>精彩瞬间</span>
+                </div>
+                <div class="wdf_info" id="timelineL">
+
+                </div>
+            </div>
+            <div class="clockin">
+                <div class="clockin_top">
+                    <img src="../../icon/left_cal.png" alt="">
+                    <span>宝宝考勤</span>
+                </div>
+                <div class="clockin_info">
+                    <p class="info_text">考勤情况：未打卡</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="ParentHtml">
+    <%for(var i=0;i
+    <list.length;i++){%>
+    <li>
+        <div class="left_avatar">
+            <img src="<%=list[i].icon%>" onerror="this.src='../../image/teacherWang.png'" alt="">
+        </div>
+        <div class="right_name"><%=list[i].name%></div>
+        <div class="right_phone"><%=list[i].phone%></div>
+        <div class="tel" onclick="Phoen('<%=list[i].phone%>')"><img src="../../icon/gray_phone.png" alt=""></div>
+        <div class="msg" onclick="openUserChat('<%=list[i].icon%>','<%=list[i].chatId%>','<%=list[i].name%>')"><img
+                src="../../icon/gray_msg.png" alt=""></div>
+    </li>
+    <%}%>
+</script>
+<script type="text/html" id="Listcheck">
+
+    <div class="check_info">
+        <span>检查时间：<em><%=list.day%></em></span>
+        <span><%=list.teacherName%></span>
+    </div>
+    <ul class="mc_detail">
+        <%if(list.temperatureStatus == 1){%>
+        <li class="unnormal">
+            <div>体温</div>
+            <div>发现异常</div>
+            <div><%=list.temperatureAnomalies%></div>
+        </li>
+        <%}else if(list.temperatureStatus == 0){%>
+        <li>
+            <div>体温</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+        <%if(list.fingernailStatus == 1){%>
+        <li class="unnormal">
+            <div>指甲</div>
+            <div>发现异常</div>
+            <div><%=list.fingernailAnomalies%></div>
+        </li>
+        <%}else if(list.fingernailStatus == 0){%>
+        <li>
+            <div>指甲</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+        <%if(list.oralStatus == 1){%>
+        <li class="unnormal">
+            <div>口腔</div>
+            <div>发现异常</div>
+            <div><%=list.oralAnomalies%></div>
+        </li>
+        <%}else if(list.oralStatus == 0){%>
+        <li>
+            <div>口腔</div>
+            <div>未见异常</div>
+            <div></div>
+        </li>
+        <%}%>
+    </ul>
+</script>
+<script type="text/html" id="timelineH">
+    <p class="info_text"><%=list.centent%></p>
+    <div class="info_img">
+        <%if(list.images.length == 1){%>
+        <span class="imgOne"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>
+        <%} else if(list.images.length == 2){ %>
+        <span class="imgTowa"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>
+        <span class="imgTowb"><img src="<%=list.images[1]%>" style="<%=list.stylea%>" alt=""></span>
+        <%} else if(list.images.length == 3){ %>
+        <span class="imgThreea"><img src="<%=list.images[0]%>" style="<%=list.style%>" alt=""></span>
+        <span class="imgThreeb"><img src="<%=list.images[1]%>" style="<%=list.stylea%>" alt=""></span>
+        <span class="imgThreec"><img src="<%=list.images[2]%>" style="<%=list.styleb%>" alt=""></span>
+        <%} else if(list.images.length > 3){ %>
+        <%for(var i=0;i
+        <list.images.length
+        ;i++){%>
+        <span class="imglist"><img src="<%=list.images[i]%>" style="<%=list.style%>" alt=""></span>
+        <%}%>
+        <%}%>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var BabyId;
+    var BabyName;
+
+    apiready = function () {
+        BabyId = api.pageParam.id;
+        BabyName = api.pageParam.name;
+        ajaxGet(mainuser, {uid: BabyId}, function (ret, err) {
+            if (ret.success) {
+                if (ret.data.user.icon) {
+                    //头像
+                    var listicon = ret.data.user.icon;
+                    var width = 80;
+                    var height = 80;
+                    var obj = getImgByThisSize(listicon, width, height);
+                    ret.data.user.style = obj.style;
+                    //背景
+                    var width = api.winWidth;
+                    var height = 145;
+                    var objback = getImgByThisSize(listicon, width, height);
+                    ret.data.user.styleback = objback.style;
+
+                    //宝宝头像
+                    $("#BabyIcon").attr("src", ret.data.user.icon);
+                    $("#BabyIcon").attr("style", ret.data.user.style);
+                } else {
+                    //宝宝头像
+                    $("#BabyIcon").attr("src", "../../image/teacherWang.png");
+                    $("#BabyIcon").attr("style", "width:80px;height:80px;");
+                }
+                //宝宝所在班级
+                $(".class_name").html("所在班级：" + ret.data.user.clazz);
+                //判断并渲染宝宝家长
+                if (ret.data.user.parents) {
+                    var data = {list: ret.data.user.parents};
+                    var html = template('ParentHtml', data);
+                    document.getElementById('ParentList').innerHTML = html;
+                } else {
+                    document.getElementById("ParentList").innerHTML = "<p style='height:54px;line-height:54px;text-align:center;'>暂无数据</p>"
+                }
+                //判断并渲染宝宝晨检
+                if (ret.data.dayCheck) {
+                    if (ret.data.dayCheck.ctime) {
+
+                        ret.data.dayCheck.day = formatTimeToDate(ret.data.dayCheck.ctime);
+
+                    }
+                    var data = {list: ret.data.dayCheck};
+                    var html = template('Listcheck', data);
+                    document.getElementById('Htmlcheck').innerHTML = html;
+                } else {
+                    document.getElementById("Htmlcheck").innerHTML = "<p style='height:54px;line-height:54px;text-align:center;margin-left:2em;font-size: 12px;color:#676767'>暂无宝宝晨检信息</p>"
+                }
+
+                //判断并渲染宝宝精彩瞬间
+                if (ret.data.timeline) {
+                    if (ret.data.timeline.images) {
+                        if (ret.data.timeline.images.length == 1) {
+                            ret.data.timeline.images = tryJsonParse(ret.data.timeline.images)
+                            var width = api.winWidth - 88;
+                            var height = 145;
+                            var obj = getImgByThisSize(ret.data.timeline.images[0], width, height);
+                            ret.data.timeline.style = obj.style;
+                            al(ret.data.timeline.style);
+                        } else if (ret.data.timeline.images.length == 2) {
+                            var width = (api.winWidth - 98) / 2;
+                            var height = 145;
+                            var obj = getImgByThisSize(ret.data.timeline.images[0], width, height);
+                            var obj = getImgByThisSize(ret.data.timeline.images[1], width, height);
+                            ret.data.timeline.style = obj.style;
+                            ret.data.timeline.stylea = obj.style;
+                        } else if (ret.data.timeline.images.length == 3) {
+                            var widtha = api.winWidth - 88;
+                            var width = (api.winWidth - 98) / 2;
+                            var height = 145;
+                            var obj = getImgByThisSize(ret.data.timeline.images[0], widtha, height);
+                            var obja = getImgByThisSize(ret.data.timeline.images[0], width, height);
+                            var objb = getImgByThisSize(ret.data.timeline.images[1], width, height);
+                            ret.data.timeline.style = obj.style;
+                            ret.data.timeline.stylea = obja.style;
+                            ret.data.timeline.stylea = objb.style;
+                        } else if (ret.data.timeline.images.length > 3) {
+                            for (var i = 0; i < ret.data.timeline.images.length; i++) {
+                                var width = (api.winWidth - 103) / 3;
+                                var height = 90;
+                                var obj = getImgByThisSize(ret.data.timeline.images[i], width, height);
+                                ret.data.timeline.style = obj.style;
+                            }
+                        }
+
+                        var data = {list: ret.data.timeline};
+                        var html = template('timelineH', data);
+                        document.getElementById('timelineL').innerHTML = html;
+                    }
+                } else {
+                    document.getElementById("timelineL").innerHTML = "<p style='height:54px;line-height:54px;text-align:center;'>暂无宝宝精彩瞬间</p>"
+                }
+
+                //判断并渲染宝宝今日考勤
+                if (ret.data.attendanceLog.attendanceType) {
+                    switch (ret.data.attendanceLog.attendanceType) {
+                        case 0:
+                            ret.data.attendanceLog.attendanceType = "正常";
+                            break;
+                        case 1:
+                            ret.data.attendanceLog.attendanceType = "迟到";
+                            break;
+                        case 2:
+                            ret.data.attendanceLog.attendanceType = "早退";
+                            break;
+                        case 3:
+                            ret.data.attendanceLog.attendanceType = "缺卡";
+                            break;
+                        case 4:
+                            ret.data.attendanceLog.attendanceType = "旷工";
+                            break;
+                        case 5:
+                            ret.data.attendanceLog.attendanceType = "未排版";
+                            break;
+                        case 6:
+                            ret.data.attendanceLog.attendanceType = "请假";
+                            break;
+                        case 7:
+                            ret.data.attendanceLog.attendanceType = "没有考勤数据";
+                            break;
+                    }
+                    ;
+                    $(".info_text").html("考勤情况:" + ret.data.attendanceLog.attendanceType);
+                }
+            }
+        })
+    }
+    var action = true;
+    $(".family_title").click(function () {
+        $(this).siblings('.family_list').slideToggle();
+        if (action == true) {
+            $(this).children('img').attr("src", "../../icon/teacherinfo.png");
+            $(this).children('img').css("width", "14px");
+            action = false;
+        } else {
+            $(this).children('img').attr("src", "../../icon/wj.png");
+            $(this).children('img').css("width", "14px");
+            action = true;
+        }
+    })
+    function Phoen(phoen) {
+        openCall(phoen)
+    }
+
+    function openUserChat(icon, chatId, userName) {
+        //先要通知原生  告知这个人要聊天了
+        api.accessNative({
+            name: "openChat",
+            extra: {
+                key: {
+                    id: chatId,
+                    icon: icon || "",
+                    name: userName
+                }
+            }
+
+        }, function (ret, err) {
+
+        });
+    }
+    ;
+    //跳转宝宝评语
+    function openClassBaby() {
+        openNewWindow("showBabyComment", "../babyComment/showBabyComment.html", {BabyId: BabyId, BabyName: BabyName});
+    }
+    //打开宝宝表现
+    function babyPerformance() {
+        openNewWindow("babyPerformance", "../babyHealth/babyPerformance.html", {BabyId: BabyId, BabyName: BabyName});
+    }
+    //打开宝宝考勤
+    function Babyattendance() {
+        openNewWindow("babyClockingIn_detail", "../clockingIn/babyClockingIn_detail.html", {
+            uid: BabyId,
+            name: BabyName
+        });
+    }
+    //打开记录晨检
+    function Recordmorning() {
+        openNewWindow("morningCheckRecord", "../babyHealth/morningCheckRecord.html", {
+            BabyId: BabyId,
+            BabyName: BabyName
+        });
+    }
+    //打开宝宝健康
+    function YBabyHealthy() {
+        openNewWindow("everydayHealthExam", "../babyHealth/everydayHealthExam.html", {
+            BabyId: BabyId,
+            BabyName: BabyName
+        });
+    }
+
+    //打开考勤异常
+    function checkChildInfo() {
+        openNewWindow("babyClockingIn_detail", "../clockingIn/babyClockingIn_detail.html", {
+            uid: BabyId,
+            name: BabyName
+        })
+    }
+    //打开体检异常
+    function openUnnormalBaby() {
+        openNewWindow("showBabyHealth_normal", "../babyHealth/showBabyHealth_normal.html", {BabyName: BabyName})
+    }
+
+</script>
+</body>
+</html>

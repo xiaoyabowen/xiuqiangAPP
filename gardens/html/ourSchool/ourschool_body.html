@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我们园</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.mine{
+				padding-top: 12px;
+				background-color: #f8f8f8;
+			}
+			.schoolList{
+				background-color: #fff;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.schoolList li{
+				border-bottom: 1px solid #d9d9d9;
+				height: 40px;
+				line-height: 40px;
+				margin-left: 19px;
+
+				position: relative;
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: -1.63px;
+			}
+			
+			.schoolList li span{
+				margin-left: 36px;
+				overflow: hidden;
+				display: block;
+				position: relative;
+			}
+			.schoolList li:nth-last-of-type(1) span{
+				border-bottom: 0;
+			}
+			.schoolList li:before{
+				content: '';
+				height: 20px;
+				width: 20px;
+				background-size: 100%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -10px;
+			}
+			.mine01:before{
+				/*width: 20px;*/
+				background: url(../../image/ouryuan01.png) no-repeat;
+			}
+			.mine02:before{
+				/*width: 20px;*/
+				background: url(../../image/ouryuan02.png) no-repeat;
+			}
+			.mine03:before{
+				/*width: 20px;*/
+				background: url(../../image/ouryuan03.png) no-repeat;
+			}
+			.mine04:before{
+				/*width: 20px;*/
+				background: url(../../image/ouryuan04.png) no-repeat;
+			}
+			.mine05:before{
+				/*width: 19px;*/
+				background: url(../../image/ouryuan05.png) no-repeat;
+			}
+			.mine06:before{
+				/*width: 18px;*/
+				background: url(../../image/ouryuan06.png) no-repeat;
+			}
+			.mine07:before{
+				/*width: 18px;*/
+				background: url(../../image/ouryuan07.png) no-repeat;
+			}
+			.mine08:before{
+				/*width: 19px;*/
+				background: url(../../image/ouryuan08.png) no-repeat;
+			}
+			.mine09:before{
+				/*width: 18px;*/
+				background: url(../../image/ouryuan09.png) no-repeat;
+			}
+			.mine10:before{
+				/*width: 18px;*/
+				background: url(../../image/ouryuan10.png) no-repeat;
+			}
+			 .mine14:before{
+				 /*width: 18px;*/
+				 background: url(../../icon/equip.png) no-repeat;
+			 }
+			.mine15:before{
+				background: url(../../image/purple.png) no-repeat;
+				background-size:20px 20px !important;
+			}
+			.schoolList .mine11:before{
+				/*width: 18px;*/
+				height: 14px;
+				background: url(../../image/ouryuan11.png) no-repeat;
+				background-size: 100%;
+				margin-top: -7px;
+			}
+			.schoolList .mine12:before{
+				/*width: 18px;*/
+				height: 14px;
+				background: url(../../image/ouryuan12.png) no-repeat;
+				background-size: 100%;
+				margin-top: -7px;
+			}
+			.mine13:before{
+				/*width: 18px;*/
+				background: url(../../image/ouryuan13.png) no-repeat;
+			}
+			.schoolList li:after{
+				content: '';
+				width: 7px;
+				height: 14px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				right:19px;
+				top: 50%;
+				margin-top: -4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mine">
+		    
+		    <ul class="schoolList">
+                <li class="mine01" onclick="Operationanalysis()"><span>运营分析</span></li>
+                <li class="mine02" onclick="Classmanagement()"><span>班级管理</span></li>
+				<li class="mine05" onclick="openschoolNotice()"><span>公告通知</span></li>
+				<li class="mine08" onclick="openbabyCookBabysp()"><span>宝宝食谱</span></li>
+				<li class="mine07" onclick="bookingApply()" style="border:0;"><span>预约报名</span></li>
+				<div style="height:13px;background:#f9f8f8 "></div>
+                <li class="mine10" onclick="TeachingManagement()"><span>教学管理</span></li>
+                <li class="mine14" onclick="openAllqualified()"><span>录入晨检</span></li>
+                <li class="mine04" onclick="openbabyCookBook()"><span>缴费管理</span></li>
+                <li class="mine12" onclick="gnydmnglb()" style="border:0;"><span>毕业班管理</span></li>
+				<div style="height:13px;background:#f9f8f8 "></div>
+                <li class="mine13" onclick="openMyTeacher()"><span>教职工考勤</span></li>
+                <li class="mine06" onclick="openpersonnel()"><span>部门人员</span></li>
+				<li class="mine03" onclick="openAddressList()"><span>通讯录</span></li>
+                <li class="mine09" onclick="fixedAssets()"><span>固定资产</span></li>
+                <li class="mine11" onclick="openEditTheHomePage()" style="border:0;"><span>园所主页</span></li>
+		    	<!--<li class="mine11" onclick="openinfoMaintain()"><span>园信息维护</span></li>-->
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script>
+		apiready = function (){
+			
+		};
+		//打开通讯录
+		function openAddressList(){
+			openNewWindow("communicationList","../addressList/communicationList.html")
+		}
+		//打开缴费管理
+		function openbabyCookBook(){
+			openNewWindow("studentPay","../studentPay/studentPay.html")
+		}
+
+		//打开公告通知
+		function openschoolNotice(){
+			openNewWindow("schoolNotice","../ourSchool/schoolNotice.html")
+		}
+//        function openschoolNotice(){
+//            openNewWindow("classCard","../classCard/classCard.html")
+//        }
+		//打开园信息管理
+		function openinfoMaintain(){
+			openNewWindow("infoMaintain","../main/infoMaintain.html")
+		}
+		//打开运营分析
+		function Operationanalysis(){
+//			openNewWindow("operation","../mine/operation.html")
+			api.accessNative({
+                name: "yunying",
+                extra: {
+                    server : serverUrl  + "/statistics/getSchoolStatisticsBySmonthAndEmonthPercent",
+                    otherServer : serverUrl  + "/statistics/StatisticsBySmonthAndEmonthPercent",
+                    token : getUserInfo().token,
+                    sid : getUserInfo().sid
+                }
+            }, function(ret, err) {
+            });
+		}
+		//打开班级管理
+		function Classmanagement(){
+			openNewWindow("Selectclass","../babyHealth/Selectclass.html")
+		}
+		//毕业班管理
+		function gnydmnglb(){
+			openNewWindow("Graduating","../ourSchool/Graduating.html")
+		}
+		//打开部门员工
+		function openpersonnel (){
+			openNewWindow("schoolMorningCheck","../babyHealth/schoolMorningCheck.html")
+		}
+		//打开设置全员合格
+		function openAllqualified(){
+			openNewWindow("wholeMorningCheckDialog","../babyHealth/morningCheckDialog.html")
+		}
+		//打开编辑主页
+		function openEditTheHomePage(){
+			openNewWindow("leaderHomepage","../main/leaderHomepage.html")
+		}
+		//打开固定资产
+		function fixedAssets(){
+			openNewWindow("getFixedAssetsList","../fixedAssets/getFixedAssetsList.html")
+		}
+		//打开教职工考勤
+		function openMyTeacher(){
+			openNewWindow("myTeacher","../clockingIn/myTeacher.html")
+		}
+		//打开预约报名
+		function bookingApply(){
+			openNewWindow("bookingApply","../bookingApply/bookingApply.html")
+		}
+		//宝宝食谱
+		function openbabyCookBabysp() {
+			openNewWindow('babyCookBook','../babyCookBook/babyCookBook.html')
+        }
+		//打开教学管理
+		function TeachingManagement(){
+			openNewWindow('teachManger','../teachManage/teachManger.html')
+		}
+	</script>
+</html>

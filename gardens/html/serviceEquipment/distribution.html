@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>分配服务设备</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+	    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<style type="text/css">
+			body,html{
+				min-width: 320px;
+				background:rgba(0,0,0,0.15);
+            }
+            .se-dialog{
+                width:100%;
+                height:100%;
+                /*background:rgba(0,0,0,0.30);*/
+            }
+            .dialog-info{
+                width:60%;
+                height:239px;
+                background: #FFFFFF;
+                position:fixed;
+                top:50%;
+                left:50%;
+                transform:translateX(-50%) translateY(-50%);
+                -ms-transform: translateX(-50%) translateY(-50%);
+                -moz-transform: translateX(-50%) translateY(-50%);
+                -webkit-transform: translateX(-50%) translateY(-50%);
+                -o-transform: translateX(-50%) translateY(-50%);
+                background: #FFFFFF;
+                box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding-top:18px;
+                padding-left:27px;
+                padding-right:27px;
+                box-sizing: border-box;
+            }
+            .dialog-info ul li{
+                width:100%;
+                height:40px;
+                line-height:40px;
+                text-align: center;
+                border-bottom: 1px solid #F0F0F0;
+                box-sizing: border-box;
+            }
+			#clazzs,#clazzs option{
+				width: 100%;
+				appearance:none;
+				-moz-appearance:none;
+				-webkit-appearance:none;
+				padding-left: 38px;
+				/*color:#999999;*/
+				border:none;
+				font-size: 14px;
+				background:#fff;
+			}
+
+            .dialog-info ul li input{
+                width:98px;
+                font-size: 14px;
+                /*color: #999999;*/
+                letter-spacing: 0.33px;
+                margin:0 auto;
+                line-height:normal;
+            }
+
+            .submit{
+                width:51.11%;
+                height:44px;
+                line-height: 44px;
+                background: #5AC8E1;
+                text-align: center;
+                font-size: 16px;
+                color: #FFFFFF;
+                letter-spacing: 0.33px;
+                margin:20px auto 0;
+                border-radius: 4px;
+            }
+			#num{
+				/*padding-left: 10px;*/
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body id="body">
+        <div class="se-dialog" id="se-dialog">
+            <div class="dialog-info" id="dialog-info">
+                <ul>
+                    <li id="class">
+                    	<input class="num" id="classNames" readonly value=""  placeholder="请选择班级">
+						<!--<select class="" name="" id="clazzs">
+						</select>-->
+                    </li>
+                    <li>
+						<input id="num" type="text" placeholder="请输入数量" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    </li>
+                </ul>
+                <div class="submit" onclick="distribution()">分配</div>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<!--<script type="text/javascript" src="../../script/util.js"></script>-->
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+
+
+	<script type="text/html" id="clazzsScript">
+        <%if(list.data.length){%>
+		<option value="0">请选择班级</option>
+        <%for(var i=0;i<list.data.length;i++){%>
+            <option value="<%=list.data[i].id%>"><%=list.data[i].name%></option>
+        <%}%>
+
+        <%}%>
+    </script>
+	<script>
+		var eid;
+		var sid;
+		var classId;
+        apiready = function(){
+            $("#se-dialog").bind('click',function(e){
+                var target = e.target;
+                if(target.closest('#dialog-info')==null){
+                    api.closeFrame({
+                        name:'distribution'
+                    });
+                };
+            })
+            eid = api.pageParam.eid; //设备ID
+            sid = getUserInfo().sid; //学校ID
+
+//			var listData = $api.getStorage('clazzs');
+//			optionHTML(listData);
+
+            // 获取所有班级
+            ajaxGet(getAllClazzs,{sid:sid},function(ret,err){
+                if(ret.success){
+//                  $api.setStorage('clazzs', ret); // 写入缓存
+//                  if($api.getStorage('clazzs') != ret){
+//                      $api.setStorage('clazzs', ret);
+//                  }
+//					optionHTML(ret);
+					if (isNotBlack(ret.data)) {
+                    	var classList = [];
+						for (var i = 0; i < ret.data.length; i++) {
+							var obj = {};
+							obj.value = ret.data[i].id;
+							obj.text = ret.data[i].name;
+							classList.push(obj);
+						}
+						(function($, doc) {
+            				$.ready(function() {
+								var classPicker = new $.PopPicker({
+	
+					            });
+					            
+					            classPicker.setData(classList);
+					            classPicker.setTitle("选择班级");
+					            var showClassPickerButton = doc.getElementById('class');
+					            var className = doc.getElementById('classNames');
+					            showClassPickerButton.addEventListener('tap', function(event) {
+					                classPicker.show(function(items) {
+					                    className.value = items[0].text;
+					                    classId = items[0].value;
+					                });
+					            }, false);
+					        });
+				        })(mui, document);
+                   }
+                }
+            });
+        };
+
+//      function optionHTML(results){
+//          if(results){
+//              var data = {list:results};
+//              var html = template('clazzsScript', data);
+//              document.getElementById('clazzs').innerHTML = html;
+//              api.parseTapmode();
+//              document.getElementById("body").style.display = "block";
+//          }
+//      };
+
+        var sd = false;
+		function distribution(){
+            if(sd){return}
+            sd = true;
+//			var oSelect = document.getElementById('clazzs');
+//			var index = oSelect.selectedIndex;
+//			var selectVal = oSelect.options[index].value; //获取选中的值
+			var Num = $api.val($api.byId('num')); //获取数量
+			
+			if (isBlack(classId)&&classId != 0) {
+				toast('请选择学校');
+				return;
+			}
+		
+			if(Num == ''){
+				toast('请填写分配数量');
+			}else{
+				var parmes = {
+					sid:sid,
+					eid:eid,
+					cid:classId,
+					num:Num
+				}
+                api.showProgress({
+                    title: '添加中...',
+                    text: '请稍后...',
+                    modal: false
+                });
+				ajaxGet(updateDistribution,parmes,function(ret,err){
+					if(ret.success == false){
+                        api.hideProgress();
+						var msg = ret.msg;
+						toast(msg);
+					}
+					if(ret.success){
+                        api.hideProgress();
+						toast('分配成功！');
+                        api.execScript({
+                            name:'serviceEquipment',
+                            frameName:'serviceEquipment_body',
+                            script:'apiready()'
+                        })
+                        api.closeFrame({
+                            name:'distribution'
+                        });
+                    }
+                    else
+                    {
+                        sd = false;
+                    }
+
+				});
+			}
+		}
+//		$("#body").on("click",function(){
+//			api.closeFrame({
+//				name:'distribution'
+//			});
+//
+//		})
+	</script>
+</html>

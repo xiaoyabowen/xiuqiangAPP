@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>园长信箱</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			min-width: 320px;
+			background-color: #f8f8f8;
+		}
+
+		.maillists{
+			width: 100%;
+			background-color: #fff;
+		}
+		.maillists_cnt{
+			overflow: hidden;
+		}
+		.maillists_cnt>li{
+			position: relative;
+			padding: 20px 18px;
+			border-bottom: 1px solid #EFEFEF;
+		}
+		.left{
+			position: absolute;
+			top: 17px;
+			left: 15px;
+			width: 36px;
+			height: 36px;
+			overflow: hidden;
+			border-radius: 50px;
+		}
+		.left img{
+			/*width: 100%;*/
+			/*height: 100%;*/
+		}
+		.right{
+			width: 100%;
+			padding-left: 50px;
+			box-sizing: border-box;
+		}
+		.right .name{
+			font-size: 14px;
+			color: #333333;
+			letter-spacing: 0.19px;
+			line-height: 14px;
+		}
+		.right .reply_msg{
+			font-size: 14px;
+			color: #333333;
+			letter-spacing: 0.19px;
+			line-height: 14px;
+			margin-top: 4px;
+		}
+		.right .msg{
+			font-size: 12px;
+			line-height: 12px;
+			margin-top: 5px;
+			color: #333333;
+			letter-spacing: 0.51px;
+			text-align: justify;
+		}
+		.ctime{
+			float: right;
+			font-size: 12px;
+			color: #999999;
+			letter-spacing: 0.16px;
+		}
+		.compileReply{
+			width: 16px;
+			height: 16px;
+			float: right;
+			margin-top: 6px;
+		}
+		.replyPersonIcon{
+			width: 36px;
+			height: 36px;
+			overflow: hidden;
+			border-radius: 50px;
+			float: left;
+			margin-top: -3px;
+		}
+		.reply{
+			margin-top: 20px;
+			/*border-top: 1px solid #EFEFEF;*/
+			padding-top: 20px;
+			padding-left:40px;
+		}
+	</style>
+</head>
+<body>
+<div id="main" >
+	<div class="maillists">
+		<ul class="maillists_cnt" id="list">
+			<!--<li>-->
+				<!--<div class="left">-->
+					<!--<img src="../../image/teacherAvatar.png" alt="" />-->
+				<!--</div>-->
+				<!--<div class="right">-->
+					<!--<div class="name">周菲菲<div class="ctime">2018-5-12</div></div>-->
+					<!--<div class="msg">周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努本周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努</div>-->
+				<!--</div>-->
+				<!--<div id="">-->
+					<!--<div class="reply">-->
+						<!--<div class="replyPersonIcon">-->
+							<!--<img src="../../image/teacherAvatar.png" alt="" />-->
+						<!--</div>-->
+						<!--<div class="right">-->
+							<!--<div class="name">园长<div class="ctime">2018-5-12</div></div>-->
+							<!--<div class="msg">周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努本周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努</div>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="compileReply">-->
+					<!--<img src="../../icon/reply.png" style="width: 16px;height: 16px"  alt="">-->
+				<!--</div>-->
+				<!--<div style="clear: both"></div>-->
+			<!--</li>-->
+
+		</ul>
+	</div>
+</div>
+<script id="scriptDiv1" type="text/html">
+	<li>
+		<div class="left">
+			<img src="<%=list.icon%>" style="<%=list.style%>" alt="" />
+		</div>
+		<div class="right">
+			<div class="name"><%=list.parentName%><div class="ctime"><%=list.ctime%></div></div>
+			<div class="msg"><%=list.content%></div>
+		</div>
+		<div id="getReplyinfoList<%=list.id%>">
+
+		</div>
+		<div class="compileReply" onclick="compileReplyMail(<%=list.id%>,<%=list.uid%>)">
+			<img src="../../icon/bx.png" style="width: 16px;height: 16px"  alt="">
+		</div>
+		<div style="clear: both"></div>
+	</li>
+</script>
+<script type="text/html" id="getReplyinfoListTm">
+	<%for(var i=list.length-1;i>=0;i--){%>
+	<div class="reply">
+		<div class="replyPersonIcon">
+			<img src="<%=list[i].user.icon%>" style="<%=list[i].user.style%>" alt="" />
+		</div>
+		<div class="right">
+			<div class="name"><%=list[i].user.name%><div class="ctime"><%=list[i].ctime%></div></div>
+			<div class="msg"><%=list[i].content%></div>
+		</div>
+	</div>
+	<%}%>
+</script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script>
+//    apiready = function (){
+//
+//        new datalistModel(addDataToHtml,presidentMailbox,{sid:getUserInfo().sid},10,5,100,true);
+//    };
+//
+//    function addDataToHtml(results,append){
+//        for (var i = 0; i < results.length; i++) {
+//            results[i].icon=getUserInfo().icon;
+//            results[i].ctime = formatTimeToAll(results[i].ctime);
+//            if(isNotBlack(results[i].icon)){
+//                var picList = results[i].icon;
+//                var width = 36;
+//                var height = 36;
+//                var obj = getImgByThisSize(picList,width,height);
+//                results[i].style = obj.style;
+//                results[i].icon = obj.url;
+//            }
+//        }
+//        var data = {list: results};
+//        var html = template('scriptDiv1',data);
+//        if (append) {
+//            var div = document.createElement("div");
+//            div.innerHTML = html;
+//            document.getElementById('list').appendChild(div);
+//        } else {
+//            document.getElementById('list').innerHTML = html;
+//        }
+//        setTimeout(function () {
+//            for (var n=0;n<results.length;n++){
+//                getTwoLevelComment(results[n].id)
+//            }
+//        },10)
+//        setTimeout(function(){
+//            echoExt.init({
+//                offset: 0,
+//                throttle: 0//设置图片延迟加载的时间
+//            });
+//        },100)
+//    }
+    
+    apiready=function () {
+        var mid=api.pageParam.id;
+//        alert(JSON.stringify(mid));return;
+        acquireEMail(mid)
+    }
+    function acquireEMail(mid) {
+		ajaxGet(getAcquireEMail,{mid:mid},function (ret,err) {
+//		    alert(JSON.stringify(ret))
+//		    alert(JSON.stringify(err))
+			if(ret.success && ret.data){
+                ret.data.ctime = formatTimeToAll(ret.data.ctime);
+                if(isNotBlack(ret.data.icon)){
+                    var picList = ret.data.icon;
+                    var width = 36;
+                    var height = 36;
+                    var obj = getImgByThisSize(picList,width,height);
+                    ret.data.style = obj.style;
+                    ret.data.icon = obj.url;
+                }
+                var data = {list: ret.data};
+                var html = template('scriptDiv1',data);
+                document.getElementById('list').innerHTML = html;
+                setTimeout(function () {
+                    getTwoLevelComment(ret.data.id)
+                },10)
+			}
+
+
+            setTimeout(function(){
+                echoExt.init({
+                    offset: 0,
+                    throttle: 0//设置图片延迟加载的时间
+                });
+            },100)
+        })
+    }
+    
+    //获取回复
+    function getTwoLevelComment(id) {
+        ajaxGet(commentpager,{type:6,typeId:id},function (ret,err) {
+             if(ret && ret.data.length>0){
+                for(var i=0;i<ret.data.length;i++){
+                    ret.data[i].ctime = formatTimeToAll(ret.data[i].ctime);
+                    if(isNotBlack(ret.data[i].user.icon)){
+                        var picList = ret.data[i].user.icon;
+                        var width = 36;
+                        var height = 36;
+                        var obj = getImgByThisSize(picList,width,height);
+                        ret.data[i].user.style = obj.style;
+                        ret.data[i].user.icon = obj.url;
+                    }
+				}
+
+                var data={list:ret.data};
+                var html=template("getReplyinfoListTm",data);
+                document.getElementById("getReplyinfoList"+id).innerHTML=html;
+            }
+        })
+    }
+
+
+	//添加评论 左下角回调事件
+	function revertMail(con,typeId,uid) {
+		var PLobj={};
+		PLobj.type=6;
+		PLobj.typeId=typeId;
+		PLobj.content=con;
+//		PLobj.uid=uid;
+		PLobj.status=0;
+//		PLobj.buid=	getUserInfo().id;
+		ajaxGet(commentadd,PLobj,function (ret,err) {
+			if(ret && ret.success){
+				getTwoLevelComment(typeId);
+				toast("评论成功")
+			}else{
+				toast("评论失败")
+			}
+		})
+
+	}
+
+
+	function compileReplyMail(id,uid) {
+        var UIChatBox = api.require('UIChatBox');
+        UIChatBox.open({
+            placeholder: '回复',
+            autoFocus:true,
+            maxRows: 4,
+            emotionPath: 'widget://res/img/emotion',
+            texts: {
+                sendBtn: {
+                    title: '发送'
+                }
+            },
+            styles: {
+                inputBar: {
+                    borderColor: '#F0F0F0',
+                    bgColor: '#FFFFFF'
+                },
+                inputBox: {
+                    borderColor: '#F5F6FA',
+                    bgColor: '#F5F6FA'
+                },
+                recordBtn: {
+                    normalBg: '#c4c4c4',
+                    activeBg: '#999999',
+                    color: '#000',
+                    size: 14
+                },
+                indicator: {
+                    target: 'both',
+                    color: '#c4c4c4',
+                    activeColor: '#9e9e9e'
+                },
+                sendBtn: {
+                    bg:'#ffffff',                 //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：#4cc518
+                    titleColor: '#5ac8e1',          //（可选项）字符串类型；发送按钮标题颜色；默认：#ffffff
+                    activeBg: '#ffffff',            //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：无
+                    titleSize: 14
+                }
+            }
+        }, function(ret, err) {
+            if (ret.eventType == 'send') {
+                if ($api.trimAll(ret.msg).length != 0) {
+                    revertMail(ret.msg,id,uid)
+                    UIChatBox.closeKeyboard();
+                    UIChatBox.close();
+                } else {
+                    api.toast({
+                        msg: '消息不能为空',
+                        duration: 2000,
+                        location: "bottom"
+                    });
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>教师主页</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+
+	<style type="text/css">
+		body{
+			min-width: 320px;
+		}
+		#topbar{
+			position:relative;
+		}
+		#topbar>:nth-child(3)>img{
+			width:22px;
+			height:22px;
+			position:absolute;
+			right:15px;
+			bottom:10px;
+		}
+	</style>
+</head>
+<body>
+<div id="topbar" >
+	<div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		<img style="width: 30px;height: 30px;" src="../../icon/back.png">
+	</div>
+	<div id="Tname"></div>
+	<!--<div tapmode="itemOn" onclick="openShare()">-->
+		<!--<img src="../../icon/share02.png" alt="">-->
+	<!--</div>-->
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+	var nid,share_type;
+    apiready = function () {
+        nid=api.pageParam.nid;
+        initFrameInWin(api.pageParam);
+        var tname = getUserInfo().name;
+        document.getElementById("Tname").innerHTML = tname + "(老师)";
+        ajaxGet(getNoticeDetail,{nid:nid},function (ret,err) {
+            if(ret && ret.success){
+                share_type=ret.data.shareStatus;
+            }
+        })
+    };
+    //分享
+    function openShare(title) {
+        if(share_type==1) {
+            var dialogBox = api.require('dialogBox');
+            dialogBox.actionMenu({
+                rect: {
+                    h: 150
+                },
+                tapClose: true,
+                items: [
+                    {
+                        text: '微信好友',
+                        icon: 'widget://image/wx.png'
+                    },
+                    {
+                        text: '微信朋友圈',
+                        icon: 'widget://image/pyq.png'
+                    },
+                    {
+                        text: 'QQ好友',
+                        icon: 'widget://image/qq.png'
+                    },
+                    {
+                        text: 'QQ空间',
+                        icon: 'widget://image/qqkj.png'
+                    },
+                    {
+                        text: '新浪微博',
+                        icon: 'widget://image/wb.png'
+                    }
+                ],
+                styles: {
+                    bg: '#FFF',
+                    column: 5,
+                    itemText: {
+                        color: '#000',
+                        size: 12,
+                        marginT: 8
+                    },
+                    itemIcon: {
+                        size: 40
+                    }
+
+                }
+            }, function (ret) {
+                if (ret.index == 0) {
+                    var wx = api.require('wx');
+                    wx.shareWebpage({
+                        apiKey: '',
+                        scene: 'session',// 单聊
+                        title: '我爱网拍！',
+                        description: '我发现了一件大宝贝，快来看看啊！',
+                        thumb: 'widget://icon/icon.png',
+                        contentUrl:shareNotice + nid
+                    }, function (ret, err) {
+                        if (ret.status) {
+                            toast('分享成功');
+                        } else {
+                            if (err.code == 2) {
+                                toast('分享失败')
+                            }
+                        }
+                    });
+                } else if (ret.index == 1) {
+                    var wx = api.require('wx');
+                    wx.shareWebpage({
+                        apiKey: '',
+                        scene: 'timeline',// 朋友圈
+                        title: '我爱网拍！',
+                        description: '我发现了一件大宝贝，快来看看啊！',
+                        thumb: 'widget://icon/icon.png',
+                        contentUrl: 'www.baidu.com?pid=' + 1
+                    }, function (ret, err) {
+                        if (ret.status) {
+                            toast('分享成功');
+                        } else {
+                            if (err.code == 2) {
+                                toast('分享失败')
+                            }
+                        }
+                    });
+                } else if (ret.index == 2) {
+                    var qq = api.require('qq');
+                    qq.shareNews({
+                        url: 'http://www.baidu.com',
+                        title: '我爱网拍！',
+                        description: '我发现了一件大宝贝，快来看看啊！',
+                        imgUrl: 'http://module.apicloud.com/icon/1516258079676_叮叮.png',
+                        type: 'QFriend'
+                    });
+                } else if (ret.index == 3) {
+                    var qq = api.require('qq');
+                    qq.shareNews({
+                        url: 'http://www.baidu.com',
+                        title: '我爱网拍！',
+                        description: '我发现了一件大宝贝，快来看看啊！',
+                        imgUrl: 'http://module.apicloud.com/icon/1516258079676_叮叮.png',
+                        type: 'QZone'
+                    });
+                } else if (ret.index == 4) { //微博
+                    toast('微博登录正在开发中…')
+                }
+            });
+        }else{
+            toast("不可以分享")
+        }
+    }
+</script>
+</html>

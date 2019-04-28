@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择班级</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+                min-width: 320px;
+                background: #fff;
+            }
+            .main{
+                background: #fff;
+            }
+            .title{height:44px;line-height:44px;padding:0 18px 0 15px;background:#F8F8F8;background-size:16px 16px;color:#636363;font-size:14px;}
+            .main li{
+                height:44px;border-bottom:1px solid #F2F2F2;line-height:44px;font-size: 14px;background:url("../../icon/arrowNext.png") no-repeat #fff 90.9% 14px;background-size:16px 16px;padding:0 18px 0 15px;
+            }
+		</style>
+	</head>
+	<body>
+        <div class="title" id="top"></div>
+        <div class="main">
+            <ul id="classList">
+
+            </ul>
+        </div>
+	</body>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/mui.min.js"></script>
+    <script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="classHtml">
+        <%for(var i=0;i<list.length;i++){%>
+            <li onclick="Choice('<%=list[i].id%>','<%=list[i].name%>')"><%=list[i].name%></li>
+        <%}%>
+    </script>
+    <script type="text/javascript">
+        apiready = function(){   
+            var sid = getUserInfo().sid;
+
+            ajaxGet(clazzgetAllClazzs,{sid:sid},function(ret,err){
+
+                if(ret.success == true ){
+                    var data = {list: ret.data};
+                    var html = template("classHtml",data);
+                    document.getElementById('classList').innerHTML = html;
+                }
+            });
+        }
+        
+        
+        //、、
+        function Choice(id,name){
+            openNewWindow("ourClass","../main/ourClass.html",{cid:id,name:name});
+            $api.setStorage('RecentSelection',{cid:id,name:name});
+        }
+        function changeName(){
+        	var RecentSelection = $api.getStorage('RecentSelection');
+            if(isNotBlack(RecentSelection)){
+                document.getElementById('top').innerHTML = "最近访问：" + RecentSelection.name;
+                document.getElementById('top').onclick = function(){
+               		openNewWindow("ourClass","../main/ourClass.html",RecentSelection);
+                }
+            }else{
+                document.getElementById('top').innerHTML = "最近访问：暂无访问记录";
+            }
+        }
+    </script>
+</html>

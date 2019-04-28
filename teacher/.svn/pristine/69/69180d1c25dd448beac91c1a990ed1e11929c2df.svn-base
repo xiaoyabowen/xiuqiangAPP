@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>通讯录-园内</title>
+    <link rel="stylesheet" href="../../css/api.css"/>
+    <link rel="stylesheet" href="../../css/commonWindow.css"/>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-width: 320px;
+            background-color: #f8f8f8;
+        }
+
+        /*未点开内容*/
+        #list {
+            background: #fff;
+        }
+
+        h4 {
+            height: 73px;
+            line-height: 73px;
+            padding: 0 5%;
+            font-size: 18px;
+            font-weight: normal;
+            background: #fcfcfc;
+        }
+
+        h4 div {
+            width: 43px;
+            height: 43px;
+            overflow: hidden;
+            border-radius: 50%;
+            float: left;
+            margin-top: 15px;
+            margin-right: 30px;
+        }
+
+        h4 div img {
+            width: 43px;
+            height: 43px;
+            border-radius: 50%;
+        }
+
+        .listul {
+
+            /*display: none;*/
+            /*transition: all 2s;*/
+        }
+
+        .listul li {
+            padding: 0 5%;
+            padding-left: 30px;
+        }
+
+        .listul li .phone_box {
+            display: flex;
+            vertical-align: middle;
+            height: 72px;
+            align-items: center;
+        }
+
+        .images{
+            display: flex;
+            vertical-align: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        .images>img{
+            display: block;
+        }
+        .phone_Tel{
+            flex: 1;
+        }
+        .phone_Tel > p {
+            font-size: 14px;
+            color: #333333;
+            line-height: 36px;
+        }
+
+        .listul li:nth-of-type(odd) {
+            background: #f6f6f6;
+        }
+
+        .listul li:nth-of-type(even) {
+            background: #fff;
+        }
+
+        .jiantou {
+            float: right;
+            width: 10px;
+            height: 15px;
+            margin-top: 29px;
+        }
+
+        .phone_img_tx {
+            display: flex;
+            vertical-align: center;
+            align-items: center;
+        }
+
+        .phone_img_tx > .phone_img_t {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <ul id="list">
+        <!--<li>-->
+        <!--<h4 tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../icon/jskt.png" alt="">-->
+        <!--</div>-->
+        <!--<span>教师</span>-->
+        <!--<img class="jiantou" src="../../image/arrow_rt2.png" alt="">-->
+        <!--</h4>-->
+        <!--<ul class="listul clearfix">-->
+        <!--<li class="li " tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../image/cookfood.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小</span>-->
+        <!--</li>-->
+        <!--<li class="li clearfix" tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小红</span></li>-->
+        <!--<li class="li clearfix" tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小明</span>-->
+        <!--</li>-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>肥嘟嘟</span>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<h4 tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../icon/family_icon.png" alt="">-->
+        <!--</div>-->
+        <!--<span>财务</span>-->
+        <!--<img class="jiantou" src="../../image/arrow_rt2.png" alt="">-->
+        <!--</h4>-->
+        <!--<ul  class="listul">-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小红</span>-->
+        <!--</li>-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小明</span>-->
+        <!--</li>-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>肥嘟嘟</span>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<h4 tapmode="itemOn">-->
+        <!--<div>-->
+        <!--<img src="../../icon/jcsj.png" alt="">-->
+        <!--</div>-->
+        <!--<span>后勤</span>-->
+        <!--<img class="jiantou" src="../../image/arrow_rt2.png" alt="">-->
+        <!--</h4>-->
+        <!--<ul class="listul">-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>小明</span>-->
+        <!--</li>-->
+        <!--<li class="li clearfix">-->
+        <!--<div>-->
+        <!--<img src="../../image/baby03.png" alt="">-->
+        <!--</div>-->
+        <!--<span>肥</span>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</li>-->
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="homepage">
+    <%for(var i=0;i
+    <list.length;i++){%>
+    <li>
+        <h4 tapmode="itemOn">
+            <div>
+                <img src="../../icon/jskt.png" alt="">
+            </div>
+            <span><%=list[i].name%></span>
+            <img class="jiantou" src="../../image/arrow_rt2.png" alt="">
+        </h4>
+        <ul class="listul clearfix" id="employeesListHm<%=list[i].id%>">
+
+        </ul>
+    </li>
+    <%}%>
+</script>
+<script type="text/html" id="employeesListTm">
+    <%for(var j=0;j
+    <list.length;j++){%>
+    <li>
+        <div class="phone_box">
+            <div class="images">
+                <%if(list[j].icon==""){%>
+                <img style="width: 36px;height: 36px;" src="../../image/fcoushead.png" alt="">
+                <%} else {%>
+                <img src="<%=list[j].icon%>" style="<%=list[j].style%>" alt="">
+                <%}%>
+
+            </div>
+            <div class="phone_Tel">
+                <p><%=list[j].name%></p>
+                <!--<p><%=list[j].phone%></p>-->
+            </div>
+            <div class="phone_img_tx">
+                <img style="width: 24px;height: 24px" class="phone_img_t" onclick="openPhone(<%=list[j].phone%>)"
+                     src="../../icon/gray_phone.png" alt="手机图标">
+                <img style="width: 24px;height: 24px" src="../../icon/gray_msg.png" onclick="openUserChat('<%=list[j].id%>','<%=list[j].name%>','<%=list[j].icon%>')" alt="短信图标">
+            </div>
+        </div>
+    </li>
+    <%}%>
+    <li>
+        <div style="text-align: center;font-size: 14px;color: #f8f8f8">已显示全部</div>
+    </li>
+</script>
+<script>
+    //    ajaxGet(getDepartmentEmployees,{did:ret[i].id},function (ret,err) {
+    //        al(ret.data)
+    //    })
+    apiready = function () {
+        var sid = getUserInfo().sid;
+        ajaxGet(getDepartmentList, {sid: sid}, function (ret, err) {
+            if (ret && ret.success) {
+                var data = {list: ret.data}
+                var html = template("homepage", data);
+                document.getElementById("list").innerHTML = html;
+                api.parseTapmode();
+                var list = document.getElementById('list');
+                var ah2 = list.getElementsByTagName('h4');
+                var uls = list.getElementsByTagName('ul');
+                var jiantou = document.getElementsByClassName("jiantou");
+                var employeesId;
+                for (var i = 0; i < ah2.length; i++) {
+                    ah2[i].index = i;
+                    ah2[i].onclick = function () {
+                        employeesId = ret.data[this.index].id;
+                        ajaxGet(getDepartmentEmployees, {did: ret.data[this.index].id, sid: sid}, function (ret, err) {
+                            if (ret) {
+                                for (var i = 0; i < ret.data.length; i++) {
+                                    if (ret.data[i].icon) {
+                                        var width = 36;
+                                        var height = 36;
+                                        var obj = getImgByThisSize(ret.data[i].icon, width, height);
+                                        ret.data[i].style = obj.style;
+                                    } else {
+                                        ret.data[i].icon = "";
+                                        ret.data[i].style = "";
+                                    }
+                                }
+                                var data = {list: ret.data};
+                                var html = template("employeesListTm", data);
+                                document.getElementById('employeesListHm' + employeesId).innerHTML = html;
+                                api.parseTapmode();
+                            }
+                        })
+                        if (this.className == '') {
+                            jiantou[this.index].style.width = "15px";
+                            jiantou[this.index].style.height = "8px";
+                            uls[this.index].style.display = 'block';
+                            jiantou[this.index].src = '../../image/arrow_btm.png';
+                            this.className = 'active';
+                        } else {
+                            uls[this.index].style.display = 'none';
+                            this.className = '';
+                            jiantou[this.index].src = '../../image/arrow_rt2.png';
+                            jiantou[this.index].style.width = "8px";
+                            jiantou[this.index].style.height = "15px";
+                        }
+                    }
+                }
+            }
+        })
+    }
+
+    //打电话
+    function openPhone(call) {
+        openCall(call)
+    }
+
+    /*//发短信
+    function openUserChat(phone) {
+        api.sms({
+            numbers: [phone]
+//            text: '测试短信'
+        }, function (ret, err) {
+            if (ret && ret.status) {
+                //已发送
+            } else {
+                //发送失败
+            }
+        });
+    };
+*/
+    function openUserChat(id,name,icon) {
+        //先要通知原生  告知这个人要聊天了
+        api.accessNative({
+            name: "openChat",
+            extra: {
+                key: {
+                    id: id,
+                    icon: icon || "",
+                    name: name || ""
+                }
+            }
+
+        }, function (ret, err) {
+
+        });
+    };
+
+    /*function openPersonHome(did, name) {
+        openNewWindow("myHome", "myHome.html", {id: did, name: name})
+    }
+*/
+</script>
+</html>

@@ -1,0 +1,213 @@
+ <!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>服务设备</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+            }
+            .service-equipment{
+                width:100%;
+                padding-top:12px;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .se{
+                width:100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:0px 12px 9px;
+                box-sizing: border-box;
+            }
+            .se-list{
+                width:100%;
+            }
+            .se-list>:nth-last-child(1){
+                border:none;
+            }
+            .se-list li{
+                width:100%;
+                height:42px;
+                line-height:42px;
+                padding-left:6px;
+                padding-right:6px;
+                border-bottom:1px solid #F0F0F0;
+                box-sizing: border-box;
+                position:relative;
+            }
+            .se-list li>:nth-child(2){
+                color: #fff;
+                font-size: 12px;
+                height:24px;
+                position:absolute;
+                background: #5AC8E1;
+                border-radius: 50px;
+                text-align: center;
+                line-height:25px;
+                box-sizing: border-box;
+                right:86px;
+                bottom:9px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            .se-list li>:nth-child(3)>img{
+                width:14px;
+                height:14px;
+            }
+            .se-list li>:nth-child(4)>img{
+                width:19px;
+                height:14.3px;
+            }
+            .se-list li>:nth-child(1){
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.19px;
+            }
+            .se-list li>:nth-child(3),.se-list li>:nth-child(4){
+                width:24px;
+                height:24px;
+                background: #5AC8E1;
+                border-radius:50%;
+                /* font-size:10px;
+                color:#FFFFFF; */
+                text-align: center;
+                line-height:25px;
+                box-sizing: border-box;
+            }
+            .se-list li>:nth-child(3){
+                position: absolute;
+                right:46px;
+                bottom:9px;
+            }
+            .se-list li>:nth-child(4){
+                position:absolute;
+                right:6px;
+                bottom:9px;
+            }
+            .distribute-list{
+                width:90.4%;
+                height:44px;
+                background: #5AC8E1;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                font-size:16px;
+                color:#FFFFFF;
+                letter-spacing: 0.22px;
+                box-sizing: border-box;
+                text-align: center;
+                line-height:44px;
+                margin:0 auto;
+                margin-top:20px;
+                margin-bottom:20px;
+            }
+		</style>
+	</head>
+	<body id="body">
+        <div class="service-equipment" id="listDom">
+
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/html" id="equipmentListScript">
+		<%if(list.length){%>
+		<div class="service-equipment">
+			<div class="se">
+				<ul class="se-list">
+				<%for(var i=0; i<list.length; i++){%>
+					<li>
+						<span><%=list[i].name%></span>
+                        <span>数量:<%=list[i].num%></span>
+						<span onclick="delEquipment(this,<%=list[i].id%>)"><img src="../../icon/whiteDelete.png" alt=""></span>
+						<span onclick="allocationList(<%=list[i].id%>)"><img src="../../icon/whiteTranslate.png" alt=""></span>
+					</li>
+				<%}%>
+				</ul>
+			</div>
+		</div>
+		<div class="distribute-list" onclick="openInventory()"><img src="" alt="">分配清单</div>
+		<%}%>
+	</script>
+	<script>
+		apiready = function () {
+			var userInfo = getUserInfo();
+			new datalistModel(addDataToHtml,getEquipmentList,10,5,100,true);
+		};
+
+		function addDataToHtml(results){
+			var data = {list: results};
+			var html = template('equipmentListScript',data);
+			document.getElementById('body').innerHTML = html;
+			api.parseTapmode();
+			document.getElementById("body").style.display = "block";
+		}
+
+        // 删除设备
+        function delEquipment(dom,eid){
+            api.confirm({
+                title: '确定删除吗?',
+                buttons: ['确定', '取消']
+            }, function(ret, err) {
+                var index = ret.buttonIndex;
+                if(index == 1 || index == '1'){
+                    api.showProgress({
+                        title: '删除中...',
+                        text: '请稍后...',
+                        modal: false
+                    });
+                    ajaxGet(deleteEquipment,{id:eid},function(ret,err){
+                        if(ret.success){
+                            api.hideProgress();
+                            toast('删除成功!');
+                            dom.parentNode.parentNode.removeChild(dom.parentNode);
+                        }else{
+                            api.hideProgress();
+                            toast('请求失败!');
+                        }
+                    });
+                }
+            });
+        };
+
+		// 分配
+		function allocationList(eid){
+			var obj = {
+				animation:{
+					type:"fade",
+					subType:"from_right",
+					duration:300
+				},
+				rect:{
+					x:0,
+					y:0,
+					w:'auto',
+					h:'auto'
+				},
+				bgColor : "rgba(0,0,0,0.5)"
+			}
+			openFrame("distribution","distribution.html",{eid:eid},0,0,obj);
+
+		};
+
+		// 查看分配清单
+		function openInventory(){
+			openNewWindow("serviceEquipmentList","serviceEquipmentList.html");
+		};
+	</script>
+</html>

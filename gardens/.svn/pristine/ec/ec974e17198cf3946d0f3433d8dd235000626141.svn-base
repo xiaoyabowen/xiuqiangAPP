@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>教师个人排班</title>
+    <style>
+        #topbar{
+            position: relative;
+        }
+        #topbar>:nth-child(3)>img{
+            width:15px;
+            height:15px;
+            position: absolute;
+            right:15px;
+            bottom:14.5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="topbar" >
+        <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+            <img style="width: 30px;height: 30px;" src="../../icon/back.png">
+        </div>
+        <div>教师个人班：张山</div>
+        <div><img src="../../icon/teacherWork.png" alt=""></div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+    </script>
+</body>
+</html>

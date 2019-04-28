@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>修改微信</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			#topbar{
+				/*background-color: #fff;*/
+				/*color: #505050;*/
+				font-size: 17px;
+			}
+			/*#topbar>:nth-child(1)>img{*/
+				/*width: 8px;*/
+				/*height: 14px;*/
+				/*left: 15px;*/
+				/*bottom: 15px;*/
+			/*}*/
+			#topbar .right{
+				font-size: 14px;
+				/*color: #A3A3A3;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		        <img style="width:30px;height:30px;" src="../../icon/back.png">
+		    </div>
+	    	<div>用户名</div>
+	    	<div class="right" ><button onclick="save()"  id="but">保存</button></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script>
+        var UserName;
+        var  names
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+            names = getUserInfo().weixinAccount;
+            var but = document.getElementById('but');
+            but.setAttribute("disabled", true);
+            but.style.color = "#999";
+		};
+        function getNewVal(userName){
+            UserName = userName;
+
+            if(names !=UserName ){
+                var but = document.getElementById('but');
+                but.removeAttribute("disabled");
+
+                but.style.color = "#fff";
+            }
+        }
+        //点击保存
+        function save(){
+            api.execScript({
+                frameName: "weChatName_body",
+                script: 'weChatName()'
+            })
+        }
+		
+	
+	</script>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝食谱</title>
+    <style>
+        body{
+            background: #F2F2F2;
+            height:auto;
+        }
+        .select-menu{
+            width:100%;
+            padding:12px 8px 0px;
+            box-sizing: border-box;
+        }
+        .select-menu .sm{
+            width:100%;
+            height:42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:18px;
+            padding-top:9px;
+            box-sizing: border-box; 
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .select-version{
+            height:24px;
+            line-height:24px;
+            background: #92CA55;
+            color:#FFFFFF;
+            font-size: 12px;
+            border-radius: 100px;
+            padding-left:10px;
+            padding-right:10px;            
+            display: inline-block;
+            box-sizing: border-box;
+            position: absolute;
+            left:18px;
+        }
+        @media screen and (max-width: 320px) {
+            .select-version{
+                left:5px;
+                padding-right:5px;             
+            }
+            .select-version .version-name::after{
+                margin-left:3px;
+            }
+        }
+        .select-version .version-name::after{
+            content:url('../../image/arrow_bt_white.png');
+            width:12px;
+            vertical-align: middle;
+            margin-left:3px;
+        }
+        .select-date{
+            display: inline-block;            
+            height:24px;
+            line-height:24px;            
+            /* margin:0 auto; */
+            font-size: 12px;
+            color: #FFFFFF;
+            padding-left:9px;
+            padding-right:9px;
+            background: #67C49C;
+            border-radius: 100px;
+            box-sizing: border-box;         
+        }
+        .select-date div{
+            float:left;
+        }
+        /* .start-date,.end-date{
+            text-decoration: underline;            
+        } */
+        .select-date::after{
+            content:url('../../image/arrow_bt_white.png');
+            width:12px;
+            vertical-align: middle;
+            margin-left:7px;
+        }
+        .cookbook-info{
+            width:100%;
+            margin-top:12px;
+            padding-left:8px;
+            padding-right:8px;
+            padding-bottom:18px;
+            box-sizing: border-box;
+        }
+        .cookbook-info .ci{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding:21px 18px 30px;
+            box-sizing: border-box; 
+            position: relative;
+        }
+        .cookbook-info .ci .edit{
+            position:absolute;
+            right:18px;
+            top:19px;
+        }
+        .cookbook-info .ci .edit>img{
+            width:22px;
+            height:22px;
+        }
+        .ci-title div{
+            float:left;
+        }
+        .ci-menu{
+            padding-top:11px;
+        }
+        .ci-content{
+            clear:left;
+            margin-bottom:12px;
+        }
+        .ci-title{
+            height:22px;
+        }
+        .ci-title .ci-name{
+            font-size: 14px;
+            color: #333333;
+            line-height:20px;       
+        }
+        .ci-title .ci-time{
+            font-size:12px;
+            color:#999999;
+            line-height: 25px;
+            margin-left:15px;
+        }
+        .ci-list li .cil-left{
+            clear:left;
+        }
+        .ci-list li .cil-left img{
+            float:left;
+            width:105px;
+            height:105px;
+            border-radius:4px;
+        }
+        .ci-list li .cil-right{
+            width:100%;
+            height:105px;
+            /* padding-top:2px; */
+            padding-left:117.5px;
+            box-sizing: border-box;            
+        }
+        .ci-list li .cil-right .cr-item{
+            margin-bottom:12px;
+            font-size: 14px;
+            color: #333333;
+            line-height:17px;
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            box-sizing: border-box;
+        }
+        .ci-list li .cil-right .cr-item>:nth-child(2){
+            margin-left:-5px;          
+        }
+        .breakfast,.lunch,.dinner{
+            padding-bottom:1px;
+        }
+        .open-more{
+            font-size: 12px;
+            color:#999999;
+        }
+        .detail-info{
+            font-size: 12px;
+            color: #666666;
+            text-align: justify;
+            margin-top:6px;
+            line-height:17px;
+        }
+    </style>
+</head>
+<body>
+            <div class="select-menu">
+                <div class="sm">
+                    <div class="select-version">
+                        <div class="version-name">大众版</div>
+                    </div>
+                    <div class="select-date">
+                        <div class="start-date">2018.02.12 </div>
+                        <div>-</div>
+                        <div class="end-date">2018.02.18</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cookbook-info">
+                <div class="ci">
+                    <!-- 早餐 -->                    
+                    <div class="breakfast">
+                        <div class="ci-title">
+                            <div class="ci-name">早餐</div>
+                            <div class="ci-time">
+                                <span>2018-02-12</span>
+                                <span>周一</span>
+                            </div>
+                        </div>
+                     <ul class="ci-menu">  
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥
+                                                
+                                            </span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul> 
+                </div>
+                <!-- 午餐 -->
+                <div class="lunch">
+                    <div class="ci-title">
+                        <div class="ci-name">午餐</div>
+                    </div>
+                    <ul class="ci-menu">
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </div>
+                <!-- 晚餐 -->
+                    <div class="dinner">
+                        <div class="ci-title">
+                            <div class="ci-name">晚餐</div>
+                        </div>
+                        <ul class="ci-menu">
+                            <li class="ci-content">
+                                <ul class="ci-list">
+                                    <li>
+                                        <div class="cil-left">
+                                            <img src="../../image/cookfood.png" alt="">
+                                        </div>
+                                        <div class="cil-right">
+                                            <div class="food-name cr-item">
+                                                <span>菜名：</span>
+                                                <span>玉米粥</span>
+                                            </div>
+                                            <div class="food-material cr-item">
+                                                <span>食材：</span>
+                                                <span>玉米</span>
+                                            </div>
+                                            <div class="food-weight cr-item">
+                                                <span>重量：</span>
+                                                <span>100g</span>
+                                            </div>
+                                            <div class="food-attribute cr-item">
+                                                <span>属性：</span>
+                                                <span>其他</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                <!-- 展开详情 -->
+                    <div class="open-more">
+                        <span onclick="openDetail()">展开详情</span>
+                    </div>
+                    <div class="detail-info" style="display:none;">
+                        <p>这是一份合理的食谱介绍，每日营养均衡，荤素搭配合理，适合3-6岁的宝宝获取每日营养。</p>
+                    </div>
+                </div>
+            </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        function openDetail(){
+            document.getElementsByClassName('detail-info')[0].style.display = "block";
+        }
+    </script>
+</body>
+</html>

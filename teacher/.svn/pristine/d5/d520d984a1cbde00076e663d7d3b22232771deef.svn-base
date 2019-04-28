@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>资产审核-发布</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/layui.mobile.css" />
+		<!-- 时间插件 -->
+		<link href="../../css/dateSelect.css" rel="stylesheet">
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background:#FFFFFF;
+			}
+            .apply-info{
+                width:100%;
+                padding-top:7px;
+                padding-left:18px;
+                padding-right:18px;
+                box-sizing: border-box;
+            }
+            .info-list{
+                width:100%;
+                box-sizing: border-box;
+            }
+            .info-list .list-item{
+                width:100%;
+                height:40px;
+                margin-top:5px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .list-tag{
+                width:101px;
+                height:40px;
+                padding-top:9px;
+                float:left;
+                box-sizing: border-box;
+            }
+            .list-tag>div{
+                width:100%;
+                height:23px;
+                line-height:23px;
+                border-right:1px solid #D7D7D7;
+                font-size: 14px;
+                text-align: left;
+                padding-left:18px;
+                color: #333333;
+                box-sizing: border-box;
+            }
+            .list-item>:nth-child(2){
+                font-size: 14px;
+                color: #333333;
+                line-height:40px;
+                float:left;
+                margin-left:18px;
+				width: 60%;
+				height: 100%;
+            }
+			.list-item>:nth-child(2) input{
+				padding-left: 5px;
+			}
+			#pickDateBtn{
+				 width: 100%;
+				 height: 100%;
+
+			 }
+			#name,
+			#myselectClass,
+			#myselectPlace,
+			#myselectName,
+			#myselectUse,
+			#myselectNumber{
+				width: 100%;
+				height: 38px;
+				background: url("../../icon/switch.png") no-repeat scroll right center transparent;
+				background-size:5%;
+			}
+            .switch-btn{
+                float:right;
+                margin-right:18px;
+                margin-top:12px;
+            }
+            .switch-btn>img{
+                width:9px;
+            }
+            .remark{
+                width:100%;
+                height: 180px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                margin-top:5px;
+                padding:9px 18px;
+                box-sizing: border-box;
+            }
+            .remark-title{
+                font-size: 14px;
+                color: #333333;
+            }
+            .remark-input textarea{
+                width:100%;
+                height:44px;
+                outline: none;
+                resize: none;
+                font-size: 16px;
+                color: #505050;
+                line-height:22px;
+            }
+            .add-other{
+                width:41px;
+                height:41px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                background:url('../../icon/addremark.png');
+                background-repeat:no-repeat;
+                background-size:18px 18px;
+                background-position:center;
+                float: left;
+            }
+            #imglist1 span{
+                width:41px;
+                height:41px;
+                position:relative;
+                float: left;
+                margin-right:10px;
+                margin-bottom:10px;
+                display: block;
+            }
+            #imglist1 span img{
+                display: block;
+            }
+            #imglist1 span i{
+                width:10px;
+                height:10px;
+                background: #ccc;
+                border-radius: 50%;
+                line-height: 10px;
+                text-align: center;
+                position:absolute;
+                right:2px;
+                top:2px;
+                color:red;
+                font-size:8px;
+            }
+            .save{
+                width:90.4%;
+                height:44px;
+                margin:20px auto 0;
+                background:#5AC8E1;
+                text-align: center;
+                line-height:44px;
+                font-size:16px;
+                color:#FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+            }
+
+
+		</style>
+	</head>
+	<body id="body">
+		<div class="apply-info">
+            <ul class="info-list">
+                <li class="proposer list-item">
+                    <div class="list-tag">
+                        <div>申请人</div>
+                    </div>
+                    <div>
+						<select name="city" lay-verify="" id="name" >
+                            <option value="0">请选择申请人</option>
+						</select>
+					</div>
+
+                </li>
+                <li class="a-date list-item">
+                    <div class="list-tag">
+                        <div>申请日期</div>
+                    </div>
+                    <div><input type="text" id="pickDateBtn" readonly="readonly" placeholder="请选择申请日期"></div>
+                </li>
+                <li class="a-type list-item">
+                    <div class="list-tag">
+                        <div>资产类别</div>
+                    </div>
+                    <div>
+						<select name="city" lay-verify="" id="myselectClass" onchange="selectName()">
+                            <option value="0">请选择资产类别</option>
+						</select>
+                    </div>
+                </li>
+				<li class="a-name list-item">
+                    <div class="list-tag">
+                        <div>使用位置</div>
+                    </div>
+                    <div>
+						<select name="city" lay-verify="" id="myselectPlace" >
+
+						</select>
+                    </div>
+                </li>
+                <li class="a-name list-item">
+                    <div class="list-tag">
+                        <div>资产名称</div>
+                    </div>
+                    <div>
+						<select name="city" lay-verify="" id="myselectName" onchange="selectCode()">
+							<option value="0">请选择资产名称</option>
+						</select>
+                    </div>
+                </li>
+                <li class="a-use list-item">
+                    <div class="list-tag">
+                        <div>申请用途</div>
+                    </div>
+                    <div>
+						<select lay-verify="" id="myselectUse" >
+
+						</select>
+                    </div>
+
+                </li>
+                <li class="a-num list-item">
+                    <div class="list-tag">
+                        <div>资产编号</div>
+                    </div>
+                    <div>
+						<select name="city" lay-verify="" id="myselectNumber" >
+							<option value="0">请选择资产编号</option>
+						</select>
+					</div>
+                </li>
+                <li class="e-count list-item">
+                    <div class="list-tag">
+                        <div>现有数</div>
+                    </div>
+                    <div>
+                        <input type="number" id="nowNum" placeholder="请输入现有数"
+                               onkeyup="value=value.replace(/[^\d]/g,'')" readonly>
+                    </div>
+                </li>
+                <li class="a-count list-item">
+                    <div class="list-tag">
+                        <div>申请数</div>
+                    </div>
+                    <div>
+                        <input type="number" id="myselectNum"
+                               placeholder="请输入申请数量" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    </div>
+                </li>
+            </ul>
+
+            <div class="remark">
+                <div class="remark-title">备注</div>
+                <div class="remark-input">
+                    <textarea name="" id="desc" cols="30" rows="10"></textarea>
+                </div>
+                <div id="imglist1"></div>
+                <div class="add-other" onclick="uploadImg()"></div>
+            </div>
+        </div>
+        <div class="save" onclick="save()">保存</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/layui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/dateSelect.js"></script>
+	<script type="text/html" id="nameScript">
+		<%if(list.data.length){%>
+			<option value="0">请选择申请人</option>
+			<%for(var i=0;i<list.data.length;i++){%>
+				<option value="<%=list.data[i].id%>"><%=list.data[i].name%></option>
+			<%}%>
+		<%}%>
+	</script>
+
+	<script type="text/html" id="PlaceScript">
+		<%if(list.data.length){%>
+			<option value="0">请选择使用位置</option>
+			<%for(var i=0;i<list.data.length;i++){%>
+				<option value="<%=list.data[i].id%>"><%=list.data[i].name%></option>
+			<%}%>
+		<%}%>
+	</script>
+	<script type="text/html" id="useScript">
+		<%if(list.data.length){%>
+			<option value="0">请选择申请用途</option>
+			<%for(var i=0;i<list.data.length;i++){%>
+				<option value="<%=list.data[i].id%>"><%=list.data[i].name%></option>
+			<%}%>
+		<%}%>
+	</script>
+
+
+
+</html>
+<script>
+	var Sid;
+	var imglist = [];
+	var List;
+	var classD = document.getElementById('myselectClass');
+	var nameD = document.getElementById('myselectName');
+	var codeD = document.getElementById('myselectNumber');
+	apiready = function(){
+		Sid = getUserInfo().sid;
+		$("#pickDateBtn").dateSelect();
+		// 获取申请人
+		getFixedassetData(getAllTeachers,{sid:Sid,checkStatus:1},'teachers','nameScript','name');
+		// 获取资产使用位置
+		getFixedassetData(getAllLocations,{sid:Sid},'Place','PlaceScript','myselectPlace');
+		//获取申请用途
+		getFixedassetData(getUse,{sid:Sid},'use','useScript','myselectUse');
+
+		// 级联数据请求
+		ajaxGet(getAllListData,{sid:Sid},function(ret,err){
+			if(ret.success){
+				$api.setStorage('fixedassetData', ret); // 写入缓存
+				var getStorage = JSON.stringify($api.getStorage('fixedassetData'));
+				if(ret.data != ''){
+					if(getStorage != ret){
+						$api.setStorage('fixedassetData', ret); // 写入缓存
+					}
+				}
+				List = tryJsonParse(getStorage);
+				initSelect();
+			}
+
+		});
+
+	};
+	// 请求各项资产参数
+	function getFixedassetData(url,parms,StgName,tmpSctipt,dom){
+
+		ajaxGet(url,parms,function(ret,err){
+			if(ret.success){
+				$api.setStorage(StgName, ret); // 写入缓存
+				if(ret.data != ''){
+					var getStorage = JSON.stringify($api.getStorage(StgName));
+					if(getStorage != ret){
+						$api.setStorage(StgName, ret); // 写入缓存
+					}
+				}
+				optionToHtml(ret,tmpSctipt,dom);
+			}
+		});
+	};
+	// 渲染option
+	function optionToHtml(results,tmpscript,dom) {
+		if (isNotBlack(results)) {
+			var data = {list:results};
+			var html = template(tmpscript, data);
+			document.getElementById(dom).innerHTML = html;
+			api.parseTapmode();
+			document.getElementById("body").style.display = "block";
+		}
+	}
+
+	//  联动数据解析 初始化
+	function initSelect(){
+		var op1 = '<option value="0">请选择资产类别</option>';
+		for(var key in List.data.kindSelects){
+			classD.innerHTML = op1 += "<option value='"+ key +"'>" + List.data.kindSelects[key] + "</option>";
+		};
+	};
+	// 资产名称
+	function selectName(){
+		var op2 = '<option value="0">请选择资产名称</option>';
+		var index = classD.selectedIndex;
+		var kid = classD.options[index].value;
+		var nameCodesV =  List.data.kidNameCodeSelects[kid];
+		for(var nameCodes in nameCodesV){
+			nameD.innerHTML = op2 += "<option>" + nameCodes + "</option>";
+		};
+	};
+	// 资产编码
+	function selectCode(){
+		var op3 = '<option value="0">请选择资产编号</option>';
+		var index = classD.selectedIndex;
+		var kid = classD.options[index].value;
+		var nameCodesV =  List.data.kidNameCodeSelects[kid];
+		index = nameD.selectedIndex;
+		var name = nameD.options[index].text;
+		var codes = nameCodesV[name];
+		for(var i = 0;i<codes.length;i++){
+			codeD.innerHTML = op3+= "<option value='"+ codes[i].itemInfoId +"'>" + codes[i].code + "</option>";
+            $('#nowNum').val(codes[i].nowNum);
+		}
+	};
+    //判断是否大于现有数
+    var applN = $('#myselectNum');
+    applN.on('input propertychange', function() {
+        var applV =parseInt(applN.val());
+        var nowNum =parseInt($('#nowNum').val());
+        if(applV > nowNum){
+            toast('申请数不能大于现有数！')
+        }
+    });
+	// 上传照片、
+    var imgNum = 9;
+	function uploadImg(){
+        if(imgNum <= 0 ){
+            toast("最多上传九张");
+            return;
+        }
+        var Multiplechoice = api.require('Multiplechoice');
+        Multiplechoice.choice({
+            maxstr : imgNum,
+            uploadflowUrl:uploadImageUrl
+        },function(ret,err){
+            imgNum = imgNum-ret.allimgjs.length;
+            if(ret.allimgjs.length>0){
+                for(var i=0;i<ret.allimgjs.length;i++){
+                    var objimg = {};
+                    objimg.img = ret.allimgjs[i];
+                    objimg.flag = true;
+                    imglist.push(objimg.img);
+                    //处理图片变形
+                    var width = 41;
+                    var height = 41;
+                    var obj = getImgByThisSize(objimg.img,width,height);
+                    document.getElementById("imglist1").innerHTML +="<span onclick='Endes(this)' style='width:41px;height:41px;overflow:hidden;'><img src='"+objimg.img+"' style='"+obj.style+"' /><i>X</i></span>";
+                }
+            }else{
+                toast('上传失败')
+            }
+        })
+	};
+	// 删除
+	function Endes(self){
+        $(self).hide();
+        var actionUrl = self.firstChild.getAttribute("src");
+        for(var i=0;i<imglist.length;i++){
+            if(imglist[i] == actionUrl){
+                imglist.splice(i,1);
+                imgNum++;
+            }
+        }
+	}
+	// 保存
+	function save(){
+		var name = $('#name option:selected').val(); //申请人
+		var applyTime = $api.val($api.byId('pickDateBtn')); //申请时间
+		var myselectClass = $('#myselectClass option:selected').val(); //资产类别
+		var myselectName = $('#myselectName option:selected').val(); //资产名称
+		var myselectPlace = $('#myselectPlace option:selected').val(); //位置
+		var nowNum = $api.val($api.byId('nowNum')); //现有数
+		var myselectNum = $api.val($api.byId('myselectNum')); //申请数
+		var myselectUse = $('#myselectUse option:selected').val(); //申请用途
+		var myselectNumber = $('#myselectNumber option:selected').val(); //申请编号
+		var desc = $api.val($api.byId('desc')); //获取备注
+		if(name == 0){
+			toast('请选择申请人');
+		}else if(applyTime == ''){
+			toast('请选择申请时间');
+		}else if(myselectClass == 0){
+			toast('请选择资产类别');
+		}else if(myselectPlace == 0){
+			toast('请选择使用位置');
+		}else if(myselectName == 0){
+			toast('请选择资产名称');
+		}else if(myselectNum == ''){
+			toast('请填写申请数');
+		}else if(myselectUse == 0){
+			toast('请选择申请用途');
+		}else if(myselectNumber == 0){
+			toast('请选择资产编号');
+		}else{
+			var parms = {
+				sid:Sid, //学校ID
+				kid:myselectClass, //分类ID
+				reqUid:name, //申请人ID
+				lid:myselectPlace, //位置
+				itemInfoId:myselectNumber, //编码集合id
+				did:myselectUse,//申请用途
+				num:myselectNum, //申请数量
+				desc:desc, //说明
+				reqTime:Date.parse(applyTime) / 1000,//申请时间
+				images:imglist,//图片数zhu
+				type:2, //2是 申请
+			}
+            api.showProgress({
+                title: '申请中...',
+                modal: false
+            });
+			ajaxGet(appleAssets,parms,function(ret,err){
+				if(ret.success){
+                    api.hideProgress();
+					toast('提交成功，待园长审核!');
+					api.execScript({
+						name: 'getFixedAssets',
+						frameName: 'getFixedAssets_body',
+						script: 'apiready()',
+					});
+					setTimeout('closeWin()','2000');
+				}else if(ret.success == false){
+                    api.hideProgress();
+					toast(ret.msg);
+				}
+			});
+		}
+	};
+</script>

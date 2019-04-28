@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝健康</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+        }
+        .select-date{
+            width:100%;
+            height:42px;
+            padding-left:8px;
+            padding-right:8px;
+            padding-top:8px;
+            box-sizing: border-box;
+        }
+        .select-date .sd{
+            width:100%;
+            height:42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            position: relative;
+            text-align: center;
+        }
+        .sd .left-btn>img, .sd .right-btn>img{
+            width:16px;
+            height:16px;
+        }
+        .sd .left-btn{
+            position:absolute;
+            left:15px;
+            top:13.5px;
+        }
+        .sd .right-btn{
+            position:absolute;
+            right:15px;
+            top:13.5px;
+        }
+        .sd .show-time{
+            font-size: 16px;
+            color: #333333;
+            line-height:42px;
+        }
+        .pie-chart{
+            width:100%;
+            padding-left:8px;
+            padding-right:8px;
+            margin-top:20px;
+            box-sizing: border-box;
+        }
+        .pc{
+            width:100%;
+            height:141px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 8px;
+            padding-top:12px;
+            padding-left:40px;
+            position: relative;
+            box-sizing: border-box;
+        }
+        .pc>canvas{
+            width:234px;
+            height:117px;
+        }
+        .blank{
+            width:50px;
+            height:50px;
+            background: #FFFFFF;
+            border-radius:50%;
+            position:absolute;
+            top:46.5px;
+            left:75px;
+        }
+        .right-tag{
+            position: absolute;
+            top:35px;
+            left:181px;
+        }
+        .normal>:nth-child(1){
+            width:16px;
+            height:16px;
+            background: #67C49C;
+            box-shadow: 0 2px 4px 0 rgba(155,218,191,0.50);
+            border-radius: 2px;
+        }
+        .normal{
+            position:relative;
+        }
+        .unnormal{
+            margin-top:6px;
+            position:relative;
+        }
+        .unnormal-rate{
+            margin-top:6px;
+            position:relative;
+        }
+        .unnormal>:nth-child(1){
+            width:16px;
+            height:16px;
+            background: #D4602C;
+            box-shadow: 0 2px 4px 0 rgba(155,218,191,0.50);
+            border-radius: 2px;
+        }
+        .unnormal-rate>:nth-child(1){
+            width:16px;
+            height:16px;
+            background: #FFFFFF;
+        }
+        .normal>:nth-child(1),.unnormal>:nth-child(1),.unnormal-rate>:nth-child(1){
+            position: absolute;
+            top:3px;
+        }
+        .normal>:nth-child(2),.unnormal>:nth-child(2),.unnormal-rate>:nth-child(2){
+            margin-left:28px;
+            font-size:12px;
+            color:#333333;
+        }
+        .normal>:nth-child(3),.unnormal>:nth-child(3),.unnormal-rate>:nth-child(3){
+            margin-left:12px;
+            font-size:16px;
+            color:#151515;
+        }
+        .detail-list{
+            width:100%;
+            padding:12px 8px 19px 8px;
+            box-sizing: border-box;
+        }
+        .dl{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            padding:12px 12px 0px;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .dl-title ul li{
+            width:50%;
+            height:26px;
+            line-height:26px;
+            font-size: 14px;
+            color: #999999;
+            float:left;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .dl-title ul .active{
+            color:#5EC4E0 !important;
+        }
+        .dl-title ul>:nth-child(1){
+            border-right:1px solid #E8E7E7;
+        }
+        .dl-info{
+            clear:left;
+            /* margin-top:8px; */
+            box-sizing: border-box;
+            padding-top:12px;
+        }
+        .dl-info ul{
+            width:100%;
+            box-sizing: border-box;
+        }
+        .dl-info .student-list li{
+            width:100%;
+            height:41px;
+            border-bottom:1px solid #F2F2F2;
+            font-size: 12px;
+            color:#333333;
+            box-sizing: border-box;
+        }
+        .student-list li div{
+            width:50%;
+            height:41px;
+            line-height:41px;
+            float:left;
+            box-sizing: border-box;
+        }
+        .student-list li>:nth-child(1){
+            padding-left:16px;
+        }
+        .student-list li>:nth-child(2){
+            padding-left:22px;
+        }
+        .info-title{
+            width:100%;
+            height:44px;
+            background: #EBFBFF;
+            border-radius:4px;
+        }
+        .info-title li{
+            width:50%;
+            height:44px;
+            float:left;
+            box-sizing: border-box;
+            line-height:44px;
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.19px;
+        }
+        .info-title>:nth-child(1){
+            padding-left:16px;
+        }
+        .dl-info .student-list>:nth-last-child(1){
+            border:none;
+        }
+        #topbar>:nth-child(2)>span>img{
+            margin-left:6px;
+        }
+        .status-list{overflow:hidden;}
+    </style>
+</head>
+<body>
+<div id="topbar" >
+    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+        <img style="width:30px;height:30px;" src="../../icon/back.png">
+    </div>
+    <div id="BabyName"></div><!--<img src="../../icon/arrowup.png" alt="">-->
+</div>
+<div class="select-date">
+    <div class="sd">
+        <div class="left-btn dtpicker-compButton increment dtpicker-compButtonEnable" onclick="Subtract()" id="ks"><img src="../../icon/arrowPre.png" alt=""></div>
+        <div class="show-time">
+            <span class="year-month" id="Time"></span>
+            <span class="week" id="week"></span>
+        </div>
+        <div class="right-btn dtpicker-compButton decrement dtpicker-compButtonEnable" onclick="increase()" id="ke"><img src="../../icon/arrowNext.png" alt=""></div>
+    </div>
+</div>
+<div class="pie-chart">
+    <div class="pc">
+        <canvas id="data-chart"></canvas>
+        <div class="blank"></div>
+        <div class="right-tag">
+            <div class="normal"><span></span><span>正常</span><span id="nomarlNum">00</span></div>
+            <div class="unnormal"><span></span><span>异常</span><span id="exceptionNum">00</span></div>
+            <div class="unnormal-rate"><span></span><span>异常率</span><span id="yield">0%</span></div>
+        </div>
+    </div>
+</div>
+<div class="dl-title" style="overflow: hidden;margin-top: 10px;">
+    <ul class="status-list">
+        <li onclick="switchFrameGroupIndex(0)" class=" fl-item">未见异常<span id="YBaby">（85）</span></li>
+        <li onclick="switchFrameGroupIndex(1)" class="fl-item">发现异常<span id="LBaby">（15）</span></li>
+    </ul>
+</div>
+<div class="dl-info" >
+    <ul class="info-title" style="padding:0 28px;">
+        <li>姓名</li>
+        <li>异常指标</li>
+
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+    var cid;
+    var ctime;
+    var name
+    apiready = function (){
+
+        //页面参数
+//        cid = getUserInfo().cids[0];
+        cid = api.pageParam.cid;
+       // alert(cid);
+        ctime = formatTimeToDayYang( Date.parse(document.getElementById("Time").innerHTML));
+        name = api.pageParam.name;
+       // alert(name);
+        RenderingYang(ctime,cid);
+        document.getElementById("BabyName").innerHTML = name;
+
+        document.getElementById('topbar').style.paddingTop = api.safeArea.top + 'px';
+        var strDM = api.systemType;//系统
+        var strSV = parseFloat(api.systemVersion,10);//版本
+        var titleHeight=0;
+        if(strDM == 'ios' && strSV > 7){
+            titleHeight=20
+        }else if(strDM == 'android' && strSV >= 4.4){
+            titleHeight = 25;
+        }
+        document.getElementById('topbar').style.paddingTop = titleHeight + 'px';
+        var strDM = api.systemType;//系统
+        var strSV = parseFloat(api.systemVersion,10);//版本
+
+        var titleHeight=0;
+        if((strDM == 'ios' && strSV > 7)||(strDM == 'android' && strSV >= 4.4)){
+            titleHeight=api.safeArea.top;
+        }
+        document.getElementById('topbar').style.paddingTop = titleHeight + 'px';
+        document.getElementById('topbar').style.display = "block";
+        var res = api.pageParam;
+        window_width = api.winWidth;
+        api.openFrameGroup ({
+            name: 'examines',
+            background:'#fff',
+            scrollEnabled:true,
+            preload:2,
+            rect : {
+                x : 0,
+                y : headHeight+api.safeArea.top + 291,
+                w : 'auto',
+                h : api.winHeight-headHeight-api.safeArea.top - 291
+            },
+            index:0,
+            frames: [{
+                name: 'examine',
+                url: 'showBabyHealth_normal_body.html',
+                bgColor :'rgba(246,246,246,1)',
+                pageParam:{type:0,index:0,ctime:ctime,cid:cid}
+            },{
+                name: 'complain',
+                url: 'showBabyHealth_unnormal_body.html',
+                bgColor :'rgba(246,246,246,1)',
+                pageParam:{type:2,index:1,ctime:ctime,cid:cid}
+            }
+            ]
+        }, function(ret, err){
+            switchFrameCallback(ret.index);
+        });
+    };
+    var drawCircle = function(canvasId, data_arr, color_arr){
+        var drawing = document.getElementById(canvasId);
+//            var hei = document.getElementsByClassName(canvas) ;
+//            alert(hei.offsetHeight)
+
+        if(drawing.getContext){
+            var context = drawing.getContext('2d');
+            var radius = 75,//半径
+                    ox = radius, oy = radius; //圆心
+            var startAngle = 0, endAngle = 0;//起始、结束弧度
+            for(var i=0,len=data_arr.length;i<len;i++){
+                //绘制饼图
+                endAngle += data_arr[i]*2*Math.PI;
+                context.fillStyle = color_arr[i];
+                context.beginPath();
+                context.moveTo(ox, oy);
+                context.arc(ox, oy, radius, startAngle, endAngle, false);
+                context.closePath();
+                context.fill();
+                startAngle = endAngle;
+            }
+        }
+    };
+    function switchFrameGroupIndex(index){
+        _index = index;
+        api.setFrameGroupIndex({
+            name : "examines",
+            index : index,
+            scroll : true//可以左右滑动
+        });
+    }
+    function switchFrameCallback(index){
+//	        var width = (window_width / 3) * index;
+        var spans_01 = document.querySelectorAll(".fl-item");
+        for (var i = 0; i < spans_01.length; i++) {
+            if (i == index) {
+                spans_01[i].classList.add("selected")
+                spans_01[i].style.color = "#5EC4E0";
+            } else {
+                spans_01[i].classList.remove("selected")
+                spans_01[i].style.color = "#000";
+            }
+        }
+    }
+    //渲染页面
+
+    function RenderingYang(time,cid){
+        ajaxGet(getClazzAllDayCheck,{cid:cid,day:time},function(ret,err){
+            if(ret.success == true){
+                document.getElementById("nomarlNum").innerHTML = ret.data.nomarlNum;
+                document.getElementById("exceptionNum").innerHTML = ret.data.exceptionNum;
+                document.getElementById("yield").innerHTML = Math.ceil( ret.data.yield * 100) + "%";
+                document.getElementById("YBaby").innerHTML = "(" + ret.data.nomarlNum +")";
+                document.getElementById("LBaby").innerHTML = "(" + ret.data.exceptionNum + ")";
+                if(ret.data.nomarlNum == 0 && ret.data.exceptionNum == 0){
+
+                    var init = function(){
+                        var data_arr = [0.5,0.5],
+                                color_arr = ['#67C49C','#D4602C'];
+                        drawCircle('data-chart', data_arr, color_arr);
+
+                    };
+                    init();
+                }else{
+                    var init = function(){
+                        var sum = ret.data.nomarlNum+ret.data.exceptionNum;
+                        var data_arr = [ret.data.nomarlNum/sum,ret.data.exceptionNum/sum],
+                                color_arr = ['#67C49C','#D4602C'];
+                        drawCircle('data-chart', data_arr, color_arr);
+
+                    };
+                    init();
+                }
+            }
+        })
+    }
+    //时间选择
+    function formatTime(date){
+        var year = date.getFullYear();
+        var month = date.getMonth()+1, month = month < 10 ? "0" + month : month;
+        var day = date.getDate(), day =day < 10 ? "0" + day : day;
+        return year + '-' + month + '-' + day;
+    }
+    var now = new Date();  //获取当前日期
+    var Time =document.getElementById("Time");
+    var Week =document.getElementById("week");
+    //初始化当前日期
+    Time.innerHTML=formatTime(now);
+    //初始化星期
+    CalculationWeek(now.getDay());
+    //减去
+    function Subtract(){
+        var arr = Time.innerHTML;
+        var dd = new Date(arr);
+        Time.innerHTML = addDate(dd,-1);
+        //重置星期
+        var Ctime = Time.innerHTML;
+        var week = new Date(Ctime).getDay();
+        CalculationWeek(week);
+        var Yangtime = Date.parse(Ctime);
+        RenderingYang(Yangtime,cid);
+        api.execScript({
+            frameName:"examine",
+            script:" getDate("+ Yangtime +")"
+        });
+        api.execScript({
+            frameName:"complain",
+            script:" getDate("+ Yangtime +")"
+        });
+        apiready()
+    }
+    //增加
+    function increase() {
+        var arr = Time.innerHTML;
+        var dd = new Date(arr);
+        Time.innerHTML = addDate(dd, +1);
+        //重置星期
+        var Ctime = Time.innerHTML;
+        var week = new Date(Ctime).getDay();
+        CalculationWeek(week);
+        var Yangtime = Date.parse(Ctime);
+        RenderingYang(Yangtime, cid);
+        api.execScript({
+            frameName:"examine",
+            script:" getDate("+ Yangtime +")"
+        });
+        api.execScript({
+            frameName:"complain",
+            script:" getDate("+ Yangtime +")"
+        });
+        apiready()
+    }
+
+    //计算当前日期
+    function addDate(date,days){
+        var d=new Date(date);
+        d.setDate(d.getDate()+days);
+        var m=d.getMonth()+1;
+        var mm;
+        if(m<10){
+            mm = "0" + m
+        }
+        var dd;
+        if(d.getDate() < 10){
+            dd = "0"+ d.getDate()
+        }else{
+            dd = d.getDate()
+        }
+        return d.getFullYear()+'-'+mm+'-'+dd;
+    }
+    //计算当前星期几并赋值
+    function CalculationWeek(week){
+        switch(week)
+        {
+            case 1:
+                Week.innerHTML = "星期一";
+                break;
+            case 2:
+                Week.innerHTML = "星期二";
+                break;
+            case 3:
+                Week.innerHTML = "星期三";
+                break;
+            case 4:
+                Week.innerHTML = "星期四";
+                break;
+            case 5:
+                Week.innerHTML = "星期五";
+                break;
+            case 6:
+                Week.innerHTML = "星期六";
+                break;f
+            case 0:
+                Week.innerHTML = "星期日";
+                break;
+        }
+    }
+</script>
+</html>

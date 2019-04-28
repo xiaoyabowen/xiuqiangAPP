@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>家长管理-新增</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F2F2F2;
+			}
+            .add-info{
+                width:100%;
+                padding:12px 8px;
+                box-sizing: border-box;
+            }
+            .ai{
+                width:100%;
+                height:285px;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding: 7px 10px;
+                box-sizing: border-box;
+            }
+            .ai>ul{
+                width:100%;
+            }
+            .ai>ul li{
+                width:100%;
+                height:40px;
+                border: 1px solid #D7D7D7;
+                border-radius: 4px;
+                padding-top:8.5px;
+                margin-top:5px;
+                box-sizing: border-box;
+            }
+            .ai>ul li>:nth-child(1){
+                width:101px;
+                height:23px;
+                line-height:23px;
+                text-align: left;
+                padding-left:18px;
+                font-size:16px;
+                color:#505050;
+                border-right:1px solid #D7D7D7;
+                box-sizing: border-box;
+                float:left;
+            }
+            .baby-name,.relation,.phone{
+                line-height:23px;
+                font-size:14px;
+                color:#C8C8C8;
+                letter-spacing: 0.19px;
+                float:left;
+                margin-left:18px;
+            }
+            .submit{
+                width:100%;
+                height:44px;
+                line-height:44px;
+                text-align: center;
+                background: #5AC8E1;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                font-size: 16px;
+                color: #FFFFFF;
+                letter-spacing: 0.22px;
+                margin-top:20px;
+            }
+            input{
+                font-size:14px;
+                color:#C8C8C8;
+                line-height:23px;
+                
+            }
+		</style>
+	</head>
+	<body>
+        <div class="add-info">
+            <div class="ai">
+                <ul>
+                    <li>
+                        <div>宝宝姓名</div>
+                        <div class="baby-name">
+                            <input type="text" placeholder="于利宏" size="15">
+                        </div>
+                    </li>
+                    <li>
+                        <div>亲属关系</div>
+                        <div class="relation">
+                            <input type="text" placeholder="爸爸" size="15"> 
+                        </div>
+                    </li>
+                    <li>
+                        <div>手机号</div>
+                        <div class="phone">
+                            <input type="text" placeholder="12345678931"  size="11">
+                        </div>
+                    </li>
+                </ul>
+                <div class="submit">提交</div>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		
+	</script>
+</html>

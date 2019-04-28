@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!--阻止自动判断电话-->
+        <meta name="format-detection" content="telephone=no" />
+		<title>审核申请-未通过</title>
+		<link rel="stylesheet" href="../../css/api.css"/>
+		<link rel="stylesheet" href="../../css/commonWindow.css"/>
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            .audit-list{
+                width:100%;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .audit-list>ul{
+                width:100%;
+                padding-top:12px;
+            }
+            .audit-list>ul .al-item{
+                width:100%;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                padding:20px 12px 20px 12px;
+                margin-bottom:12px;
+                box-sizing: border-box;
+            }
+            .top-info{
+                padding:0px 6px 6px 6px;
+                border-bottom:1px solid #EEEEEE;
+                box-sizing: border-box;
+            }
+            .top-info>:nth-child(1){
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.16px;
+                line-height:20px;
+            }
+            .top-info>:nth-child(2){
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.19px;
+                line-height:20px;
+            }
+            .top-info>:nth-child(3){
+                font-size: 12px;
+                color: #999999;
+                letter-spacing: 0.16px;
+                line-height:20px;
+                float:right;
+            }
+            .detail-info{
+                clear:both;
+                margin-top:6px;
+                padding-left:6px;
+            }
+            .di-item>:nth-child(1){
+                font-size: 12px;
+                color: #333333;
+                letter-spacing: 0.16px;
+                line-height:17px;
+            }
+            .di-item>:nth-child(2){
+                font-size: 12px;
+                color: #333333;
+                letter-spacing: 0.19px;
+                line-height:20px;
+            }
+            .detail-info{
+                position: relative;
+            }
+            .detail-info .checking{
+                position:absolute;
+                top:14px;
+                right:8px;
+                /* width:46px; */
+                height:21px;
+                padding-left:11px;
+                padding-right:11px;
+                border: 1px solid #6CC49E;
+                border-radius: 4px;
+                text-align: center;
+                line-height:21px;
+                font-size: 12px;
+                color: #505050;
+                letter-spacing: 0.16px;
+                box-sizing: border-box;
+            }
+		</style>
+	</head>
+	<body id="body">
+
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/html" id="tmpScript">
+		<%if(list.length){%>
+		<div class="audit-list">
+            <ul>
+				<%for(var i=0;i<list.length;i++){%>
+                <li class="al-item">
+                    <div class="top-info">
+                        <span>申请人</span>
+                        <span><%=list[i].reqUserName%></span>
+                        <span><%=list[i].Utime%></span>
+                    </div>
+                    <ul class="detail-info">
+                        <div class="checking">未通过</div>
+                        <li class="di-item">
+                            <span>资产仓库：</span>
+                            <span><%=list[i].locationName%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>资产分类：</span>
+                            <span><%=list[i].kindName%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>资产型号：</span>
+                            <span><%=list[i].itemInfoVersion%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>申请数量：</span>
+                            <span><%=list[i].num%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>使用部门：</span>
+                            <span><%=list[i].reqDepartment%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>申请理由：</span>
+                            <span><%=list[i].desc%></span>
+                        </li>
+                        <li class="di-item">
+                            <span>资产编号：</span>
+                            <span><%=list[i].itemInfoCode%></span>
+                        </li>
+                    </ul>
+                </li>
+				<%}%>
+            </ul>
+        </div>
+		<%}%>
+	</script>
+
+	<script>
+		apiready = function () {
+            var Sid = getUserInfo().sid;
+            var lid = parseInt(api.pageParam.lid);
+			new datalistModel(addDataToHtml,getAuditNo,{sid:Sid,lid:lid},10,5,100,true);
+		};
+
+		function addDataToHtml(results){
+			if(results){
+				for(var i = 0;i<results.length;i++){
+					var a = formatTimeToDay(results[i].utime);
+					results[i]['Utime'] = a;
+				}
+				var data = {list: results};
+				var html = template('tmpScript',data);
+				document.getElementById('body').innerHTML = html;
+				api.parseTapmode();
+				document.getElementById("body").style.display = "block";
+			}
+		}
+
+	</script>
+
+</html>

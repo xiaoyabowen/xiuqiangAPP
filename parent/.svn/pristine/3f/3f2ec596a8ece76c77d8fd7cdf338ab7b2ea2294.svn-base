@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>举报描述</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			#topbar .right{
+				right: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" style="display: block;">
+		    <div id="leftButton" onclick="closeWin()">
+		        <img style="width:25px;height:25px;" src="../../icon/back.png">
+		    </div>
+	    	<div>投诉</div>
+	    	<div onclick="Submission()" class="right"><img style="width: 20px;height: 20px;display: block;" src="../../icon/share.png"/></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+
+
+        function Submission() {
+
+                api.showProgress({
+                    title: '发布中...',
+                    text: '请稍等...',
+                    modal: false
+                });
+                api.execScript({
+                    frameName:"wonderfulTime_Reportdescription_body",
+                    script:"Parent()"
+                })
+
+
+
+        }
+	
+	</script>
+</html>

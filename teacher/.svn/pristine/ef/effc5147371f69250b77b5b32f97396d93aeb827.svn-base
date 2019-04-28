@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/commonWindow.css"/>
+    <title>智慧乐园</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #F8F8F8;
+        }
+
+        body .swiper-container {
+            width: 100%;
+        }
+
+        body .swiper-slide a {
+            display: block
+        }
+
+        body .swiper-slide img {
+            width: 100%;
+            height: 198px;
+            vertical-align: middle;
+        }
+
+        /*通知样式*/
+        .tag-info {
+            position: absolute;
+            width: 100%;
+            height: 51px;
+            padding: 12px 14px 7px;
+            background: rgba(0, 0, 0, 0.50);
+            bottom: 0px;
+            box-sizing: border-box;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .tag-info .title {
+            font-size: 14px;
+            line-height: 14px;
+            color: #FFFFFF;
+        }
+
+        .tag-info .text {
+            margin-top: 6px;
+            font-size: 12px;
+            line-height: 12px;
+            color: #FFFFFF;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .menu-list {
+            width: 100%;
+            display: -webkit-box;
+            display: -mz-flexbox;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding-left: 14px;
+            padding-right: 14px;
+            box-sizing: border-box;
+        }
+
+        .menu-list li {
+            width: 23%;
+            margin-top: 12px;
+            box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.10);
+            border-radius: 8px;
+        }
+
+        .menu-list li > :nth-child(1) {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+        }
+
+        .menu-list li > :nth-child(1) > :nth-child(1) {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            bottom: 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 12px;
+            color: #FFFFFF;
+            letter-spacing: 0.25px;
+            padding-top: 70%;
+            box-sizing: border-box;
+        }
+
+        .menu-list > :nth-child(1) {
+            background: #5AC8E1;
+            background-image: url('../../icon/kcb.png');
+            background-size: 35% 35%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(2) {
+            background: #91C559;
+            background-image: url('../../icon/xxjf.png');
+            background-size: 40% 40%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(3) {
+            background: #D16034;
+            background-image: url('../../icon/mzsp.png');
+            background-size: 41% 39%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(4) {
+            background: #31CACF;
+            background-image: url('../../icon/mzpy.png');
+            background-size: 43% 43%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(5) {
+            background: #30C9CE;
+            background-image: url('../../icon/yekq.png');
+            background-size: 43% 43%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        #menus-more {
+            background: #6CC29D;
+            background-image: url('../../icon/more.png');
+            background-size: 40% 40%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(6) {
+            background: #58C598;
+            background-image: url('../../icon/ticon.png');
+            background-size: 40% 30%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(7) {
+            background: #F8BC0F;
+            background-image: url('../../icon/sicon.png');
+            background-size: 46% 46%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        .menu-list > :nth-child(8) {
+            background: #6CC29D;
+            background-image: url('../../icon/more.png');
+            background-size: 46% 46%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+
+        #msgTmp {
+            width: 100%;
+            height: 100%;
+            padding-left: 14px;
+            padding-right: 14px;
+            padding-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        .bbs,
+        .cookbook,
+        .timeline,
+        .attendance,
+        .teach {
+            width: 100%;
+            height: 75px;
+        }
+
+        .bbs-content,
+        .cookbook-content,
+        .timeline-content,
+        .attendance-content,
+        .teach-content {
+            width: 100%;
+            height: 75px;
+            background: #FFFFFF;
+            padding-top: 8px;
+            padding-left: 54px;
+            padding-right: 14px;
+            box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .margin {
+            margin: 12px 0;
+        }
+
+        .bbs-content {
+            background-image: url("../../icon/bbs.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: top 12px left 18px;
+        }
+
+        .cookbook-content {
+            background-image: url("../../icon/cbicon.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: top 12px left 18px;
+        }
+
+        .timeline-content {
+            background-image: url("../../icon/jcsj_01.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: top 12px left 18px;
+        }
+
+        .attendance-content {
+            background-image: url("../../icon/bbkq_01.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: top 12px left 18px;
+        }
+
+        .teach-content {
+            background-image: url("../../icon/jxzl_01.png");
+            background-repeat: no-repeat;
+            background-size: 24px 24px;
+            background-position: top 12px left 18px;
+        }
+
+        .bc-title,
+        .cc-title {
+            margin-bottom: 6px;
+            font-size: 15px;
+            color: #989898;
+            letter-spacing: 0.31px;
+            line-height: 21px;
+        }
+
+        .bc-time,
+        .cc-time {
+            font-size: 12px;
+            color: #C1C1C1;
+            letter-spacing: 0.25px;
+            position: absolute;
+            top: 8px;
+            right: 14px;
+        }
+
+        .bc-info,
+        .cc-info {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            font-size: 12px;
+            color: #B2B3B5;
+            letter-spacing: 0.25px;
+            margin-top: 4px;
+            line-height: 17px;
+        }
+    </style>
+</head>
+
+<body id="body" style="display:block !important">
+<div id="main">
+    <div id="banner">
+
+    </div>
+
+    <div class="menus" id="menusTmp">
+
+    </div>
+
+    <div id="msgTmp">
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<!-- bannner模板 -->
+<script type="text/html" id="scriptBanner">
+    <%if(list.data){%>
+    <div class="mui-slider" id="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <div class="mui-slider-item">
+                <a style="width: 100%;">
+                    <img style="width:100%;height:<%=list.data[0].height%>" src="<%=list.data[0].image%>"
+                         onclick="systemForword('<%=list.data[0].url%>',2,{reload:true})">
+                </a>
+            </div>
+            <%for(var i = 0;i < list.data.length; i++){%>
+            <!-- 第一张 -->
+            <div class="mui-slider-item">
+                <a style="width: 100%;">
+                    <img style="width:100%;height:<%=list.data[i].height%>" src="<%=list.data[i].image%>"
+                         onclick="systemForword('<%=list.data[i].url%>',2,{reload:true})">
+                </a>
+            </div>
+            <%}%>
+            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <div class="mui-slider-item mui-slider-item-duplicate">
+                <a style="width: 100%;">
+                    <img style="width:100%;height:<%=list.data[0].height%>" src="<%=list.data[0].image%>"
+                         onclick="systemForword('<%=list.data[0].url%>',2,{reload:true})">
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <%for(var i = 1;i < list.data.length; i++){%>
+            <div class="mui-indicator"></div>
+            <%}%>
+        </div>
+    </div>
+    <%}%>
+</script>
+<!-- 功能点模板 -->
+<script type="text/html" id="scriptFunList">
+    <%if(list.length){%>
+    <ul class="menu-list">
+        <%if(list.length <= 7){%>
+        <%for(var i = 0;i < list.length;i++){%>
+        <li onclick="openNew('<%=list[i].redirect%>','<%=list[i].id%>')"
+            style="background-image: url('<%=list[i].icon%>');background-color: <%=list[i].backgroundColor%>;">
+            <div>
+                <div>
+                    <%=list[i].name%>
+                </div>
+            </div>
+        </li>
+        <%}%>
+        <%}else{%>
+        <%for(var i = 0;i < 7;i++){%>
+        <li onclick="openNew('<%=list[i].redirect%>','<%=list[i].id%>')"
+            style="background-image: url('<%=list[i].icon%>');background-color: <%=list[i].backgroundColor%>;">
+            <div>
+                <div>
+                    <%=list[i].name%>
+                </div>
+            </div>
+        </li>
+        <%}%>
+        <%}%>
+        <%if(list.length >= 7){%>
+        <li id="menus-more" onclick="openMore()">
+            <div>
+                <div>更多</div>
+            </div>
+        </li>
+        <%}%>
+    </ul>
+    <%}%>
+</script>
+<!-- 通知 -->
+<script type="text/html" id="msgScript">
+    <%if(list.length){%>
+    <%for(var i = 0;i
+    <list.length;i++){%>
+    <%if(list[i].messageType == 5){%>
+    <div class="bbs" onclick="openNewWindow('classNotice','../ourClas/classNotice.html')">
+        <div class="bbs-content margin">
+            <div class="bc-title">校园公告</div>
+            <div class="bc-time"><%=list[i].Ctime%></div>
+            <div class="bc-info">
+                <div><%=list[i].content%></div>
+            </div>
+        </div>
+    </div>
+    <%}else if(list[i].messageType == 3){%>
+    <div class="cookbook" onclick="openNewWindow('babyCookBook','../babyCookBook/babyCookBook.html')">
+        <div class="cookbook-content margin">
+            <div class="cc-title">每周食谱</div>
+            <div class="cc-time"><%=list[i].Ctime%></div>
+            <div class="cc-info">
+                <div><%=list[i].content%></div>
+            </div>
+        </div>
+    </div>
+    <%}else if(list[i].messageType == 1){%>
+    <div class="timeline" onclick="openNewWindow('wonderfulTime','../wonderfulTime/wonderfulTime.html')">
+        <div class="timeline-content margin">
+            <div class="cc-title">精彩瞬间</div>
+            <div class="cc-time"><%=list[i].Ctime%></div>
+            <div class="cc-info">
+                <div><%=list[i].content%></div>
+            </div>
+        </div>
+    </div>
+    <%}else if(list[i].messageType == 2){%>
+    <div class="attendance">
+        <div class="attendance-content margin">
+            <%if(list[i].type == 0){%>
+            <div class="cc-title"  onclick="openNewWindow('baby_normal','../clockingIn/baby_normal.html')">宝宝考勤</div>
+            <%}else{%>
+            <div class="cc-title"  onclick="openNewWindow('teacherClockingIn','../clockingIn/teacherClockingIn.html')">教师考勤</div>
+            <%}%>
+            <div class="cc-time"><%=list[i].Ctime%></div>
+            <div class="cc-info">
+                <div><%=list[i].content%></div>
+            </div>
+        </div>
+    </div>
+    <%}else if(list[i].messageType == 4){%>
+    <div class="teach" onclick="openNewWindow('teachManger','../teachManage/teachManger.html')">
+        <div class="teach-content margin">
+            <div class="cc-title">教学资料</div>
+            <div class="cc-time"><%=list[i].Ctime%></div>
+            <div class="cc-info">
+                <%=list[i].content%>
+            </div>
+        </div>
+    </div>
+    <%}%>
+    <%}%>
+    <%}%>
+</script>
+
+<script>
+    // 声明一个功能点的map集合
+    var funPortBg = {
+        1: {'backgroundColor': '#5AC8E1'},
+        2: {'backgroundColor': '#91C559'},
+        3: {'backgroundColor': '#31CACF'},
+        4: {'backgroundColor': '#58C598'},
+        5: {'backgroundColor': '#30C9CE;'},
+        6: {'backgroundColor': '#D16034'},
+        7: {'backgroundColor': '#F8BC0F'},
+        8: {'backgroundColor': '#58C598'},
+        9: {'backgroundColor': '#91C559'},
+        10: {'backgroundColor': '#57C497'},
+        11: {'backgroundColor': '#5AC8E1'},
+        12: {'backgroundColor': '#6CC29D'},
+        13: {'backgroundColor': '#DD5A7C'},
+        14: {'backgroundColor': '#D18934'},
+        15: {'backgroundColor': '#F8970F'},
+        16: {'backgroundColor': '#F17035'},
+        17: {'backgroundColor': '#4FC797'},
+        18: {'backgroundColor': '#91C559'},
+
+    };
+    var bannerResults = {};
+
+    apiready = function () {
+        var Sid = getUserInfo().sid;
+        //功能点 缓存
+        getIndexData_cache(DataToHtml, getIndexFunList, {sid: Sid, terminalType: 2})
+        //轮播 缓存
+        getIndexData_cache(bannerDataToHtml, getBannerImg, {sid: Sid, bannerType: 1, terminalType: 2})
+
+        // 获取消息列表getIndexMsgList
+        api.setRefreshHeaderInfo({
+            visible: true,
+            bgColor: 'rgba(0,0,0,0)',
+            textColor: '#666',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...'
+        }, function (ret, err) {
+            //功能点 缓存
+            getIndexData_cache(DataToHtml, getIndexFunList, {sid: Sid, terminalType: 2})
+            //轮播 缓存
+            getIndexData_cache(bannerDataToHtml, getBannerImg, {sid: Sid, bannerType: 1, terminalType: 2})
+            ajaxGet(getIndexMsgList, {cursor: 0, size: 5}, function (ret, err) {
+                if (ret && isNotBlack(ret.data)) {
+                    api.refreshHeaderLoadDone();
+                    msgDataToHtml(ret.data);
+                } else {
+                    api.refreshHeaderLoadDone();
+                }
+            })
+        });
+        api.refreshHeaderLoading();
+    }
+
+    //数据缓存
+    function getIndexData_cache(functionName, url, params) {
+        getServerInfoUseCache(
+                function () {
+                },
+                function (results) {
+                    functionName(results)
+                },
+                function (results) {
+                    functionName(results)
+                },
+                function () {
+                },
+                url, params, true, false
+        )
+    }
+
+    // 功能点渲染html
+    function DataToHtml(Results) {
+        if (isNotBlack(Results)) {
+            for (var i = 0; i < Results.data.length; i++) {
+                Results.data[i].backgroundColor =
+                        funPortBg[Results.data[i].sort].backgroundColor;
+            }
+            var data = {
+                list: Results.data.sort(compare('sort')) //根据sort字段排序（升序）
+            };
+            var html = template('scriptFunList', data);
+//                alert(data.url);
+            document.getElementById('menusTmp').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+    }
+    ;
+    //排序  （升序）
+    function compare(data) {
+        return function (a, b) {
+            var value1 = a[data];
+            var value2 = b[data];
+            return value1 - value2;
+        }
+    }
+
+    function bannerDataToHtml(results) {
+        if (isNotBlack(results.data)) {
+            var data;
+            for (var i = 0; i < results.data.length; i++) {
+                bannerResults[results.data[i].id] = results.data[i];
+                var height = api.winWidth * 0.55 + "px";
+                results.data[i].height = height;
+                results.data[i].image = changeImgBySize(results.data[i].image, api.winWidth);
+                data = {list: results};
+            }
+            var html = template('scriptBanner', data);
+            document.getElementById('banner').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+
+            setTimeout(function () {
+                var gallery = mui('.mui-slider');
+                gallery.slider({
+                    interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
+                });
+            }, 500)
+        }
+    }
+    // 消息列表
+    function msgDataToHtml(results) {
+        if (isNotBlack(results)) {
+            var data;
+            for (var i = 0; i < results.length; i++) {
+                var time = formatTimeToAll(results[i].ctime);
+                results[i].Ctime = time;
+            }
+            data = {list: results};
+            var html = template('msgScript', data);
+            document.getElementById('msgTmp').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+    }
+
+    //打开更多
+    function openMore() {
+        openNewWindow("more", "more.html")
+    }
+
+    function openNew(url, id) {
+        if (id == 57 || id == 58 || id == 59 || id == 107 || id == 108) {
+            if (isBlack(getUserInfo().cids[0])) {
+                showOneDialog("温馨提示", "您还没有开班，暂不能查看该信息", "确定", function () {
+
+                })
+            } else if (url) {
+                var name = url.substring(url.lastIndexOf("/") + 1).split(".")[0]
+                openNewWindow(name, url);
+            }
+        } else if (url) {
+            var name = url.substring(url.lastIndexOf("/") + 1).split(".")[0]
+            openNewWindow(name, url);
+        } else {
+            if (id == 67) {
+                //宝宝秀  跳原生
+                api.accessNative({
+                    name: "BabyShow",
+                    extra: {
+                        server: serverUrl + "/baby/getbabyshow",
+                        token: getUserInfo().token,
+                        sid: getUserInfo().sid
+                    }
+                }, function (ret, err) {
+
+                });
+            } else if (id == 109) {
+                //统计
+                api.accessNative({
+                    name: "TJ",
+                    extra: {
+                        server: serverUrl + "/statistics/StatisticsAppBySmonthAndEmonthPercent",
+                        token: getUserInfo().token,
+                        sid: getUserInfo().sid
+                    }
+                }, function (ret, err) {
+
+                });
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

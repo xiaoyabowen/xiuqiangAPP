@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="stylesheet" href="../../css/api.css">
+	<link rel="stylesheet" href="../../css/commonWindow.css">
+	<title>我们班</title>
+	<style>
+		html,body{
+			min-width:320px;
+			height: 100%;
+		}
+		.top li{
+			text-align: center;
+			border-radius: 8px;
+			box-sizing: border-box;
+		}
+		.top li>:nth-child(1){
+			position:relative;
+			width:100%;
+			height:0;
+			padding-bottom:100%;
+		}
+		.top li>:nth-child(1)>:nth-child(1){
+			display:block;
+			position: absolute;
+			width:100%;
+			height:100%;
+			top:0;
+			bottom:0;
+			border-radius:8px;
+			text-align: center;
+			font-size: 12px;
+			color: #FFFFFF;
+			letter-spacing: 0.25px;
+			padding-top:70%;
+			box-sizing: border-box;
+		}
+		.top>:nth-child(1){
+			background: #5AC8E1;
+		}
+		.top>:nth-child(2){
+			background: #92CA55;
+		}
+		.top>:nth-child(3){
+			background: #31CACF;
+		}
+		.top>:nth-child(4){
+			background: #67C49C;
+		}
+		.top>:nth-child(5){
+			background: #5AC8E1;
+		}
+		.top>:nth-child(1){
+			background-image:url('../../icon/sicon.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(2){
+			background-image:url('../../icon/fwsb.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(3){
+			background-image:url('../../icon/mzsp.png');
+			background-size:40% 40%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(4){
+			background-image:url('../../icon/mzpy.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.top>:nth-child(5){
+			background-image:url('../../icon/health.png');
+			background-size:43% 43%;
+			background-repeat:no-repeat;
+			background-position: center 35%;
+		}
+		.key-indicator{
+			width:100%;
+			height:181px;
+			box-sizing: border-box;
+		}
+		.ki{
+			width:100%;
+			height:100%;
+			background: #FFFFFF;
+			border-radius:8px;
+			box-sizing: border-box;
+		}
+		.con{
+			width: 100%;
+			height: 181px;
+			padding-top:20px;
+			background: #FFFFFF;
+			border-radius:4px;
+			box-sizing: border-box;
+		}
+		.con li{
+			float: left;
+			width: 50%;
+			text-align: center;
+			position: relative;
+			box-sizing: border-box;margin-bottom:57px;
+		}
+		.od-border,.mc-border{
+			width:224px;
+			height:224px;
+			margin:0 auto;
+			background: #FFFFFF;
+			border-radius:50%;
+			text-align: center;
+			box-shadow: 0 2px 6px 0 #CDE3E9;
+			position: relative;
+			zoom:0.5;
+		}
+		#on-duty,#morning-check{
+			position:absolute;
+			left:0px;
+		}
+		.teacher-list li,.students-list li{
+			width:100%;
+			/* height:58px; */
+			border-bottom:1px solid #F2F2F2;
+			padding-top:10px;
+			padding-left:6px;
+			padding-right:6px;
+			line-height: 38px;
+			box-sizing: border-box;
+			background-image:url('../../icon/teacherinfo.png');
+			background-size:16px 16px;
+			background-repeat:no-repeat;
+			background-position:right  center;
+		}
+		.teacher-list li{
+			height:53px;
+		}
+		.students-list li{
+			height:54px;
+		}
+		.teacher-list li .fl-item,.students-list li .fl-item{
+			float:left;
+		}
+		.t-avatar>img,.s-avatar>img{
+			width:36px;
+			height:36px;
+			border-radius:50%;
+		}
+	</style>
+</head>
+<body>
+<div class="key-indicator" id="aa">
+
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+</script>
+</body>
+</html>

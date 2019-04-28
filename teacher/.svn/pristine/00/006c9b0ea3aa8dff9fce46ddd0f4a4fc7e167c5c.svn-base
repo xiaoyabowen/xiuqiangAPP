@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <!-- 时间插件 -->
+    <link href="../../css/dateSelect.css" rel="stylesheet">
+    <title>宝宝食谱</title>
+    <style>
+        body {
+            background: #F2F2F2;
+            height: auto;
+        }
+
+        .select-menu {
+            width: 100%;
+            padding: 12px 8px 0px;
+            box-sizing: border-box;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .select-menu .sm {
+            width: 100%;
+            height: 42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left: 18px;
+            padding-top: 9px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .select-version {
+            height: 24px;
+            line-height: 24px;
+            background: #92CA55;
+            color: #FFFFFF;
+            font-size: 12px;
+            border-radius: 100px;
+            padding-left: 10px;
+            padding-right: 10px;
+            display: inline-block;
+            box-sizing: border-box;
+            position: absolute;
+            left: 13px;
+        }
+
+        .select-name {
+            width: 70px;
+            height: 24px;
+            line-height: 24px;
+            color: #FFFFFF;
+            font-size: 12px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 100px;
+            background: #ffc101;
+            position: absolute;
+            right: 13px;
+        }
+
+        .version-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .version-content {
+            width: 105px;
+            height: 60px;
+            background: #fff;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            position: absolute;
+            left: 0;
+            top: 42px;
+            z-index: 100;
+            padding: 10px;
+            display: none;
+        }
+
+        .version-name-0 {
+            margin-bottom: 10px;
+        }
+
+        @media screen and (max-width: 320px) {
+            .select-version {
+                left: 5px;
+                padding-right: 5px;
+            }
+
+            .select-version .version-name::after {
+                margin-left: 3px;
+            }
+        }
+
+        .select-version .version-name::after {
+            content: url('../../image/arrow_bt_white.png');
+            width: 12px;
+            vertical-align: middle;
+            margin-left: 3px;
+        }
+        .select-date{
+            margin-left:30px;
+        }
+
+        .select-date > input {
+            outline: none;
+            -webkit-appearance: none;
+            border-radius: 0;
+            display: inline-block;
+            height: 24px;
+            line-height: 24px;
+            /* margin:0 auto; */
+            font-size: 12px;
+            color: #FFFFFF;
+            padding-left: 9px;
+            padding-right: 9px;
+            background: #67C49C;
+            border-radius: 100px;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        .cookbook-info {
+            width: 100%;
+            padding-left: 8px;
+            padding-right: 8px;
+            box-sizing: border-box;
+        }
+
+        .cookbook-info .ci {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding: 21px 18px 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .cookbook-info .ci .edit {
+            position: absolute;
+            right: 18px;
+            top: 19px;
+        }
+
+        .cookbook-info .ci .edit > img {
+            width: 22px;
+            height: 22px;
+        }
+
+        .ci-title div {
+            float: left;
+        }
+
+        .ci-menu {
+            padding-top: 11px;
+        }
+
+        .ci-content {
+            clear: left;
+            margin-bottom: 12px;
+        }
+
+        .ci-title {
+            height: 22px;
+        }
+
+        .ci-title .ci-name {
+            font-size: 14px;
+            color: #333333;
+            line-height: 20px;
+        }
+
+        .ci-title .ci-time {
+            font-size: 12px;
+            color: #999999;
+            line-height: 25px;
+            margin-left: 15px;
+        }
+
+        .ci-list li {
+            margin-bottom: 10px;
+        }
+
+        .ci-list li .cil-left {
+            clear: left;
+        }
+
+        .ci-list li .cil-left img {
+            float: left;
+            width: 105px;
+            height: 105px;
+            border-radius: 4px;
+        }
+
+        .ci-list li .cil-right {
+            width: 100%;
+            height: 105px;
+            padding-left: 117.5px;
+            box-sizing: border-box;
+        }
+
+        .ci-list li .cil-right .cr-item {
+            height: 17px;
+            line-height: 17px;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #333333;
+        }
+
+        .breakfast, .lunch, .dinner {
+            padding-bottom: 1px;
+        }
+
+        .open-more {
+            font-size: 12px;
+            color: #999999;
+            margin-bottom: 10px;
+        }
+
+        .detail-info {
+            font-size: 12px;
+            color: #666666;
+            text-align: justify;
+            margin-top: 6px;
+            line-height: 17px;
+            margin-bottom: 10px;
+        }
+
+        input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #fff;
+        }
+
+        input:-moz-placeholder, textarea:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #fff;
+        }
+
+        input::-moz-placeholder, textarea::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #fff;
+        }
+
+        input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #fff;
+        }
+
+        /*食谱下拉div*/
+        #warpName {
+            width: 180px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            box-sizing: border-box;
+            position: absolute;
+            right: 0px;
+            display: none;
+            z-index: 100;
+        }
+
+        .seek-warp {
+            width: 100%;
+            height: 22px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+
+        #seekVal {
+            width: 80%;
+            height: 22px;
+            border: none;
+            padding-left: 2px;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #666666;
+            letter-spacing: 0.29px;
+            -webkit-appearance: none;
+            float: left;
+        }
+
+        .seek {
+            width: 16px;
+            height: 16px;
+            background: url("../../icon/search.png") no-repeat scroll center transparent;
+            background-size: 100%;
+            float: left;
+            margin-top: 2px;
+        }
+
+        .food-content {
+            height: 84px;
+            overflow: scroll;
+            clear: both;
+        }
+
+        .food {
+            margin-top: 12px;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #666666;
+            letter-spacing: 0.29px;
+        }
+
+        .active {
+            color: #5AC8E1;
+        }
+
+        /*图片排列*/
+        #imgWrap{
+            width: 105px;
+            height: 105px;
+            float: left;
+        }
+        #imgWrap > img{
+            width: 50px;
+            height: 50px;
+            float: left;
+            box-sizing: border-box;
+        }
+        #imgWrap > img:nth-child(1),#imgWrap > img:nth-child(2){
+            margin-bottom: 5px;
+        }
+        #imgWrap > img:nth-child(1){
+            margin-right: 5px;
+        }
+        #imgWrap > img:nth-child(3){
+            margin-right: 5px;
+        }
+        .cil-left{
+            clear:left;
+
+        }
+        #imgWrap > .imgOne{
+            width:105px;
+            height:105px;
+            border-radius:4px;
+        }
+        .cil-right{
+            width:100%;
+            height:105px;
+            padding-left:117.5px;
+            box-sizing: border-box;
+        }
+        #imgWrap > .dotted{
+            width: 105px;
+            height: 105px;
+            border: 1px dotted #cccccc;
+        }
+        /*图片排列*/
+        /*食谱详情显示*/
+
+        .weight,.foodName{
+            width: 100%;
+            display:inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space:nowrap;
+        }
+        /*食谱详情显示*/
+    </style>
+</head>
+<body id="body">
+<div class="select-menu">
+    <div class="sm">
+        <div class="select-version" id="select-dom" onclick="showHide()">
+            <div class="version-name">大众版</div>
+        </div>
+        <div class="version-content" id="version-content">
+            <div class="version-name-0" onclick="getVersion(this)">大众版</div>
+            <div class="version-name-1" onclick="getVersion(this)">清真版</div>
+        </div>
+        <div class="select-date">
+            <input type="text" id="pickDateBtn2" readonly="readonly"
+                   style="width: 200px; position: relative;background: url('../../icon/selected-bg.png')" onfocus="this.blur();"/>
+            <input type="text" placeholder="请选择时间" readonly="readonly" id="pickDateBtn"
+                   style="opacity: 0; width: 200px; position: absolute;top:14px;left: 88px;" onfocus="this.blur();" />
+        </div>
+        <!--<div class="select-name" onclick="openList()">-->
+        <!--<div class="version-name" id="name">请选择食谱</div>-->
+        <!--</div>-->
+    </div>
+    <div id="warpName">
+    </div>
+</div>
+<div class="cookbook-info" id="cookBookDom">
+
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/zepto.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/dateSelect.js"></script>
+
+<script type="text/html" id="cookBook">
+    <div class="ci">
+        <%for(var i=0;i < list.length; i++){%>
+        <!-- 早餐 -->
+        <div class="breakfast">
+            <div class="ci-title">
+                <div class="ci-name">早餐</div>
+                <div class="ci-time">
+                    <span><%=list[i].Day%></span>
+                </div>
+            </div>
+            <ul class="ci-menu">
+                <li class="ci-content">
+                    <ul class="ci-list">
+                        <%for(var j=0;j < list[i].zaoCan.length;j++){%>
+                        <li>
+                            <div class="cil-left" id="imgWrap">
+                                <%if(list[i].zaoCan[j].imgs.length == 1){%>
+                                <img class="imgOne" src="<%=list[i].zaoCan[j].imgs[0]%>" alt="">
+                                <%}else if(list[i].zaoCan[j].imgs.length == 2){%>
+                                <%for(var l=0;l < list[i].zaoCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].zaoCan[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                <%}%>
+                                <%}else if(list[i].zaoCan[j].imgs.length > 2){%>
+                                <%for(var l=0;l < list[i].zaoCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].zaoCan[j].imgs[l]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+                            <div class="cil-right">
+                                <div class="food-name cr-item">
+                                    <span>菜名：</span>
+                                    <span><%=list[i].zaoCan[j].name%></span>
+                                </div>
+
+                                <div class="food-material cr-item">
+                                            <span class="foodName">
+                                                食材：
+                                            <%for(var n=0;n < list[i].zaoCan[j].materials.length;n++){%>
+                                               <%=list[i].zaoCan[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-weight cr-item">
+                                            <span class="weight">
+                                                 重量：
+                                                <%for(var n=0;n < list[i].zaoCan[j].materials.length;n++){%>
+                                                  <%=list[i].zaoCan[j].materials[n].num%><%=list[i].zaoCan[j].materials[n].unit%>,
+                                                <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-attribute cr-item">
+                                    <span>属性：</span>
+                                    <%if(list[i].zaoCan[j].desc == 0){%>
+                                    <span>其他</span>
+                                    <%}else{%>
+                                    <span><%=list[i].zaoCan[j].desc%></span>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <div class="lunch">
+            <div class="ci-title">
+                <div class="ci-name">早点</div>
+            </div>
+            <ul class="ci-menu">
+                <li class="ci-content">
+                    <ul class="ci-list">
+                        <%for(var j=0;j < list[i].zaoDian.length;j++){%>
+                        <li>
+                            <div class="cil-left" id="imgWrap">
+                                <%if(list[i].zaoDian[j].imgs.length == 1){%>
+                                <img class="imgOne" src="<%=list[i].zaoDian[j].imgs[0]%>" alt="">
+                                <%}else if(list[i].zaoDian[j].imgs.length == 2){%>
+                                <%for(var l=0;l < list[i].zaoDian[j].imgs.length;l++){%>
+                                <img src="<%=list[i].zaoDian[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                <%}%>
+                                <%}else if(list[i].zaoDian[j].imgs.length > 2){%>
+                                <%for(var l=0;l < list[i].zaoDian[j].imgs.length;l++){%>
+                                <img src="<%=list[i].zaoDian[j].imgs[l]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+                            <div class="cil-right">
+                                <div class="food-name cr-item">
+                                    <span>菜名：</span>
+                                    <span><%=list[i].zaoDian[j].name%></span>
+                                </div>
+                                <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].zaoDian[j].materials.length;n++){%>
+                                               <%=list[i].zaoDian[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].zaoDian[j].materials.length;n++){%>
+                                               <%=list[i].zaoDian[j].materials[n].num%><%=list[i].zaoDian[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-attribute cr-item">
+                                    <span>属性：</span>
+                                    <%if(list[i].zaoDian[j].desc == 0){%>
+                                    <span>其他</span>
+                                    <%}else{%>
+                                    <span><%=list[i].zaoDian[j].desc%></span>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="dinner">
+            <div class="ci-title">
+                <div class="ci-name">午餐</div>
+            </div>
+            <ul class="ci-menu">
+                <li class="ci-content">
+                    <ul class="ci-list">
+                        <%for(var j=0;j < list[i].wuCan.length;j++){%>
+                        <li>
+                            <div class="cil-left" id="imgWrap">
+                                <%if(list[i].wuCan[j].imgs.length == 1){%>
+                                <img class="imgOne" src="<%=list[i].wuCan[j].imgs[0]%>" alt="">
+                                <%}else if(list[i].wuCan[j].imgs.length == 2){%>
+                                <%for(var l=0;l < list[i].wuCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wuCan[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                <%}%>
+                                <%}else if(list[i].wuCan[j].imgs.length > 2){%>
+                                <%for(var l=0;l < list[i].wuCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wuCan[j].imgs[l]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+                            <div class="cil-right">
+                                <div class="food-name cr-item">
+                                    <span>菜名：</span>
+                                    <span><%=list[i].wuCan[j].name%></span>
+                                </div>
+                                <div class="food-material cr-item">
+                                        <span class="foodName">食材：
+                                        <%for(var n=0;n < list[i].wuCan[j].materials.length;n++){%>
+                                            <%=list[i].wuCan[j].materials[n].name%>,
+                                        <%}%>
+                                        </span>
+                                </div>
+                                <div class="food-weight cr-item">
+                                        <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wuCan[j].materials.length;n++){%>
+                                                <%=list[i].wuCan[j].materials[n].num%><%=list[i].wuCan[j].materials[n].unit%>,
+                                            <%}%>
+                                        </span>
+                                </div>
+                                <div class="food-attribute cr-item">
+                                    <span>属性：</span>
+                                    <%if(list[i].wuCan[j].desc == 0){%>
+                                    <span>其他</span>
+                                    <%}else{%>
+                                    <span><%=list[i].wuCan[j].desc%></span>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="dinner">
+            <div class="ci-title">
+                <div class="ci-name">午点</div>
+            </div>
+            <ul class="ci-menu">
+                <li class="ci-content">
+                    <ul class="ci-list">
+                        <%for(var j=0;j < list[i].wuDian.length;j++){%>
+                        <li>
+                            <div class="cil-left" id="imgWrap">
+                                <%if(list[i].wuDian[j].imgs.length == 1){%>
+                                <img class="imgOne" src="<%=list[i].wuDian[j].imgs[0]%>" alt="">
+                                <%}else if(list[i].wuDian[j].imgs.length == 2){%>
+                                <%for(var l=0;l < list[i].wuDian[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wuDian[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                <%}%>
+                                <%}else if(list[i].wuDian[j].imgs.length > 2){%>
+                                <%for(var l=0;l < list[i].wuDian[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wuDian[j].imgs[l]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+                            <div class="cil-right">
+                                <div class="food-name cr-item">
+                                    <span>菜名：</span>
+                                    <span><%=list[i].wuDian[j].name%></span>
+                                </div>
+                                <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].wuDian[j].materials.length;n++){%>
+                                                <%=list[i].wuDian[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wuDian[j].materials.length;n++){%>
+                                                <%=list[i].wuDian[j].materials[n].num%><%=list[i].wuDian[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-attribute cr-item">
+                                    <span>属性：</span>
+                                    <%if(list[i].wuDian[j].desc == 0){%>
+                                    <span>其他</span>
+                                    <%}else{%>
+                                    <span><%=list[i].wuDian[j].desc%></span>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="dinner">
+            <div class="ci-title">
+                <div class="ci-name">晚餐</div>
+            </div>
+            <ul class="ci-menu">
+                <li class="ci-content">
+                    <ul class="ci-list">
+                        <%for(var j = 0; j < list[i].wanCan.length;j++){%>
+                        <li>
+                            <div class="cil-left" id="imgWrap">
+                                <%if(list[i].wanCan[j].imgs.length == 1){%>
+                                <img class="imgOne" src="<%=list[i].wanCan[j].imgs[0]%>" alt="">
+                                <%}else if(list[i].wanCan[j].imgs.length == 2){%>
+                                <%for(var l=0;l < list[i].wanCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wanCan[j].imgs[l]%>" alt="" style="margin-top: 30px;">
+                                <%}%>
+                                <%}else if(list[i].wanCan[j].imgs.length > 2){%>
+                                <%for(var l=0;l < list[i].wanCan[j].imgs.length;l++){%>
+                                <img src="<%=list[i].wanCan[j].imgs[l]%>" alt="">
+                                <%}%>
+                                <%}%>
+                            </div>
+                            <div class="cil-right">
+                                <div class="food-name cr-item">
+                                    <span>菜名：</span>
+                                    <span><%=list[i].wanCan[j].name%></span>
+                                </div>
+                                <div class="food-material cr-item">
+                                            <span class="foodName">食材：
+                                            <%for(var n=0;n < list[i].wanCan[j].materials.length;n++){%>
+                                                <%=list[i].wanCan[j].materials[n].name%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-weight cr-item">
+                                            <span class="weight">重量：
+                                            <%for(var n=0;n < list[i].wanCan[j].materials.length;n++){%>
+                                                <%=list[i].wanCan[j].materials[n].num%><%=list[i].wanCan[j].materials[n].unit%>,
+                                            <%}%>
+                                            </span>
+                                </div>
+                                <div class="food-attribute cr-item">
+                                    <span>属性：</span>
+                                    <%if(list[i].wanCan[j].desc == 0){%>
+                                    <span>其他</span>
+                                    <%}else{%>
+                                    <span><%=list[i].wanCan[j].desc%></span>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </li>
+                        <%}%>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <%}%>
+        <!-- 展开详情 -->
+        <!--<div class="open-more">-->
+        <!--<span onclick="openDetail()">展开详情</span>-->
+        <!--</div>-->
+        <!--<div class="detail-info" style="display:none;">-->
+        <!--<p>这是一份合理的食谱介绍，每日营养均衡，荤素搭配合理，适合3-6岁的宝宝获取每日营养。</p>-->
+        <!--</div>-->
+    </div>
+
+</script>
+
+<script type="text/html" id="contentTmp">
+    <div class="seek-warp">
+        <input type="search" id="seekVal">
+        <span class="seek" onclick="seek()"></span>
+    </div>
+    <div class="food-content">
+        <%for(var i = 0;i < list.data.length;i++){%>
+        <p class="food" onclick="getValAdd(this,'<%=list.data[i].id%>')"><%=list.data[i].name%></p>
+        <%}%>
+    </div>
+</script>
+
+<script>
+    var Sid;
+    var Version = 0; //初始化版本 0是大众版，1是清真版
+    var Year;
+    var week;
+    apiready = function () {
+        Sid = getUserInfo().sid; //获取当前用户sid
+        $("#pickDateBtn").dateSelect();
+        var date = new Date();
+        Year = date.getFullYear();
+        // 获取食谱数据  初始化
+        getSchoolCookbooksInWeekList(Sid, Version, Year, NewGetWeek(date));
+        week = NewGetWeek(date);
+        $('#pickDateBtn2').val('第' +  NewGetWeek(date) + '周'+ ' ' + getMonday(date,'s') + ' - ' + getMonday(date,'e'));
+    };
+    // 显示版本div
+    function showHide(){
+        $('#version-content').toggle();
+    }
+    // 获取版本
+    function getVersion(obj) {
+        var html = obj.innerHTML;
+        if (html == '大众版') {
+            Version = 0;
+            getSchoolCookbooksInWeekList(Sid, Version, Year, week);
+        }
+        if (html == '清真版') {
+            Version = 1;
+            getSchoolCookbooksInWeekList(Sid, Version, Year, week);
+        }
+        $('.version-name').text(html);
+        $('#version-content').hide();
+    }
+
+    //获取选择时间的数据
+    function getChooesDayNum(date) {
+        //赋值到input
+        $('#pickDateBtn2').val('第' +  NewGetWeek(date) + '周' + ' ' + getMonday(date,'s') + ' - ' + getMonday(date,'e'));
+        //根据当前date 获取当前年
+        var year = parseInt(date.substring(0, 4));
+        week = NewGetWeek(date);
+        // 获取数据
+        getSchoolCookbooksInWeekList(Sid, Version, year, NewGetWeek(date));
+    }
+    // 获取食谱数据方法
+    function getSchoolCookbooksInWeekList(sid, type, year, week) {
+        api.showProgress({
+            title: '请求中...',
+            modal: false
+        });
+        ajaxGet(getSchoolCookbooksInWeek, {sid: sid, type: type, year: year, week: week}, function (ret, err) {
+            if (ret.success && ret.data != '') {
+                api.hideProgress();
+                for (var i = 0; i < ret.data.length; i++) {
+                    ret.data[i].Day = dateToWeek(ret.data[i].day)
+                }
+                addDataHtml(ret.data);
+            } else if (ret.data == '') {
+                api.hideProgress();
+                toast('暂无数据')
+                document.getElementById('cookBookDom').innerHTML = '';
+            }
+
+        });
+    }
+    //20180101 类型的数据装换  带周几
+    function dateToWeek(date){
+        var DATA = date.toString();
+
+        var year = DATA.substring(0,4);
+        var mouth = DATA.substring(4,6);
+        var day = DATA.substring(6,8);
+
+        var newDate1 = year + '-' + mouth + '-' + day;
+        var newDate2 = year + '.' + mouth + '.' + day; //需要的格式
+
+        var week = new Date(newDate1).getDay();
+        var str = '';
+        switch (week) {
+            case 0 :
+                str += "周日";
+                break;
+            case 1 :
+                str += "周一";
+                break;
+            case 2 :
+                str += "周二";
+                break;
+            case 3 :
+                str += "周三";
+                break;
+            case 4 :
+                str += "周四";
+                break;
+            case 5 :
+                str += "周五";
+                break;
+            case 6 :
+                str += "周六";
+                break;
+        }
+        return newDate2 + ' ' + str;
+    };
+
+    function addDataHtml(results) {
+        if (isNotBlack(results)) {
+            var data = {list: results};
+            // alert(results[0].zaoDian[1].imgs.length);
+            var html = template('cookBook', data);
+            document.getElementById('cookBookDom').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+    }
+
+    // 根据选择时间获取本周的开始时间与结束时间
+    //data 传入当前时间
+    //type s 是开始时间 e是结束时间
+    function getMonday(data,type) {
+        var now = new Date(data);
+        var nowTime = now.getTime();
+        var day = now.getDay();
+        var longTime = 24 * 60 * 60 * 1000;
+        //周日是等于0的状态 所以要往回计算
+        if( day == 0 ){
+            if (type == "s") {
+                var dd = nowTime + ( day - 6 )  * longTime;
+            };
+            if (type == "e") {
+                var dd = nowTime - day * longTime;
+            };
+        }else{
+            //常规计算
+            if (type == "s") {
+                var dd = nowTime - (day - 1) * longTime;
+            };
+            if (type == "e") {
+                var dd = nowTime + (7 - day)  * longTime;
+            };
+        }
+        dd = new Date(dd);
+        var y = dd.getFullYear();
+        var m = dd.getMonth() + 1;
+        var d = dd.getDate();
+        m = m < 10 ? "0" + m: m;
+        d = d < 10 ? "0" + d: d;
+        var day = y + "/" + m + "/" + d;
+        return day;
+    };
+
+    //根据选择时间计算周数
+    function NewGetWeek(date) {
+        var day11 = Date.parse(date);
+        var day11 = new Date(day11);
+        day11.setMonth(0);
+        day11.setDate(1);
+        day11.setHours(0);
+        day11.setMinutes(0);
+        day11.setSeconds(0);//到这里就得到该年的一月一日
+
+        var day11mill = day11.getTime();
+        var ori_day = day11.getDay();//该年的一月一日是星期几
+        var fill1 = 0;//与星期日相隔的毫秒数
+        if (ori_day !== 0) {
+            fill1 = ori_day * 60 * 60 * 24 * 1000;
+        }
+
+        var now = Date.parse(date);
+        now = new Date(now);
+        now.setHours(0);
+        now.setMinutes(0);
+        now.setSeconds(0);
+        var nowmill = now.getTime();
+        var now_day = now.getDay();
+        var fill2 = 0;
+        if (now_day !== 0) {
+            fill2 = (7 - now_day) * 60 * 60 * 24 * 1000;
+        }
+
+        var cha2 = (nowmill - day11mill + fill1 + fill2) / (60 * 60 * 24 * 1000);
+        var week = Math.ceil(cha2 / 7);
+        if (week < 10) {
+            week = "0" + week;
+        }
+        return week;
+    }
+
+    function openDetail() {
+        $('.detail-info').toggle();
+    }
+
+</script>
+</body>
+</html>

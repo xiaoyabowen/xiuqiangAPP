@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+    <title>宝宝评语-全部</title>
+    <style>
+      html,body{
+          width: 100%;
+          height:100%;
+          background-color: rgba(255,255,255,0);
+      }
+      </style>
+</head>
+<body>
+</body>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/mui.min.js"></script>
+    <script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+       apiready = function(){
+       		var openFrameValue = api.pageParam.openFrameValue;
+	       	(function($, doc) {
+	            $.ready(function() {
+	                var time = (new Date().format("yyyy/MM/dd/hh")).split("/");
+	                var beginTimes = new $.DtPicker({
+	                    beginDate: new Date(parseInt(time[0]), parseInt(time[1]-3), parseInt(time[2])),//设置开始日期
+	                    type:'month'
+	                });
+                    beginTimes.show(function(items) {
+                    	api.execScript({
+		                    name:"allComment",
+		                    script:"nianYue("+ JSON.stringify(items.text) +")"
+		                })
+                    	var YearMonth=items.value.split("-").join("");
+						if(openFrameValue==0){
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment1",
+                                script:"alertDate("+YearMonth+")"
+                            })
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment2",
+                                script:"alertDate("+YearMonth+")"
+                            })
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment3",
+                                script:"alertDate("+YearMonth+")"
+                            })
+			            }else if(openFrameValue==1){
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment1",
+                                script:"alertDate("+YearMonth+")"
+                            })
+			                api.execScript({
+			                	name: "allComment",
+			                    frameName:"allComment2",
+			                   	script:"alertDate("+YearMonth+")"
+			                })
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment3",
+                                script:"alertDate("+YearMonth+")"
+                            })
+			            }else if(openFrameValue==2){
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment1",
+                                script:"alertDate("+YearMonth+")"
+                            })
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment2",
+                                script:"alertDate("+YearMonth+")"
+                            })
+                            api.execScript({
+                                name: "allComment",
+                                frameName:"allComment3",
+                                script:"alertDate("+YearMonth+")"
+                            })
+			            }
+			           	api.closeFrame({
+							name : "allComment_date"
+						})
+                    });
+	            });
+	        })(mui, document);
+        }
+    </script>
+
+</html>

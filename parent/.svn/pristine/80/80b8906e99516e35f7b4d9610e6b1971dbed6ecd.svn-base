@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.tp_user{
+				height: 122px;
+				width: 100%;
+				background: url(../../image/mebg.jpg);
+				background-repeat-y: repeat;
+				background-size: 100%;
+				line-height: 122px;
+				position: relative;
+				padding:0 18px;
+				overflow: hidden;
+				box-sizing: border-box;
+			}
+			.tp_user_pic{
+				width: 80px;
+				height: 80px;
+				position: absolute;
+				bottom: 50%;
+				margin-bottom: -38px;
+			}
+			.tp_user_pic img{
+				width: 100%;
+				height: 100%;
+				border: 3px solid #fff;
+				border-radius: 50%;
+			}
+			.tp_user span{
+				float: left;
+				padding-left: 98px;
+				width: 100%;
+				box-sizing: border-box;
+				overflow:hidden;
+				text-overflow:ellipsis;
+			    white-space:nowrap;
+			    line-height: 122px;
+			}
+			.operationList{
+				background-color: #fff;
+			}
+			.operationList li,.other_operationList li{
+				border-bottom: 1px solid #f0f0f0;
+				height: 40px;
+				line-height: 40px;
+				padding-left: 20px;
+				padding-right: 18px;
+				position: relative;
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.33px;
+			}
+			.operationList li:after,.other_operationList li:after{
+				content: '';
+				width: 7px;
+				height: 14px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				right:18px;
+				top: 50%;
+				margin-top: -4px;
+			}
+			.operationList li:nth-last-of-type(1),.other_operationList li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.other_operationList{
+				margin-top: 12px;
+				background-color: #fff;
+				/*margin-bottom: 62px;*/
+			}
+			.operationList li span,.other_operationList li span{
+				position: relative;
+				padding-left: 30px;
+			}
+			.operationList li span:before,.other_operationList li span:before{
+				content: '';
+				height: 18px;
+				/*background-size: 100%;*/
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -9px;
+			}
+			.mine01 span:before{
+				width: 16px;
+				background: url(../../image/mine01.png) no-repeat;
+			}
+			.mine02 span:before{
+				width: 20px;
+				background: url(../../image/mine02.png) no-repeat;
+			}
+			.mine03 span:before{
+				width: 18px;
+				background: url(../../image/mine03.png) no-repeat;
+			}
+			.mine04 span:before{
+				width: 18px;
+				background: url(../../image/mine04.png) no-repeat;
+			}
+			.mine05 span:before{
+				width: 19px;
+				background: url(../../image/mine05.png) no-repeat;
+			}
+			.mine06 span:before{
+				width: 18px;
+				background: url(../../image/mine06.png) no-repeat;
+			}
+			.mine07 span:before{
+				width: 18px;
+				background: url(../../image/mine07.png) no-repeat;
+			}
+			.mine08 span:before{
+				width: 19px;
+				background: url(../../image/mine08.png) no-repeat;
+			}
+			.mine09 span:before{
+				width: 18px;
+				background: url(../../image/mine09.png) no-repeat;
+			}
+			.mine10 span:before{
+				width: 18px;
+				background: url(../../image/mine10.png) no-repeat;
+			}
+			.mine11 span:before{
+				width: 18px;
+				background: url(../../image/mine11.png) no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mine">
+		    <div class="tp_user" onclick="goLogin()">
+		    	<div class="tp_user_pic"><img src="../../image/teacherAvatar.png"/></div>
+		    	<span>星星妈</span>
+		    </div>
+		    <ul class="operationList">
+		    	<li class="mine01" onclick="openMyInformation()"><span>我的信息</span></li>
+		    	<li class="mine02" onclick="openMyHomePage()"><span>我的主页</span></li>
+		    	<li class="mine03" onclick="openMyStudy_file()"><span>我的学习</span></li>
+		    	<li class="mine04" onclick="openMyChat()"><span>我的消息</span></li>	    	
+		    </ul>
+		    <ul class="other_operationList">
+		    	<li class="mine06"><span>我的考勤</span></li>
+		    	<li class="mine07" onclick="openMyScore()"><span>我的积分</span></li>
+		    	<li class="mine08" onclick="openSetUp()"><span>我的设置</span></li>
+		    </ul>	
+		    <ul class="other_operationList">
+		    	<li class="mine09"><span>帮助中心</span></li>
+		    	<li class="mine10" onclick="openScan()"><span>园所二维码</span></li>
+		    	<li class="mine11" onclick="openAbout()"><span>关于系统</span></li>
+		    </ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+
+		};
+		
+		
+	    function openMyScore(){
+	    	openNewWindow("myScore","../mine/myScore.html")
+	    }
+	    
+	    function openMyStudy_file(){
+	    	openNewWindow("myStudy","../mine/myStudy.html")
+	    }
+	    
+	    function openTeacherMailbox02(){
+	    	openNewWindow("teacherMailbox02","../mine/teacherMailbox02.html")
+	    }
+	    
+	    function openMyHomePage(){
+	    	openNewWindow("myHomePage","../mine/myHomePage.html")
+	    }
+	 
+	 	function openMyInformation(){
+	    	openNewWindow("myInformation","../mine/myInformation.html")
+	    }
+	 	
+	 	
+	 	function openMyChat(){
+	    	openNewWindow("myChat","../mine/myChat.html")
+	    }
+	 	
+	 	
+	 	function openSetUp(){
+	    	openNewWindow("setUp","../mine/setUp.html")
+	    }
+	 	
+	 	function openScan(){
+	    	openNewWindow("scan","../mine/scan.html")
+	    }
+	 	
+	 	function openAbout(){
+			openNewWindow("about","../user/about.html")
+		}
+	 	
+	 	
+	 	function goLogin(){
+	 		openNewWindow("login","../RegisterLogin/login.html")
+	 	}
+	</script>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>公告通知详情</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            #main{
+                width:100%;
+                padding:12px 8px 0px;
+                box-sizing: border-box;
+            }
+            .preview_body{
+                width:100%;
+                padding:12px;
+                box-sizing: border-box;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+            }
+            .title{
+                width:100%;
+                text-align: center;
+                font-size:16px;
+                color:#333333;
+                line-height:22px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .text_info{
+                width:100%;
+                margin-top:6px;
+                line-height:20px;
+                font-size:14px;
+                color:#333333;
+                letter-spacing: 0.9px;
+                text-align: justify;
+                text-indent: 2em;
+            }
+            .img_info{
+                width:100%;
+            }
+            .img_info li{
+                width:100%;
+                height:130px;
+                border-radius:8px;
+                box-sizing: border-box;
+                overflow: hidden;
+                margin-bottom:6px;
+            }
+            .img_info>:nth-child(1){
+                margin-top:6px;
+            }
+            .img_info li>img{
+                width:100%;
+                height:100%;
+            }
+            .bottom_tag{
+                width:100%;
+                overflow: hidden;
+            }
+            .bottom_tag>:nth-child(1),.bottom_tag>:nth-child(2){
+                font-size:12px;
+                color:#666666;
+                float:left;
+            }
+            .bottom_tag>:nth-child(1){
+                margin-right:6px;
+            }
+            .bottom_tag>:nth-child(3){
+                font-size:12px;
+                color:#BDBDBD;
+                float:right;
+            }
+            .notice_detail{
+                width:100%;
+                background: #FFFFFF;
+                margin-top:12px;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+                padding:12px 12px 0px;
+                box-sizing: border-box;
+            }
+            .top_bar{
+                width:100%;
+                overflow: hidden;
+            }
+            .top_bar>:nth-child(1){
+                font-size: 14px;
+                color: #333333;
+                line-height:20px;
+                float:left;
+                padding-top:4px;
+                margin-right:20px;
+            }
+            .top_bar>:nth-child(2),.top_bar>:nth-child(3){
+                float:left;
+                height:24px;
+                padding-left:10px;
+                padding-right:10px;
+                line-height:24px;
+                font-size:12px;
+                color:#999999;
+                background: #F2F2F2;
+                border-radius:100px;
+                box-sizing: border-box;
+            }
+            .top_bar>:nth-child(2){
+                margin-right:12px;
+            }
+            .top_bar .selected{
+                background: #5AC8E1;
+                color:#fff;
+            }
+            .notice_table{
+                width:100%;
+            }
+            .notice_table>table{
+                width:100%;
+                margin-top:12px;
+            }
+            thead>tr{
+                width:100%;
+                height:44px;
+                background: #EBFBFF;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            th{
+                width:33.33%;
+                font-weight:normal;
+                font-size: 14px;
+                color: #333333;
+                letter-spacing: 0.19px;
+            }
+            tbody tr{
+                width:100%;
+                height:41px;
+                border-bottom: 1px solid #F2F2F2;
+            }
+            tbody tr td{
+                width:33.33%;
+                text-align: center;
+                font-size: 12px;
+                color: #333333;
+            }
+            tbody tr>:nth-child(3){
+                color:#999999
+            }
+		</style>
+	</head>
+	<body>
+        <div id="main">
+            <div class="preview_body">
+                <div class="title">
+                    我眼中的万花筒幼儿园
+                </div>
+                <div class="text_info">
+                    我眼中的万花筒幼儿园，除了那建筑外墙的绿色给了我一种充满活力的森林感觉外，更主要的是万花筒幼儿园的老师们给我这个初为人父的感觉和一种无法用文字来言表的信赖。孔子说过“性相近，习相远也”，由此可见一个良好习惯的养成是从吖吖学语、幼儿教育开始的。
+                </div>
+                <ul class="img_info">
+                    <li>
+                        <img src="../../image/wonderful03.png" alt="">
+                    </li>
+                </ul>
+                <div class="bottom_tag">
+                    <span>需要签收</span>
+                    <span>可以分享</span>
+                    <span>李老师分享于<em>2018.02.31</em>
+                    <em>12:30</em></span>
+                </div>
+            </div>
+            <div class="notice_detail">
+                <div class="top_bar">
+                    <div><span>全部投放</span><span>(6)</span></div>
+                    <div class="selected"><span>已签收</span><span>(2)</span></div>
+                    <div><span>未签收</span><span>(4)</span></div>
+                </div>
+                <div class="notice_table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>宝宝姓名</th>
+                                <th>家长姓名</th>
+                                <th>确认时间</th>
+                            </tr>
+                            <tbody>
+                                <tr>
+                                    <td>孔明</td>
+                                    <td>孔亮</td>
+                                    <td>2018.02.08 12:30</td>
+                                </tr>
+                                <tr>
+                                    <td>孔明</td>
+                                    <td>孔亮</td>
+                                    <td>2018.02.08 12:30</td>
+                                </tr>
+                                <tr>
+                                    <td>孔明</td>
+                                    <td>孔亮</td>
+                                    <td>2018.02.08 12:30</td>
+                                </tr>
+                                <tr>
+                                    <td>孔明</td>
+                                    <td>孔亮</td>
+                                    <td>2018.02.08 12:30</td>
+                                </tr>
+                                <tr>
+                                    <td>孔明</td>
+                                    <td>孔亮</td>
+                                    <td>2018.02.08 12:30</td>
+                                </tr>
+                            </tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+</html>

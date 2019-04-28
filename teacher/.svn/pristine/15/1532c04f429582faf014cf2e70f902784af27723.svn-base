@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+	<link rel="stylesheet" href="../../css/dateSelect.css">
+	<title>注册</title>
+
+	<script src="https://cdn.bootcss.com/eruda/1.2.6/eruda.js"></script>
+	<script>eruda.init();</script>
+    <style>
+        html,body{
+        	width: 100%;
+			height:100%;
+            background:url("../../image/lrbg.png") no-repeat;
+            background-size:100%;
+        }
+        .return{
+            width:100%;
+            height:46px;
+            position: relative;
+        }
+        .return>img{
+            width:22px;
+            height:22px;
+            position: absolute;
+            bottom:12px;
+            left:15px;
+        }
+        .title{
+        	/* margin-top: 10px; */
+        	font-size: 16px;
+			color: #FFFFFF;
+			margin-left: 15px;
+        }
+        .ul{
+        	margin-top: 10px;
+        	padding-left: 15px;
+        	/* margin-bottom: 60px; */
+        }
+        .ul input{
+        	width: 67.2%;
+        	height: 36px;
+        	border: 1px solid #DDDDDD;
+			border-radius: 8px;
+			/* margin-left: 16px; */
+			margin-left:5.3%;
+			font-size: 14px;
+			color: #999999;
+			text-indent: 10px;
+        }
+        .ul .selectarrow{
+        	background:url(../../icon/selectarrow.png) 0 10px no-repeat;
+        	background-size: 16px 16px;
+        	background-position: 95% 50%;
+        }
+        .ul li{
+			font-size:14px;
+        	margin-top: 14px;
+			position: relative;
+			color: #fff;
+        }
+        .ul li:nth-child(1){
+        	margin-top: 0;
+        }
+        .buttomButtom{
+        	width: 83.73%;
+        	margin: 0 auto;
+        	margin-top: 12px;
+        	line-height: 43px;
+        	line-height: 43px;
+        	text-align: center;
+        	font-size: 18px;
+			color: #FFFFFF;
+			opacity: 0.8;
+			background: #5EC4E0;
+			border-radius: 100px;
+        }
+		.ul li .star{
+			width:10px;
+			height:10px;
+		}
+		@media screen and (max-width:320px) {
+			html,body{
+				width: 100%;
+				height:auto;
+				background:url("../../image/lrbg.png") no-repeat;
+				background-size:100% 100%;
+				color:#FFFFFF; 
+			}
+			.ul li .star{
+				width:10px;
+				height:10px;
+			}
+		}
+		.buttom-blank{
+			width:100%;
+			height:9px;
+		}
+        #sex,
+        #did,
+        #selectarrow
+        {
+            width: 67.2%;
+            height: 36px;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            margin-left:4.1%;
+            font-size: 14px;
+            color: #999999;
+            text-indent: 10px;
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+            outline: none;
+        }
+        input[type="date"]:before{
+            color:#A9A9A9;
+            content:attr(placeholder);
+        }
+
+
+        input[type="date"].full:before {
+            color:black;
+            content:""!important;
+        }
+
+
+    </style>
+</head>
+<body id="body">
+	<div class="return">
+		<img onclick="closeWin()" src="../../icon/return.png" alt="">
+	</div> 
+	<div class="title">教职工资料填写</div>
+	<ul class="ul">
+		<li>
+			姓名<span style="opacity: 0;">占位</span><input id="name" type="text" placeholder="请输入姓名"/>
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			性别<span style="opacity: 0;">占位</span>
+			<select  id="sex" class="selectarrow">
+				<option value="0">--请选择性别--</option>
+				<option value="1">男</option>
+				<option value="2">女</option>
+			</select>
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			身份证号<input id="idCard"  type="text" placeholder="请输入身份证号" />
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			部门<span style="opacity: 0;">占位</span>
+            <select id="did" class="selectarrow">
+                <option value="0">--请选择部门--</option>
+            </select>
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			岗位<span style="opacity: 0;">占位</span>
+            <select id="selectarrow" class="selectarrow">
+                <option value="0">--请选择岗位--</option>
+            </select>
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			手机号<span style="opacity: 0;">位</span><input id="phone" type="number" placeholder="请输入手机号" />
+			<img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			邮箱<span style="opacity: 0;">占位</span><input id="email" type="text" placeholder="请输入邮箱" />
+            <img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			毕业院校<input id="school" type="text" placeholder="请输入毕业院校" />
+            <img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			居住地<span id="place" style="opacity: 0;">位</span><input id="address" type="text"
+                                                                   placeholder="请输入居住地" />
+            <img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			毕业时间<input id="graduationDate" type="text" placeholder="2001-01-01" readonly/>
+            <img src="../../icon/star.png" class="star" alt="">
+		</li>
+		<li>
+			入职时间<input id="workingDate" type="text" placeholder="2001-01-01" readonly/>
+            <img src="../../icon/star.png" class="star" alt="">
+		</li>
+	</ul>
+	<div class="buttomButtom" onclick="register()">立即注册</div>
+	<div class="buttom-blank"></div>
+
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/dateSelect.js"></script>
+
+    <script type="text/html" id="scriptTmp">
+        <%if(list.data){%>
+            <option value="0">--请选择部门--</option>
+            <%for(var i=0;i<list.data.length;i++){%>
+                <option value="<%=list.data[i].id%>"><%=list.data[i].name%></option>
+            <%}%>
+        <%}%>
+    </script>
+    <script type="text/html" id="scriptTmp2">
+        <%if(list.data){%>
+            <option value="0">--请选择岗位--</option>
+            <%for(var i=0;i<list.data.length;i++){%>
+            <option value="<%=list.data[i].id%>"><%=list.data[i].roleName%></option>
+            <%}%>
+        <%}%>
+    </script>
+
+    <script>
+        var schoolId;
+        //获取到上一步的schoolId
+        //1.取出所有的部门
+        //2.取出所有的角色
+        // closeWin()
+        // sid 学校ID
+
+
+
+        // 日期
+        $('#graduationDate').dateSelect();
+        $('#workingDate').dateSelect();
+
+        apiready=function(){
+            schoolId=api.pageParam.schooId;
+            //获取部门
+            getOptionData(getAllDepartmentUrl,{sid:schoolId},'scriptTmp','did');
+            //获取岗位
+            getOptionData(getAllRolesUrl,{sid:schoolId},'scriptTmp2','selectarrow');
+        }
+
+        // 获取各项数据
+        function getOptionData(url,parms,tmpSctipt,dom){
+
+            ajaxGetUser(url,parms,function(ret,err){
+                if(ret.success){
+                    optionToHtml(ret,tmpSctipt,dom);
+                }
+            });
+        };
+        // 渲染option
+        function optionToHtml(results,tmpscript,dom) {
+            if (isNotBlack(results)) {
+                var data = {list:results};
+                var html = template(tmpscript, data);
+                document.getElementById(dom).innerHTML = html;
+                api.parseTapmode();
+                document.getElementById("body").style.display = "block";
+            }
+        }
+
+        /*var isCommitted = false;  //表单是否应提交标识，默认为false
+
+        if(isCommitted == false){ //提交表单后，将表单是否已经提交设置为true
+            toast("1")
+            isCommitted = true; //返回true让表单正常提交
+            alert()
+
+        }else{
+            toast("2")
+
+        }*/
+
+        var isCommitted = false;  //表单是否应提交标识，默认为false
+        function register(){
+            var data = {};
+            data.name = $api.byId("name").value;
+            data.sex = $api.byId("sex").value;
+            data.idCard = $api.byId("idCard").value;
+            data.phone = $api.byId("phone").value;
+            data.mail = $api.byId("email").value;
+            data.school = $api.byId("school").value;
+            data.place = $api.byId("address").value;
+            data.did = $api.byId("did").value;
+            data.requestRid = $api.byId("selectarrow").value;
+            data.sid = schoolId;
+            var graduationDate = new Date($api.byId("graduationDate").value).getTime();//时间戳类型
+            var workingDate = new Date($api.byId("workingDate").value).getTime();//时间戳类型
+
+            data.graduationDate = graduationDate;
+            data.workingDate = workingDate;
+
+
+
+            if(isBlack(data.name)){
+                toast('请输入您的姓名');
+                return;
+            }
+            if(isBlack(data.sex) || data.sex == 0){
+                toast('请选择性别');
+                return;
+            }
+            if(isBlack(data.idCard)){
+                toast('请输入身份证');
+                return;
+            }
+            // 判断输入身份证是否正确
+            if(!checkIdentity(data.idCard)){
+                toast("身份证不正确");
+                return;
+            }
+            if(isBlack(data.did) || data.did == 0){
+               toast('请选择部门');
+               return;
+		   }
+		   if(isBlack(data.requestRid) || data.requestRid == 0){
+			   toast('请选择岗位');
+			   return;
+		   }
+		   if(isBlack(data.phone)){
+			   toast('请输入电话');
+			   return;
+		   }
+		   // 判断输入手机是否正确
+		   if(!checkMobileNum(data.phone)){
+			   toast("手机号码不正确");
+			   return;
+		   }
+
+           if(isBlack(data.mail)){
+                toast('请输入邮箱');
+                return;
+            }
+
+            // 判断输入邮箱是否正确
+
+
+
+            if(!checkEmail(data.mail)){
+                toast("邮箱不正确");
+                return;
+            }
+             if(isBlack(data.school)){
+                toast('请输入毕业院校');
+                return;
+            }
+            if(isBlack(data.place)){
+                toast('请输入居住地');
+                return;
+            }
+            if(isBlack(data.graduationDate)){
+                toast('请输入毕业时间');
+                return;
+            }
+            if(isBlack(data.workingDate)){
+                toast('请输入职时间');
+                return;
+            }
+
+            //还少两个参数
+            //requestRid 角色id
+            //did 部门ID
+            //al(data)
+
+
+
+            if(isCommitted == false){    //提交表单后，将表单是否已经提交设置为true
+
+                isCommitted = true; //返回true让表单正常提交
+                ajaxGetUser(adminRegistUrl,data,function(ret){
+                    toast("1")
+                    if (ret&&ret.success) {
+                        toast('注册成功，请等待园方审核');
+                        setTimeout(function(){
+                            //openNewWindow('login','login.html');
+                            api.closeToWin({
+                                name: 'login'
+                            });
+                        },1000)
+                    }else{
+                        var msg='注册失败';
+                        if(ret.msg){
+                            msg=ret.msg;
+                        }
+                        toast(msg);
+                    }
+                });
+
+			}else{
+                return false; //返回false表单不提交
+			}
+
+        }
+
+
+
+        
+    </script>
+</body>
+</html>

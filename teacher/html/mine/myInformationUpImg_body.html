@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>查看头像</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            min-width: 320px;
+            background-color: #000;
+        }
+        /*头像处理*/
+        #main{
+            position: absolute;
+            top:50%;
+
+            overflow: hidden;
+        }
+        #imgIcon{
+            display: block;
+            /*justify-content: center;*/
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <img id="imgIcon" src="" alt="头像图片">
+</div>
+<!--蒙层 DOM-->
+<div class="Mongolian"></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script>
+    var iconImg;//保存上传的头像路径
+    apiready = function(){
+        var userIcon=api.pageParam.icon;
+        chageImg(userIcon)
+        api.addEventListener({
+            name: 'chageImg'
+        }, function(ret){
+            if(ret && ret.value){
+                chageImg(ret.value.imgurl)
+            }
+        });
+    }
+    function chageImg(userIcon){
+        document.getElementById("imgIcon").setAttribute("src",userIcon)
+        // 裁剪图片
+        var width = window.screen.width;   //获取手机屏幕的宽
+        document.getElementById("main").style.height = width +'px';
+        document.getElementById("main").style.margin =-(width/2)+'px 0 0 0';
+        var obj = getImgSizeBySize(userIcon, width, width);
+        document.getElementById("imgIcon").style.cssText = obj.style;
+    }
+    //从相册选择
+    function drupalPhoto() {
+        var Multiplechoice = api.require('Multiplechoice');
+        Multiplechoice.Takingone({
+            uploadflowUrl: uploadImageUrl
+        }, function (ret, err) {
+            if (ret) {
+                var iconImg = ret.onelocalpath[0];
+                openNewWindow("myInformationCutting", "./myInformationCutting.html", {img_src: iconImg})
+            } else {
+
+            }
+        })
+
+    }
+
+
+
+
+
+
+
+
+</script>
+</html>

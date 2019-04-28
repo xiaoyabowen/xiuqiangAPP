@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>编辑信箱</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <link rel="stylesheet" href="../../css/mui.css"/>
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F8F8F8;
+        }
+        #main{
+            width:100%;
+            height: 100%;
+            padding-left:8px;
+            padding-right:8px;
+            padding-top:12px;
+            box-sizing: border-box;
+        }
+        .top-input{
+            width:100%;
+            height:47px;
+            background: #FFFFFF;
+            line-height:47px;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:12px;
+            padding-right:12px;
+            font-size:14px;
+            color:#BDBDBD;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .release_content{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            margin-top:12px;
+            padding:12px 12px 0px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .release_text{
+            width:100%;
+            font-size: 14px;
+            line-height: 16px;
+            color:#000;
+            text-align: justify;
+            height: 400px;
+            outline: none;
+            margin-top: 10px;
+            padding-top: 4px;
+            line-height: 1.5;
+            padding: 5px;
+        }
+
+        .loaded_img>:nth-child(3n+1){
+            padding-left:0px !important;
+        }
+        .loaded_img>:nth-child(3n){
+            padding-right:0px;
+        }
+        .loaded_img>li{
+            /*width:33.33%;*/
+            /*height:97px;*/
+            overflow: hidden;
+            /*border-radius:8px;*/
+            float:left;
+            /* margin-right:12px;
+            margin-bottom:12px; */
+            padding:0px 6px 12px;
+            box-sizing: border-box;
+        }
+        .loaded_img>li>img{
+            width:100%;
+            height:100%;
+            border-radius:8px;
+        }
+
+        .add_btn li{
+            width:98px;
+            height:92px;
+            border-radius:4px;
+            background: #F2F2F2;
+            font-size:10px;
+            color:#999999;
+            text-align: center;
+            padding-top:56px;
+            border-radius:4px;
+            box-sizing: border-box;
+        }
+        .add_btn>:nth-child(1){
+            background-image: url("../../icon/addPhoto.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+        }
+        .add_btn>:nth-child(2){
+            background-image: url("../../icon/addNotice.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+            margin-left:12px;
+            margin-right:12px;
+        }
+        .add_btn>:nth-child(3){
+            background-image: url("../../icon/addNotice.png");
+            background-repeat:no-repeat;
+            background-size:28px 28px;
+            background-position:top 22px center;
+        }
+        .bottom_count{
+            font-size:12px;
+            color:#999999;
+            text-align: right;
+            /* position:absolute;
+            right:12px;
+            bottom:12px; */
+        }
+
+        .select_target>span{
+            width:60px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .addLabel em{
+            font-size: 12px;
+            color: #333333;
+            line-height: 24px;
+
+        }
+
+        .mui-switch .mui-switch-handle{
+            width: 17px;
+            height: 17px;
+        }
+
+
+        .xialaUl li{
+            width: 134px;
+            font-size: 14px;
+            color: #666666;
+            line-height: 28px;
+
+        }
+        #imglist1 span{
+            position:relative;float: left;margin-right:10px;margin-top:10px;display: block;
+            width: 80px;
+            height: 80px;
+            top: 0px;
+        }
+        #imglist1 span img{display: block; width: 80px;height: 80px; border-radius: 4px;}
+        #imglist1 span i{width:10px;height:10px;position:absolute;right:0px;top:2px;color:red;font-size: 10px}
+        .img_text img{
+
+        }
+        .img{
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .textName{
+            display: inline-block;
+            color: #868686;
+        }
+        .recipients{
+            color: #989A9C;
+        }
+
+    </style>
+</head>
+<body>
+<div id="main">
+    <!--<div class="recipients">-->
+        <!--<p>收件人：<span>李院长</span></p>-->
+    <!--</div>-->
+    <div class="release_content" >
+        <div class="img_text">
+            <div class="img">
+                <img id="userImg" style="width: 100%;height: 100%" src="../../image/cookfood.png" alt="">
+            </div>
+            <p class="textName" id="userName">余丽红爸爸</p>
+        </div>
+        <textarea id="detectionCharacter" class="release_text detectionCharacter" style="resize:none;" onkeyup="jiance(this)" maxlength="300" placeholder="请编写信箱"></textarea>
+        <div class="bottom_count"><span  class="textNum">0</span>/300</div>
+    </div>
+
+
+
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+
+<script>
+    apiready=function () {
+        if(isNotBlack(getUserInfo().icon)){
+            document.getElementById("userImg").src=getUserInfo().icon;
+        }else{
+            document.getElementById("userImg").src="../../image/fcoushead.png";
+        }
+        document.getElementById("userName").innerHTML=getUserInfo().name;
+    }
+
+   function publishMailBox() {
+       var content=document.getElementById("detectionCharacter").value;
+       if(content==""){
+           toast("不能为空！")
+           return;
+       }
+       var obj={}
+        obj.sid=getUserInfo().sid;
+        obj.content=content;
+        obj.uid=getUserInfo().id;
+        obj.type=5;
+        obj.status=0;
+       ajaxGet(addMailboxUrl,obj,function (ret,err) {
+           if(ret && ret.success){
+               toast("发布成功");
+               api.execScript({
+                   name : "teacherMailbox02",
+                   frameName:"teacherMailbox02_body",
+                   script:"apiready()"
+               })
+               setTimeout(function () {
+                   closeWin();
+               },300)
+           }
+       })
+   }
+    
+    
+    
+    
+    
+    
+    
+    //判断多少字符
+    function jiance(self){
+        var thisSpan=$(self).next().children()
+        $(self).text($(self).val().length);//这句是在键盘按下时，实时的显示字数
+        if($(self).val().length > 300){
+            thisSpan.text(300);//长度大于100时0处显示的也只是100
+            $(self).val($(self).val().substring(0,300));//长度大于100时截取钱100个字符
+        }
+        thisSpan.text($(self).val().length);//这句是在刷新的时候仍然显示字数
+    }
+
+
+    $('#detectionCharacter').bind('input propertychange', function(){
+        var thisSpan=$(".detectionCharacter").next().children()
+        $(".detectionCharacter").text($(".detectionCharacter").val().length);//这句是在键盘按下时，实时的显示字数
+        if($(".detectionCharacter").val().length > 300){
+            thisSpan.text(300);//长度大于100时0处显示的也只是100
+            $(".detectionCharacter").val($(".detectionCharacter").val().substring(0,300));//长度大于100时截取钱100个字符
+        }
+        thisSpan.text($(".detectionCharacter").val().length);//这句是在刷新的时候仍然显示字数
+    });
+</script>
+</html>

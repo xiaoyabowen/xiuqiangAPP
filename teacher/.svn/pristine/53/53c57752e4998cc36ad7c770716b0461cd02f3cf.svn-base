@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>更多</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		body {
+			min-width: 320px;
+			background: #FFFFFF;
+		}
+
+		.more {
+			width: 100%;
+			padding-left: 3.7%;
+			padding-right: 3.7%;
+			padding-top: 9px;
+			box-sizing: border-box;
+		}
+
+		.more-list {
+			width: 100%;
+			justify-content: space-between;
+			flex-wrap: wrap;
+		}
+
+		.more-list li {
+			width: 23%;
+			float: left;
+			margin:0 2.6% 2.6% 0;
+			box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.10);
+			border-radius: 8px;
+		}
+
+		.more-list li>:nth-child(1) {
+			position: relative;
+			width: 100%;
+			height: 0;
+			padding-bottom: 100%;
+		}
+
+		.more-list li>:nth-child(1)>:nth-child(1) {
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			bottom: 0;
+			border-radius: 8px;
+			text-align: center;
+			font-size: 12px;
+			color: #FFFFFF;
+			letter-spacing: 0.25px;
+			padding-top: 70%;
+			box-sizing: border-box;
+		}
+
+		.more-list>:nth-child(1) {
+			background-image: url('../../icon/kcb.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(2) {
+			background-image: url('../../icon/xxjf.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(3) {
+			background-image: url('../../icon/mzsp.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(4) {
+			background-image: url('../../icon/mzpy.png');
+			background-size: 43% 43%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+			margin-right: 0;
+		}
+
+		.more-list>:nth-child(5) {
+			background-image: url('../../icon/yekq.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(6) {
+			background-image: url('../../icon/ticon.png');
+			background-size: 50% 34%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(7) {
+			background-image: url('../../icon/sicon.png');
+			background-size: 46% 46%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(8) {
+			background-image: url('../../icon/release.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+			margin-right: 0;
+		}
+
+		.more-list>:nth-child(9) {
+			background-image: url('../../icon/wdkq.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(10) {
+			background-image: url('../../icon/ggtz.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(11) {
+			background-image: url('../../icon/tchome.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(12) {
+			background-image: url('../../icon/bicon.png');
+			background-size: 40% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+			margin-right: 0;
+		}
+
+		.more-list>:nth-child(13) {
+			background-image: url('../../icon/fwsb.png');
+			background-size: 38% 38%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(14) {
+			background-image: url('../../icon/ckzy.png');
+			background-size: 40% 38%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(15) {
+			background-image: url('../../icon/appuse.png');
+			background-size: 38% 38%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+
+		.more-list>:nth-child(16) {
+			background-image: url('../../icon/gdzc.png');
+			background-size: 38% 40%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+			margin-right: 0;
+		}
+
+		.more-list>:nth-child(17) {
+			background-image: url('../../icon/addressbook.png');
+			background-size: 50% 50%;
+			background-repeat: no-repeat;
+			background-position: center 35%;
+		}
+        .more-list>:nth-child(18) {
+            background-image: url('../../icon/xxjf.png');
+            background-size: 40% 40%;
+            background-repeat: no-repeat;
+            background-position: center 35%;
+        }
+		.more-list>:nth-child(15)>div>div {
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+		@media screen and (max-width:320px) {
+			.more-list>:nth-child(8)>div>div {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	</style>
+</head>
+
+<body id="body" style="display:none;">
+	<div class="more">
+		<ul class="more-list" id="more-list">
+
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="scriptMoreList">
+	<%for(var i = 0;i < list.length;i++){%>
+	<li onclick="openNew('<%=list[i].redirect%>','<%=list[i].id%>')" style="background-image: url('<%=list[i].icon%>');background-color: <%=list[i].backgroundColor%>;">
+		<div>
+			<div>
+				<%=list[i].name%>
+			</div>
+		</div>
+	</li>
+	<%}%>
+
+</script>
+<script>
+    // 声明一个功能点的map集合
+    var funPortBg = {
+        1:{'backgroundColor':'#5AC8E1'},
+        2:{'backgroundColor':'#91C559'},
+        3:{'backgroundColor':'#31CACF'},
+        4:{'backgroundColor':'#58C598'},
+        5:{'backgroundColor':'#30C9CE;'},
+        6:{'backgroundColor':'#D16034'},
+        7:{'backgroundColor':'#F8BC0F'},
+        8:{'backgroundColor':'#58C598'},
+        9:{'backgroundColor':'#91C559'},
+        10:{'backgroundColor':'#57C497'},
+        11:{'backgroundColor':'#5AC8E1'},
+        12:{'backgroundColor':'#6CC29D'},
+        13:{'backgroundColor':'#DD5A7C'},
+        14:{'backgroundColor':'#D18934'},
+        15:{'backgroundColor':'#F8970F'},
+        16:{'backgroundColor':'#F17035'},
+        17:{'backgroundColor':'#4FC797'},
+        18:{'backgroundColor':'#91C559'},
+    };
+	apiready = function() {
+
+		var Sid = getUserInfo().sid;
+		// 从缓存中读取功能点list
+		var lastData = $api.getStorage("more");
+		if (isNotBlack(lastData)) {
+			DataToHtml(lastData);
+		}
+		// 获取功能点
+		ajaxGet(getIndexFunList, {
+			sid: Sid,
+			terminalType: 2
+		}, function(ret, err) {
+			if (ret.success) {
+				// 写入缓存
+				$api.setStorage('more', ret);
+				DataToHtml(ret);
+				document.getElementById("body").style.display = "block";
+			}
+		})
+	}
+
+    // 功能点渲染html
+    function DataToHtml(Results) {
+        if (isNotBlack(Results)) {
+            for (var i = 0; i < Results.data.length; i++) {
+                Results.data[i].backgroundColor =
+                    funPortBg[Results.data[i].sort].backgroundColor;
+            }
+            var data = {
+                list: Results.data.sort(compare('sort')) //根据sort字段排序（升序）
+            };
+            var html = template('scriptMoreList', data);
+            document.getElementById('more-list').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+    };
+    //排序  （升序）
+    function compare(data){
+        return function(a,b){
+            var value1 = a[data];
+            var value2 = b[data];
+            return value1 - value2;
+        }
+    }
+    
+    
+    
+    function openNew(url,id){
+    	if (id == 57||id == 58||id == 59||id == 107||id == 108) {
+    		if (isBlack(getUserInfo().cids[0])) {
+    			showOneDialog("温馨提示","您还没有开班，暂不能查看该信息","确定",function(){
+    				
+    			})
+    		}else if (url){
+	    		var name = url.substring(url.lastIndexOf("/") + 1).split(".")[0]
+	       		openNewWindow(name,url);
+    		}
+    	}else if (url){
+    		var name = url.substring(url.lastIndexOf("/") + 1).split(".")[0]
+       		openNewWindow(name,url);
+    	}else{
+    		if (id == 67) {
+    			//宝宝秀  跳原生
+    			api.accessNative({
+				    name: "BabyShow",
+				    extra: {
+				    	server : serverUrl + "/baby/getbabyshow",
+				    	token : getUserInfo().token, 
+				    	sid : getUserInfo().sid
+				    }
+				}, function(ret, err) {
+				    
+				});
+    		}else if(id == 109){
+    			//统计
+    			api.accessNative({
+				    name: "TJ",
+				    extra: {
+				    	server : serverUrl  + "/statistics/StatisticsAppBySmonthAndEmonthPercent",
+				    	token : getUserInfo().token, 
+				    	sid : getUserInfo().sid
+				    }
+				}, function(ret, err) {
+				    
+				});
+    		}
+    	}
+    }
+</script>
+
+</html>

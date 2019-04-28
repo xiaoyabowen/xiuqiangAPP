@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>帮助中心</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <link rel="stylesheet" href="../../css/mui.min.css" />
+    <style type="text/css">
+        body{
+            background:#fff;
+        }
+        .text-top{
+            width:90%;
+            margin:0 5%;
+        }
+        .text-top p{
+            font-family: PingFangSC-Medium;
+            font-size: 16px;
+            color: #333333;
+            letter-spacing: 0.69px;
+            text-align: justify;
+            padding-top: 22px;
+            margin:0;
+        }
+        .text-top span{
+            font-family: PingFang-SC-Regular;
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.6px;
+            text-align: justify;
+            padding-top: 6px;
+        }
+        .text-top>img{
+            width:100%;
+            height:100px;
+        }
+        .imgbox{
+            margin-top: 13px;
+        }
+
+        .imgbox div{
+            float:right;
+            border:1px solid #000;
+            margin-left: 37px;
+        }
+        .imgbox div img{
+            float:left;
+            width:18px;
+            height:16px;
+            background:red;
+            vertical-align: middle;
+            margin-top: 2px;
+        }
+        .imgbox div em{
+            float:left;
+            font-family: PingFangHK-Regular;
+            font-size: 12px;
+            color: #A3A3A3;
+            letter-spacing: 0.25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-top" id="contuntHm">
+        <!--<p>-->
+            <!--怎么修改手机号？-->
+        <!--</p>-->
+        <!--<span>点击我-我的设置-修改手机号就可以了</span>-->
+        <!--<img src="">-->
+        <!--<span>-->
+            <!--点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了-->
+        <!--</span>-->
+        <!--<div class="imgbox">-->
+            <!--<div>-->
+                <!--<img src="">-->
+                <!--<em>34</em>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<img src="">-->
+                <!--<em>34</em>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<img src="">-->
+                <!--<em>23</em>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="contuntTm">
+    <%for(var i=0;i<1;i++){%>
+        <p>
+            <%=list[i].title%>
+        </p>
+        <!--<span>点击我-我的设置-修改手机号就可以了</span>-->
+        <!--<img src="<%=list[i].icon%>">-->
+        <!--<span>-->
+                <!--点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了,点击我-我的设置-修改手机号就可以了-->
+            <!--</span>-->
+        <!--<div class="imgbox">-->
+            <!--<div>-->
+                <!--<img src="">-->
+                <!--<em><%=list[i].name%></em>-->
+            <!--</div>-->
+            <!--<div onclick="nonsupport()">-->
+                <!--<img src="">-->
+                <!--<em><%=list[i].name%></em>-->
+            <!--</div>-->
+            <!--<div onclick="dianzan()">-->
+                <!--<img src="">-->
+                <!--<em ><%=list[i].name%></em>-->
+            <!--</div>-->
+        <!--</div>-->
+    <%}%>
+</script>
+<script>
+    apiready = function () {
+        var oid = api.pageParam.oid;
+        //根据问题id获取问题详情
+        ajaxGet(getquestionUrl,{id:oid},function(ret,err){
+            if(ret&&ret.success){
+                var data = {list: ret.data};
+                var html = template("contuntTm", data);
+                document.getElementById('contuntHm').innerHTML = html;
+            }else{
+                toast(err)
+            }
+        })
+    };
+    //点赞
+    function dianzan(){
+        //给问题详情点赞
+        ajaxGet(url,{},function(ret,err){
+            if(ret&&ret.success){
+                toast('');
+                apiready();
+            }else{
+                toast(err)
+            }
+        })
+    }
+    //反向点赞
+    function nonsupport(){
+        //给问题详情点赞
+        ajaxGet(url,{},function(ret,err){
+            if(ret&&ret.success){
+                toast('');
+                apiready();
+            }else{
+                toast(err)
+            }
+        })
+    }
+
+</script>
+</html>

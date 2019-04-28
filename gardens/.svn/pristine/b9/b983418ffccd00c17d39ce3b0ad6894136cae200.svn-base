@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>园长信箱</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			
+			.maillists{
+				width: 100%;
+				background-color: #fff;
+			}
+			.maillists_cnt{
+				overflow: hidden;
+			}
+			.maillists_cnt>li{
+				padding: 20px 18px;
+				border-bottom: 1px solid #efefef;
+			}
+			.maillists_cnt>li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.maillists_cnt>li .top_senderInfo{
+				overflow: hidden;
+			}
+			.maillists_cnt>li .top_senderInfo .senderPic{
+				width: 34px;
+				height: 34px;
+				border-radius: 50%;
+				float: left;
+				margin-right: 10px;
+			}
+			.maillists_cnt>li .top_senderInfo .senderPic img{
+				width: 100%;
+				height: 100%;
+			}
+			.maillists_cnt>li .top_senderInfo .senderInfo{
+				color: #929292;
+				font-size: 12px;
+				line-height: 18px;
+			}
+			.maillists_cnt>li .top_senderInfo .senderInfo p span{
+				padding-right: 2.5%;
+			}
+			.maillists_cnt>li .btm_mailDetail>p{
+				margin: 10px 0;
+				box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 8px;
+				font-size: 14px;
+				color: #505050;
+				letter-spacing: 0.6px;
+				line-height: 20px;
+				padding: 12px 18px;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList{
+				width: 68%;
+				margin: 0 auto;
+				box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+				border-radius: 8px;
+				font-size: 14px;
+				color: #505050;
+				letter-spacing: 0.6px;
+				padding: 16px 14px;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList li{
+				padding:  4px;
+				border-bottom: 1px solid #f0f0f0;
+				line-height: 18px;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList p{
+				padding-bottom: 6px;
+				padding-top: 4px;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList li span em{
+				color: #929292;
+				font-size: 11px;
+			}
+			.maillists_cnt>li .btm_mailDetail .replyList li span i{
+				color: #202020;
+				font-size: 11px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+		    <div class="maillists">
+		    	<ul class="maillists_cnt">
+		    		<li>
+		    			<div class="top_senderInfo">
+		    				<div class="senderPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    				<div class="senderInfo">
+		    					<p class="sender"><span>大班1班</span><em>王庆家长</em></p>
+		    					<p class="sendTime"><span>2018.01.15</span><em>11:30:15</em></p>
+		    				</div>
+		    			</div>
+		    			<div class="btm_mailDetail">
+		    				<p>今天班上小乔的衣服被一个男生划破了，老师没有及时处理，小乔回家很伤心今天班上小乔的衣服被一个男生划破了，老师没有及时处理，小乔回家很伤心今天班上小乔的衣服被一个男生划破了，老师没有及时处理，小乔回家很伤心</p>
+		    				<ul class="replyList">
+		    					<li>
+		    						<p>我会及时处理我会及时处理我会及时处理我会及时处理我会及时处理我会及时处理我会及时处理</p>
+		    						<span><em>我</em><i>回复</i><em>王庆家长</em></span>
+		    					</li>
+		    					<li>
+		    						<p>谢谢</p>
+		    						<span><em>王庆家长</em><i>回复</i><em>我</em></span>
+		    					</li>
+		    				</ul>
+		    			</div>
+		    		</li>
+		    		<li>
+		    			<div class="top_senderInfo">
+		    				<div class="senderPic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+		    				<div class="senderInfo">
+		    					<p class="sender"><span>戈壁王老师</span></p>
+		    					<p class="sendTime"><span>2018.01.10</span><em>11:30:15</em></p>
+		    				</div>
+		    			</div>
+		    			<div class="btm_mailDetail">
+		    				<p>本周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努本周菲菲表现的特别好，很早到教师，还帮同学打扫卫生，下周继续努</p>
+		    				<!--<ul class="replyList">
+		    					<li>
+		    						<p>我会及时处理</p>
+		    						<span><em>我</em><i>回复</i><em>王庆家长</em></span>
+		    					</li>
+		    					<li>
+		    						<p>谢谢</p>
+		    						<span><em>王庆家长</em><i>回复</i><em>我</em></span>
+		    					</li>
+		    				</ul>-->
+		    			</div>
+		    		</li>
+		    		
+		    	</ul>
+		    </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			
+		};
+		
+		
+	
+	</script>
+</html>

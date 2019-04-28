@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>创建食谱-输入</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background:#FFFFFF;
+        }
+        .apply-info{
+            width:100%;
+            padding-top:7px;
+            padding-left:18px;
+            padding-right:18px;
+            box-sizing: border-box;
+        }
+        .info-list{
+            width:100%;
+            box-sizing: border-box;
+        }
+        .info-list .list-item{
+            width:100%;
+            height:40px;
+            margin-top:5px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .info-list .list-m{
+            width:100%;
+            margin-top:5px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .list-tag{
+            width:101px;
+            height:40px;
+            padding-top:9px;
+            float:left;
+            box-sizing: border-box;
+        }
+        .list-tag>div{
+            width:100%;
+            height:23px;
+            line-height:23px;
+            border-right:1px solid #D7D7D7;
+            font-size: 14px;
+            text-align: left;
+            padding-left:18px;
+            color: #333333;
+            box-sizing: border-box;
+        }
+        .list-item>:nth-child(2){
+            font-size: 14px;
+            color: #333333;
+            line-height:40px;
+            float:left;
+            margin-left:18px;
+            width: 60%;
+            height: 100%;
+        }
+        .list-item>:nth-child(2) input{
+            padding-left: 5px;
+        }
+        input{
+            width: 100%;
+            height: 100%;
+            border:none;
+            outline:none;
+        }
+        select{
+            width: 100%;
+            height: 38px;
+            border:none;
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+            outline: none;
+            background: url("../../icon/switch.png") no-repeat 97%;
+            background-size:5%;
+        }
+        #name{
+            width: 88%;
+            height:40px;
+            padding-left: 18px;
+            box-sizing: border-box;
+            float: left;
+        }
+        .select{
+            width: 30px;
+            height:38px;
+            background: url("../../icon/switch.png") no-repeat scroll  center transparent;
+            background-size:34%;
+            float: left;
+            position: relative;
+
+        }
+        .content{
+            width: 158px;
+            height: 122px;
+            background: #fff;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            padding: 12px;
+            box-sizing: border-box;
+            position: absolute;
+            right:27px;
+            top:52px;
+            display: none;
+        }
+
+        .food-content{
+            height:84px;
+            overflow: scroll;
+            clear: both;
+        }
+        .food{
+            margin-top: 12px;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #666666;
+            letter-spacing: 0.29px;
+        }
+        .active{
+            color:#5AC8E1;
+        }
+        .seek-warp{
+            width: 100%;
+            height:22px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        #seekVal{
+            width: 80%;
+            height:22px;
+            border: none;
+            padding-left: 2px;
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #666666;
+            letter-spacing: 0.29px;
+            -webkit-appearance: none;
+            float: left;
+        }
+        .seek{
+            width: 16px;
+            height: 16px;
+            background: url("../../icon/search.png") no-repeat scroll center transparent;
+            background-size: 100%;
+            float: left;
+            margin-top: 2px;
+        }
+        .weight{
+            width: 43%;
+            float: left;
+            line-height:38px;
+        }
+        .unit{
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+            width: 46%;
+            height: 38px;
+            background: url("../../icon/switch.png") no-repeat scroll right center transparent;
+            background-size:10%;
+            border:none;
+            font-size: 14px;
+            float: left;
+            outline: none;
+            margin-left: 10px;
+        }
+        .save{
+            width:90.4%;
+            height:44px;
+            margin:20px auto 0;
+            background:#5AC8E1;
+            text-align: center;
+            line-height:44px;
+            font-size:16px;
+            color:#FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+        }
+        .save2{
+            margin-bottom: 20px;
+        }
+        .btn{
+            background: #ccc;
+        }
+        .remark{
+            width:100%;
+            height: 140px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            margin-top:5px;
+            padding:9px 18px;
+            box-sizing: border-box;
+        }
+        .remark-title{
+            font-size: 14px;
+            color: #333333;
+        }
+        .remark-input textarea{
+            width:100%;
+            height:44px;
+            outline: none;
+            resize: none;
+            font-size: 16px;
+            color: #505050;
+            line-height:22px;
+        }
+        .add-other{
+            width:41px;
+            height:41px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            background:url('../../icon/addremark.png');
+            background-repeat:no-repeat;
+            background-size:18px 18px;
+            background-position:center;
+            float: left;
+        }
+        #imglist1 span{
+            width:41px;
+            height:41px;
+            position:relative;
+            float: left;
+            margin-right:10px;
+            margin-bottom:10px;
+            display: block;
+        }
+        #imglist1 span img{
+            display: block;
+        }
+        #imglist1 span i{
+            width:10px;
+            height:10px;
+            background: #ccc;
+            border-radius: 50%;
+            line-height: 10px;
+            text-align: center;
+            position:absolute;
+            right:2px;
+            top:2px;
+            color:red;
+            font-size:8px;
+        }
+
+    </style>
+</head>
+<body id="body">
+<div class="apply-info" id="meanBody">
+    <ul class="info-list" id="bookBody">
+        <li class="e-count list-item">
+            <div>
+                <input type="text" id="name" placeholder="请输入菜名">
+                <div class="select" onclick="openList()"></div>
+                <div class="content" id="contentDom">
+
+                </div>
+            </div>
+        </li>
+        <li class="e-count list-m" id="shicaiBody">
+            <div>
+                <ul class="info-list"  style="padding: 5px">
+                    <li class="e-count list-item">
+                        <div class="list-tag">
+                            <div>食材</div>
+                        </div>
+                        <div>
+                            <input type="text" id="food0" placeholder="请输入食材">
+                        </div>
+                    </li>
+                    <li class="e-count list-item">
+                        <div class="list-tag">
+                            <div>重量</div>
+                        </div>
+                        <div>
+                            <input type="number" id="weight0" placeholder="请输入重量" onkeyup="value=value.replace(/[^\d]/g,'')"  class="weight">
+                            <select lay-verify="" id="unit0" class="unit">
+                                <option value="0">请选择单位</option>
+                                <option value="g">g</option>
+                                <option value="kg">kg</option>
+                            </select>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </li>
+        <li class="e-count list-item">
+            <div class="list-tag">
+                <div>描述</div>
+            </div>
+            <div>
+                <!--<input type="text" id="type" placeholder="如：主食 点心">-->
+                <select name="" id="type">
+                    <option value="0">请选择属性</option>
+                    <option value="主食">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果">水果</option>
+                </select>
+            </div>
+        </li>
+    </ul>
+    <div class="remark">
+        <div class="remark-title">添加照片</div>
+        <div id="imglist1"></div>
+        <div class="add-other" onclick="uploadImg()"></div>
+    </div>
+</div>
+<div class="save" tapmode="btn" onclick="addMeans()">添加食材</div>
+<div class="save save2" tapmode="btn" onclick="save()">保存</div>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/dateSelect.js"></script>
+<script type="text/html" id="contentTmp">
+    <div class="seek-warp">
+        <input type="search" id="seekVal">
+        <span class="seek" onclick="seek()"></span>
+    </div>
+    <div class="food-content">
+        <%for(var i = 0;i<list.length;i++){%>
+        <p class="food" onclick="getValAdd(this,<%=i%>)"><%=list[i]%></p>
+        <%}%>
+    </div>
+</script>
+
+
+<!--修改食谱-->
+<script type="text/html" id="cookBookMean">
+    <ul class="info-list" id="bookBody">
+        <li class="e-count list-item">
+            <div>
+                <input type="text" id="name" placeholder="请输入菜名" value="<%=list.name%>">
+                <div class="select" onclick="openList()"></div>
+                <div class="content" id="contentDom">
+
+                </div>
+            </div>
+        </li>
+        <li class="e-count list-m" id="shicaiBody">
+            <%for(var i=0;i<list.materials.length;i++){%>
+            <div>
+                <ul class="info-list"  style="padding: 5px">
+                    <li class="e-count list-item">
+                        <div class="list-tag">
+                            <div>食材</div>
+                        </div>
+                        <div>
+                            <input type="text" id="food<%=i%>" placeholder="请输入食材" value="<%=list.materials[i].name%>">
+                        </div>
+                    </li>
+                    <li class="e-count list-item">
+                        <div class="list-tag">
+                            <div>重量</div>
+                        </div>
+                        <div>
+                            <input type="number" id="weight<%=i%>" placeholder="请输入重量" onkeyup="value=value.replace(/[^\d]/g,'')" value="<%=list.materials[i].num%>" class="weight">
+                            <select lay-verify="" id="unit<%=i%>" class="unit">
+                                <option value="0">请选择单位</option>
+                                <%if(list.materials[i].unit == "kg"){%>
+                                <option value="g">g</option>
+                                <option value="kg" selected="selected">kg</option>
+                                <%}else{%>
+                                <option value="g" selected="selected">g</option>
+                                <option value="kg">kg</option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <%}%>
+        </li>
+        <li class="e-count list-item">
+            <div class="list-tag">
+                <div>描述</div>
+            </div>
+            <div>
+                <select name="" id="type">
+                    <option value="0">请选择属性</option>
+                    <%if(list.desc=="主食"){%>
+                    <option value="主食" selected="selected">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果">水果</option>
+                    <%}else if(list.desc=="荤菜"){%>
+                    <option value="主食">主食</option>
+                    <option value="荤菜" selected="selected">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果">水果</option>
+                    <%}else if(list.desc=="素菜"){%>
+                    <option value="主食">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜"selected="selected">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果">水果</option>
+                    <%}else if(list.desc=="辅食"){%>
+                    <option value="主食">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食" selected="selected">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果">水果</option>
+                    <%}else if(list.desc=="汤粥"){%>
+                    <option value="主食">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥" selected="selected">汤粥</option>
+                    <option value="水果">水果</option>
+                    <%}else if(list.desc=="水果"){%>
+                    <option value="主食">主食</option>
+                    <option value="荤菜">荤菜</option>
+                    <option value="素菜">素菜</option>
+                    <option value="辅食">辅食</option>
+                    <option value="汤粥">汤粥</option>
+                    <option value="水果" selected="selected">水果</option>
+                    <%}%>
+                </select>
+            </div>
+        </li>
+    </ul>
+    <div class="remark">
+        <div class="remark-title">添加照片</div>
+        <div id="imglist1">
+            <%for(var i=0;i<list.imgs.length;i++){%>
+            <span onclick='Endes(this)' style='width:41px;height:41px;overflow:hidden;'><img src='<%=list.imgs[i]%>' style="width: 41px;height: 41px;"/><i>X</i></span>
+            <%}%>
+        </div>
+        <div class="add-other" onclick="uploadImg()"></div>
+    </div>
+</script>
+
+<!--添加食材-->
+<script type="text/html" id="addCookMean">
+    <div>
+        <ul class="info-list"  style="padding: 5px">
+            <li class="e-count list-item">
+                <div class="list-tag">
+                    <div>食材</div>
+                </div>
+                <div>
+                    <input type="text" id="food<%=list%>" placeholder="请输入食材" value="">
+                </div>
+            </li>
+            <li class="e-count list-item">
+                <div class="list-tag">
+                    <div>重量</div>
+                </div>
+                <div>
+                    <input type="number" id="weight<%=list%>" placeholder="请输入重量" onkeyup="value=value.replace(/[^\d]/g,'')" class="weight" value="">
+                    <select lay-verify="" id="unit<%=list%>"  class="unit">
+                        <option value="0">请选择单位</option>
+                        <option value="g">g</option>
+                        <option value="kg">kg</option>
+                    </select>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<!--填充食材-->
+<script type="text/html" id="upCookMean">
+    <div>
+        <ul class="info-list"  style="padding: 5px">
+            <li class="e-count list-item">
+                <div class="list-tag">
+                    <div>食材</div>
+                </div>
+                <div>
+                    <input type="text" id="food<%=list[1]%>" placeholder="请输入食材" value="<%=list[0].name%>">
+                </div>
+            </li>
+            <li class="e-count list-item">
+                <div class="list-tag">
+                    <div>重量</div>
+                </div>
+                <div>
+                    <input type="number" id="weight<%=list[1]%>" placeholder="请输入重量" onkeyup="value=value.replace(/[^\d]/g,'')" value="<%=list[0].num%>"  class="weight">
+                    <select lay-verify="" id="unit<%=list[1]%>"  class="unit">
+                        <option value="0">请选择单位</option>
+                        <%if(list[0].unit=="g"){%>
+                        <option value="g"  selected="selected">g</option>
+                        <option value="kg">kg</option>
+                        <%}else{%>
+                        <option value="g">g</option>
+                        <option value="kg"  selected="selected">kg</option>
+                        <%}%>
+                    </select>
+                </div>
+            </li>
+        </ul>
+    </div>
+</script>
+<script>
+    var TYPE ;
+    var dataJson;
+    var valueArr = [];
+    var addType;
+    var index;
+    var dtype;
+    apiready = function () {
+        dataJson  =api.pageParam.newData;
+        addType = api.pageParam.addType;
+        dtype =  api.pageParam.type;
+        index = api.pageParam.index
+        TYPE = api.pageParam.Type;
+        //当type=1进入修改,将值渲染
+        if(dtype == 1) {
+            var data = api.pageParam.data;
+            var data = {list: data};
+            var html = template('cookBookMean', data);
+            document.getElementById('meanBody').innerHTML = html;
+        }
+        intFoodList();
+
+    }
+
+    //搜索
+    function seek() {
+        var sVal = $('#seekVal').val();
+        if(sVal != '') intFoodList(sVal);
+    }
+    //获取菜名
+    function intFoodList(val) {
+        ajaxGet(getFood,{sid: getUserInfo().sid,foodName:val},function (ret,err) {
+            if(ret != ''){
+                // alert(JSON.stringify(ret));
+                setTimeout(function(){
+                    var foodArr = [];
+                    for(var i=0;i < ret.data.length;i++){
+                        for(var key in ret.data[i]){
+                            foodArr.push(key)
+                        }
+                        valueArr.push(ret.data[i][key]);
+                    }
+                    var data = {list: foodArr};
+                    var html = template('contentTmp', data);
+                    document.getElementById('contentDom').innerHTML = html;
+                    api.parseTapmode();
+                },1000);
+            }else{
+                document.getElementById('contentDom').innerHTML = '';
+            }
+        })
+    }
+    //打开 关闭搜索
+    function openList() {
+        $("#contentDom").toggle();
+    }
+
+    //获取所选值赋值到菜名input
+    function getValAdd(self,key){
+        $("#contentDom").toggle();
+        $(self).addClass('active');
+        $(self).siblings().removeClass('active');
+        var val = self.innerHTML;
+        $('#name').val(val);
+        document.getElementById('shicaiBody').innerHTML ="";
+        for(var i=0;i<valueArr[key].length;i++){
+//            alert(JSON.stringify(valueArr[key][i]));
+            var datas = [];
+            datas.push(valueArr[key][i]);
+            datas.push(i);
+            var data = {list: datas};
+            var html = template("upCookMean",data);
+            document.getElementById('shicaiBody').innerHTML += html;
+        }
+
+    }
+    var applN = $('#applyNum');
+    applN.on('input propertychange', function() {
+        var applV = applN.val()
+        var nowNum = $('#nowNum').val();
+        if(applV > nowNum){
+            toast('申请数不能大于现有数！')
+        }
+    });
+    // 上传照片、
+    var imglist = [];
+    var imgNum = 4;
+    function uploadImg(){
+        if(imgNum <= 0 ){
+            toast("最多上传四张");
+            return;
+        }
+        var Multiplechoice = api.require('Multiplechoice');
+        Multiplechoice.choice({
+            maxstr : imgNum,
+            uploadflowUrl:uploadImageUrl
+        },function(ret,err){
+            imgNum = imgNum-ret.allimgjs.length;
+            if(ret.allimgjs.length>0){
+                for(var i=0;i<ret.allimgjs.length;i++){
+                    var objimg = {};
+                    objimg.img = ret.allimgjs[i];
+                    objimg.flag = true;
+                    //处理图片变形
+                    var width = 41;
+                    var height = 41;
+                    var obj = getImgByThisSize(objimg.img,width,height);
+                    document.getElementById("imglist1").innerHTML +="<span onclick='Endes(this)' style='width:41px;height:41px;overflow:hidden;'><img src='"+objimg.img+"' style='"+obj.style+"' /><i>X</i></span>";
+                }
+            }else{
+                toast('上传失败')
+            }
+        })
+    };
+    // 删除
+    function Endes(self){
+        $(self).hide();
+        var actionUrl = self.firstChild.getAttribute("src");
+        for(var i=0;i<imglist.length;i++){
+            if(imglist[i] == actionUrl){
+                imglist.splice(i,1);
+                imgNum++;
+            }
+        }
+    }
+    //保存
+    function save(){
+        var name = $api.val($api.byId('name'));
+        var type = $api.val($api.byId('type'));
+        var a = document.getElementById("shicaiBody").children.length;
+        var food =[];
+        var weight =[];
+        var unit =[]
+        for(var i=0;i<a;i++) {
+            food.push($api.val($api.byId('food'+i)));
+            weight.push($api.val($api.byId('weight'+i)));
+            unit.push($api.val($api.byId('unit'+i)));
+        }
+        if(name == ''){
+            toast('请输入或选择菜名')
+        }else if(food == ''){
+            toast('请输入食材')
+        }else if(weight == ''){
+            toast('请输入重量')
+        }else if(unit == 0 || unit == '0' ){
+            toast('请选择单位')
+        }else if(type == ''){
+            toast('请输入属性')
+        }else{
+            var a= document.getElementById("shicaiBody").children.length;;
+            var b = document.getElementById("imglist1").children.length;
+            for(var j=0;j<b;j++){
+                imglist.push(document.getElementById("imglist1").getElementsByTagName("img")[j].src);
+            }
+            //循环创建对象
+            var materials =[];
+            for(var i=0;i<a;i++) {
+                var data = {
+                    name: $api.val($api.byId('food'+i)),
+                    num:$api.val($api.byId('weight'+i)),
+                    unit:$api.val($api.byId('unit'+i))
+                }
+                materials.push(data);
+
+            }
+            var params = {
+                name:name,
+                imgs:imglist,
+                materials:materials,
+                desc:type
+            }
+            if(dtype == 0){
+                if(addType){
+                // 添加
+                //     alert(JSON.stringify(params));
+                    for(var key in dataJson){
+                        if(key==addType){
+                            dataJson[addType].push(params);
+                        }
+                    }
+                    api.execScript({
+                        name:'createCookBook',
+                        frameName:'createCookBook_body',
+                        script:'getJson('+JSON.stringify(dataJson)+')'
+                    });
+                }else{
+                    //新建
+                    api.execScript({
+                        name:'createCookBook',
+                        frameName:'createCookBook_body',
+                        script:'getCookJson('+ JSON.stringify(params) +','+ TYPE +')'
+                    })
+                }
+            }else{
+                //修改
+                for(var key in dataJson){
+                    if(key==addType){
+                        dataJson[addType][index] = params;
+                    }
+                }
+                api.execScript({
+                    name:'createCookBook',
+                    frameName:'createCookBook_body',
+                    script:'getJson('+JSON.stringify(dataJson)+')'
+                });
+            }
+            closeWin();
+        }
+
+    }
+
+    //添加食材
+    function addMeans(){
+                var a = document.getElementById("shicaiBody").children.length;
+                var data = {list: a};
+                var html = template('addCookMean', data);
+                $('#shicaiBody').append(html);
+    }
+</script>
+</body>
+</html>

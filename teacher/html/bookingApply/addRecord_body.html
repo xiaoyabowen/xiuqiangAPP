@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--阻止自动判断电话-->
+    <meta name="format-detection" content="telephone=no" />
+    <title>预约沟通记录</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <link href="../../css/dateSelect.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F8F8F8;
+            color: #333333;
+            font-size: 14px;
+        }
+        #content{
+            width: 100%;
+            padding:12px 18px;
+            margin:0 auto;
+            box-sizing: border-box;
+        }
+        #time{
+            width: 100%;
+            height: 40px;
+            border: 1px solid #BDBDBD;
+            border-radius: 4px;
+            padding-left: 12px;
+            font-size: 14px;
+            color: #999999;
+            margin-top:12px;
+            box-sizing: border-box;
+            background: url("../../icon/switch.png") no-repeat 90%;
+            background-size:3%;
+        }
+        #textarea{
+            width: 100%;
+            height: 119px;
+            border: 1px solid #BDBDBD;
+            border-radius: 4px;
+            margin-top: 12px;
+            padding:10px;
+            color: #999999;
+            box-sizing: border-box;
+            resize:none;
+            outline: none;
+        }
+        button{
+            width: 100%;
+            height: 44px;
+            text-align: center;
+            line-height: 44px;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius: 4px;
+            margin-top: 20px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+        .btn{
+            background: #cccccc;
+            color: #fff;
+        }
+        .tz-datepicker{
+            border-radius: 5px;
+            border-color: #BDBDBD;
+
+        }
+        #datepicker_time{
+            left: 68px;!important;
+            top: 64px;!important;
+        }
+    </style>
+</head>
+<body id="body">
+    <div id="content">
+        <input type="text" id="time" placeholder="请选择沟通时间" readonly>
+        <textarea name="" id="textarea" placeholder="请输入沟通记录"></textarea>
+        <button tapmode="btn" onclick="add()">添加</button>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/dateSelect.js"></script>
+<script>
+    var id;
+
+    apiready = function () {
+        id = api.pageParam.id;
+        $("#time").dateSelect();
+    };
+    //添加沟通记录
+    function add(){
+        var timeV = document.getElementById('time').value;
+        var textV = document.getElementById('textarea').value;
+        if( timeV == '' || timeV == NaN){
+            toast('请选择沟通时间')
+        }else if(textV == ''){
+            toast('请输入沟通记录')
+        }else{
+            var askRcordsJson = [
+                {
+                    'time':Date.parse(timeV),
+                    'consultRecods':textV
+                }
+            ];
+            api.showProgress({
+                title: '添加中...',
+                modal: false
+            });
+            ajaxGet(addRecord,{id:id,askRcordsJson:askRcordsJson},function (ret,err) {
+                if(ret.success){
+                    api.hideProgress();
+                    toast('添加成功！');
+                    api.execScript({
+                        name: 'lookIndex',
+                        frameName: 'lookIndex_body',
+                        script: 'apiready()'
+                    });
+                    setTimeout('closeWin()','2000');
+                }else if(ret.success == false){
+                    api.hideProgress();
+                    toast(ret.msg);
+                }
+            })
+        }
+    }
+</script>
+</html>

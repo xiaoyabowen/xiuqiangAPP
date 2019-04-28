@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝秀</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+            min-width: 320px;
+            background-color: #f8f8f8;
+        }
+        .NewContacts{
+            background: #fff;
+            padding: 0 5%;
+        }
+        .NewContacts li{
+            height: 73px;
+        }
+        #icon{
+            width: 52px;
+            height: 52px;
+            overflow: hidden;
+            border-radius: 50%;
+            float: left;
+            margin-top: 10px;
+            /*padding: 10px 8px;*/
+            /*display: inline-block;*/
+        }
+        #icon_img{
+            /*width: 100%;*/
+            /*height: 100%;*/
+            /*border-radius: 50%;*/
+        }
+        input{
+            float: right;
+            border-bottom: 1px solid #F2F2F2;
+            line-height: 73px;
+            width: 75%;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <ul class="NewContacts">
+        <li class="clearfix">
+            <div id="icon" onclick="changeIcon()"><img id="icon_img" style="width: 100%;height: 100%;" src="../../image/fcoushead.png"/></div>
+            <input type="text" placeholder="姓名" id="name">
+            <div clear="both "></div>
+        </li>
+        <li>
+            <input type="text" placeholder="工作单位" id="work">
+            <div clear="both "></div>
+        </li>
+        <li>
+            <input type="tel" placeholder="电话号码" id="tel">
+            <div clear="both "></div>
+        </li>
+    </ul>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+    var uid;
+    var img="";
+    apiready=function () {
+        uid=getUserInfo().id;
+        sid=getUserInfo().sid;
+    }
+    function accomplish() {
+        if(document.getElementById('name').value == ''){
+            toast('请输入姓名')
+            return;
+        }
+        if(document.getElementById('work').value == ''){
+            toast('请输入工作单位')
+            return
+        }
+        if(document.getElementById('tel').value==''){
+            toast('请输入电话号码')
+            return
+        }else if(!(/^1(3|4|5|7|8)\d{9}$/.test(document.getElementById('tel').value))){
+            toast("手机号码有误，请重填");
+            return;
+        }
+        var  objPhone={};
+        objPhone.uid=uid;
+        objPhone.sid=sid;
+        objPhone.name=document.getElementById('name').value;
+        objPhone.work=document.getElementById('work').value;
+        objPhone.phone=document.getElementById('tel').value;
+        objPhone.imgpath=img;
+        ajaxGet(addddressList,objPhone,function (ret,err) {
+            if(ret.success==true){
+                toast("添加成功");
+                api.execScript({
+                    name:'communicationList',
+                    frameName:'outerCampus',
+                    script:'apiready()'
+                });
+                setTimeout(function () {
+                    closeWin();
+                },300)
+            }
+        })
+    }
+
+    function changeIcon() {
+        var Multiplechoice =  api.require('Multiplechoice');
+        Multiplechoice.choice({
+            maxstr : 1,
+            uploadflowUrl:uploadImageUrl
+        },function(ret,err){
+            if(ret.allimgjs.length>0){
+                var width = 52;
+                var height = 52;
+                var obj = getImgSizeBySize(ret.allimgjs[0],width,height);
+                document.getElementById('icon_img').src = obj.url;
+                document.getElementById('icon_img').setAttribute('style',obj.style);
+                img=obj.url
+            }
+        })
+    }
+</script>
+</html>

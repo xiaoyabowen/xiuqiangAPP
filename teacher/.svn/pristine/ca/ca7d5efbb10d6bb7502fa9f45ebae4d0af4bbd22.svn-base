@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝考勤-缺勤</title>
+    <style>
+        body{
+            background: #FFFFFF;
+        }
+        .absence-rate{
+            width:100%;
+            height:174px;
+            padding-top:31px;
+            padding-left:8.3%;
+            box-sizing: border-box;
+        }
+        .left-rate{
+            width:224px;
+            height:224px;
+            background: #FFFFFF;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius:50%;
+            position: relative;
+            float:left;
+            zoom:0.5;
+        }
+        #myCanvas{
+            position: absolute;
+            top:12px;
+            left:12px;
+        }
+        .right-unit{
+            width:100%;
+            padding-left:47.6%;
+            box-sizing: border-box;
+        }
+        .right-date{
+            width:145px;
+            height:35px;
+            line-height:25px;
+            background: #FFFFFF;
+            border: 1px solid #D7D7D7;
+            border-radius:4px;
+            margin-right:28px;
+            margin-top:15px;
+            padding-top:6px;
+            padding-left:10px;
+            box-sizing: border-box;
+        }
+        .right-check{
+            width:145px;
+            height:35px;
+            background: #FFFFFF;
+            border: 1px solid #D7D7D7;
+            border-radius:4px;
+            text-align: center;
+            font-size: 14px;
+            color:#333333;
+            margin-top:12px;
+            padding-top:6.5px;
+            margin-right:28px;
+            box-sizing: border-box;
+        }
+        .right-check div{
+            width:50%;
+            height:22px;
+            line-height:22px;
+            float:left;
+            box-sizing: border-box;
+        }
+        .right-check>:nth-child(1){
+            border-right:1px solid #D7D7D7;
+        }
+        .show-date{
+            font-size: 14px;
+            color: #999999;
+            letter-spacing: 0.22px;
+            float:left;
+        }
+        .date-picker{
+            position:relative;
+        }
+        .date-picker>div>img{
+            width:9px;
+            position:absolute;
+            top:3px;
+            right:10px;
+        }
+        .clockin-detail{
+            width:100%;
+            height:83px;
+            clear:both;
+            padding-top:17px; 
+            padding-left:15px;
+            padding-right:15px;
+            border-top: 1px solid #F0F0F0;
+            border-bottom: 1px solid #F0F0F0;            
+            box-sizing: border-box;
+        }
+        .clockin-detail ul{
+            width:100%;
+            height:83px;            
+            box-sizing: border-box;
+        }
+        .clockin-detail ul li{
+            float:left;
+            height:50px;
+            text-align:center;
+            box-sizing: border-box;
+        }
+        .clockin-detail ul li>:nth-child(1){
+            font-size: 22px;
+            color: #333333;
+            margin-top:-5px;
+        }
+        .clockin-detail ul li>:nth-child(2){
+            font-size: 14px;
+            color: #666666;
+            margin-top:5px;
+        }        
+        .late,.leave-early,.normal,.leave{
+            width:18.67%;
+        }
+        .no-clockin{
+            width:25.32%;
+        }
+        .leave-early,.leave{
+            border-left:1px solid #F0F0F0;
+            border-right:1px solid #F0F0F0;            
+        }
+        .clockin-record{
+            width:100%;
+            margin-top:20px;
+        }
+        .cr-title{
+            width:100%;
+            height:52px;
+            background:#EBFBFF;
+            text-align: center;
+            line-height:52px;
+            font-size: 16px;
+            color: #505050;
+            letter-spacing: 0.22px;
+        }
+        .cr-title span{
+            position: relative;
+            padding-left:33px;
+        }
+        .cr-title img{
+            position: absolute;
+            width: 21px;
+            height: 21px;
+            left: 0px;
+            top: 15px;
+        }
+        .clocking-table{
+            padding-left:15px;
+            padding-right:15px;
+            margin-top:20px;
+            box-sizing: border-box;            
+        }
+        table{
+            width:100%;
+        }
+        thead>tr{
+            width:100%;
+        }
+        thead>tr th{
+            width:25%;
+            font-weight:normal;
+            font-size: 14px;
+            color:#333333;           
+        }
+        thead>tr>:nth-child(1){
+            text-align: left;
+        }
+        thead>tr>:nth-child(2)>img{
+            width:7px;
+            vertical-align: middle;
+            margin-left:10px;
+        }
+        thead>tr>:nth-child(2){
+            text-align: center; 
+            padding-left:40px;                       
+        }
+        thead>tr>:nth-child(3),
+        thead>tr>:nth-child(4){
+            text-align: right;
+        }
+        thead>tr>:nth-child(1){
+            padding-left:3px;
+        }
+        thead>tr>:nth-child(4){
+            padding-right:3px;
+        }
+        tbody tr td{
+            font-size:12px;
+            color:#333333;
+        }
+        tbody tr>:nth-child(1){
+            text-align: left;
+            padding-left:3px;
+        }
+        tbody tr>:nth-child(4){
+            padding-right:4px;
+        }
+        tbody tr>:nth-child(2){
+            text-align: center;
+            padding-left:40px;
+        }
+        tbody tr>:nth-child(3),
+        tbody tr>:nth-child(4){
+            text-align: right;
+        }
+        tbody tr>:nth-child(2){
+            padding-right:2px;
+        }
+        tbody tr{
+            width:100%;
+            height:41px;
+            line-height:41px;
+            border-bottom:1px solid #F2F2F2;
+        }
+        tbody>:nth-last-child(1){
+            border:none;
+        }
+        tbody tr .unnormal>span{
+            width:46px;
+            height:21px;
+            background: #D26034;
+            color:#FFFFFF;
+            border-radius: 4px;
+            line-height:21px;
+        }
+    </style>
+</head>
+<body>
+    <div class="absence-rate">
+        <div class="left-rate">
+            <div class="circle">
+                <canvas id="myCanvas"></canvas>
+            </div>
+        </div>
+        <div class="right-unit">
+            <div class="right-date">
+                <div class="show-date">2018.12.31</div>
+                <div class="date-picker">
+                    <div><img src="../../icon/switch.png" alt=""></div>
+                </div>
+            </div>
+            <div class="right-check">
+                <div>补卡</div>
+                <div>请假</div>
+            </div>
+        </div>
+    </div>
+    <div class="clockin-detail">
+        <ul>
+            <li class="late">
+                <div class="late-num">1</div>
+                <div>迟到</div>
+            </li>
+            <li class="leave-early">
+                <div class="le-num">0</div>
+                <div>早退</div>
+            </li>
+            <li class="normal">
+                <div class="n-num">65</div>
+                <div>缺勤</div>
+            </li>
+            <li class="leave">
+                <div class="leave-num">1</div>
+                <div>请假</div>
+            </li>
+            <li class="no-clockin">
+                <div class="nc-num">1</div>
+                <div>未打卡</div>
+            </li>
+        </ul>
+    </div>
+    <div class="clockin-record">
+        <div class="cr-title">      
+            <span><img src="../../icon/blackclock.png" alt="">考勤记录</span>
+        </div>
+        <div class="clocking-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>缺勤<img src="../../icon/switch.png" alt=""></th>
+                        <th>入园</th>
+                        <th>离园</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                    <tr>
+                        <td>黄仁宇</td>
+                        <td class="unnormal">
+                            <span>缺勤</span>
+                        </td>
+                        <td>12:59</td>
+                        <td>18:35</td>               
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/mui.min.jsjs"></script>
+    <script type="text/javascript">  
+        function drawRing(w,h,val){  
+            var c=document.getElementById('myCanvas');  
+            var ctx=c.getContext('2d');
+			ctx.scale(2,2);             
+            ctx.canvas.width=w;  
+            ctx.canvas.height=h;          
+            ctx.beginPath();  
+            ctx.lineWidth=10;
+            var g = ctx.createLinearGradient(0,0,200,100);
+            g.addColorStop(0,'#5AC8E1'); 
+            g.addColorStop(1,'#93C85C');
+            ctx.strokeStyle= g ;   
+            ctx.arc(100,100,90,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);  
+            ctx.stroke();  
+            ctx.font='bold 32px Arial';  
+            ctx.fillStyle='#484848';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText(val+'%',100,90); 
+
+            ctx.font='28px Arial';  
+            ctx.fillStyle='#333333';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText('出勤率',100,140); 
+        }  
+        drawRing(200,200,98);
+    </script>  
+</body>
+</html>

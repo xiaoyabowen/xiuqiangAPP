@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>公告通知</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		body{
+			min-width: 320px;
+		}
+		.nav-list{
+			width:100%;
+			height:66px;
+			padding:12px 8px;
+			box-sizing: border-box;
+			background: #f8f8f8;
+		}
+		.nav-list .nav-info{
+			width:100%;
+			height:42px;
+			border-radius:4px;
+			box-sizing: border-box;
+			background: #FFFFFF;
+		}
+		.nav-list .nav-info .selected{
+			color:#505050 ;
+			background: url('../../icon/selected-bg.png');
+			background-repeat:no-repeat;
+			background-position:center bottom;
+		}
+		.nav-list .nav-info .fl-item{
+			width:50%;
+			height:42px;
+			float:left;
+			color: #A3A3A3;
+			box-sizing: border-box;
+		}
+		.nav-list .nav-info .fl-item>:nth-child(1){
+			width:100%;
+			height:30px;
+			line-height: 30px;
+			margin-top:6px;
+			text-align: center;
+			font-size: 16px;
+			box-sizing: border-box;
+		}
+		.nav-list .nav-info .written-comment>:nth-child(1){
+			border-left: 1px solid #F0F0F0;
+			/*border-right: 1px solid #F0F0F0;*/
+		}
+		#topbar .right{
+			right: 15px;
+		}
+		.itemOn{background: #f6f6f6}
+	</style>
+</head>
+<body>
+<div id="topbar" >
+	<div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		<img style="width:30px;height:30px;" src="../../icon/back.png">
+	</div>
+	<div>公告通知</div>
+	<div class="right" tapmode="itemOn"><img style="width: 20px;height: 20px;" src="../../icon/addicon.png" onclick="newClassNotice()" alt="" /></div>
+</div>
+<div class="nav-list">
+	<div class="nav-info">
+		<div class="all-comment fl-item selected"  onclick="switchFrameGroupIndex(0)">
+			<div>全部</div>
+		</div>
+		<div class="written-comment fl-item" onclick="switchFrameGroupIndex(1)">
+			<div>我发的通知</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+
+    apiready = function () {
+        var strDM = api.systemType;//系统
+        var strSV = parseFloat(api.systemVersion,10);//版本
+        var titleHeight=0;
+        if((strDM == 'ios' && strSV > 7)||(strDM == 'android' && strSV >= 4.4)){
+            titleHeight=api.safeArea.top;
+        }
+        document.getElementById('topbar').style.paddingTop = titleHeight + 'px';
+        document.getElementById('topbar').style.display = "block";
+        var res = api.pageParam;
+        window_width = api.winWidth;
+        api.openFrameGroup ({
+            name: 'allComments',
+            background:'#fff',
+            scrollEnabled:true,
+            preload:2,
+            rect : {
+                x : 0,
+                y : headHeight+api.safeArea.top + 66,
+                w : 'auto',
+                h : api.winHeight-headHeight-api.safeArea.top - 66
+            },
+            index:0,
+            frames: [{
+                name: 'classNoticeBody',
+                url: 'classNotice_body.html',
+                bgColor :'rgba(246,246,246,1)',
+                pageParam:{type:0,index:0}
+            },{
+                name: 'classNotice_mine',
+                url: 'classNotice_mine_body.html',
+                bgColor :'rgba(246,246,246,1)',
+                pageParam:{type:2,index:1}
+            }
+            ]
+        }, function(ret, err){
+            switchFrameCallback(ret.index);
+        });
+    };
+    function newClassNotice() {
+		openNewWindow('releaseClassNotice','releaseClassNotice.html',{})
+    }
+    function switchFrameGroupIndex(index){
+        _index = index;
+        api.setFrameGroupIndex({
+            name : "allComments",
+            index : index,
+            scroll : true//可以左右滑动
+        });
+    }
+
+
+    function switchFrameCallback(index) {
+//	        var width = (window_width / 3) * index;
+        var spans_01 = document.querySelectorAll(".fl-item");
+        for (var i = 0; i < spans_01.length; i++) {
+            if (i == index) {
+                spans_01[i].classList.add("selected")
+                spans_01[i].style.color = "#5ec4e0";
+            } else {
+                spans_01[i].classList.remove("selected")
+                spans_01[i].style.color = "#a1a1a1";
+            }
+        }
+    }
+
+
+
+</script>
+</html>

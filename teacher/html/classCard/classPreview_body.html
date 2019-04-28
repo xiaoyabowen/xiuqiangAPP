@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝课表</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.cardTime{
+				margin: 12px 8px;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				height: 42px;
+				line-height: 42px;
+				text-align: center;
+				font-size: 17px;
+				color: #505050;
+				letter-spacing: 0.23px;
+			}
+			.cardTime span{
+				float: left;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_lt.png) no-repeat;
+				margin-top: 13px;
+				margin-left: 18px;
+			}
+			.cardTime em{
+				float: right;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				margin-top: 13px;
+				margin-right: 18px;
+			}
+			.classCardList{
+				margin: 0 8px;
+				margin-bottom: 12px;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+			}
+			.classCardList>li{
+				border-bottom: 1px solid #f0f0f0;
+				overflow: hidden;
+				padding: 20px 18px;
+			}
+			.classCardList>li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.classCardList>li .lt_pic{
+				float: left;
+				width: 28px;
+				height: 28px;
+			}
+			.classCardList>li .lt_pic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
+			.classCardList>li .rt_name{
+				/*float: left;*/
+				margin-left: 38px;
+			}
+			.rt_name>p{
+				position: relative;
+			}
+			.rt_name>p em{
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.22px;
+				line-height: 22px;
+			}
+			.rt_name>p i{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				-moz-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.rt_name>ul{
+				margin-top: 13px;
+			}
+			.rt_name>ul>li{
+				line-height: 17px;
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				
+			}
+			.rt_name>ul>li.teachingPlan img{
+				width: 13px;
+				height: 13px;
+				vertical-align: top;
+				margin-left: 10px;
+			}
+			.rt_name>ul>li.realia{
+				position: relative;
+			}
+			.rt_name>ul>li.realia>span{
+				float: left;
+				margin-top: 10px;
+				padding-top: 8px;
+			}
+			.rt_name>ul>li.realia ul{
+				display: inline-block;
+				background: #FFFFFF;
+				border: 1px solid #5AC8E1;
+				border-radius: 4px;
+				padding: 0 8px;
+				margin-top: 10px;
+			}
+			.rt_name>ul>li.realia ul li{
+				height: 21px;
+				/*line-height: 21px;*/
+				overflow: hidden;
+				margin-bottom: 3px;
+				margin-top:5px;
+				margin-bottom: 10px;
+			}
+			.rt_name>ul>li.realia ul li i{
+				display: inline-block;
+				width: 80px;
+				line-height: 18px;
+			}
+			.rt_name>ul>li.realia ul li span{
+				display: inline-block;
+				vertical-align: middle;
+				/*margin-top: 5px;*/
+			}
+			.rt_name>ul>li.realia ul li span img{
+				width: 31px;
+				height: 21px;
+				border-radius: 2px;
+			}
+			.rt_name>ul>li.realia ul li em{
+				width: 20px;
+				height: 20px;
+				border-left: 1px solid #f0f0f0;
+				background: url(../../image/arrow_btm_small.png) no-repeat;
+				background-position: center;
+				margin-left: 6px;
+				/*vertical-align: middle;*/
+			}
+			.rt_name>ul>li.realia b{
+				display: block;
+				width: 14px;
+				height: 14px;
+				background: url(../../image/yzxx_ly.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				right: 0;
+				bottom:33px;
+			}
+			.rt_name>ul>li.realia a{
+				display: block;
+				width: 14px;
+				height: 14px;
+				background: url(../../icon/delete.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				right: 0;
+				bottom: 3px;
+			}
+			.fanhui{
+				float: left;
+				background: #5AC8E1;
+				width: 45%;
+				height: 44px;
+				border-radius: 6px;
+				font-size: 16px;
+				color: #fff;
+				text-align: center;
+				line-height: 44px;
+			}
+			.fabu{
+				float: right;
+				background: #5AC8E1;
+				width: 48%;
+				height: 44px;
+				border-radius: 6px;
+				font-size: 16px;
+				color: #fff;
+				text-align: center;
+				line-height: 44px;
+			}
+			.dibu{
+				padding:0 5%;
+				margin-top: 30px;
+				margin-bottom: 30px;
+			}
+			.cardTimespan{
+				float: left;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_lt.png) no-repeat;
+				margin-top: 13px;
+				margin-left: 18px;
+			}
+			.cardTimeem{
+				float: right;
+				width: 9px;
+				height: 17px;
+				background: url(../../image/arrow_rt2.png) no-repeat;
+				margin-top: 13px;
+				margin-right: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+			<div class="cardTime">
+				<input class="cardTimespan" type="button" value="" tapmode="itemOn"id="Minus" />
+				<input type="text" id="date" disabled="disabled" style="text-align: center"/>
+				<input class="cardTimeem" type="button" value="" tapmode="itemOn" id="Add" />
+			</div>
+		    <ul class="classCardList" id="classCardList">
+		    	<!--<li>-->
+		    		<!--<div class="lt_pic"><img src="../../image/art.png" alt="" /></div>-->
+		    		<!--<div class="rt_name">-->
+		    			<!--<p>-->
+		    				<!--<em>手工课</em>-->
+		    				<!--<i>时间:&nbsp;&nbsp;09:10-09:50</i>-->
+		    			<!--</p>-->
+		    			<!--<ul>-->
+		    				<!--<li>老师:&nbsp;&nbsp;王老师</li>-->
+		    				<!--<li>位置:&nbsp;&nbsp;小猴2班</li>-->
+		    				<!--<li class="teachingPlan">教案:&nbsp;&nbsp;超轻黏土手工课<img src="../../image/href.png" alt="" /></li>-->
+		    				<!--<li class="realia"><span>教具:</span>&nbsp;&nbsp;-->
+		    					<!--<ul>-->
+		    						<!--<li><i>超轻黏土</i><span><img src="../../image/sgk01.png" alt="" /></span></li>-->
+		    						<!--<li><i>彩色KT板</i><span><img src="../../image/sgk02.png" alt="" /></span></li>-->
+		    						<!--<li><i>水彩笔</i><span><img src="../../image/sgk03.png" alt="" /></span></li>-->
+		    					<!--</ul>-->
+		    				<!--</li>-->
+		    			<!--</ul>-->
+		    		<!--</div>-->
+		    	<!--</li>-->
+		    	<!--<li>-->
+		    		<!--<div class="lt_pic"><img src="../../image/pe.png" alt="" /></div>-->
+		    		<!--<div class="rt_name">-->
+		    			<!--<p>-->
+		    				<!--<em>体育课</em>-->
+		    				<!--<i>时间:&nbsp;&nbsp;10:10-10:50</i>-->
+		    			<!--</p>-->
+		    			<!--<ul>-->
+		    				<!--<li>老师:&nbsp;&nbsp;李老师</li>-->
+		    				<!--<li>位置:&nbsp;&nbsp;操场</li>-->
+		    				<!--<li class="teachingPlan">教案:&nbsp;&nbsp;攻打灰太狼<img src="../../image/href.png" alt="" /></li>-->
+		    				<!--<li class="realia"><span>教具:</span>&nbsp;&nbsp;-->
+		    					<!--<ul>-->
+		    						<!--<li><i>灰太狼面具</i><span><img src="../../image/pe01.png" alt="" /></span></li>-->
+		    						<!--<li><i>拳套</i><span><img src="../../image/pe02.jpg" alt="" /></span></li>-->
+		    					<!--</ul>-->
+		    				<!--</li>-->
+		    			<!--</ul>-->
+		    		<!--</div>-->
+		    	<!--</li>-->
+		    	<!--<li>-->
+		    		<!--<div class="lt_pic"><img src="../../image/yyk.png" alt="" /></div>-->
+		    		<!--<div class="rt_name">-->
+		    			<!--<p>-->
+		    				<!--<em>语言课</em>-->
+		    				<!--<i>时间:&nbsp;&nbsp;14:30-15:10</i>-->
+		    			<!--</p>-->
+		    			<!--<ul>-->
+		    				<!--<li>老师:&nbsp;&nbsp;刘老师</li>-->
+		    				<!--<li>位置:&nbsp;&nbsp;绘本馆</li>-->
+		    				<!--<li class="teachingPlan">教案:&nbsp;&nbsp;猪太太生宝宝<img src="../../image/href.png" alt="" /></li>-->
+		    				<!--<li class="realia"><span>教具:</span>&nbsp;&nbsp;-->
+		    					<!--<ul>-->
+		    						<!--<li><i>绘本</i><span><img src="../../image/yyk01.png" alt="" /></span></li>-->
+		    						<!--<li><i>小猪头饰</i><span><img src="../../image/yyk02.png" alt="" /></span></li>-->
+		    						<!--<li><i>手偶</i><span><img src="../../image/yyk03.png" alt="" /></span></li>-->
+		    					<!--</ul>-->
+		    				<!--</li>-->
+		    			<!--</ul>-->
+		    		<!--</div>-->
+		    	<!--</li>-->
+		    </ul>
+			<div class="dibu">
+				<div class="fanhui" onclick="closeWin()">返回修改</div>
+				<div class="fabu" onclick="publish()">发布</div>
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/html" id="classCardLi">
+		<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<div class="lt_pic"><img src="../../image/art.png" alt="" /></div>
+			<div class="rt_name">
+				<p>
+					<em><%=list[i].info%></em>
+					<i>时间:&nbsp;&nbsp;<%=list[i].kaishitime%></i>
+				</p>
+				<ul>
+					<li>老师:&nbsp;&nbsp;<%=list[i].teacher%></li>
+					<li>位置:&nbsp;&nbsp;<%=list[i].site%></li>
+					<li class="teachingPlan" >教案:&nbsp;&nbsp;<%=list[i].teachingPlan%><a href="<%=list[i].teachingPlan%>" ><img src="../../image/href.png"></a></li>
+					<li class="realia"><span>教具:</span>&nbsp;&nbsp;
+						<ul>
+							<%for(var j=0;j<list[i].trainingAid.text.length; j++){%>
+							<li>
+								<i><%=list[i].trainingAid.text[j]%></i><span><img src="<%=list[i].trainingAid.img[j]%>" alt="" /></span>
+							</li>
+							<%}%>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</li>
+		<%}%>
+	</script>
+	<script>
+		var id,sid,cids;
+		apiready = function () {
+            getNowFormatDate()
+		};
+
+		var allArr=localStorage.getItem('all');
+//		al(JSON.parse(allArr))
+		allArr=JSON.parse(allArr);
+//		alert(JSON.stringify(allArr));
+		var data = {list: allArr};
+		var html = template("classCardLi", data);
+		document.getElementById('classCardList').innerHTML = html;
+        var obj=[];
+
+
+		for(var i=0;i<allArr.length;i++){
+            var objAll={};
+            var trainingArr=[]
+//            var day= Date.parse(allArr[i].beginY.split("-").join("."))/1000;
+            var day= Date.parse(allArr[i].beginY)/1000;
+            //开始时间
+//            var startDate=Date.parse(allArr[i].beginY+" "+allArr[i].beginM)/1000;
+            al(allArr[i].beginY.split('-').join('/')+" "+allArr[i].beginM)
+            var dateSta = new Date(allArr[i].beginY.split('-').join('/')+" "+allArr[i].beginM);
+//            var date = new Date("2018-06-20 18:45");
+            var startDate = dateSta.getTime()/1000;
+            al(startDate)
+			//结束时间
+//            var endDate=Date.parse(allArr[i].beginY+" "+allArr[i].endM)/1000;
+            var dateEnd = new Date(allArr[i].beginY.split('-').join('/')+" "+allArr[i].endM);
+//            var date = new Date("2018-06-20 18:45");
+            var endDate = dateEnd.getTime()/1000;
+            for(var j=0;j<allArr[i].trainingAid.text.length;j++){
+                trainingArr.push(
+                    {name:allArr[i].trainingAid.text[j],icon:allArr[i].trainingAid.img[j]}
+                )
+            }
+            objAll.id=allArr[i].id;
+			objAll.sid=allArr[i].sid;
+			objAll.cid=allArr[i].cids;
+			objAll.title=allArr[i].info;
+			objAll.status=0;
+            objAll.day=day;//日期
+            objAll.startDate=startDate//开始时间
+            objAll.endDate=endDate;//结束时间
+            objAll.info="";//课程
+            objAll.site=allArr[i].site;//位置
+            objAll.teachingPlan=allArr[i].teachingPlan;//教案
+//            objAll.teachingAid=allArr[i].trainingAid;//教具
+            objAll.teachingAids=trainingArr;//教具
+//			objAll.classtype=allArr[i].classtype;//课程id
+			objAll.tid=allArr[i].teachertype//教师id
+
+            obj.push(objAll);
+		}
+
+//		obj.push(objAll);
+//		al(obj)
+		function publish() {
+//		    alert(JSON.stringify(obj));
+//			alert(JSON.stringify(obj));
+			for (var i = 0; i < obj.length; i++) {
+				var day = obj[i].day;//日期
+				var startDate = obj[i].startDate;//开始时间
+				var endDate = obj[i].endDate;//结束时间
+				var title = obj[i].title;//课程
+				var site = obj[i].site;//位置
+				var teachingPlan = obj[i].teachingPlan;//教案
+				var teachingAids = obj[i].teachingAids;//教具
+				for(var j=0;j<obj[i].teachingAids.length;j++) {
+					var teachingAidsname = obj[i].teachingAids[j].name;//教具名字
+					var teachingAidsnicon = obj[i].teachingAids[j].icon;//教具图片
+				}
+				if (!day) {
+					toast("您还没有选择日期");
+					return;
+				} else if (!startDate) {
+					toast("您还没有选择开始时间");
+					return;
+				} else if (!endDate) {
+					toast("您还没有选择结束时间");
+					return;
+				} else if (title == "") {
+					toast("您还没有输入课程名字");
+					return;
+				} else if (site == "") {
+					toast("您还没有输入位置");
+					return;
+				} else if (teachingPlan == "") {
+					toast("您还没有输入教案");
+					return;
+				}
+			}
+
+		    ajaxGet(addClassUrl,{coursesJson:obj},function (ret,err) {
+//				alert(JSON.stringify(obj));
+				if(ret.success==true){
+				    toast("添加成功");
+                    apiready()
+                    api.execScript({
+                        name:"classCard_new",
+                        frameName:"classCard_new_body",
+                        script:'emptyAll()'
+                    })
+                    api.execScript({
+                        name:"classCard",
+                        frameName:"classCard_body",
+                        script:'apiready()'
+                    })
+					setTimeout(function () {
+						closeWin();
+                    },300)
+
+				}
+            })
+		}
+
+        //获取当前时间
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = year + seperator1 + month + seperator1 + strDate;
+            document.getElementById('date').value=currentdate
+            return currentdate;
+        }
+	</script>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>预约指派</title>
+    <style>
+        body{
+            background: #F2F2F2;
+            min-width: 320px;
+        }
+        .appointment-assign{
+            width:100%;
+            padding:12px 8px 0px;
+            box-sizing: border-box;
+        }
+        .aa-list{
+            width:100%;
+        }
+        .aa-list li{
+            width:100%;
+            /* height:268px; */
+            background:#FFFFFF;
+            padding:20px 18px;
+            box-shadow:0 2px 4px 0 #CDE3E9;
+            border-radius:4px;
+            margin-bottom:12px;
+            box-sizing: border-box;
+        }
+        .aa-list li div{
+            line-height:20px;
+        }
+       .aa-list li>:not(:nth-child(1)){
+           margin-top:12px;
+       }
+        .aa-list li div>:nth-child(1){
+            font-size:14px;
+            color:#333333;
+        }
+        .aa-list li div>:nth-child(2){
+            font-size:14px;
+            color:#333333;
+        }
+        .tel{
+            width:18px;
+            height:18px;
+            position:absolute;
+            margin-left:12px;
+        }
+        .aa-time{
+            font-size:14px;
+            color:#333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="appointment-assign">
+        <ul class="aa-list" id="contuntHm">
+            <li>
+                <div>
+                    <span>家长姓名：</span>
+                    <span class="parent-name">李亚通</span>
+                </div>
+                <div>
+                    <span>家长电话：</span>
+                    <span class="parent-phone">18611388886</span>
+                    <img class="tel" src="../../icon/tel.png" alt="">
+                </div>
+                <div>
+                    <span>预约时间：</span>
+                    <span class="aa-date">2018.02.18</span>
+                    <span class="aa-time">13:40</span>
+                </div>
+                <div>
+                    <span>性<span style="opacity: 0;">占位</span>别：</span>
+                    <span class="student-sex">男</span>
+                </div>
+                <div>
+                    <span>孩子姓名：</span>
+                    <span class="student-name">李星星</span>
+                </div>
+                <div>
+                    <span>出生日期：</span>
+                    <span class="birth">2017.03.30</span>
+                </div>
+                <div>
+                    <span>是否缴费：</span>
+                    <span class="is-pay">是</span>
+                </div>
+            </li>
+            <!--<li>-->
+                <!--<div>-->
+                    <!--<span>家长姓名：</span>-->
+                    <!--<span class="parent-name">李亚通</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>家长电话：</span>-->
+                    <!--<span class="parent-phone">18611387676</span>-->
+                    <!--<img class="tel" src="../../icon/tel.png" alt="">-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>预约时间：</span>-->
+                    <!--<span class="aa-date">2018.02.18</span>-->
+                    <!--<span class="aa-time">13:40</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>性<span style="opacity: 0;">占位</span>别：</span>-->
+                    <!--<span class="student-sex">男</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>孩子姓名：</span>-->
+                    <!--<span class="student-name">李星星</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>出生日期：</span>-->
+                    <!--<span class="birth">2017.03.30</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>是否缴费：</span>-->
+                    <!--<span class="is-pay">是</span>-->
+                <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<div>-->
+                    <!--<span>家长姓名：</span>-->
+                    <!--<span class="parent-name">李亚通</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>家长电话：</span>-->
+                    <!--<span class="parent-phone">18611387676</span>-->
+                    <!--<img class="tel" src="../../icon/tel.png" alt="">-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>预约时间：</span>-->
+                    <!--<span class="aa-date">2018.02.18</span>-->
+                    <!--<span class="aa-time">13:40</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>性<span style="opacity: 0;">占位</span>别：</span>-->
+                    <!--<span class="student-sex">男</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>孩子姓名：</span>-->
+                    <!--<span class="student-name">李星星</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>出生日期：</span>-->
+                    <!--<span class="birth">2017.03.30</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span>是否缴费：</span>-->
+                    <!--<span class="is-pay">是</span>-->
+                <!--</div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/html" id="contuntTm">
+        <%for(var i=0;i<list.length;i++){%>
+            <li onclick="REcord(<%=list[i].id%>)">
+                <div>
+                    <span>家长姓名：</span>
+                    <span class="parent-name"><%=list[i].parentName%></span>
+                </div>
+                <div>
+                    <span>家长电话：</span>
+                    <span class="parent-phone"><%=list[i].phone%></span>
+                    <img class="tel" src="../../icon/tel.png" alt="">
+                </div>
+                <div>
+                    <span>预约时间：</span>
+                    <span class="aa-date"><%=list[i].ctime%></span>
+                    <span class="aa-time">13:40</span>
+                </div>
+                <div>
+                    <span>性<span style="opacity: 0;">占位</span>别：</span>
+                    <span class="student-sex"><%=list[i].sex%></span>
+                </div>
+                <div>
+                    <span>孩子姓名：</span>
+                    <span class="student-name"><%=list[i].name%></span>
+                </div>
+                <div>
+                    <span>出生日期：</span>
+                    <span class="birth"><%=list[i].birthDate%></span>
+                </div>
+                <div>
+                    <span>是否缴费：</span>
+                    <span class="is-pay"><%=list[i].checkStatus%></span>
+                </div>
+            </li>
+        <%}%>
+    </script>
+    <script>
+        apiready = function () {
+            var  userInfo = getUserInfo();
+            // alert(JSON.stringify(userInfo));
+            ajaxGetWithProgress(getAssignedByTeacher,{tid:userInfo.id},function(ret,err) {
+                if(ret.data){
+                    var data = {list: ret.data};
+                    var html = template("contuntTm", data);
+                    document.getElementById('contuntHm').innerHTML = html;
+                }
+
+            })
+        };
+        //单个预约详情
+        function REcord(UID){
+            openNewWindow('appointmentRecord','appointmentRecord.html',{UId:UID})
+        }
+
+    </script>
+</body>
+</html>

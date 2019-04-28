@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>精彩瞬间-被投诉</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<link rel="stylesheet" href="../../css/mui.min.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-width: 320px;
+			background-color: #f8f8f8;
+		}
+		#main{
+			margin-bottom: 60px;
+			background-color: #fff;
+		}
+		.wonderfulList{
+			margin-top: 10px;
+		}
+		.wonderfulList>li{
+			padding:0 15px;
+			padding-top: 20px;
+			border-bottom: 1px solid #f0f0f0;
+		}
+		.wonderfulList>li:nth-last-of-type(1){
+			border-bottom: 0;
+		}
+		.wonderfulList>li .tp_user{
+			overflow: hidden;
+			padding-bottom: 6px;
+		}
+		.wonderfulList>li .tp_user .userPic{
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			float: left;
+			margin-right: 8px;
+		}
+		.wonderfulList>li .tp_user .userPic img{
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+		}
+		.wonderfulList>li .tp_user .userInfo{
+			font-size: 14px;
+			color: #666666;
+			letter-spacing: 0.29px;
+		}
+		.wonderfulList>li .tp_user .userInfo .username{
+			padding-top: 8px;
+			line-height: 20px;
+			position: relative;
+		}
+		.wonderfulList>li .tp_user .userInfo .username>span{
+			font-size:14px;
+			color:#333333;
+			line-height: 20px;
+		}
+		.wonderfulList>li .tp_user .userInfo .username em{
+			font-size: 12px;
+			line-height: 17px;
+			color: #999999;
+			letter-spacing: 0.21px;
+			position: absolute;
+			right: 0;
+			top: 9px;
+		}
+		.ct_content p{
+			width:100%;
+			font-size: 14px;
+			color: #333333;
+			letter-spacing: 0.5px;
+			line-height: 20px;
+			margin-bottom: 0;
+			text-align: justify;
+		}
+		.ct_content ul{
+			margin-top: 12px;
+			width: 100%;
+			overflow: hidden;
+		}
+		.ct_content ul li{
+			width: 100%;
+			height: 190px;
+			overflow: hidden;
+		}
+		.ct_content ul li.ltpic{
+			float: left;
+			width: 48.95%;
+			height: 190px;
+			overflow: hidden;
+			border-radius: 8px 0 0 8px;
+
+		}
+		.ct_content ul li.rtpic{
+			float: right;
+			width: 49.25%;
+			height: 190px;
+			border-radius:0 8px 8px 0;
+			overflow: hidden;
+		}
+		.rtpic  span{
+			height:90px;
+			overflow:hidden;
+		}
+		.ltpic span {
+			height:90px;
+			overflow:hidden;
+		}
+		.ct_content ul li.ltpic img{
+			width: 100%;
+			height: 100%;
+			border-radius: 15px 0 0 15px;
+		}
+		.ct_content ul li.rtpic img:nth-of-type(1){
+			float: right;
+			width: 100%;
+			height: 92px;
+			margin-bottom: 6px;
+		}
+		.ct_content ul li.rtpic img:nth-of-type(2){
+			float: right;
+			width: 100%;
+			height: 92px;
+			border-radius: 0 0 15px 0;
+			margin-bottom: 6px;
+		}
+
+		.reason{
+			background: #F8F8F8;
+			border-radius: 4px;
+			padding: 12px;
+			font-size: 14px;
+			color: #333333;
+			line-height: 20px;
+			margin: 12px 0;
+			text-align: justify;
+		}
+		.reason span{
+			font-size: 14px;
+			color: #333333;
+			padding-right: 8px;
+		}
+
+		.bt_moreheat{
+			overflow: hidden;
+			padding-bottom: 12px;
+		}
+		.bt_moreheat .lt_label{
+			float: left;
+		}
+		.bt_moreheat .lt_label em{
+			color: #5EC4E0;
+			font-size: 12px;
+			/* border: 1px solid #9d9d9d;
+            border-radius: 5px;
+            line-height: 18px;
+            box-sizing: border-box;
+            padding: 0 6px; */
+			margin-right: 5px;
+			text-decoration:underline;
+		}
+		.bt_moreheat .rt_apcr{
+			float: right;
+			overflow: hidden;
+			position: relative;
+		}
+		.rt_apcr em{
+			font-size: 12px;
+			color: #999999;
+			vertical-align: top;
+			line-height: 12px;
+			margin: 0;
+			padding-top: 8px;
+			padding-right: 2px;
+		}
+		.mui-switch{
+			display: inline-block;
+			line-height: 24px;
+			right: 0;
+			width: 51px;
+			height: 24px;
+			border-radius: 100px;
+		}
+		.mui-switch .mui-switch-handle{
+			width: 22px;
+			height: 22px;
+		}
+		.mui-switch:before{
+			content: '';
+			display: none;
+		}
+		.mui-switch.mui-active{
+			border-color: #5AC8E1;
+			width: 52px;
+			height: 24px;
+			background: #5AC8E1;
+		}
+		.mui-table-view:after{
+			height: 0;
+		}
+		.bottom-btn{
+			width:100%;
+			padding-left:32px;
+			padding-right:33px;
+			box-sizing: border-box;
+			display: flex;
+			justify-content: space-between;
+			white-space: nowrap;
+			padding-bottom:20px;
+		}
+		.bottom-btn a{
+			width:47.1%;
+			height:28px;
+			background: #5AC8E1;
+			box-shadow: 0 2px 4px 0 #87B2BE;
+			border-radius: 4px;
+			text-align: center;
+			line-height: 28px;
+			font-size: 14px;
+			color: #FFFFFF;
+		}
+		.reason p{
+			margin-bottom:0;
+		}
+		.reason>:nth-child(1){
+			margin-bottom:12px;
+		}
+		.lt_label u{
+			color:#5EC4E0 !important;font-size:12px !important;
+		}
+		.listone{
+			width:100%;height:190px;overflow: hidden;border-radius:8px;
+			overflow: hidden;
+		}
+		.listBfl{
+			width:48.95% !important;height:190px;float:left;border-radius:8px 0 0 8px;
+			overflow: hidden;
+		}
+		.listBfr{
+			width:48.95% !important;height:190px;float:right;border-radius:0 8px 8px 0;
+			overflow: hidden;
+		}
+		.listImgs{float:left !important;overflow:hidden;border-bottom:none !important;width: 32% !important;margin-bottom:5px;margin-left:1%;border-radius:4px;height:90px !important;}
+
+	</style>
+</head>
+<body>
+<div id="main" >
+	<ul class="wonderfulList" id="ComplaintList">
+
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script src="../../script/mui.min.js"></script>
+<script type="text/html" id="ComplaintHtml">
+	<%for(var i=0;i<list.length;i++){%>
+	<li>
+		<div class="tp_user">
+			<div class="userPic">
+				<%if(list[i].clientTimeline&&list[i].clientTimeline.user){%>
+				<img src="../../image/teacherWang.png" data-echo="<%=list[i].clientTimeline.user.icon%>" real-style="<%=list[i].clientTimeline.style%>" onerror="this.src='../../image/teacherWang.png'" alt="" />
+				<%}else{%>
+				<img src="../../image/teacherWang.png" style="width:100%;height:100%;" onerror="this.src='../../image/teacherWang.png'" alt="" />
+				<%}%>
+
+			</div>
+			<div class="userInfo">
+				<%if(list[i].clientTimeline&&list[i].clientTimeline.user){%>
+				<p class="username"><span><%=list[i].clientTimeline.user.name%></span> <em><%=list[i].ctime%></em></p>
+				<%}%>
+
+			</div>
+		</div>
+		<div class="ct_content">
+			<p style="width:100%;overflow:hidden;word-wrap:break-word;"><%=list[i].content%></p>
+			<ul class="uldjh">
+				<%if(list[i].clientTimeline.images){%>
+				<%if(list[i].clientTimeline.images.length == 1){%>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',0)" class="listone"><img src="../../icon/jiaxiaoTongHome.jpg" data-echo="<%=list[i].clientTimeline.images[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+				<%} else if(list[i].clientTimeline.images.length == 2){%>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',0)" class="listBfl"><img src="../../icon/jiaxiaoTongHome.jpg" data-echo="<%=list[i].imagesJson_arr[0].images%>" real-style="<%=list[i].imagesJson_arr[0].style%>" alt="" /></li>
+				<li onclick="openPhotoBrowser('<%=list[i].id%>',1)"  class="listBfr"><img src="../../icon/jiaxiaoTongHome.jpg" data-echo="<%=list[i].imagesJson_arr[1].images%>" real-style="<%=list[i].imagesJson_arr[1].style%>" alt="" /></li>
+				<%} else if(list[i].clientTimeline.images.length == 3){%>
+
+				<li class="ltpic"><img onclick="openPhotoBrowser('<%=list[i].id%>',0)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></li>
+				<li class="rtpic">
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',1)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[1]%>" real-style="<%=list[i].styleJsoma%>" alt="" /></span>
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',2)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[2]%>" real-style="<%=list[i].styleJsomb%>" alt="" /></span>
+				</li>
+				<%}else if(list[i].clientTimeline.images.length == 4){%>
+
+				<li class="ltpic">
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',0)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[0]%>" real-style="<%=list[i].styleJsom%>" alt="" /></span>
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',1)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[1]%>" real-style="<%=list[i].styleJsoma%>" alt="" /></span>
+				</li>
+				<li class="rtpic">
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',2)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[2]%>" real-style="<%=list[i].styleJsomb%>" alt="" /></span>
+					<span><img onclick="openPhotoBrowser('<%=list[i].id%>',3)" src="../../icon/jiaxiaoTongHome.jpg"  data-echo="<%=list[i].clientTimeline.images[3]%>" real-style="<%=list[i].styleJsomc%>" alt="" /></span>
+				</li>
+				<%}
+				else if(list[i].clientTimeline.images.length > 4){%>
+				<%for(var x = 0;x<list[i].imgJson.length;x++){%>
+				<li class="listImgs" >
+					<img onclick="openPhotoBrowser('<%=list[i].id%>','<%=x%>')" src="../../icon/jiaxiaoTongHome.jpg" style="width:100%;height:100%;" data-echo="<%=list[i].imgJson[x].img%>" real-style="<%=list[i].imgJson[x].styleJsomobj%>"  alt="" />
+				</li>
+				<%}%>
+				<div style="clear: both"></div>
+				<%}%>
+				<%}%>
+			</ul>
+		</div>
+
+		<div class="reason">
+			<p>
+				<span>投诉人：</span>
+				<span><%=list[i].complaintUserName%></span>
+			</p>
+			<p>
+				<span>投诉理由：</span>
+				<span><%=list[i].complaintType%></span>
+			</p>
+		</div>
+
+		<div class="bt_moreheat">
+			<div class="lt_label">
+				<%if(list[i].clientTimeline){%>
+				<%if(list[i].clientTimeline.tags){%>
+				<%for(var j=0;j<list[i].clientTimeline.tags.length;j++){%>
+				<u><%=list[i].clientTimeline.tags[j]%></u>
+				<%}%>
+				<%}%>
+				<%}%>
+			</div>
+		</div>
+		<div class="bottom-btn">
+			<a onclick="Complaint('<%=list[i].id%>',this,1)">投诉有效</a>
+			<a onclick="Complaint('<%=list[i].id%>',this,2)">投诉无效</a>
+		</div>
+	</li>
+
+	<%}%>
+</script>
+<script>
+    apiready = function (){
+        new datalistModel(addDataToHtml,getComplaints,{},5,5,100,true);
+    };
+    function addDataToHtml(results,append){
+        for(var i=0;i<results.length;i++){
+            //解析
+            results[i].ctime = getDateDiff(results[i].ctime);
+            if(isNotBlack(results[i].clientTimeline)){
+                if(isNotBlack(results[i].clientTimeline.images)){
+                    results[i].clientTimeline.images = tryJsonParse(results[i].clientTimeline.images);
+                }
+                if(isNotBlack(results[i].clientTimeline.tags)){
+                    results[i].clientTimeline.tags = tryJsonParse(results[i].clientTimeline.tags);
+                }
+                if(isNotBlack(results[i].clientTimeline.user)){
+                    //处理头像变形
+                    if(results[i].clientTimeline.user.icon) {
+                        var listicon = results[i].clientTimeline.user.icon;
+                        var width = 36;
+                        var height = 36;
+                        var obj = getImgByThisSize(listicon, width, height);
+                        if(obj.style.height){
+                            results[i].clientTimeline.style = obj.style.height;
+						}else{
+                            results[i].clientTimeline.style = obj.style.width;
+						}
+                    }
+                }
+            }
+            //处理imagesJson
+            if(isNotBlack(results[i].clientTimeline.images)){
+                if(results[i].clientTimeline.images.length == 1){
+                    for(var l=0;l<results[i].clientTimeline.images.length;l++){
+                        var width = api.winWidth;
+                        var height = 190;
+                        var obj = getImgByThisSize(results[i].clientTimeline.images[0],width,height);
+                        results[i].styleJsom = obj.style;
+                    }
+                }else if(results[i].clientTimeline.images.length == 2){
+                    var imgArr = [];
+                    for(var j=0;j<results[i].clientTimeline.images.length;j++){
+                        var imgSrc_obj = {};
+                        var img_src = results[i].clientTimeline.images[j];
+                        var width = (api.winWidth - 42)/2;
+                        var height = 190;
+                        var obj = getImgByThisSize(img_src,width,height);
+                        imgSrc_obj.images = obj.url;
+                        imgSrc_obj.style = obj.style;
+                        imgArr.push(imgSrc_obj)
+                    }
+                    results[i].imagesJson_arr = imgArr;
+                }else if(results[i].clientTimeline.images.length == 3){
+                    for(var l=0;l<results[i].clientTimeline.images.length;l++){
+                        var width = (api.winWidth - 42)/2;
+                        var height = 190;
+                        var heighta = 90;
+                        var obj = getImgByThisSize(results[i].clientTimeline.images[0],width,height);
+                        var obja = getImgByThisSize(results[i].clientTimeline.images[1],width,heighta);
+                        var objb = getImgByThisSize(results[i].clientTimeline.images[2],width,heighta);
+                        results[i].styleJsoma = obja.style;
+                        results[i].styleJsomb = objb.style;
+                        results[i].styleJsom = obj.style;
+                    }
+                }else if(results[i].clientTimeline.images.length == 4){
+                    for(var l=0;l<results[i].clientTimeline.images.length;l++){
+                        var width = api.winWidth*0.4865;
+                        var height = 90;
+                        var obj = getImgByThisSize(results[i].clientTimeline.images[0],width,height);
+                        var obja = getImgByThisSize(results[i].clientTimeline.images[1],width,height);
+                        var objb = getImgByThisSize(results[i].clientTimeline.images[2],width,height);
+                        var objc = getImgByThisSize(results[i].clientTimeline.images[3],width,height);
+                        results[i].styleJsoma = obja.style;
+                        results[i].styleJsomb = objb.style;
+                        results[i].styleJsom = obj.style;
+                        results[i].styleJsomc = objc.style;
+                    }
+                }
+                else if(results[i].clientTimeline.images.length > 4){
+                    var imgArr = [];
+                    results[i].imgJson = [];
+                    for(var l=0;l<results[i].clientTimeline.images.length;l++){
+                        var width = (api.winWidth - 43) / 3;
+                        var height = 90;
+                        var obj = getImgByThisSize(results[i].clientTimeline.images[l], width, height);
+                        var imgArr = {
+                            img:results[i].clientTimeline.images[l],
+                            styleJsomobj:obj.style
+                        }
+                        results[i].imgJson.push(imgArr);
+                    }
+                }
+            }else{
+                results[i].imagesJson = [];
+            }
+
+            //处理投诉类型
+            if(results[i].complaintType){
+                switch(results[i].complaintType)
+                {
+                    case 1:
+                        results[i].complaintType="恶意攻击和谩骂";
+                        break;
+                    case 2:
+                        results[i].complaintType="营销广告";
+                        break;
+                    case 3:
+                        results[i].complaintType="淫秽色情";
+                        break;
+                    case 4:
+                        results[i].complaintType="政治反动";
+                        break;
+                    case 5:
+                        results[i].complaintType="其他";
+                        break;
+                }
+            }
+            if(results[i].supported == true){
+                results[i].supported = 2;
+            }else{
+                results[i].supported = 1;
+            }
+        }
+//			alert(JSON.stringify(results));
+        var data = {list: results};
+        var html = template('ComplaintHtml',data);
+        if (append){
+            var div = document.createElement("li");
+            div.innerHTML = html;
+            document.getElementById('ComplaintList').appendChild(div);
+        } else {
+            document.getElementById('ComplaintList').innerHTML = html;
+        }
+        api.parseTapmode();
+        setTimeout(function(){
+            echoExt.init({
+                offset: 0,
+                throttle: 0//设置图片延迟加载的时间
+            });
+        },100)
+    }
+    //处理投诉
+    function Complaint(uid,self,type){
+        ajaxGet(commentupdate,{id:uid,processUid:getUserInfo().id,status:type},function(ret,err){
+            if(ret.success == true){
+                toast("审核成功！");
+                $(self).parent().parent().css("display","none");
+            }else{
+                toast("审核失败，请检查网络连接，重新操作！")
+            }
+        })
+    }
+</script>
+</html>

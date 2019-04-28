@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+    <title>学童考勤详情</title>
+    <style>
+        body{
+            background: #FFFFFF;
+        }
+        .absence-rate{
+            width:100%;
+            height:174px;
+            padding-top:31px;
+            padding-left:8.3%;
+            box-sizing: border-box;
+        }
+        .left-rate{
+            width:224px;
+            height:224px;
+            background: #FFFFFF;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius:50%;
+            position: relative;
+            float:left;
+            zoom:0.5;
+        }
+        #myCanvas{
+            position: absolute;
+            top:12px;
+            left:12px;
+        }
+        .right-unit{
+            width:100%;
+            padding-left:47.6%;
+            box-sizing: border-box;
+        }
+        .right-date{
+            width:145px;
+            height:35px;
+            line-height:25px;
+            background: #FFFFFF;
+            border: 1px solid #D7D7D7;
+            border-radius:4px;
+            margin-right:28px;
+            margin-top:15px;
+            padding-top:6px;
+            padding-left:10px;
+            box-sizing: border-box;
+        }
+        .right-check{
+            width:145px;
+            height:35px;
+            background: #FFFFFF;
+            border: 1px solid #D7D7D7;
+            border-radius:4px;
+            text-align: center;
+            font-size: 14px;
+            color:#333333;
+            margin-top:12px;
+            
+            margin-right:28px;
+            box-sizing: border-box;
+        }
+        .right-check .item{
+        	width: 100%;
+        	box-sizing: border-box;
+        	height: 100%;
+        	float:left;
+        }
+        .right-check .item div{
+            width:100%;
+            height:22px;
+            margin-top:6.5px;
+        	text-align: center;
+            line-height:22px;
+            float:left;
+            box-sizing: border-box;
+        }
+        .clockin-record{
+            width:100%;
+        }
+        .cr-title{
+            width:100%;
+            height:52px;
+            background:#EBFBFF;
+            text-align: center;
+            line-height:52px;
+            font-size: 16px;
+            color:#505050;
+        }
+        .cr-title span{
+            position: relative;
+            padding-left: 33px;
+        }
+        
+        .cr-title img{
+            position: absolute;
+            width: 21px;
+            height: 21px;
+            left: 0px;
+            top: 15px;
+        }
+        .clocking-table{
+            padding-left:15px;
+            padding-right:15px;
+            margin-top:20px;
+            box-sizing: border-box;            
+        }
+        table{
+            width:100%;
+        }
+        thead>tr{
+            width:100%;
+        }
+        thead>tr th{
+            width:25%;
+            font-weight:normal;
+            font-size: 14px;
+            color:#505050;           
+        }
+        thead>tr>:nth-child(1){
+            text-align: left;
+        }
+        thead>tr>:nth-child(1)>img{
+            width:7px;
+            vertical-align: middle;
+            margin-left:30px;
+        }
+        thead>tr>:nth-child(2){
+            text-align: center; 
+            padding-left:40px;                       
+        }
+        thead>tr>:nth-child(3),
+        thead>tr>:nth-child(4){
+            text-align: right;
+        }
+        thead>tr>:nth-child(1){
+            padding-left:3px;
+        }
+        thead>tr>:nth-child(4){
+            padding-right:3px;
+        }
+        tbody tr td{
+            font-size:12px;
+            color:#333333;
+        }
+        tbody tr>:nth-child(1){
+            text-align: left;
+            padding-left:3px;
+        }
+        tbody tr>:nth-child(4){
+            padding-right:4px;
+        }
+        tbody tr>:nth-child(2){
+            text-align: center;
+            padding-left:40px;
+        }
+        tbody tr>:nth-child(3),
+        tbody tr>:nth-child(4){
+            text-align: right;
+        }
+        tbody tr>:nth-child(2){
+            padding-right:2px;
+        }
+        tbody tr{
+            width:100%;
+            height:41px;
+            line-height:41px;
+            border-bottom:1px solid #F2F2F2;
+        }
+        tbody>:nth-last-child(1){
+            border:none;
+        }
+        tbody tr .unnormal>span{
+            width:46px;
+            height:21px;
+            background: #D26034;
+            color:#FFFFFF;
+            border-radius: 4px;
+            line-height:21px;
+        }
+        
+        .itemOn{
+			background: #f4f4f4;
+		}
+		
+		
+		.item_first{
+            border-right:1px solid #D7D7D7;
+        }
+        .show-date{
+            font-size: 14px;
+            color: #999999;
+            letter-spacing: 0.22px;
+            float:left;
+        }
+        .date-picker{
+            position:relative;
+        }
+        .date-picker>div>img{
+            width:9px;
+            position:absolute;
+            top:3px;
+            right:10px;
+        }
+    </style>
+</head>
+<body id="body" style="display: none;">
+    <div class="absence-rate">
+        <div class="left-rate">
+            <div class="circle">
+                <canvas id="myCanvas"></canvas>
+            </div>
+        </div>
+        <div class="right-unit">
+            <div class="right-date" id="beginY">
+                <div class="show-date" id="beginY_value"></div>
+                <div class="date-picker">
+                    <div><img src="../../icon/switch.png" alt=""></div>
+                </div>
+            </div>
+            <div class="right-check">
+            	<div class="item" tapmode="itemOn" onclick="open_newCardCheck()">
+            		<div class="item_first">补卡</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clockin-record">
+        <div class="cr-title">      
+            <span><img src="../../icon/blackclock.png" alt="">考勤记录</span>
+        </div>
+    </div>
+    <div class="clocking-table">
+        <table>
+            <thead>
+                <tr>
+                    <th id="time">日期<img src="../../icon/switch.png" alt=""></th>
+                    <th>状态</th>
+                    <th>入园</th>
+                    <th>离园</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+                <!--<tr>
+                    <td>2018.02.01</td>
+                    <td><span>正常</span></td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>
+                <tr>
+                    <td>2018.02.01</td>
+                    <td><span>正常</span></td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>
+                <tr>
+                    <td>2018.02.01</td>
+                    <td class="unnormal">
+                        <span>异常</span>
+                    </td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>
+                <tr>
+                    <td>2018.02.01</td>
+                    <td><span>正常</span></td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>
+                <tr>
+                    <td>2018.02.01</td>
+                    <td><span>正常</span></td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>
+                <tr>
+                    <td>2018.02.01</td>
+                    <td><span>正常</span></td>
+                    <td>12:59</td>
+                    <td>18:35</td>               
+                </tr>-->
+            </tbody>
+        </table>
+    </div>
+    <script id="scriptDiv1" type="text/html">
+       	<%for(var i = 0;i < list.length;i++){%>
+       		<tr>
+                <td><%=list[i].day%></td>
+                <td class="unnormal">
+                	<%if(list[i].dayType == 0){%>
+                		<span>正常</span>
+                	<%}else{%>
+                		<span>缺勤</span>
+                	<%}%>
+                </td>
+                <td><%=list[i].startTime%></td>
+                <td><%=list[i].endTime%></td>               
+            </tr>
+		<%}%>
+	</script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<!--<script type="text/javascript" src="../../script/util.js"></script>-->
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript">  
+    	var getChildMonthUrl = serverUrl + "/attendance/getChildMonth";//教师查看某一个学生的考勤情况
+    	var timeArr = [];
+    	var allResults = {};
+    	var parms;
+    	var timePicker;
+    	apiready = function(){
+    		parms = api.pageParam;
+    		var thisTime = new Date();
+            var year=thisTime.getFullYear();
+            var month=thisTime.getMonth()+1;
+            month =(month<10 ? "0"+month:month);
+            var thisTime = (year.toString()+"-"+month.toString());
+			document.getElementById("beginY_value").innerHTML = thisTime;
+        	var obj = {
+        		uid : parms.uid,
+        		month : formatTimeToMonths(thisTime)
+        	}
+        	
+        	ajaxGet(getChildMonthUrl,obj,function(ret,err){
+//                alert(JSON.stringify(ret.attendanceLogs));
+        		if (ret) {
+        			drawRing(200,200,ret.attendanceRate*100);
+        			addDataToHtml(ret.attendanceLogs,true)
+        		}
+        	})
+    	}
+    	
+    	
+    	
+    	function addDataToHtml(results,flag){
+    		timeArr = [];
+    		for (var i = 0; i < results.length; i++) {
+    			results[i].startTime = formatTimeToMinute(results[i].startTime);
+    			results[i].endTime = formatTimeToMinute(results[i].endTime);
+    			var thisDay = results[i].day.toString();
+
+    			results[i].day = thisDay.substring(0,4) + "." + thisDay.substring(4,6) + "." + thisDay.substring(6,8);
+
+    			var obj = {
+    				value : i,
+    				text : results[i].day
+    			}
+    			timeArr.push(obj);
+    			allResults[results[i].day] = results[i];
+    		}
+			var data = {list: results};
+
+			var html = template('scriptDiv1',data);
+	        document.getElementById('list').innerHTML = html;
+			document.getElementById("body").style.display = "block";
+			(function($, doc) {
+				$.ready(function() {
+		            if (flag) { 
+			            var time = (new Date().format("yyyy/MM/dd/hh")).split("/");
+//						$.ready(function() {
+						var beginTimes = new $.DtPicker({
+//							beginDate: new Date(parseInt(time[0]), parseInt(time[1]-3), parseInt(time[2])),//设置开始日期
+//                            beginDate: new Date(parseInt(time[0]-10), parseInt(time[1]-3)),
+                            "beginYear":2005,
+                            "endYear":2050,
+                            type:'month'
+						});
+						var showCityPickerButton1 = doc.getElementById('beginY');
+						var beginTimes3 = doc.getElementById('beginY_value');
+						showCityPickerButton1.addEventListener('tap', function(event) {
+							beginTimes.show(function(items) {
+								beginTimes3.innerHTML = items.text;
+								var slectTime = new Date(items.text);
+								slectTime = slectTime.getTime();
+								ajaxGet(getChildMonthUrl,{uid:parms.uid,month:formatTimeToMonths(slectTime)},function(ret,err){
+					    			if (ret) {
+					    				document.getElementById("list").innerHTML = "";
+						    			drawRing(200,200,ret.attendanceRate*100);
+						    			addDataToHtml(ret.attendanceLogs,false);
+					    			}
+					    		})
+							});
+						}, false);
+					}
+						/****************************上面是选择开始日期***********************/ 
+				});
+			})(mui, document);
+			if (flag) {
+				if(isNotBlack(timeArr)){
+					selectByTime();
+				}
+			}else{
+				if(isNotBlack(timeArr)){
+					timePicker.setData(timeArr);
+				}
+			}
+		}
+    	
+    	
+        function drawRing(w,h,val){  
+            var c=document.getElementById('myCanvas');  
+            var ctx=c.getContext('2d');
+			ctx.scale(2,2);           
+            ctx.canvas.width=w;  
+            ctx.canvas.height=h;          
+            ctx.beginPath();  
+            ctx.lineWidth=10;
+            var g = ctx.createLinearGradient(0,0,200,100);
+            g.addColorStop(0,'#5AC8E1'); 
+            g.addColorStop(1,'#93C85C');
+            ctx.strokeStyle= g ;   
+            ctx.arc(100,100,90,-90*Math.PI/180,(val*3.6-90)*Math.PI/180);  
+            ctx.stroke();  
+            ctx.font='bold 32px Arial';  
+            ctx.fillStyle='#484848';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText(val+'%',100,90); 
+
+            ctx.font='28px Arial';  
+            ctx.fillStyle='#333333';  
+            ctx.textBaseline='bottom';  
+            ctx.textAlign='center';  
+            ctx.fillText('出勤率',100,140); 
+        }  
+        
+        
+        
+        
+        function selectByTime(){
+        	(function($, doc) {
+				$.ready(function() {
+					timePicker = new $.PopPicker();
+		            timePicker.setData(timeArr);
+		            timePicker.setTitle("选择时间");
+		            var time = doc.getElementById('time');
+		            var timeResult = doc.getElementById('timeResult');
+		            time.addEventListener('tap', function (event) {
+		                timePicker.show(function (items) {
+		                    var data = {list: [allResults[items[0].text]]};	
+							var html = template('scriptDiv1',data);
+					        document.getElementById('list').innerHTML = html;
+	 	                });
+		            }, false); 
+				});
+			})(mui, document);
+        }
+        
+        
+         //教师打开补卡审核
+        function open_newCardCheck(){
+        	openNewWindow("newCardCheck","newCardCheck.html",parms)
+        }
+    </script>  
+</body>
+</html>

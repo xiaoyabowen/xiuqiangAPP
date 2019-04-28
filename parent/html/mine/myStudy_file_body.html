@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的学习-文档</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.fileList{
+				width: 100%;
+				background-color: #fff;
+				padding: 0 15px;
+				padding-bottom: 10px;
+				box-sizing: border-box;
+			}
+			.fileList li{
+				box-sizing: border-box;
+			}
+			.fileList li img{
+				float: left;
+				width: 23px;
+				height: 28px;
+				padding-top: 22px;
+			}
+			.fileList li .filename{
+				height: 78px;
+				margin-left: 43px;
+				border-bottom: 1px solid #f0f0f0;
+				padding-bottom: 21px;
+				padding-top: 21px;
+				box-sizing: border-box;
+			}
+			.filename span{
+				font-size: 14px;
+				color: #505050;
+				letter-spacing: 0.19px;
+				width: 100%;
+				display: block;
+				overflow:hidden;
+			    text-overflow:ellipsis;
+			    white-space:nowrap;
+			}
+			.filename em{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+			}
+			.Lamb{width:100%;height:20px;overflow:hidden;}
+			.lafr{width:130px;height:20px;float:right;margin-right:-20px;}
+			.lafr em{padding-left:21px;padding-bottom: 1px;padding-top: 1px;}
+			.lafr i{padding-left:21px;font-size:12px;color:#a3a3a3;padding-bottom: 2px;padding-top: 2px;background: no-repeat}
+			.lafr b{padding-left:21px;font-size:12px;color:#a3a3a3;padding-bottom: 4px;padding-top: 2px;background: no-repeat}
+			.lafl{height:20px;line-height:20px;overflow:hidden}
+			.lafl span{width:auto;color:#A3A3A3;float:left}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+		    <ul class="fileList" id="outline">
+				<li>
+					<div><img src="../../image/yellow.png"></div>
+					<div class="filename">
+						<span>2018年幼儿教学资料2018年幼儿教学资料2018年幼儿教学资料</span>
+						<div class="Lamb">
+							<div class="lafr">
+								<em style="background: url(../../image/mystudy03.png) no-repeat;">23</em>
+								<i style="background: url(../../image/dianzan02.png) no-repeat;">34</i>
+								<b style="background: url(../../image/mystudy04.png) no-repeat;">56</b>
+							</div>
+							<div class="lafl">
+								<span>sadasd发布于</span><span>sadsadas</span>
+							</div>
+						</div>
+					</div>
+				</li>
+		    </ul>
+		</div>
+	</body>
+
+	<script id="scriptDiv1" type="text/html">
+		<%for(var i = 0;i < list.length; i++){%>
+			<li onclick="gotoDetail('<%=list[i].id%>')">
+				<div>
+					<% if(i%3==0){%>
+					<img src="../../image/yellow.png"/>
+					<% }else if(i%3==1){%>
+					<img src="../../image/orange.png"/>
+					<% }else {%>
+					<img src="../../image/purple.png"/>
+					<% }%>
+				</div>
+				<div class="filename" onclick="gotoDetail('<%=list[i].id%>')">
+					<span><%=list[i].title%></span>
+					<div class="Lamb">
+						<div class="lafr">
+							<em style="background: url(../../image/mystudy03.png) no-repeat;background-size: 16px 15px;"><%=list[i].commentNum%></em>
+                            <%if(list[i].supported){%>
+                            <i style="background-image: url(../../image/dianzan02.png);background-size: 16px 15px;" type="2" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+                            <%}else{%>
+                            <i style="background-image: url(../../image/dianzan01.png);background-size: 16px 15px;" type="1" onclick="support(<%=list[i].id%>,this,5)"><%=list[i].supportNum%></i>
+                            <%}%>
+                            <%if(list[i].favorited){%>
+                            <b style="background-image: url(../../image/mystudy04.png);background-size: 16px 15px;" type="2" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+                            <%}else{%>
+                            <b style="background-image: url(../../image/mystudy05.png);background-size: 16px 15px;" type="1" onclick="favorite(<%=list[i].id%>,this,5)"><%=list[i].favoriteNum%></b>
+                            <%}%>
+						</div>
+						<div class="lafl">
+							<span><%=list[i].createUser.name%>发布于</span><span><%=list[i].ctime%></span>
+						</div>
+					</div>
+				</div>
+			</li>
+		<%}%>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+<!--	<script type="text/javascript" src="../../script/echo.min.js"></script>-->
+	<script type="text/javascript" src="../../script/business.js"></script>
+	<script>
+        var allResults = {};
+        apiready = function () {
+            new datalistModel(addDataToHtml,documentGetDocList,{pathId:10028,docType:4},10,5,100,true);
+        };
+        
+        function addDataToHtml(results,append){
+            if(isNotBlack(results.length)){
+                for(var i = 0;i< results.length;i++){
+                    allResults[results[i].id] = results[i];
+                    results[i].ctime=formatTimeToDayDade(results[i].ctime);
+                    for(var j=0;j<results[i].imgs.length;j++){
+                        if(results[i].imgs[j]){
+                            //处理图片变形 width 和 height的值分别为img标签外边div的宽高
+                            var domWidth = api.winWidth;
+                            var width = 65;
+                            var height = 65;
+                            //把宽高和图片的http地址传到方法里 可以返回一个对象 对象.style是给img的样式 然后加到数据里 直接在模板里给img标签样式就行
+                            var obj = getImgByThisSize(results[i].imgs[j],width,height);
+                            if(!results[i].styleObjs){
+                                results[i].styleObjs=[];
+                            }
+                            results[i].styleObjs[j] = obj.style;
+                        }
+                    }
+                }
+            }
+            var data = {list: results};
+            var html = template('scriptDiv1',data);
+            if (append) {
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('outline').appendChild(div);
+            } else {
+                document.getElementById('outline').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+
+        //详情页面
+        function gotoDetail(id){
+            allResults[id].pathName=api.pageParam.pathName;
+            openNewWindow("myStudy_detail","myStudy_detail.html",allResults[id])
+        }
+
+
+
+	</script>
+</html>

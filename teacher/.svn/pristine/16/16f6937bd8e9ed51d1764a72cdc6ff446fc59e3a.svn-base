@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝评语</title>
+    <style>
+        .bg{
+            width:100%;
+            height:64px;
+            box-sizing: border-box;
+        }
+        .bg>img{
+            width:100%;
+            height:64px;
+        }
+        .comment-list{
+            margin-top:10px;
+        }
+        .comment-detail{
+            width:100%;
+            height:auto;
+            background:#FFFFFF;
+            padding-left:20px;
+            padding-right:20px;
+            padding-bottom:14px;
+            box-sizing: border-box;
+            border-bottom:1px solid #EFEFEF;
+            position: relative;
+        }
+        .comment-detail>.teacher-info{
+            width:100%;
+            height:auto;
+            padding-top:20px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-left{
+            float:left;
+        }
+        .comment-detail>.teacher-info .info-left>img{
+            width:36px;
+            height:36px;
+            border-radius:50%;
+        }
+        .comment-detail>.teacher-info .info-right{
+            width:100%;
+            padding-left:44px;
+            font-size:12px;
+            color:#999999;
+            letter-spacing: 0.16px;
+            box-sizing: border-box;
+        }
+        .comment-detail>.teacher-info .info-right .teacher-name{
+            line-height:20px;
+        }
+        .comment-detail>.teacher-info .info-right .comment-time>:nth-child(2){
+            margin-left:4.5px;
+        }
+        .comment-detail .comment-content{
+            clear:left;
+            margin-top:10px;
+        }
+        .comment-detail .comment-content .teacher-text{
+            width:100%;
+            padding:10px 12px;
+            font-size: 16px;
+            color: #505050;
+            letter-spacing: 0.69px;
+            line-height: 22px;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .teacher-text textarea{
+            line-height: 24px;
+            outline: none;
+        }
+        .comment-detail .comment-content .parent-reply{
+            width:100%;
+            height:auto;
+            margin:0 auto;
+            box-sizing: border-box;
+        }
+        .reply{
+            width:100%;
+            padding:12px;
+            font-size: 12px;
+            box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+            border-radius: 8px;
+            margin-top:12px;
+            box-sizing: border-box;
+        }
+        .reply-list>:not(:nth-child(1)){
+            margin-top:6px;
+        }
+        .reply-list li p{
+            color:#151515;
+        }
+        .reply-list li p .name{
+            color:#B4B4B4 !important;
+        }
+        .comment-operate{
+            height:32px;
+        }
+        .c-reply>img{
+            width:17px;
+            height:16px;
+            position:absolute;
+            right:63px;
+            bottom:14px;
+        }
+        .c-delete>img{
+            width:16px;
+            height:16px;
+            position:absolute;
+            right:20px;
+            bottom:14px;
+        }
+        .teacher-name>span{
+            font-size:14px;
+            color:#333333;
+        }
+        .voice-msg{
+            width:68px;
+            height:35px;
+            background: #F8F8F8;
+            border-radius:10px;
+            box-sizing: border-box;
+            background-image:url('../../icon/voice01.png');
+            background-repeat:no-repeat;
+            background-size:15px;
+            background-position:left 12px center;
+            /* display:inline-block; */
+            float:left;
+        }
+        .second{
+            line-height:35px;
+            font-size: 16px;
+            color: #AAAAAA;
+            margin-left:6px;
+        }
+        .reply-name{
+            float:left;
+            font-size: 12px;
+            color: #666666;
+            line-height:35px;
+        }
+        .parent-voice{
+            background: #5ac8e1;
+            background-image:url('../../icon/voice02.png');
+            background-repeat:no-repeat;
+            background-size:15px;
+            background-position:left 12px center;
+        }
+        .parent-voice_voice{
+            background: #5ac8e1;
+            background-image:url('../../icon/chat/voice.gif');
+            background-repeat:no-repeat;
+            background-size:56px;
+            background-position:-10px -10px;
+        }
+        .voice-info{
+            padding:10px 15px !important;
+            white-space: nowrap;
+        }
+        /*弹出层*/
+        .bgBody{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.0);
+            display: none;
+        }
+        .chatbg{
+            background: #787878;
+            width: 50%;
+            margin: 50% 0px 0px 23%;
+            border-radius: 8px;
+            text-align: center;
+            padding: 2%;
+        }
+        .bgimg{
+            height: 100px;
+        }
+        .bgtext{
+            height: 30px;
+            padding : 10px 0px 0px 0px;
+            border-radius: 4px;
+            /*background-color: #FF0000;*/
+            color: #9E9E9E;
+            font-size: 16px;
+        }
+        /*会话消息容器*/
+        #messageList {
+            padding: 10px 15px 0px 15px;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body id="body">
+<div class="bg">
+    <img src="../../image/commentbg.png" alt="">
+</div>
+<ul class="baby-comment" id="concent">
+    <!--<li class="comment-detail">-->
+    <!--<div class="teacher-info">-->
+    <!--<div class="info-left">-->
+    <!--<img src="../../image/teacherAvatar.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="info-right">-->
+    <!--<div class="teacher-name">-->
+    <!--<span>许友珍老师</span>-->
+    <!--</div>-->
+    <!--<div class="comment-time">-->
+    <!--<span class="c-date">2018.06.07</span>-->
+    <!--<span class="c-time">11:13:34</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="comment-content">-->
+    <!--<div class="teacher-text">-->
+    <!--<p>于利宏表现的特别好，很早到教室，还帮同学打扫卫生，下周继续努力。</p>-->
+    <!--&lt;!&ndash;<textarea style="list-style: none;width: 100%;outline:none;" placeholder="于利宏表现的特别好，很早到教室，还帮同学打扫卫生，下周继续努力。"></textarea>&ndash;&gt;-->
+    <!--</div>-->
+
+    <!--<div class="reply">-->
+    <!--<ul class="reply-list">-->
+    <!--<li>-->
+    <!--<p>-->
+    <!--<span class="name">于立宏爸爸：</span>-->
+    <!--愿孩子每天开开心心，健康成长-->
+    <!--</p>-->
+    <!--<p></p>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<p>-->
+    <!--<span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>-->
+    <!--孩子的开心就是我们最大的收获-->
+    <!--</p>-->
+    <!--<p></p>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<p>-->
+    <!--<span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>-->
+    <!--孩子太乖未必是好事，只是在顺从抚育者的需要。-->
+    <!--</p>-->
+    <!--<p></p>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<p>-->
+    <!--<span class="name">许友珍老师</span>回复<span class="name">于立宏爸爸：</span>-->
+    <!--的确是。-->
+    <!--</p>-->
+    <!--<p></p>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="comment-operate">-->
+    <!--<div class="c-reply" onclick="initCheckBox()">-->
+    <!--<img src="../../icon/grayComment.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="c-delete">-->
+    <!--<img src="../../icon/grayDelete.png" alt="">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</li>-->
+
+    <!--<li class="comment-detail">-->
+    <!--<div class="teacher-info">-->
+    <!--<div class="info-left">-->
+    <!--<img src="../../image/teacherAvatar.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="info-right">-->
+    <!--<div class="teacher-name">-->
+    <!--<span>许友珍老师</span>-->
+    <!--</div>-->
+    <!--<div class="comment-time">-->
+    <!--<span class="c-date">2018.06.07</span>-->
+    <!--<span class="c-time">11:13:34</span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<ul class="comment-list">-->
+    <!--<li class="comment-content">-->
+    <!--<div class="teacher-text voice-info">-->
+    <!--<span class="voice-msg"></span>-->
+    <!--<span class="second">3''</span>-->
+    <!--</div>-->
+    <!--</li>-->
+
+    <!--<li class="comment-content">-->
+    <!--<div class="teacher-text  voice-info">-->
+    <!--<span class="reply-name">于利宏爸爸：</span>-->
+    <!--<span class="voice-msg parent-voice_voice"></span>-->
+    <!--<span class="second">3''</span>-->
+    <!--</div>-->
+    <!--</li>-->
+
+    <!--<li class="comment-content">-->
+    <!--<div class="teacher-text  voice-info">-->
+    <!--<span class="reply-name">许友珍老师回复于利宏爸爸：</span>-->
+    <!--<span class="voice-msg"></span>-->
+    <!--<span class="second">3''</span>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="comment-operate">-->
+    <!--<div class="c-reply">-->
+    <!--<img src="../../icon/grayComment.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="c-delete">-->
+    <!--<img src="../../icon/grayDelete.png" alt="">-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</li>-->
+</ul>
+
+<div id="bgBody" class="bgBody">
+    <div class="chatbg" id="bg">
+        <img src="../../icon/chat/dialogImg1.gif" class="bgimg" id="bgimg"/>
+        <div class="bgtext" id="bgtext">手指上滑，取消发送</div>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="pingyu">
+    <%for(var i=0;i<list.length;i++){%>
+        <li class="comment-detail" id="removeComment<%=list[i].id%>">
+            <div class="teacher-info">
+                <div class="info-left">
+                    <img src="<%=list[i].teacher.icon%>" alt="">
+                </div>
+                <div class="info-right">
+                    <div class="teacher-name">
+                        <span><%=list[i].teacher.name%></span>
+                    </div>
+                    <div class="comment-time">
+                        <span class="c-date"><%=list[i].ctime%></span>
+                        <!--<span class="c-time">11:13:34</span>-->
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment-content">
+                <%if(list[i].content){%>
+                    <div class="teacher-text">
+                        <p><%=list[i].content%></p>
+                    </div>
+                    <div id="pinglunHm<%=list[i].id%>">
+
+                    </div>
+                <%}else if(list[i].voice){%>
+                    <div class="teacher-text voice-info">
+                        <p  style="height: 35px;">
+                            <span style="width:<%=list[i].docWidth%>" class="voice_gif voice-msg parent-voice" onclick="palyVoice(this,'<%=list[i].voice%>')"></span>
+                            <span class="second"><%=list[i].voiceSize%></span>
+                        </p>
+                    </div>
+                    <div id="pinglunHm<%=list[i].id%>">
+
+                    </div>
+                <%}%>
+            </div>
+            <div class="comment-operate">
+                <div class="c-reply" onclick="initCheckBox111(<%=list[i].id%>)">
+                    <img src="../../icon/grayComment.png" alt="">
+                </div>
+                <div class="c-delete" onclick="delComment(<%=list[i].id%>)">
+                    <img src="../../icon/grayDelete.png" alt="">
+                </div>
+            </div>
+        </li>
+    <%}%>
+</script>
+<script type="text/html" id="pinglunTm">
+           <div class="reply">
+               <ul class="reply-list" id="reply-list">
+                   <%for(var i=list.length-1;i>=0;i--){%>
+                   <li>
+                        <%if(list[i].content){%>
+                           <p>
+                               <!--<span class="name"><%=list[i].user.name%></span>回复<span class="name"><%=list[i].replyName%>：</span>-->
+                               <span class="name"><%=list[i].user.name%>&nbsp;：</span>
+                               <%=list[i].content%>
+                           </p>
+                           <p></p>
+                       <%}else if(list[i].voice){%>
+                           <div class="">
+                               <span class="reply-name"><%=list[i].user.name%>：</span>
+                               <span style="width:<%=list[i].docWidth%>" class="voice_gif voice-msg parent-voice" onclick="palyVoice(this,'<%=list[i].voice%>')"></span>
+                               <span class="second"><%=list[i].voiceSize%></span>
+                           </div>
+
+                       <%}%>
+                   </li>
+
+                   <%}%>
+               </ul>
+           </div>
+</script>
+<script>
+
+
+</script>
+<script>
+
+
+
+    var chatBox;
+    var eventType = "";
+    var getUser,badyId,badyName;
+    var voice=null;
+    var images=null;
+    var yearsMonth;
+    //获取月份
+    var date=new Date;
+    var year=date.getFullYear();
+    var month=date.getMonth()+1;
+    month =(month<10 ? "0"+month:month);
+    var mydate = (year.toString()+month.toString());
+    var month_ri=mydate;
+    //获取周几
+    var week_arr = [7,1,2,3,4,5,6];
+    var d = new Date().getDay();
+    var week = week_arr[d];
+    apiready = function(){
+        $api.rmStorage('voicelist')
+        yearsMonth = null;
+        badyId=api.pageParam.BabyId;
+        badyName=api.pageParam.BabyName;
+        getUser=getUserInfo();
+        chatBox = api.require('UIChatBox');
+        //获取评语
+
+        new datalistModel(addDataToHtml,getRemark,{childId:badyId},10,5,100,true)
+    }
+    //===================================播放语音播放语音播放语音播放语音播放语音播放语音播放语音播放语音播放语音播放语音=================================================================
+    function palyVoice(self,voice) {
+
+        stopOtherVoice();
+        var fs = api.require('fs');
+        var savePath=hex_md5(voice)+".amr";
+        var voicePath_Storage = '';
+        if($api.getStorage('voicelist')){
+            var vList = JSON.parse($api.getStorage('voicelist'));
+            for(var i=0;i<vList.length;i++){
+                if(vList[i] == savePath){ //如果有就直接播放
+                    voicePath_Storage = 'fs://queke/temp/voice/'+savePath;
+                    fs.exist({
+                        path: voicePath_Storage
+                    }, function(ret, err) {
+                        if (ret.exist) {
+                            $(self).addClass("parent-voice_voice");
+                            api.startPlay({
+                                path: voicePath_Storage
+                            }, function (){
+                                $(self).removeClass("parent-voice_voice");
+                                //endplayVoice(doc,whosend);
+                            });
+                        } else {
+//                            alert(JSON.stringify(err));
+                        }
+                    });
+                }else{
+                    api.download({
+                        url: voice,
+                        savePath: 'fs://queke/temp/voice/'+savePath,
+                        report: false,
+                        cache: true,
+                        allowResume: true
+                    }, function (ret, err) {
+                        if (ret) {
+                            $(self).addClass("parent-voice_voice");
+                            api.startPlay({
+                                path: ret.savePath
+                            }, function (){
+//                    endplayVoice(doc,whosend);
+                            $(self).removeClass("parent-voice_voice");
+                            });
+                            vList.push(savePath);
+                            $api.setStorage('voicelist',JSON.stringify(vList));
+                        } else {
+//                endplayVoice(doc,whosend);
+                        }
+
+                    });
+                }
+            }
+        }else{
+            var vList = [];
+            api.download({
+                url: voice,
+                savePath: 'fs://queke/temp/voice/'+savePath,
+                report: false,
+                cache: true,
+                allowResume: true
+            }, function (ret, err) {
+                if (ret) {
+                    //添加播放背景图、、、、、、、、、、、、、、、、、、、、、、、
+//                    playVoice(ret.savePath,self,0)
+                    //播放本语音
+                    $(self).addClass("parent-voice_voice");
+
+                    api.startPlay({
+                        path: ret.savePath
+                    }, function (){
+                        $(self).removeClass("parent-voice_voice");
+
+                        //、、、、、、、、、、、、、、、、、、、、
+//                     $("self").css({"background-image":"../../icon/chat/voice02.gif"});
+
+//                    endplayVoice(doc,whosend);
+                    });
+                    vList.push(savePath);
+                    $api.setStorage('voicelist',JSON.stringify(vList));
+                } else {
+
+//                endplayVoice(doc,whosend);
+                }
+
+            });
+        }
+//        var path = testVoice;
+    }
+
+    //播放录音
+    function playVoice(path, doc, whosend) {
+        if(doc.src.endWith("gif")){
+            if (doc.alt == '98') {
+                doc.src = '../image/msendlog.png';
+            } else if (doc.alt == '97') {
+                doc.src = '../image/mrecelog.png';
+            }
+            api.stopPlay();
+            return;
+            //停止播放
+        }
+        stopOtherVoice();
+        //开始放动画
+        if (whosend == 0) {
+            doc.src = '../image/msendgif.gif';
+        } else {
+            doc.src = '../image/mrecegif.gif';
+        }
+
+        if(path.startWith("http")) {
+            var savePath=hex_md5(path)+".amr";
+            api.download({
+                url: path,
+                savePath: 'fs://queke/temp/voice/'+savePath,
+                report: false,
+                cache: true,
+                allowResume: true
+            }, function (ret, err) {
+                if (ret) {
+                    //播放本语音
+                    api.startPlay({
+                        path: ret.savePath
+                    }, function (){
+                        endplayVoice(doc,whosend);
+                    });
+                } else {
+                    endplayVoice(doc,whosend);
+                }
+
+            });
+        }else{
+            //播放本语音
+            api.startPlay({
+                path: path
+            }, function (){
+                endplayVoice(doc,whosend);
+            });
+        }
+
+    }
+
+    var bgimgEl=document.getElementById('bgimg');
+    var bgtextEl=document.getElementById('bgtext');
+    var bgBodyEl=document.getElementById('bgBody');
+
+    function deleteVoice(indexVoiceId){
+        //alert(JSON.stringify(voiceList));
+        for(var i=0;i<voiceList.length;i++){
+            if(voiceList[i].id==indexVoiceId){
+                voiceList[i].end=true;
+                break;
+            }
+        }
+    }
+
+    function openDialog(){
+        bgimgEl.src = '../../icon/chat/dialogImg1.gif';
+        bgtextEl.innerHTML = '手指上滑，取消发送';
+        bgtextEl.style.background = '#787878';
+        bgBodyEl.style.display = 'block';
+    }
+
+    function closeDialog(){
+        bgBodyEl.style.display = 'none';
+    }
+
+    function moveOut(){
+        bgimgEl.src = '../../icon/chat/return.png';
+        bgtextEl.innerHTML = '松开手指，取消发送';
+        bgtextEl.style.background = "#891313";
+    }
+
+    function moveIn(){
+        bgimgEl.src = '../../icon/chat/dialogImg1.gif';
+        bgtextEl.innerHTML = '手指上滑，取消发送';
+        bgtextEl.style.background = '#6a6a6a';
+    }
+
+    function moveShort(){
+        toast("录音时间太短");
+    }
+//================================================================================================================================================
+
+    var testVoice = '';
+    function addDataToHtml(results,append){
+//        al(results)
+        if(isNotBlack(results)){
+            testVoice = results[0].voice;
+            for (var i=0;i<results.length;i++){
+                results[i].ctime=formatTimeToDate(results[i].ctime);
+                yearsMonth=results[i].month;
+                if(results[i].voice){
+                    var _voiceSize = getSizeByHttpVoice(results[i].voice);
+                    results[i].voiceSize = getTimeSizeByNum(_voiceSize)
+                    results[i].docWidth = (_voiceSize/60*0.8)*100+10 + '%'
+                }
+            }
+            var data = {list: results};
+            var html = template('pingyu',data);
+            document.getElementById('concent').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+            setTimeout(function () {
+                for (var n=0;n<results.length;n++){
+                    getTwoLevelComment(results[n].id)
+                }
+            },10)
+        }else{
+            toast('暂无数据');
+            document.getElementById('concent').innerHTML='';
+        }
+
+    }
+    function getTwoLevelComment(id) {
+        ajaxGet(commentpager,{type:4,typeId:id},function (ret,err) {
+            if(ret && ret.data.length>0){
+                for(var i=0;i<ret.data.length;i++){
+                    if(ret.data[i].voice !=null){
+                        ret.data[i].voiceSize = getTimeSizeByNum(getSizeByHttpVoice(ret.data[i].voice))
+                        ret.data[i].docWidth = (getSizeByHttpVoice(ret.data[i].voice)/60*0.8)*100+10 + '%'
+
+                    }
+                }
+                var data={list:ret.data};
+                var html=template("pinglunTm",data);
+                document.getElementById("pinglunHm"+id).innerHTML=html;
+            }
+        })
+    }
+    //删除
+    function delComment(commentId) {
+        showDialog("温馨提示","是否删除","取消","确定",function(){
+            al(commentId)
+           ajaxGet(delCommentList,{id:commentId,uid:badyId,month:month_ri},function (ret,err) {
+               if( ret && ret.success){
+                   toast("删除成功");
+                   setTimeout(function () {
+//                       apiready();
+                       document.getElementById("removeComment"+commentId).style.display="none";
+                       apiready();
+                   },200)
+               }
+           })
+        })
+    }
+    //添加评语 右上角发布评语回调事件
+    function remarkconcentPinglun(neirong,voice) {
+        var objall = {};
+        objall.uid = badyId;//宝宝id
+        objall.buid = getUser.id;//评论人的id
+        objall.cid = getUser.cids[0];//班级id
+        objall.sid = getUser.sid;//学校id
+        objall.content = neirong;//内容
+        objall.voice = voice;//语音
+        objall.week = week;//周
+        objall.month = month_ri;//月
+        objall.images = images;
+        objall.commentStatus = 1;
+        if (yearsMonth == month_ri) {
+            toast("本月已经评语本宝宝了！下个月再来评语吧")
+        }else{
+            ajaxGet(PublishedComments, objall, function (ret, err) {
+                if (ret && ret.success) {
+                    toast("发布成功");
+                    setTimeout(function () {
+                        apiready();
+                    }, 200)
+                }
+            })
+        }
+    }
+    //添加评论 左下角回调事件
+    function Pinglun(pinglun,typeId,voice) {
+        var PLobj={};
+        PLobj.type=4;
+        PLobj.typeId=typeId;
+        PLobj.content=pinglun;
+        PLobj.images=null;
+        PLobj.voice=voice;
+        ajaxGet(commentadd,PLobj,function (ret,err) {
+            if(ret && ret.success){
+                getTwoLevelComment(typeId);
+                toast("评论成功")
+//                setTimeout(function () {
+////                    apiready();
+//                }, 200);
+            }else{
+                toast("评论失败")
+            }
+        })
+
+    }
+    //*************************评论*********************************************
+
+    //发布评语 右上角发布评语 uichatbox
+    function initCheckBox(){
+        chatBox.open({
+            placeholder: '请填写',
+            maxRows: 4,
+            autoFocus:true,
+            texts:{
+                recordBtn: {                        //（可选项）JSON对象；录音按钮文字内容
+                    normalTitle: '按住 说话',        //（可选项）字符串类型；按钮常态的标题，默认：'按住 说话'
+                    activeTitle: '松开 结束'         //（可选项）字符串类型；按钮按下时的标题，默认：'松开 结束'
+                },
+                sendBtn: {                         //（可选项）JSON对象；发送按钮文字内容，在 iOS 平台上对键盘内按钮无效
+                    title: '发布'                   //（可选项）字符串类型；按钮常态的标题，默认：'发送'
+                }
+            },
+            styles: {
+                inputBar: {
+                    borderColor: '#F0F0F0',
+                    bgColor: '#FFFFFF'
+                },
+                inputBox: {
+                    borderColor: '#F5F6FA',
+                    bgColor: '#fff'
+                },
+                speechBtn: {
+                    normalImg: 'widget://image/record.png'
+                },
+                keyboardBtn: {
+                    normalImg: 'widget://image/chatBox_key1.png'
+                },
+                indicator: {
+                    target: 'both',
+                    color: '#c4c4c4',
+                    activeColor: '#9e9e9e'
+                },
+                sendBtn: {                         //（可选项）JSON对象；发送按钮样式，本参数对 IOS 平台上的键盘内发送按钮无效
+                    bg:'#ffffff',                 //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：#4cc518
+                    titleColor: '#5ac8e1',          //（可选项）字符串类型；发送按钮标题颜色；默认：#ffffff
+                    activeBg: '#ffffff',            //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：无
+                    titleSize: 14                    //（可选项）数字类型；发送按钮标题字体大小；默认：13
+                },
+                recordBtn: {                        //JSON对象；“按住 录音”按钮的样式
+                    normalBg: '#FFF',            //（可选项）字符串类型；按钮常态的背景，支持 rgb，rgba，#，图片路径（本地路径，fs://、widget://）；默认：'#c4c4c4'
+                    activeBg: '#f6f6f6',            //（可选项）字符串类型；按钮按下时的背景，支持 rgb，rgba，#，图片路径（本地路径，fs://、widget://）；默认：'#999999'；normalBg 和 activeBg 必须保持一致，同为颜色值，或同为图片路径
+                    color: '#000',                  //（可选项）字符串类型；按钮标题文字的颜色，支持 rgb，rgba，#，默认：'#000000'
+                    size: 14                        //（可选项）数字类型；按钮标题文字的大小，默认：14
+                }
+            }
+        }, function (ret, err) {
+            eventType = ret.eventType;
+            //点击发送按钮
+//                alert(thisType)
+            if (ret.eventType == 'send') {
+                if ($api.trimAll(ret.msg).length != 0) {
+                    remarkconcentPinglun(ret.msg)
+                    chatBox.closeKeyboard();
+                    chatBox.close();
+                } else {
+                    api.toast({
+                        msg: '消息不能为空',
+                        duration: 2000,
+                        location: "top"
+                    });
+                }
+            }
+        });
+
+        var indexVoiceId=0;
+        var stop_indexVoiceId=0;
+
+        //voice :isstarded,isstoped
+        var voiceList=[];
+        function getVoice(indexVoiceId){
+            for(var i=0;i<voiceList.length;i++){
+                if(voiceList[i].id==indexVoiceId){
+                    return voiceList[i];
+                }
+            }
+            return null;
+        }
+        function isHasSmallVoice(indexVoiceId){  //
+            for(var i=0;i<voiceList.length;i++){ //循环录音列表 如果最新的比之前录的要早 并且没播放 返回true 否则返回false
+                if(voiceList[i].end==false&&voiceList[i].id<indexVoiceId){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function deleteVoice(indexVoiceId){
+            //alert(JSON.stringify(voiceList));
+            for(var i=0;i<voiceList.length;i++){
+                if(voiceList[i].id==indexVoiceId){
+                    voiceList[i].end=true;
+                    break;
+                }
+            }
+        }
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press'       //点击录音按钮下按事件
+        }, function (ret, err) {
+            openDialog();
+            startRecord();
+        });
+        //开始录音 indexVoiceId 是记录每条语音的 voiceList是一个数组
+        function startRecord(){
+            indexVoiceId=indexVoiceId+1;
+            voiceList.push({id:indexVoiceId,started:false,end:false,time:new Date().getTime()});
+            stopOtherVoice();    //录音之前先停掉播放的录音
+
+            //IOS播放该声音导致音频获取有问题
+//            api.startPlay({
+//                path: 'widget://res/LowBattery.MP3'
+//            }, function () {
+//            });
+            _startRecord(indexVoiceId); //正式开始录音 传录音下标下去
+        }
+
+        //下划线开头（局部变量） 开始录音
+        function _startRecord(_indexVoiceId){
+            //如果有比我小的ID，说明我之前还有在执行的（还没完全结束） 一直等着。
+            //如果有比我大的ID，说明我已经被抛弃了。就不启动了，直接删除掉。
+            if(isHasSmallVoice(_indexVoiceId)==true){
+                setTimeout(function(){
+                    //toast("调试日志：_startRecord lock");
+                    _startRecord(_indexVoiceId);
+                },50);
+            }else{
+                var hasNew=false;
+                for(var i=0;i<voiceList.length;i++){ //
+                    if(voiceList[i].id>_indexVoiceId){
+                        hasNew=true;
+                        break;
+                    }
+                }
+                if(hasNew){
+                    deleteVoice(_indexVoiceId);
+                }else{
+                    //setTimeout(function(){
+
+                    api.startRecord({path: 'fs://myRecord/'+new Date().getTime()+'.amr'});
+                    setTimeout(function(){
+                        getVoice(_indexVoiceId).started=true;
+                    },60);
+                    //},60);
+                }
+
+            }
+        }
+
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press_cancel'        //点击录音按钮后松开事件
+        }, function (ret, err) {
+            closeDialog();
+            stopRecord(false);
+        });
+
+        function stopRecord(forceDelete){
+            stop_indexVoiceId=stop_indexVoiceId+1;
+            _stopRecord(stop_indexVoiceId,forceDelete);
+        }
+
+        function _stopRecord(_stop_indexVoiceId,forceDelete){
+            var voice=getVoice(_stop_indexVoiceId);
+            if(voice&&voice.end==true){//如果该语音已经结束了（根本就没启动）
+                if(forceDelete==false){
+                    moveShort();
+                }
+            }else if(isBlack(voice)||voice.started==false){//如果该语音正在启动的过程中,循环等待
+                setTimeout(function(){
+                    //toast("调试日志：_stopRecord lock");
+                    _stopRecord(_stop_indexVoiceId,forceDelete);
+                },50);
+            }else{//如果该语音已经启动完毕
+                api.stopRecord(
+                    function (ret, err) {
+                        if (ret) {
+                            if (ret.duration == 0 || ret.duration == 1||forceDelete==true) { //录音时间太短
+                                removefile(ret.path,function(){
+                                    if(forceDelete==false){
+                                        moveShort();
+                                    }
+                                    deleteVoice(voice.id);
+                                });
+                            } else { // 录完
+                                deleteVoice(voice.id); //此条录音end设置成true
+//                                api.startPlay({
+//                                    path: ret.path
+//                                }, function (){
+//                                    endplayVoice(doc,whosend);
+//                                });
+                                var voiceSize = ret.duration;
+                                url= uploadImageUrl;
+                                api.ajax({
+                                    url: url,
+                                    method: 'post',
+                                    timeout: 100,
+                                    dataType: 'json',
+                                    returnAll: false,
+                                    data: {
+                                        files: {file: ret.path}
+                                    }
+                                }, function (ret, err) {
+                                    if (ret) {
+                                        remarkconcentPinglun('',ret.ok+'?size='+voiceSize);
+                                    } else {
+                                        callBack({},err);
+                                    }
+                                });
+                                //ret.path 是本地路径
+                                //todo  发送语音...
+//                                sendMsg({voice:ret.path,voiceDuration:ret.duration});
+                            }
+                        }else{
+                            deleteVoice(voice.id); //录音的时候手指移动的话 就把录的音删除掉
+                        }
+                    }
+                );
+            }
+        }
+        //发送文本
+        function sendMsg(msgContent) {
+//            msgContent.type=2;
+            //msgContent=JSON.stringify(msgContent);
+//            var clientMsgId=getNewClientMsgId();
+            var msg={authorId:user.id,isClientMsg:true,authorIcon:user.icon, type:1,status:'sending',time:new Date().getTime()};
+            if(isNotBlack(msgContent.voice)){
+                msg.messageChat = msgContent;
+                msg.voiceDuration = msgContent.voiceDuration;
+            }
+            msg.clientId=clientMsgId;
+            sendMsgToServer(type,thirdId,msg,callBackWhenLocal,callBackWhenSuccess,callBackWhenError);
+        }
+        function removefile(path,callBack) {
+            var fs = api.require('fs');
+            fs.remove({
+                path: path
+            }, function (ret, err) {
+                if(callBack){
+                    callBack();
+                }
+            });
+        }
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_out'         //点击录音按钮后手指移出按钮的rect事件
+        }, function (ret, err) {
+            moveOut();
+        });
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_out_cancel'          //点击录音按钮后手指移出按钮的rect后松开事件
+        }, function (ret, err) {
+            closeDialog();
+            stopRecord(true);
+        });
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_in'         //move_out事件后手指重新移动进录音按钮的rect事件
+        }, function (ret, err) {
+            moveIn();
+        });
+
+        //监听弹出事件
+        chatBox.addEventListener({
+            target: 'inputBar',
+            name: 'move'
+        }, function (ret, err) {
+//            reSetBody(titleHead,ret.panelHeight,bodyHeight);
+        });
+    }
+
+    //=============================================================================================
+    function stopOtherVoice(){
+        //还原其他语音的状态
+//        var objs = document.getElementsByClassName(" ");
+//        for (var i = 0; i < objs.length; i++) {
+//            if (objs[i].alt == '98') {
+//                objs[i].src = '../image/msendlog.png';
+//            } else if (objs[i].alt == '97') {
+//                objs[i].src = '../image/mrecelog.png';
+//            }
+//        }
+        //停止播放其他语音
+        $(".voice_gif").removeClass("parent-voice_voice");
+        api.stopPlay();
+
+    }
+    //秒转成简写
+    function getTimeSizeByNum(s) {
+        if(s>0){
+            if(s<=60){
+                return s+'"';
+            }else{
+                var m = Math.floor(s/60);
+                var st = s%60
+                if(st>0){
+                    return m+"'"+st+'"'
+
+                }else{
+                    return m+"'"
+                }
+            }
+        }else{
+            return ''
+        }
+
+    }
+    function getSizeByHttpVoice(src) {
+
+        var voiceSize = src.split('size=');
+        if(voiceSize.length==2){
+            return voiceSize[1];
+        }else{
+            return '';
+        }
+    }
+    //播放录音
+    function playVoice(path, doc, whosend) {
+        if(doc.src.endWith("gif")){
+            if (doc.alt == '98') {
+                doc.src = '../image/msendlog.png';
+            } else if (doc.alt == '97') {
+                doc.src = '../image/mrecelog.png';
+            }
+            api.stopPlay();
+            return;
+            //停止播放
+        }
+        stopOtherVoice();
+        //开始放动画
+        if (whosend == 0) {
+            doc.src = '../image/msendgif.gif';
+        } else {
+            doc.src = '../image/mrecegif.gif';
+        }
+
+        if(path.startWith("http")) {
+            var savePath=hex_md5(path)+".amr";
+            api.download({
+                url: path,
+                savePath: 'fs://queke/temp/voice/'+savePath,
+                report: false,
+                cache: true,
+                allowResume: true
+            }, function (ret, err) {
+                if (ret) {
+                    //播放本语音
+                    api.startPlay({
+                        path: ret.savePath
+                    }, function (){
+                        endplayVoice(doc,whosend);
+                    });
+                } else {
+                    endplayVoice(doc,whosend);
+                }
+
+            });
+        }else{
+            //播放本语音
+            api.startPlay({
+                path: path
+            }, function (){
+                endplayVoice(doc,whosend);
+            });
+        }
+
+    }
+
+    //停止切回动画
+    function endplayVoice(doc,whosend){
+        if (whosend == 0) {
+            doc.src = '../image/msendlog.png';
+        } else {
+            doc.src = '../image/mrecelog.png';
+        }
+    }
+    //发布评论  回复弹出键盘 uichatbox
+    function initCheckBox111(commentId){
+            chatBox.open({
+                placeholder: '回复：'+badyName,
+                maxRows: 4,
+                autoFocus:true,
+                texts:{
+                    recordBtn: {                        //（可选项）JSON对象；录音按钮文字内容
+                        normalTitle: '按住 说话',        //（可选项）字符串类型；按钮常态的标题，默认：'按住 说话'
+                        activeTitle: '松开 结束'         //（可选项）字符串类型；按钮按下时的标题，默认：'松开 结束'
+                    },
+                    sendBtn: {                         //（可选项）JSON对象；发送按钮文字内容，在 iOS 平台上对键盘内按钮无效
+                        title: '发布'                   //（可选项）字符串类型；按钮常态的标题，默认：'发送'
+                    }
+                },
+                styles: {
+
+                    inputBar: {
+                        borderColor: '#F0F0F0',
+                        bgColor: '#FFFFFF'
+                    },
+                    inputBox: {
+                        borderColor: '#F5F6FA',
+                        bgColor: '#fff'
+                    },
+                    speechBtn: {
+                        normalImg: 'widget://image/record.png'
+                    },
+                    keyboardBtn: {
+                        normalImg: 'widget://image/chatBox_key1.png'
+                    },
+                    indicator: {
+                        target: 'both',
+                        color: '#c4c4c4',
+                        activeColor: '#9e9e9e'
+                    },
+                    sendBtn: {                         //（可选项）JSON对象；发送按钮样式，本参数对 IOS 平台上的键盘内发送按钮无效
+                        bg:'#ffffff',                 //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：#4cc518
+                        titleColor: '#5ac8e1',          //（可选项）字符串类型；发送按钮标题颜色；默认：#ffffff
+                        activeBg: '#ffffff',            //（可选项）字符串类型；发送按钮背景颜色，支持rgb、rgba、#、img；默认：无
+                        titleSize: 14                    //（可选项）数字类型；发送按钮标题字体大小；默认：13
+                    },
+                    recordBtn: {                        //JSON对象；“按住 录音”按钮的样式
+                        normalBg: '#FFF',            //（可选项）字符串类型；按钮常态的背景，支持 rgb，rgba，#，图片路径（本地路径，fs://、widget://）；默认：'#c4c4c4'
+                        activeBg: '#f6f6f6',            //（可选项）字符串类型；按钮按下时的背景，支持 rgb，rgba，#，图片路径（本地路径，fs://、widget://）；默认：'#999999'；normalBg 和 activeBg 必须保持一致，同为颜色值，或同为图片路径
+                        color: '#000',                  //（可选项）字符串类型；按钮标题文字的颜色，支持 rgb，rgba，#，默认：'#000000'
+                        size: 14                        //（可选项）数字类型；按钮标题文字的大小，默认：14
+                    }
+                }
+            }, function (ret, err) {
+                if (ret.eventType == 'send') {
+                    if ($api.trimAll(ret.msg).length != 0) {
+                        Pinglun(ret.msg,commentId)
+                        chatBox.closeKeyboard();
+                        chatBox.close();
+                    } else {
+                        api.toast({
+                            msg: '消息不能为空',
+                            duration: 2000,
+                            location: "top"
+                        });
+                    }
+                }
+            });
+            //监听弹出事件
+            chatBox.addEventListener({
+                target: 'inputBar',
+                name: 'move'
+            }, function (ret, err) {
+
+            });
+            chatBox.addEventListener({
+                target: 'inputBar',
+                name: 'showEmotion'
+            }, function (ret, err) {
+                if(!checkUserLogin()){
+                    chatBox.closeBoard();
+                }
+            });
+        var indexVoiceId=0;
+        var stop_indexVoiceId=0;
+
+        //voice :isstarded,isstoped
+        var voiceList=[];
+        function getVoice(indexVoiceId){
+            for(var i=0;i<voiceList.length;i++){
+                if(voiceList[i].id==indexVoiceId){
+                    return voiceList[i];
+                }
+            }
+            return null;
+        }
+        function isHasSmallVoice(indexVoiceId){  //
+            for(var i=0;i<voiceList.length;i++){ //循环录音列表 如果最新的比之前录的要早 并且没播放 返回true 否则返回false
+                if(voiceList[i].end==false&&voiceList[i].id<indexVoiceId){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function deleteVoice(indexVoiceId){
+            //alert(JSON.stringify(voiceList));
+            for(var i=0;i<voiceList.length;i++){
+                if(voiceList[i].id==indexVoiceId){
+                    voiceList[i].end=true;
+                    break;
+                }
+            }
+        }
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press'       //点击录音按钮下按事件
+        }, function (ret, err) {
+            openDialog();
+            startRecord();
+        });
+        //开始录音 indexVoiceId 是记录每条语音的 voiceList是一个数组
+        function startRecord(){
+            indexVoiceId=indexVoiceId+1;
+            voiceList.push({id:indexVoiceId,started:false,end:false,time:new Date().getTime()});
+            stopOtherVoice();    //录音之前先停掉播放的录音
+            //IOS播放该声音导致音频获取有问题
+//            api.startPlay({
+//                path: 'widget://res/LowBattery.MP3'
+//            }, function () {
+//            });
+            _startRecord(indexVoiceId); //正式开始录音 传录音下标下去
+        }
+
+        //下划线开头（局部变量） 开始录音
+        function _startRecord(_indexVoiceId){
+            //如果有比我小的ID，说明我之前还有在执行的（还没完全结束） 一直等着。
+            //如果有比我大的ID，说明我已经被抛弃了。就不启动了，直接删除掉。
+            if(isHasSmallVoice(_indexVoiceId)==true){
+                setTimeout(function(){
+                    //toast("调试日志：_startRecord lock");
+                    _startRecord(_indexVoiceId);
+                },50);
+            }else{
+                var hasNew=false;
+                for(var i=0;i<voiceList.length;i++){ //
+                    if(voiceList[i].id>_indexVoiceId){
+                        hasNew=true;
+                        break;
+                    }
+                }
+                if(hasNew){
+                    deleteVoice(_indexVoiceId);
+                }else{
+                    //setTimeout(function(){
+                    api.startRecord({path: 'fs://myRecord/'+new Date().getTime()+'.amr'});
+                    setTimeout(function(){
+                        getVoice(_indexVoiceId).started=true;
+                    },60);
+                    //},60);
+                }
+
+            }
+        }
+
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'press_cancel'        //点击录音按钮后松开事件
+        }, function (ret, err) {
+            closeDialog();
+            stopRecord(false);
+        });
+
+        function stopRecord(forceDelete){
+            stop_indexVoiceId=stop_indexVoiceId+1;
+            _stopRecord(stop_indexVoiceId,forceDelete);
+        }
+
+        function _stopRecord(_stop_indexVoiceId,forceDelete){
+            var voice=getVoice(_stop_indexVoiceId);
+            if(voice&&voice.end==true){//如果该语音已经结束了（根本就没启动）
+                if(forceDelete==false){
+                    moveShort();
+                }
+            }else if(isBlack(voice)||voice.started==false){//如果该语音正在启动的过程中,循环等待
+                setTimeout(function(){
+                    //toast("调试日志：_stopRecord lock");
+                    _stopRecord(_stop_indexVoiceId,forceDelete);
+                },50);
+            }else{//如果该语音已经启动完毕
+                api.stopRecord(
+                    function (ret, err) {
+                        if (ret) {
+                            if (ret.duration == 0 || ret.duration == 1||forceDelete==true) { //录音时间太短
+                                removefile(ret.path,function(){
+                                    if(forceDelete==false){
+                                        moveShort();
+                                    }
+                                    deleteVoice(voice.id);
+                                });
+                            } else { // 录完
+                                deleteVoice(voice.id); //此条录音end设置成true
+//                                api.startPlay({
+//                                    path: ret.path
+//                                }, function (){
+//                                    endplayVoice(doc,whosend);
+//                                });
+                                    var voiceSize = ret.duration;
+                                url= uploadImageUrl;
+                                api.ajax({
+                                    url: url,
+                                    method: 'post',
+                                    timeout: 100,
+                                    dataType: 'json',
+                                    returnAll: false,
+                                    data: {
+                                        files: {file: ret.path}
+                                    }
+                                }, function (ret, err) {
+//                                    al(ret)
+//                                    al(err)
+                                    if (ret) {
+                                        Pinglun('',commentId,ret.ok+'?size='+voiceSize);
+                                    } else {
+                                        toast('评论失败，请稍后重试')
+                                    }
+                                });
+                                //ret.path 是本地路径
+                                //todo  发送语音...
+//                                sendMsg({voice:ret.path,voiceDuration:ret.duration});
+                            }
+                        }else{
+                            deleteVoice(voice.id); //录音的时候手指移动的话 就把录的音删除掉
+                        }
+                    }
+                );
+            }
+        }
+        //发送文本
+        function sendMsg(msgContent) {
+//            msgContent.type=2;
+            //msgContent=JSON.stringify(msgContent);
+//            var clientMsgId=getNewClientMsgId();
+            var msg={authorId:user.id,isClientMsg:true,authorIcon:user.icon, type:1,status:'sending',time:new Date().getTime()};
+            if(isNotBlack(msgContent.voice)){
+                msg.messageChat = msgContent;
+                msg.voiceDuration = msgContent.voiceDuration;
+            }
+            msg.clientId=clientMsgId;
+            sendMsgToServer(type,thirdId,msg,callBackWhenLocal,callBackWhenSuccess,callBackWhenError);
+        }
+        function removefile(path,callBack) {
+            var fs = api.require('fs');
+            fs.remove({
+                path: path
+            }, function (ret, err) {
+                if(callBack){
+                    callBack();
+                }
+            });
+        }
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_out'         //点击录音按钮后手指移出按钮的rect事件
+        }, function (ret, err) {
+            moveOut();
+        });
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_out_cancel'          //点击录音按钮后手指移出按钮的rect后松开事件
+        }, function (ret, err) {
+            closeDialog();
+            stopRecord(true);
+        });
+
+        chatBox.addEventListener({
+            target: 'recordBtn',
+            name: 'move_in'         //move_out事件后手指重新移动进录音按钮的rect事件
+        }, function (ret, err) {
+            moveIn();
+        });
+
+        //监听弹出事件
+        chatBox.addEventListener({
+            target: 'inputBar',
+            name: 'move'
+        }, function (ret, err) {
+//            reSetBody(titleHead,ret.panelHeight,bodyHeight);
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>精彩瞬间</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		body{
+			min-width: 320px;
+		}
+		.arrow_btm{
+			padding-left: 7px;
+			padding-bottom: 2px;
+		}
+		#topbar .right{
+			right: 0px;width: 60px;
+		}
+		#topbar .right img{
+			right: 20px;
+			width: 18px;
+			height: 18px;
+		}
+	</style>
+</head>
+<body>
+<div id="topbar" >
+	<div id="leftButton" tapmode="itemOn" onclick="closeWin()" >
+		<img style="width:25px;height:25px;" src="../../icon/back.png">
+	</div>
+	<div onclick="Topselect(this)"><span id="titleText">全班</span><img src="../../image/arrow_bt_white.png" alt="" class="arrow_btm"/></div>
+	<div onclick="openwonderfulTime_release()" class="right" tapmode="itemOn">
+		<img style="width: 20px;height: 20px;" src="../../image/addicon.png"/>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script>
+	apiready = function () {
+		initFrameInWin(api.pageParam);
+		var topText = $api.getStorage("topText");
+	};
+	function zlHandsome(title){
+		document.getElementById("titleText").innerHTML = title;
+	}
+
+	var action = true;
+	var type = true;
+	function toggleAction(){
+		action = false
+	}
+	function Topselect(){
+		if(type == true){
+			api.openFrame({
+				name: 'cesda',
+				url: 'wonderfulTimeSelect_body.html',
+				rect: {
+					x: 0,
+					y: 66,
+					w: 'auto',
+					h: 'auto'
+				},pageParam: {
+					type: '1'
+				}
+			});
+			type = false;
+		}else{
+			if(action == true){
+				api.setFrameAttr({
+					name:"cesda",
+					hidden:true
+				});
+				action = false;
+			}else{
+				api.setFrameAttr({
+					name:"cesda",
+					hidden:false
+				});
+				action = true;
+			}
+		}
+	}
+	//打开精彩瞬间审核
+	function openwonderfulTime_examine(){
+		api.setFrameAttr({
+			name:"cesda",
+			hidden:true
+		});
+		action = false;
+		openNewWindow("wonderfulTime_examine","../wonderfulTime/wonderfulTime_examine.html")
+	}
+	//打开精彩瞬间发布
+	function openwonderfulTime_release(){
+		api.setFrameAttr({
+			name:"cesda",
+			hidden:true
+		});
+		action = false;
+		openNewWindow("wonderfulTime_release","../wonderfulTime/wonderfulTime_release.html",{},{allowEdit:true})
+	}
+	function closeOnKeyBack(){
+		var PhotoBrowser_flag = $api.getStorage("PhotoBrowser_flag");
+		if (PhotoBrowser_flag){
+			api.execScript({
+				name:'wonderfulTime',
+				frameName : "wonderfulTime_body",
+				script: "closePhotoBrowser()"
+			});
+			return;
+		}else{
+			closeWin();
+		}
+	}
+</script>
+</html>

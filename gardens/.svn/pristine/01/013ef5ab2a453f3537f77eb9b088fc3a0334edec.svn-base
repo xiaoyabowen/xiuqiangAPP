@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间-发布</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/mui.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			.textarea{
+				box-sizing: border-box;
+				margin: 11px 8px;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				padding: 11px 18px 20px 18px;
+				padding-right: 12px;
+				position: relative;
+			}
+			.textarea textarea{
+				width: 100%;
+				resize: none;
+				outline: none;
+				height: 110px;
+				line-height: 21px;
+				font-size: 14px;
+				color: #999999;
+			}
+			.addPic{
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+			}
+			.addPic .piclist{
+				width: 98px;
+				height: 92px;
+				background: #F2F2F2;
+				border-radius: 4px;
+				text-align: center;
+				float: left;
+			}
+			.piclist img{
+				padding-bottom: 5px;
+				padding-top: 24px;
+			}
+			.piclist span{
+				font-size: 14px;
+				color: #999;
+			}
+			.textarea em{
+				font-size: 12px;
+				color: #999999;
+				vertical-align: bottom;
+				position: absolute;
+				right: 5px;
+				bottom: 5px;
+			}
+			.addLabel{
+				padding: 0 15px;
+			}
+			.addLabel input{
+				width:100%;height:22px; box-shadow: 0 2px 4px 0 #CDE3E9;border-radius: 8px;padding:5px;line-height:22px;font-size:12px;color:#5AC8E1;
+
+			}
+			.addLabel u{
+				background: #E8E7E7;
+				border-radius: 100px;
+				line-height: 24px;
+				font-size: 12px;
+				color: #5AC8E1;
+				padding-left: 17px;
+				position: relative;
+				margin-right: 12px;
+				padding-right: 12.8px;
+			}
+			/* .addLabel span:before{
+				content: '';
+				width: 14px;
+				height: 14px;
+				background: url(../../image/label.png) no-repeat;
+				position: absolute;
+				left: 12px;
+				top: 50%;
+				margin-top: -7px;
+			} */
+
+			.labelList{
+				padding: 0 15px;
+				font-size: 12px;
+				color: #666666;
+				line-height: 17px;
+				padding-top: 6px;
+			}
+			.labelList u{
+				padding-left: 9px;
+				color:#5AC8E1;
+			}
+			
+			.mui-switch{
+				display: inline-block;
+				line-height: 24px;
+				right: 0;
+				width: 52px;
+				height: 24px;
+				border-radius: 100px;
+				box-sizing: border-box;
+				vertical-align: middle;
+			}
+			.mui-switch .mui-switch-handle{
+				width: 21px;
+				height: 21px;
+			}
+			.mui-switch:before{
+				content: '';
+				display: none;
+			}
+			.mui-switch.mui-active{
+				border-color: #5AC8E1;	
+				width: 52px;
+				height: 24px;
+				background: #5AC8E1;
+			}
+			.mui-table-view:after{
+				height: 0;
+			}
+			#imglist1 span{
+				width:92px;height:92px;position:relative;float: left;margin-right:10px;margin-bottom:10px;display: block;
+			}
+			#imglist1 span img{display: block;}
+			#imglist1 span i{width:10px;height:10px;position:absolute;right:2px;top:2px;color:red}
+			#openyn{
+				float:right;margin-right:10px;margin-top:10px;
+			}
+			#openyn em{
+				font-size: 12px;
+				color: #333333;
+				line-height: 24px;
+
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="textarea">
+				<textarea id="textarerText" name="" rows="" cols="" placeholder="记录每个成长的瞬间..."></textarea>
+				<div class="addPic">
+					<div id="imglist1" style="float: left;"></div>
+					<div class="piclist">
+						<img src="../../image/carmea.png" alt="" onclick="openImageNew()" /><br/>
+						<span>最多9张</span>
+					</div>
+				</div>
+				<em><i id="length">0</i>/300</em>
+			</div>
+			<div class="addLabel">
+				<input id="Label" type="text"/>
+			</div>
+			<p class="labelList">常用标签:<span  id="tagList"></span>
+			</p>
+			<div id="openyn">
+				<em>是否公开</em>
+				<div id="privateStatus" class="mui-switch">
+					<div class="mui-switch-handle"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/pc.js"></script>
+<script type="text/html" id="tagHtml">
+<%for(var i=0;i<list.length;i++){%>
+	<u onclick="tag(this)">#<%=list[i].name%></u>
+<%}%>
+</script>
+	<script>
+		var cid = getUserInfo().cids[0];
+		apiready = function (){
+			ajaxGet(getHotTags,{},function(ret,err){
+				if(ret){
+					var data = {list: ret.data};
+					var html = template("tagHtml",data);
+					document.getElementById('tagList').innerHTML = html;
+				}
+			})
+		};
+		//文本域字数变化
+		var textnr = document.getElementById("textarerText");
+		var textlength = document.getElementById("length");
+		textnr.onkeyup = function(){
+			var textvalue = textnr.value;
+			if(textvalue.length <= 299){
+				textlength.innerHTML = textvalue.length;
+			}else{
+				textlength.innerHTML = textvalue.length;
+				textnr.setAttribute("disabled","disabled");
+			}
+		}
+		//点击标签选中
+		function tag(self){
+			var tagcontent = self.innerHTML;
+			var inputent = document.getElementById("Label");
+			inputent.value = inputent.value + tagcontent +"，";
+		}
+		//图片上传
+		var imglist=[];
+
+			//图片上传
+			function openImageNew(){
+				var Multiplechoice = api.require('Multiplechoice');
+//      api.showProgress();
+				Multiplechoice.choice({
+					maxstr : 9,
+					uploadflowUrl : uploadImageUrl
+				},function(ret,err){
+					if(ret.allimgjs.length>0){
+						for(var i=0;i<ret.allimgjs.length;i++){
+							var objimg = {};
+							objimg.img = ret.allimgjs[i];
+							objimg.flag = true;
+							imglist.push(objimg.img);
+							document.getElementById("imglist1").innerHTML +="<span><img src='"+objimg.img+"' style='width:92px;height:92px;' /><i onclick='Endes(this)'>X</i></span>";
+						}
+					}else{
+						toast('上传失败')
+					}
+				})
+		}
+
+
+		//点击删除图片
+		function Endes (self){
+			self.parentNode.remove();
+			var actionUrl = self.previousSibling.getAttribute("src");
+			for(var i=0;i<imglist.length;i++){
+				if(imglist[i] == actionUrl){
+					imglist.splice(i,1);
+				}
+			}
+		}
+
+		function Submission(){
+			var privateStatus =document.getElementById("privateStatus");
+			var smclass = privateStatus.getAttribute("class");
+			var action = 1;
+			if(smclass == "mui-switch mui-active"){
+				action = 0;//私密状态
+			}
+			var areaval = document.getElementById("textarerText").value;//内容
+			var tagValue = document.getElementById("Label").value;
+			var tagList = tagValue.split('，');//标签
+			if(areaval != ""){
+				ajaxGet(issueBrilliant,{content:areaval,images:imglist,tags:tagList,privateStatus:action,clazzId:cid},function(ret,err){
+					if(ret.success == true){
+						toast("发布成功");
+						api.execScript({
+							name:rootWindowName,
+							frameName:'dynamic_body',
+							script:'apiready()'
+						})
+						closeWin();
+					}else{
+						toast("发布失败，请检查网络，重新发布")
+					}
+				})
+			}else{
+				toast("内容不能为空");
+			}
+		}
+
+	</script>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>仓库资源-申请未通过</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            .resource-detail{
+                width:100%;
+                padding-top:12px;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .rd-info{
+                width:100%;
+                background: #FFFFFF;
+                padding:12px 12px 0;
+                box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            .top-tab{
+                width:100%;
+                height:43px;
+                line-height:43px;
+                padding-left:20px;
+                padding-right:15px;
+                background: #EBFBFF;
+                display:-webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap:nowrap;
+                font-size: 14px;
+                color: #333333;
+                box-sizing: border-box;
+            }
+            .rd-list li{
+                width:100%;
+                height:35px;
+                line-height:35px;
+                font-size:12px;
+                color:#333333;
+                /* display:-webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: space-between;
+                flex-wrap:nowrap;  */
+                border-bottom: 1px solid #F2F2F2;
+                box-sizing: border-box;
+            }
+            .rd-list li div{
+                width:33.33%;
+                float:left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                box-sizing: border-box;
+            }
+            .rd-list li>:nth-child(1){
+                text-align:left;
+                padding-left:18px;
+            }
+            .rd-list li>:nth-child(2){
+                text-align:center;
+            }
+            .rd-list li>:nth-child(3){
+                text-align:right;
+                padding-right:11px;
+            }
+            .rd-list>:nth-last-child(1){
+                border:none;
+            }
+		</style>
+	</head>
+	<body id="body">
+
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="tmpScript">
+        <%if(list.length){%>
+        <div class="resource-detail">
+            <div class="rd-info">
+                <div class="top-tab">
+                    <div>资产名称</div>
+                    <div>数量</div>
+                    <div>申请时间</div>
+                </div>
+                <ul class="rd-list">
+                    <%for(var i=0;i<list.length;i++){%>
+                    <li>
+                        <div class="asset-name"><%=list[i].itemInfoName%></div>
+                        <div class="asset-count"><%=list[i].num%></div>
+                        <div class="asset-date"><%=list[i].Utime%></div>
+                    </li>
+                    <%}%>
+                </ul>
+            </div>
+        </div>
+        <%}%>
+    </script>
+	<script>
+		apiready = function () {
+			var userInfo = getUserInfo();
+			 new datalistModel(addDataToHtml,getWarehouseNo,10,5,100,true);
+		};
+        function addDataToHtml(results){
+            for(var i = 0;i<results.length;i++){
+                var a = formatTimeToDays(results[i].utime);
+                results[i]['Utime'] = a;
+            }
+            var data = {list: results};
+            var html = template('tmpScript',data);
+            document.getElementById('body').innerHTML = html;
+            api.parseTapmode();
+            document.getElementById("body").style.display = "block";
+        }
+	</script>
+</html>

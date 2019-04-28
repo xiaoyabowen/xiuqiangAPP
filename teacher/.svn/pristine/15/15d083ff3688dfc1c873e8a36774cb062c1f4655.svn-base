@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+    <title>补卡</title>
+    <style>
+       .check-body{
+           width:100%;
+           padding-left:18px;
+           padding-right:18px;
+           padding-top:12px;
+           box-sizing: border-box;
+       }
+       .apply-name,.card-type,.card-date{
+           width:100%;
+           height:40px;
+           border: 1px solid #D7D7D7;
+           padding-top:8px;
+           border-radius: 4px;
+           line-height:24px;
+           box-sizing: border-box;
+       }
+       .card-type,.card-date{
+           margin-top:5px;
+       }
+       .apply-name div,.card-type div,.card-date div{
+           float:left;
+       }
+       .apply-name>:nth-child(1),.card-type>:nth-child(1),.card-date>:nth-child(1){
+            height:23px;
+            padding-left:18px;
+            padding-right:18px;
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.22px;
+            border-right:1px solid #D7D7D7;
+       }
+       .apply-name>:nth-child(2),.card-type>:nth-child(2),.card-date>:nth-child(2){
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.22px;
+            margin-left:18px;
+       }
+       .card-date span{
+            float:right;
+       }
+       .card-date span>img{
+           width:9px;
+           margin-right:18px;
+           margin-top:5px;
+       }
+       .reason{
+           width:100%;
+           height:139px;
+           margin-top:5px;
+           border-radius:4px;
+           border:1px solid #D7D7D7;
+           box-sizing: border-box;
+       }
+       .reason>textarea{
+           width:100%;
+           height:100%;
+           outline: none;
+           resize:none;
+           padding-top:8px;
+           padding-left:18px;
+           font-size: 14px;
+           color:#333333;
+           box-sizing: border-box;
+           overflow-y: scroll;
+       }
+       .submit{
+           width:100%;
+           height:44px;
+           background: #5AC8E1;
+           text-align: center;
+           line-height: 44px;
+           font-size:16px;
+           color:#FFFFFF;
+           margin-top:20px;
+           border-radius:4px;
+       }
+       .itemOn{
+			background: #f4f4f4;
+		}
+    </style>
+</head>
+<body>
+    <div class="check-body">
+        <div class="apply-name">
+            <div>申请学童</div>
+            <div class="name-info" id="name"></div>
+        </div>
+        <div class="card-type">
+            <div>补卡类型</div>
+            <div class="type-info">入园</div>
+        </div>
+        <div class="card-date" id="beginY">
+            <div>补卡日期</div>
+            <div class="date-info" id="beginY_value"></div>
+            <span><img src="../../icon/switch.png" alt=""></span>
+        </div>
+        <div class="reason">
+            <textarea name="" id="content" cols="30" rows="10" placeholder="补卡理由"></textarea>
+        </div>
+        <div class="submit" tapmode="itemOn" onclick="add_card()">保存</div>
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script>
+    	var fixChildUrl = serverUrl + "/attendance/fixChild";//班级儿童的补卡操作（教师端：补卡审核）
+    	var parms;
+        apiready = function(){
+        	parms = api.pageParam;
+        	document.getElementById("name").innerHTML = parms.name;
+        	var thisTime = new Date();
+			thisTime = thisTime.getTime();
+			document.getElementById("beginY_value").innerHTML = formatTimeToDays(thisTime);
+        	(function($, doc) {
+				$.ready(function() {		             
+		            var time = (new Date().format("yyyy/MM/dd/hh")).split("/");
+//					$.ready(function() {
+						var beginTimes = new $.DtPicker({
+							beginDate: new Date(parseInt(time[0]), parseInt(time[1]-3), parseInt(time[2])),//设置开始日期
+							type:'date'
+						});
+						var showCityPickerButton1 = doc.getElementById('beginY');
+						var beginTimes3 = doc.getElementById('beginY_value');
+						showCityPickerButton1.addEventListener('tap', function(event) {
+							beginTimes.show(function(items) {
+								beginTimes3.innerHTML = items.text;
+							});
+						}, false);
+						/****************************上面是选择开始日期***********************/ 
+//					});
+				});
+			})(mui, document);
+        }
+        
+        
+        
+//      fixType:0,1,2
+//		0全天
+//		1入园
+//		2出园
+
+        //补卡审核
+        function add_card(){
+			api.showProgress();
+			var submitObj = {};
+			var beginY_value = formatTimeToDay_day(document.getElementById("beginY_value").innerHTML);
+			var response = document.getElementById("content").value;
+			if (isBlack(response)){
+				toast("请输入补卡理由！");
+				api.hideProgress();
+				return;
+			}
+			
+			submitObj.fixType = 0;//目前默认补一天的
+			submitObj.day = beginY_value;
+			submitObj.uid = parms.uid;
+			submitObj.reason = response;
+			ajaxGet(fixChildUrl,submitObj,function(ret,err){
+				api.hideProgress();
+				if (ret&&ret.success) {
+					toast("补卡成功！");
+					setTimeout(function(){
+						closeWin()
+					},1000)
+				}
+			})
+		}
+    </script>
+</body>
+</html>

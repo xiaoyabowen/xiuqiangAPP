@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>宝宝健康</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F2F2F2;
+            color:#333;
+            font-size:14px;
+            background:#fff;
+        }
+        .health-list{
+            margin:12px 0 0 0;
+            padding:0 15px;
+        }
+        .cTime{padding:12px 0 18px 0;height:20px;overflow:hidden;}
+        .History{padding:12px 0 9px 0;background:#fff;}
+        .History li{min-height:46px;border-bottom:1px solid #F2F2F2;padding:9px 15px 3px 15px;
+            overflow: hidden;}
+        .History li p{overflow:hidden;margin-bottom:3px;}
+        .History li span{float:left;line-height:20px;}
+        .History li span.expression{width:70%}
+        .listText{width:70px;float:left;height:20px;line-height:20px;}
+        .HistoryText{width:70px;height:20px;line-height:20px;padding-left:15px;;}
+        .fr{float: left;width:70%;}
+        .Situation{overflow:hidden;margin-bottom:10px}
+        .button{width:100%;height:44px;background: #5AC8E1;box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);border-radius: 4px;font-size: 16px;color: #FFFFFF;outline:none }
+        #performance{width:100%;resize: none;border:1px solid #999;border-radius:8px;padding:5px;outline: none;height: 110px;line-height: 21px;font-size: 14px; color: #999999;}
+        #Babyname{margin-left:10px;}
+        .chose{
+            height: 16px;border-radius: 50%;
+            border: 1px solid #A4A4A4;
+            width: 16px;float: left;
+            /*margin-top: 10px;*/
+        }
+        .textQk{
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            color: #666666;
+            padding-left: 14px;
+        }
+        .doc{
+            float:left;
+        }
+        .truechose{
+            background: url("../../icon/moren.png") no-repeat; background-size: 18px 18px;
+            background-position: right;
+        }
+        .Situation>ul li{
+            width:50%;
+        }
+    </style>
+</head>
+<body>
+<div class="health-list">
+    <div class="cTime">
+        <span class="listText">表现时间:</span>
+        <span class="fr" id="actionTime"></span>
+    </div>
+    <div class="Situation">
+        <span class="listText">表现情况:</span>
+                <ul class="fr" style="width:68%">
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('乖巧',this)">
+                        <span class="chose"></span>
+                        <span class="textQk">乖巧</span>
+                        <div style="clear: both"></div>
+                    </li>
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('顽皮',this)" >
+                        <span class="chose"></span>
+                        <span class="textQk">顽皮</span>
+                        <div style="clear: both"></div>
+                    </li>
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('懂事',this)">
+                        <span class="chose"></span>
+                        <span class="textQk">懂事</span>
+                        <div style="clear: both"></div>
+                    </li>
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('多动',this)">
+                        <span class="chose"></span>
+                        <span class="textQk">多动</span>
+                        <div style="clear: both"></div>
+                    </li>
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('聪明',this)">
+                        <span class="chose"></span>
+                        <span class="textQk">聪明</span>
+                        <div style="clear: both"></div>
+                    </li>
+                    <li class="doc" style="margin-bottom:14px; " onclick="choosePayType('调皮 开小差',this)">
+                        <span class="chose"></span>
+                        <span class="textQk">调皮 开小差</span>
+                        <div style="clear: both"></div>
+                    </li>
+                </ul>
+    </div>
+    <button class="button" onclick="performance()">保存</button>
+    <div class="History">
+        <span class="HistoryText">历史表现</span>
+        <ul id="PperformanceList">
+
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="PperformanceHtml">
+    <%for(var i=0;i<list.length;i++){%>
+    <li>
+        <p>
+            <span class="listText">表现时间:</span>
+            <span class="bTime"><%=list[i].perTime%></span>
+            <span id="Babyname"><%=list[i].BabyName%></span>
+        </p>
+        <p>
+            <span class="listText">表现情况:</span>
+            <span class="expression"><%=list[i].performences%></span>
+        </p>
+    </li>
+    <%}%>
+</script>
+<script type="text/javascript">
+    var BabyId,BabyName;
+    var performences = '';
+    apiready=function(){
+        BabyId = api.pageParam.BabyId;
+        BabyName = api.pageParam.BabyName;
+        var date = new Date();
+        document.getElementById("actionTime").innerHTML = formatTimeToDateCh(date);
+        ajaxGet(usergetInformations,{uid:BabyId},function(ret,err){
+
+            if(ret.data){
+                for(var i=0;i<ret.data.length;i++){
+                    ret.data[i].perTime = formatTimeToDateDian(ret.data[i].perTime);
+                    ret.data[i].BabyName = BabyName;
+                    }
+                var data = {list: ret.data};
+                var html = template("PperformanceHtml",data);
+                document.getElementById('PperformanceList').innerHTML = html;
+            }
+        })
+    };
+    //发布
+    //        var obj = {};
+    //        obj.performance = document.getElementById("performance").value;
+    //        obj.perTime = new Date(document.getElementById("actionTime").innerHTML);
+    function performance(){
+        if(performences){
+            var perTime =Date.parse(new Date());
+            ajaxGet(userupdatePersonUser,{uid:BabyId,performences:performences,perTime:perTime},function(ret,err){
+                if(ret.success == true){
+                    toast("提交成功！");
+                    var choseList = document.getElementsByClassName('chose');
+                    for(var i=0;i<choseList.length;i++){
+                        removeClass(choseList[i],'truechose')
+                    }
+                    performences = '';
+                    apiready();
+                }else{
+                    toast("提交失败，请检查网络重新提交！");
+                }
+            })
+        }else{
+            toast("请选择宝宝表现情况！");
+        }
+    }
+    function choosePayType(type,self) {
+
+        // var choseList = document.getElementsByClassName('chose');
+        // for(var i=0;i<choseList.length;i++){
+        //     removeClass(choseList[i],'truechose')
+        // }
+        if($(self).find('.chose').hasClass('truechose')){
+            $(self).find('.chose').removeClass('truechose');
+            performences = performences.replace(new RegExp(type), "");
+        }else{
+            $(self).find('.chose').addClass('truechose');
+            performences += type;
+        }
+
+    }
+    function removeClass(obj, cls){
+        var obj_class = ' '+obj.className+' ';//获取 class 内容, 并在首尾各加一个空格. ex) 'abc    bcd' -> ' abc    bcd '
+        obj_class = obj_class.replace(/(\s+)/gi, ' '),//将多余的空字符替换成一个空格. ex) ' abc    bcd ' -> ' abc bcd '
+            removed = obj_class.replace(' '+cls+' ', ' ');//在原来的 class 替换掉首尾加了空格的 class. ex) ' abc bcd ' -> 'bcd '
+        removed = removed.replace(/(^\s+)|(\s+$)/g, '');//去掉首尾空格. ex) 'bcd ' -> 'bcd'
+        obj.className = removed;//替换原来的 class.
+    }
+</script>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>精彩瞬间-发布</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/mui.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			#main{
+				padding: 12px 8px;
+				box-sizing:border-box;
+				width:100%;
+			}
+			.textarea{
+				width: 100%;
+				box-sizing: border-box;
+				margin-bottom: 12px;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				height: 226px;
+				padding: 12px 18px;
+				padding-right: 12px;
+			}
+			.textarea textarea{
+				width: 100%;
+				resize: none;
+				outline: none;
+				height: 110px;
+				line-height: 21px;
+				font-size: 15px;
+				color: #505050;
+			}
+			.addPic{
+				width: 100%;
+				position: relative;
+			}
+			.addPic .piclist{
+				width: 98px;
+				height: 92px;
+				background: #F2F2F2;
+				border-radius: 4px;
+				text-align: center;
+			}
+			.piclist img{
+				padding-bottom: 5px;
+				padding-top: 24px;
+			}
+			.piclist span{
+				font-size: 14px;
+				color: #999;
+			}
+			.addPic em{
+				font-size: 12px;
+				color: #BDBDBD;
+				vertical-align: bottom;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+			}
+			.addLabel{
+				padding: 0 7px;
+			}
+			.addLabel span{
+				background: #F2F2F2;
+				border-radius: 100px;
+				line-height: 24px;
+				font-size: 12px;
+				color: #999;
+				padding-left: 32px;
+				position: relative;
+				margin-right: 12px;
+				padding-right: 12px;
+			}
+			.addLabel span:before{
+				content: '';
+				width: 14px;
+				height: 14px;
+				background: url(../../image/label.png) no-repeat;
+				position: absolute;
+				left: 12px;
+				top: 50%;
+				margin-top: -7px;
+			}
+			.addLabel em{
+				font-size: 12px;
+				color: #333333;
+				line-height: 24px;
+
+			}
+			.labelList{
+				padding: 0 7px;
+				font-size: 12px;
+				color: #666666;
+				line-height: 17px;
+				padding-top: 6px;
+			}
+			.labelList em{
+				padding-left: 9px;
+			}
+
+			.mui-switch{
+				display: inline-block;
+				line-height: 24px;
+				right: 0;
+				width: 52px;
+				height: 24px;
+				border-radius: 100px;
+				box-sizing: border-box;
+				vertical-align: middle;
+			}
+			.mui-switch .mui-switch-handle{
+				width: 21px;
+				height: 21px;
+			}
+			.mui-switch:before{
+				content: '';
+				display: none;
+			}
+			.mui-switch.mui-active{
+				border-color: #5AC8E1;
+				width: 52px;
+				height: 24px;
+				background: #5AC8E1;
+			}
+			.mui-table-view:after{
+				height: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="textarea">
+				<textarea name="" rows="" cols="" placeholder="记录每个成长的瞬间..."></textarea>
+				<div class="addPic">
+					<div class="piclist">
+						<img src="../../image/carmea.png" alt="" /><br />
+						<span>最多9张</span>
+					</div>
+					<em><i>0</i>/200</em>
+				</div>
+			</div>
+			<div class="addLabel">
+				<span><i>动物园</i>，<i>游乐园</i></span>
+				<em>是否公开</em>
+		    	<div class="mui-switch" onclick="">
+					<div class="mui-switch-handle"></div>
+				</div>
+			</div>
+			<p class="labelList">常用标签:<em>动物园</em><em>动物园</em><em>动物园</em><em>动物园</em></p>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+
+
+
+	</script>
+</html>

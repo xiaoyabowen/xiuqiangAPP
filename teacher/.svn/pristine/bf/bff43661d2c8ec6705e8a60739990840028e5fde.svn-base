@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>公告通知预览</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+    <style type="text/css">
+        body{
+            min-width: 320px;
+            background: #F8F8F8;
+        }
+        #main{
+            width:95%;
+            margin:12px 8px 0px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+        }
+        .contentBody{
+            margin-top: 10px;
+        }
+        .contentBody .ziTitle{
+            width: 100%;
+            font-size: 16px;
+        }
+        .contentBody .release_content>p{
+            text-indent: 2em;
+            margin-top: 5px;
+        }
+        .contentBody .contentImg>span{
+            width: 100%;
+        }
+        .contentBody .contentImg>span>img{
+            width: 100%;
+            height: 130px;
+        }
+        .contentBody .ziTitle>p{
+            font-weight: 700;
+        }
+        .title{
+            width:100%;
+            text-align: center;
+            font-size:20px;
+            color:#333333;
+            line-height:22px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .preview_body{
+            width:100%;
+            padding:12px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+        }
+        .bottom_tag{
+            /*width:100%;*/
+            overflow: hidden;
+        }
+        .bottom_tag>:nth-child(1),.bottom_tag>:nth-child(2){
+            font-size:12px;
+            color:#666666;
+            float:left;
+        }
+        .bottom_tag>:nth-child(1){
+            margin-right:6px;
+        }
+        .bottom_tag>:nth-child(3){
+            font-size:12px;
+            color:#BDBDBD;
+            float:right;
+        }
+        .btn_group{
+            width:100%;
+            margin-top:19px;
+            padding-left:27px;
+            padding-right:27px;
+            box-sizing: border-box;
+            display:flex;
+            justify-content: space-between;
+            white-space: nowrap;
+        }
+        .btn_group a{
+            width:45.1%;
+            height:44px;
+            background: #5AC8E1;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            text-align: center;
+            line-height:44px;
+            font-size:16px;
+            color:#FFFFFF;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+
+</div>
+<div class="btn_group">
+    <a onclick="closeWin()">返回修改</a>
+    <a onclick="announcement()">发布</a>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="preview">
+    <div class="title"><%=list.noticeTitle%></div>
+    <div id="contentBody" class="contentBody" style="width:100%;padding-left:8px;padding-right:8px;padding-top:12px;box-sizing: border-box;">
+        <%=list.htmlD%>
+    </div>
+</script>
+<script>
+    var noticeObj=localStorage.getItem('tongzhiObj');
+
+    noticeObj=tryJsonParse(noticeObj)
+    function tryJsonParse(value){
+        try{
+            return JSON.parse(value);
+        }catch(e){
+            return value;
+        }
+    }
+    var Informobj={}
+    var notificationArr=[];
+    apiready=function () {
+        var data={list:noticeObj}
+        var html=template('preview',data);
+        document.getElementById('main').innerHTML=html;
+        setTimeout(function(){
+            if(noticeObj.img>0){
+                for(var j=0;j<noticeObj.img;j++){
+                    var obj = getImgByThisSize(noticeObj.imgU[j],api.winWidth ,130);
+                    $("#img"+j).attr('src',noticeObj.imgU[j]);
+                    $("#img."+j).attr('style',obj.style.width);
+                }
+            }
+            if(noticeObj.title>0){
+                for(var i=0;i<noticeObj.title;i++){
+                    document.getElementById("title"+i).innerHTML=noticeObj.textTitle[i];
+                }
+            }
+            if(noticeObj.text>0){
+                for(var k=0;k<noticeObj.text;k++){
+                    document.getElementById('text'+k).innerHTML=noticeObj.textCont[k];
+                }
+            }
+
+//            alert(noticeObj.imgU[0]);
+//            alert(noticeObj.textCont[0]);
+            Informobj.title = noticeObj.noticeTitle;
+            Informobj.imagesJson = JSON.stringify(noticeObj.imgU);
+            Informobj.content =  noticeObj.textCont[0];
+            Informobj.ext = document.getElementById("contentBody").innerHTML;
+            Informobj.sign=noticeObj.noticeSignfor;
+            Informobj.shareStatus=noticeObj.noticeShare
+            Informobj.recvType=noticeObj.staffTeacher;
+            Informobj.sid=getUserInfo().sid;
+            Informobj.uid=getUserInfo().id;
+            Informobj.cid=getUserInfo().cids[0];
+            Informobj.status=0;
+            Informobj.userType=1;
+//            alert(JSON.stringify(Informobj))
+        },200);
+
+    }
+    var tag=true;
+    function announcement() {
+        if(tag){
+            ajaxGet(addInform,Informobj,function (ret,err) {
+                api.showProgress();
+                if(ret && ret.success){
+                    toast("发布成功！");
+                    api.execScript({
+                        name:"schoolNotice",
+                        frameName:"classNoticeBody",
+                        script:"apiready()"
+                    });
+                    api.execScript({
+                        name:"schoolNotice",
+                        frameName:"classNotice_mine",
+                        script:"apiready()"
+                    });
+                    setTimeout(function () {
+                        api.closeToWin({name:"schoolNotice"});
+                    },300)
+                }
+            })
+        }else{
+            toast("不能重复点击！")
+        }
+
+    }
+</script>
+</html>

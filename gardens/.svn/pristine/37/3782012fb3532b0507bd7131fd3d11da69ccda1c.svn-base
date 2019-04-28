@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>园长登录</title>
+    <style>
+        body{
+            background:url("../../image/lrbg02.png") no-repeat;
+            background-size:100% 100%;
+            color:#FFFFFF; 
+        }
+        .return{
+            width:100%;
+            height:46px;
+            position: relative;
+        }
+        .return>img{
+            width:22px;
+            height:22px;
+            position: absolute;
+            bottom:12px;
+            left:15px;
+        }
+        .leader-login{
+            width:100%;
+            position:fixed;
+            bottom:25px;
+        }
+        .leader-login>a{
+            width:70%;
+            margin:0 auto;
+            height:43px;
+            font-size: 18px;
+            background:rgba(94,196,224,0.7);
+            border-radius: 100px;
+            text-align: center;
+            line-height: 43px;
+            color:#FFFFFF;
+            display: block;
+            background-image:url('../../icon/leaderlogin.png');
+            background-repeat:no-repeat;
+            background-size:18px; 
+            background-position:93% 12px;  
+        }
+        .login-icon{
+            text-align: center;
+            margin-top:25px;
+        }
+        .login-icon>img{
+            width:30px;
+            height:30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+           <div class="return">
+                <img src="../../icon/return.png" alt="">
+           </div>
+           <div class="leader-login">
+                <a>
+                    <span>园长登录</span>
+                </a>
+                <div class="login-icon"><img src="../../icon/loginicon.png" alt=""></div>
+            </div>
+        </div>    
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝食谱-日期</title>
+    <style>
+        body{
+            height:auto;
+            background: #F2F2F2;
+        }
+        .select-menu{
+            width:100%;
+            margin-top:12px;
+            padding-left:8px;
+            padding-right:8px;
+            box-sizing: border-box;
+        }
+        .select-menu .sm{
+            width:100%;
+            height:42px;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:18px;
+            padding-top:9px;
+            box-sizing: border-box; 
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+        .select-version{
+            height:24px;
+            line-height:24px;
+            background: #92CA55;
+            color:#FFFFFF;
+            font-size: 12px;
+            border-radius: 100px;
+            padding-left:10px;
+            padding-right:10px;            
+            display: inline-block;
+            box-sizing: border-box;
+            position: absolute;
+            left:18px;
+        }
+        @media screen and (max-width: 320px) {
+            .select-version{
+                left:5px;                
+            }
+            .version-menu{
+            position:absolute;
+            width:76px;
+            background: #FFFFFF;
+            color:#999999;
+            text-align: center;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            top:33px;
+            left:0px;
+            z-index:99999;
+        }
+        }
+        .select-version .version-name::after{
+            content:url('../../icon/arrowup.png');
+            width:12px;
+            height:12px;
+            vertical-align: middle;
+            margin-left:7px;
+        }
+        .select-date{
+            display: inline-block;            
+            height:24px;
+            line-height:24px;            
+            /* margin:0 auto; */
+            font-size: 12px;
+            color: #FFFFFF;
+            padding-left:13px;
+            padding-right:13px;
+            background: #67C49C;
+            border-radius: 100px;
+            box-sizing: border-box;         
+        }
+        .select-date .fl-date{
+            float:left;
+        }
+        .start-date,.end-date{
+            text-decoration: underline;            
+        }
+        .cookbook-info{
+            width:100%;
+            margin-top:12px;
+            padding-left:8px;
+            padding-right:8px;
+            padding-bottom:18px;
+            box-sizing: border-box;
+            position: relative;
+            z-index:999;
+        }
+        .cookbook-info .ci{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 #CDE3E9;
+            border-radius: 4px;
+            padding-left:18px;
+            padding-top:20px;
+            padding-bottom:20px;
+            box-sizing: border-box; 
+            position: relative;
+        }
+        .cookbook-info .ci .edit{
+            position:absolute;
+            right:18px;
+            top:19px;
+        }
+        .cookbook-info .ci .edit>img{
+            width:22px;
+            height:22px;
+        }
+        .ci-title div{
+            float:left;
+        }
+        .ci-menu{
+            padding-top:11px;
+        }
+        .ci-content{
+            clear:left;
+            margin-bottom:17px;
+        }
+        .ci-title{
+            height:22px;
+        }
+        .ci-title .ci-name{
+            font-size: 16px;
+            color: #333333;
+            line-height:22px;          
+        }
+        .ci-title .ci-time{
+            font-size:12px;
+            color:#999999;
+            line-height: 20px;
+            margin-left:15px;
+        }
+        .ci-list li .cil-left{
+            clear:left;
+        }
+        .ci-list li .cil-left img{
+            float:left;
+            width:105px;
+            height:105px;
+            border-radius:4px;
+        }
+        .ci-list li .cil-right{
+            width:100%;
+            height:105px;
+            padding-left:117.5px;
+            box-sizing: border-box;            
+        }
+        .ci-list li .cil-right .cr-item{
+            margin-bottom:10px;
+            font-size: 14px;
+            color: #333333;
+            line-height:20px;
+            box-sizing: border-box;            
+        }
+        .ci-list li .cil-right .cr-item>:nth-child(2){
+            margin-left:-5px;          
+        }
+        .breakfast{
+            padding-bottom:3px;
+        }
+        .lunch{
+            padding-bottom:3px;            
+        }
+        .dinner{
+            padding-bottom:3px;            
+        }
+        .open-more{
+            font-size: 12px;
+            color:#999999;
+        }
+        .date-picker{
+            clear:left;
+            position:absolute;
+            margin-left:32px;
+            margin-right:32px;
+            padding:0px 23px 24px 15px;
+            background: #FFFFFF;
+            color:#999999;
+            text-align: center;
+            box-shadow: 0 2px 4px 0 #87B2BE;
+            border-radius: 4px;
+            top:53px;
+            left:0px;
+            z-index:99999;
+            box-sizing: border-box;
+        }
+        @media screen and (min-width:460px) {
+            .date-picker{
+                clear:left;
+                position:absolute;
+                padding:0px 23px 24px 15px;
+                background: #FFFFFF;
+                color:#999999;
+                text-align: center;
+                box-shadow: 0 2px 4px 0 #87B2BE;
+                border-radius: 4px;
+                top:53px;
+                left:50%;
+                z-index:99999;
+                box-sizing: border-box;
+                margin-left:-193px;
+            }
+        }
+        .dp-info::before{
+            content:'';
+            position: absolute;
+            top:-9px;
+            left:50%;
+            margin-left:-6.5px;
+            width:0px;
+            height:0px;
+            border-left:6.5px solid transparent; 
+            border-right:6.5px solid transparent; 
+            border-bottom: 7px solid #EEF4F6;
+            z-index:99998;
+            filter: blur(1px);                        
+        }
+        .dp-info::after{
+            content:'';
+            position: absolute;
+            top:-7px;
+            left:50%;
+            margin-left:-6.5px;                       
+            width:0px;
+            height:0px;
+            border-left: 6.5px solid transparent; 
+            border-right: 6.5px solid transparent; 
+            border-bottom: 7.5px solid #FFFFFF;
+            z-index:99999;
+        }
+        .week-bar,.calendar-info{
+            width:100%;
+            clear:left;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .week-bar li,.calendar-info li{
+            float:left;
+            text-align: center;
+            width:14.286%;
+        }
+        .year-month{
+            height:47px;
+            line-height: 47px;
+            border-bottom:0.5px solid #FAFAFA;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .year-month div{
+            float:none !important;
+            font-size: 20px;
+            color: #999999;
+        }
+        .ym-before,.ym-after{
+            width:27px;
+            height:27px;
+            background: #FBFBFB;
+            border-radius:50%;
+            box-sizing: border-box; 
+        }
+        .ym-before{
+            position:absolute;
+            left:0px;
+            top:10px;
+            background:#FBFBFB url('../../icon/datebefore.png');
+            background-repeat:no-repeat;
+            background-position: 50% 50%;          
+            text-align: center;
+        }
+        .ym-after{
+            position:absolute;                        
+            right:0px;
+            top:10px;
+            background:#FBFBFB url('../../icon/dateafter.png');
+            background-repeat:no-repeat;
+            background-position: 50% 50%;                      
+            text-align: center;            
+        }
+        .week-bar{
+            margin-top:15px;
+        }
+        .week-bar li{
+            font-size: 12px;
+            color:#7C7C7C;
+        }
+        .calendar-info li{
+            font-size:12px;
+            margin-top:15px;
+            color:#7C7C7C;            
+        }
+        .calendar-info .last-month,.calendar-info .next-month{
+            color:#CECECE;
+        }
+        .calendar-info .now{
+            color:#5AC7E1;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div class="select-menu">
+                <div class="sm">
+                    <div class="select-version">
+                        <div class="version-name">大众版</div>
+                    </div>
+                    <div class="select-date">
+                        <div class="start-date fl-date">2018.02.12 </div>
+                        <div class="fl-date">-</div>
+                        <div class="end-date fl-date">2018.02.18</div>
+                        
+                    </div>
+                </div>
+                <div class="date-picker">
+                        <div class="dp-info">
+                        <!-- 头部显示年月，前后切换 -->
+                        <div class="year-month">
+                            <div class="ym-before"></div>
+                            <div class="ym-now">
+                                <span class="ym-month">Feb</span>
+                                <span class="ym-year">2018</span>                            
+                            </div>
+                            <div class="ym-after"></div>
+                        </div>
+                        <!-- 星期 -->
+                        <ul class="week-bar">
+                            <li>SUN</li>
+                            <li>MON</li>
+                            <li>TUE</li>
+                            <li>WED</li>
+                            <li>THU</li>
+                            <li>FRI</li>
+                            <li>SAT</li>    
+                        </ul>
+                        <!-- 日历 -->
+                        <ul class="calendar-info">
+                            <li class="last-month">30</li>
+                            <li>1</li>
+                            <li>2</li>
+                            <li>3</li>
+                            <li>4</li>
+                            <li>5</li>
+                            <li>6</li>
+                            <li>7</li>
+                            <li>8</li>
+                            <li>9</li>
+                            <li>10</li>
+                            <li>11</li>
+                            <li>12</li>
+                            <li>13</li>
+                            <li>14</li>
+                            <li>15</li>
+                            <li>16</li>
+                            <li class="now">17</li>
+                            <li>18</li>
+                            <li>19</li>
+                            <li>20</li>
+                            <li>21</li>
+                            <li>22</li>
+                            <li>23</li>
+                            <li>24</li>
+                            <li>25</li>
+                            <li>26</li>
+                            <li>27</li>
+                            <li>28</li>
+                            <li>29</li>
+                            <li>30</li>
+                            <li>31</li>
+                            <li class="next-month">1</li>
+                            <li class="next-month">2</li>
+                            <li class="next-month">3</li>                     
+                        </ul>
+                       </div>
+                   </div>
+            </div>
+            <div class="cookbook-info">
+                <div class="ci">
+                    <!-- 早餐 -->                    
+                    <div class="breakfast">
+                        <div class="ci-title">
+                            <div class="ci-name">早餐</div>
+                            <div class="ci-time">
+                                <span>2018-02-12</span>
+                                <span>周一</span>
+                            </div>
+                        </div>
+                     <ul class="ci-menu">  
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul> 
+                </div>
+                <!-- 午餐 -->
+                <div class="lunch">
+                    <div class="ci-title">
+                        <div class="ci-name">午餐</div>
+                    </div>
+                    <ul class="ci-menu">
+                        <li class="ci-content">
+                            <ul class="ci-list">
+                                <li>
+                                    <div class="cil-left">
+                                        <img src="../../image/cookfood.png" alt="">
+                                    </div>
+                                    <div class="cil-right">
+                                        <div class="food-name cr-item">
+                                            <span>菜名：</span>
+                                            <span>玉米粥</span>
+                                        </div>
+                                        <div class="food-material cr-item">
+                                            <span>食材：</span>
+                                            <span>玉米</span>
+                                        </div>
+                                        <div class="food-weight cr-item">
+                                            <span>重量：</span>
+                                            <span>100g</span>
+                                        </div>
+                                        <div class="food-attribute cr-item">
+                                            <span>属性：</span>
+                                            <span>其他</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </div>
+                <!-- 晚餐 -->
+                    <div class="dinner">
+                        <div class="ci-title">
+                            <div class="ci-name">晚餐</div>
+                        </div>
+                        <ul class="ci-menu">
+                            <li class="ci-content">
+                                <ul class="ci-list">
+                                    <li>
+                                        <div class="cil-left">
+                                            <img src="../../image/cookfood.png" alt="">
+                                        </div>
+                                        <div class="cil-right">
+                                            <div class="food-name cr-item">
+                                                <span>菜名：</span>
+                                                <span>玉米粥</span>
+                                            </div>
+                                            <div class="food-material cr-item">
+                                                <span>食材：</span>
+                                                <span>玉米</span>
+                                            </div>
+                                            <div class="food-weight cr-item">
+                                                <span>重量：</span>
+                                                <span>100g</span>
+                                            </div>
+                                            <div class="food-attribute cr-item">
+                                                <span>属性：</span>
+                                                <span>其他</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 展开详情 -->
+                    <div class="open-more">
+                        展开详情
+                    </div>       
+                </div>
+            </div>
+        </div>    
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script>
+       
+    </script>
+</body>
+</html>

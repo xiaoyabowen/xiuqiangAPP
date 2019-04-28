@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>教学资料预览</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            #main{
+                width:100%;
+                padding:12px 8px 0px;
+                box-sizing: border-box;
+            }
+            .preview_body{
+                width:100%;
+                padding:12px;
+                box-sizing: border-box;
+                background: #FFFFFF;
+                box-shadow: 0 2px 4px 0 #CDE3E9;
+                border-radius: 4px;
+            }
+            .title{
+                width:100%;
+                text-align: center;
+                font-size:16px;
+                color:#333333;
+                line-height:22px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .text_info{
+                width:100%;
+                margin-top:6px;
+                line-height:20px;
+                font-size:14px;
+                color:#333333;
+                letter-spacing: 0.9px;
+                text-align: justify;
+                text-indent: 2em;
+            }
+            .img_info{
+                width:100%;
+            }
+            .img_info li{
+                width:100%;
+                height:200px;
+                border-radius:8px;
+                box-sizing: border-box;
+                overflow: hidden;
+                margin-bottom:6px;
+            }
+            .img_info>:nth-child(1){
+                margin-top:6px;
+            }
+            .img_info li>img{
+                /*width:100%;*/
+                /*height:100%;*/
+            }
+            .bottom_tag{
+                width:100%;
+                overflow: hidden;
+            }
+            .bottom_tag>:nth-child(1),.bottom_tag>:nth-child(2){
+                font-size:12px;
+                color:#666666;
+                float:left;
+            }
+            .bottom_tag>:nth-child(1){
+                margin-right:6px;
+            }
+            .bottom_tag>:nth-child(3){
+                font-size:12px;
+                color:#BDBDBD;
+                float:right;
+            }
+            .btn_group{
+                width:100%;
+                margin-top:19px;
+                padding-left:27px;
+                padding-right:27px;
+                box-sizing: border-box;
+                display:flex;
+                justify-content: space-between;
+                white-space: nowrap;
+            }
+            .btn_group a{
+                width:45.1%;
+                /*width:160px;*/
+                height:44px;
+                background: #5AC8E1;
+                box-shadow: 0 2px 4px 0 #87B2BE;
+                border-radius: 4px;
+                text-align: center;
+                line-height:44px;
+                font-size:16px;
+                color:#FFFFFF;
+                margin-bottom: 30px;
+            }
+		</style>
+	</head>
+	<body>
+        <div id="main">
+
+        </div>
+        <div class="btn_group">
+            <a onclick="closeWin()">返回修改</a>
+            <a onclick="announcement()">发布</a>
+        </div>
+	</body>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/util.js"></script>
+    <script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/user.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+    <script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/html" id="preview">
+        <div class="preview_body">
+            <%for(var i=0;i<list.noticeContent.length;i++){%>
+            <div class="title">
+                <!--我眼中的万花筒幼儿园-->
+                <%=list.noticeContent[i].noticeTitle%>
+            </div>
+            <div class="text_info">
+                <!--我眼中的万花筒幼儿园，除了那建筑外墙的绿色给了我一种充满活力的森林感觉外，更主要的是万花筒幼儿园的老师们给我这个初为人父的感觉和一种无法用文字来言表的信赖。孔子说过“性相近，习相远也”，由此可见一个良好习惯的养成是从吖吖学语、幼儿教育开始的。-->
+                <%=list.noticeContent[i].noticeCon%>
+            </div>
+            <%}%>
+            <%for(var j=0;j<list.img.length;j++){%>
+            <ul class="img_info">
+                <li>
+                    <img src="<%=list.img[j].url%>" style="<%=list.img[j].style%>" alt="">
+                </li>
+            </ul>
+            <%}%>
+            <div class="bottom_tag">
+                <%if(list.noticeShare==1){%>
+                <span>可以分享</span>
+                <%}%>
+                <!--<span>李老师分享于<em>2018.02.31</em><em>12:30</em></span>-->
+            </div>
+
+        </div>
+    </script>
+    <script>
+        var noticeObj=localStorage.getItem('tongzhiObj');
+        noticeObj=tryJsonParse(noticeObj)
+        function tryJsonParse(value){
+            try{
+                return JSON.parse(value);
+            }catch(e){
+                return value;
+            }
+        }
+        var notificationArr=[];
+        apiready=function () {
+            if(noticeObj.img.length>0){
+                for(var i=0;i<noticeObj.img.length;i++){
+                    var width =api.winWidth;
+                    var height = 200;
+                    var obj = getImgSizeBySize(noticeObj.img[i].url,width,height);
+//                al(obj)
+                    noticeObj.img[i].url =obj.url;
+                    noticeObj.img[i].style = obj.style;
+                }
+            }
+//            al(tongzhiObj)
+            var data={list:noticeObj}
+            var html=template('preview',data);
+            document.getElementById('main').innerHTML=html;
+        }
+
+        var Informobj={}//传的参数对象
+        var noticetitle_one;
+        var noticecontent_one;
+
+        noticetitle_one=noticeObj.noticeContent[0].noticeTitle;
+        noticecontent_one=noticeObj.noticeContent[0].noticeCon;
+        Informobj.title=noticetitle_one;
+        Informobj.content=noticecontent_one;
+
+        if(noticeObj.noticeContent.length > 1){
+            var notice_Content_title = "";
+//            var notice_Content_content = "";
+            for(var i=1;i<noticeObj.noticeContent.length;i++){
+                notice_Content_title += "<h5 class='section_title'>"+noticeObj.noticeContent[i].noticeTitle+"</h5>"+"<p class='section_Content'>"+noticeObj.noticeContent[i].noticeCon+"</p>";
+//                notice_Content_content += "<p>"+noticeObj.noticeContent[i].noticeCon+"</p>";
+            }
+//            Informobj.contemt+=notice_Content_title+notice_Content_content;
+            Informobj.content+=notice_Content_title;
+        }
+        var image_list=[]
+        for(var i=0;i<noticeObj.img.length;i++){
+           image_list.push( noticeObj.img[i].url);
+        }
+
+        Informobj.imagesJson=image_list;//图片
+        Informobj.type=4//类型
+        Informobj.pathType=noticeObj.typeTeach;//区分教学资料还是园所院校
+        Informobj.pathId=noticeObj.path;//路径id
+        Informobj.schoolld=getUserInfo().sid;//所属学校
+        //        Informobj.clazzId=getUserInfo().cid;//班级ID
+        Informobj.uid=getUserInfo().id;//所属老师
+        Informobj.shareStatus=noticeObj.noticeShare;//是否允许分享,客户端不弹出分享按钮
+
+
+
+
+        function announcement() {
+//            alert(JSON.stringify(Informobj));
+//            return;
+            ajaxGet(addDocument,Informobj,function (ret,err) {
+                al(ret)
+                al(err)
+                api.showProgress();
+                if(ret && ret.success){
+                    toast("发布成功！");
+                    api.execScript({
+                        name:"myStudy_course",
+                        frameName:'teachMang1',
+                        script: 'apiready()'
+                    })
+                    api.execScript({
+                        name:"myStudy_course",
+                        frameName:'teachMang2',
+                        script: 'apiready()'
+                    })
+                    api.execScript({
+                        name:"myStudy_course",
+                        frameName:'teachMang3',
+                        script: 'apiready()'
+                    })
+                    api.execScript({
+                        name:"myStudy_course",
+                        frameName:'teachMang4',
+                        script: 'apiready()'
+                    })
+                    setTimeout(function () {
+                        api.closeToWin({name:"myStudy_course"});
+                    },400)
+                }
+            })
+        }
+    </script>
+</html>

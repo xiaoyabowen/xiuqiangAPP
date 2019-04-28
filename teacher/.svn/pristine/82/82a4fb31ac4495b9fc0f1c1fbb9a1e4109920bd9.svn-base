@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>仓库资源-已领用</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+                background: #F8F8F8;
+			}
+            #topbar{
+                position:relative;
+            }
+            #topbar>:nth-child(3)>img{
+               position: absolute;
+               right:15px;
+               bottom:12px;
+               width:18px;
+               height:18px;
+            }
+            .switch-tab{
+                width:100%;
+                padding-top:12px;
+                padding-left:8px;
+                padding-right:8px;
+                box-sizing: border-box;
+            }
+            .switch-tab ul{
+                width:100%;
+                height:42px;
+                border-radius: 4px;
+                background: #FFFFFF;
+                box-sizing: border-box;
+            }
+            .switch-tab ul li{
+                width:33.33%;
+                height:42px;
+                float:left;
+                padding-top:6px;
+                box-sizing: border-box;
+            }
+            .switch-tab ul .active{
+                font-size: 16px;
+                background: url('../../icon/selected-bg.png');
+                background-repeat:no-repeat;
+                background-position:center 40px;
+            }
+            .switch-tab ul .active>div{
+                color: #5AC7E1;
+            }
+			.st-item{
+				color: #5AC8E1;
+			}
+            .switch-tab ul li>div{
+                width:100%;
+                height:30px;
+                line-height:30px;
+                text-align: center;
+                font-size: 16px;
+                color: #A3A3A3;
+                box-sizing: border-box;
+            }
+            .switch-tab ul>:nth-child(1)>div{
+                border-right:1px solid #F0F0F0;
+            }
+			.switch-tab ul>:nth-child(2)>div{
+                border-right:1px solid #F0F0F0;
+            }
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+		        <img style="width: 25px;height: 25px;" src="../../icon/back.png">
+		    </div>
+            <div>仓库资源</div>
+            <div onclick="openWarehouseApply()"><img src="../../icon/addicon.png" alt=""></div>
+            <div class="switch-tab">
+                <ul>
+                    <li class="st-item active" onclick="switchFrameGroupIndex(0)">
+                        <div>已领用</div>
+                    </li>
+                    <li class="st-item" onclick="switchFrameGroupIndex(1)">
+                        <div>申请中</div>
+                    </li>
+					<li class="st-item" onclick="switchFrameGroupIndex(2)">
+                        <div>申请未通过</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+            var strDM = api.systemType;
+            var strSV = parseFloat(api.systemVersion,10);
+//            var titleHeight = 0;
+//            if(strDM == 'ios' && strSV > 7){
+//                titleHeight = 40
+//            }else if(strDM == 'android' && strSV >= 4.4){
+//                titleHeight = 45;
+//            }
+            var titleHeight=0;
+            if((strDM == 'ios' && strSV > 7)||(strDM == 'android' && strSV >= 4.4)){
+                titleHeight=api.safeArea.top;
+            }
+            document.getElementById('topbar').style.paddingTop = titleHeight + 'px';
+	        document.getElementById('topbar').style.display = "block";
+	       	var res = api.pageParam;
+	        window_width = api.winWidth;
+	        api.openFrameGroup ({
+	            name: 'warehouseResource',
+	            background:'#fff',
+	            scrollEnabled:true,
+	            preload:2,
+	            rect : {
+	                x : 0,
+	                y : headHeight+titleHeight + 54,
+	                w : 'auto',
+	                h : api.winHeight-headHeight-titleHeight - 54
+	            },
+	            index:0,
+	            frames: [{
+	           		name: 'getResource',
+	                url: 'getResource_body.html',
+	                bgColor :'rgba(246,246,246,1)',
+	                pageParam:{type:0,index:0}
+	            },{
+	                name: 'applying',
+	                url: 'applying_body.html',
+	                bgColor :'rgba(246,246,246,1)',
+	                pageParam:{type:2,index:1}
+	            },
+				{
+	                name: 'applyNo',
+	                url: 'applyNo_body.html',
+	                bgColor :'rgba(246,246,246,1)',
+	                pageParam:{type:3,index:2}
+	            }
+	           ]
+	        }, function(ret, err){
+	            switchFrameCallback(ret.index);
+	        })
+        };
+            function switchFrameGroupIndex(index){
+                api.setFrameGroupIndex({
+                    name : "warehouseResource",
+                    index : index,
+                    scroll : true
+                });
+            }
+
+            function switchFrameCallback(index) {
+                var stitem = document.querySelectorAll(".st-item");
+                for (var i = 0; i < stitem.length; i++) {
+                    if (i == index) {
+                        stitem[i].classList.add("active")
+                        stitem[i].style.color = "#5AC7E1;";
+                    } else {
+                        stitem[i].classList.remove("active")
+                        stitem[i].style.color = "#A3A3A3";
+                    }
+                }
+		};
+        //打开仓库资源申请
+        function openWarehouseApply(){
+            openNewWindow("warehouseResourceApply","warehouseResourceApply.html");
+        }
+	</script>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>班级教师</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #f8f8f8;
+			}
+			#main{
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.top_teacherInfo{
+				width: 100%;
+				height: 144px;
+				background: url(../../image/classteacher01.jpg) no-repeat;
+				background-size: cover;
+				box-sizing: border-box;
+			}
+			.top_teacherInfo .teacherpic{
+				width: 68px;
+				height: 68px;
+				border-radius: 68px;
+				margin: 0 auto;
+				padding-top: 32px;
+				padding-bottom: 12px;
+			}
+			.top_teacherInfo .teacherpic img{
+				width: 100%;
+				height: 100%;
+				border-radius: 68px;
+				border: 1px solid #5AC8E1;
+			}
+			.top_teacherInfo>p{
+				width: 100%;
+				font-size: 12px;
+				color: #FFFFFF;
+				line-height: 17px;
+				box-sizing: border-box;
+			}
+			.top_teacherInfo>p span:nth-of-type(1){
+				box-sizing: border-box;
+				text-align: right;
+				width: 50%;
+				padding-right: 20px;
+				display: inline-block;
+				float: left;
+			}
+			.top_teacherInfo>p span:nth-of-type(2){
+				box-sizing: border-box;
+				text-align: left;
+				width: 50%;
+				padding-left: 20px;
+				display: inline-block;
+			}
+			.top_teacherInfo p span em{
+				font-size: 12px;
+				color: #59c0d7;
+			}
+			
+			.contactbox{
+				width: 100%;
+				box-sizing: border-box;
+				padding-top:12px;
+				padding-left: 8px;
+				padding-right: 8px;
+				padding-bottom: 12px;
+			}
+			.contactbox .contact_content{
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 18px;
+			}
+			.contactbox .contact_content p{
+				border-bottom: 1px solid #E8E7E7;
+				position: relative;
+				overflow: hidden;
+				line-height: 44px;
+			}
+			.contactbox .contact_content p:after{
+				content: '';
+				width: 16px;
+				height: 16px;
+				background: url(../../icon/arrowNext.png) no-repeat;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				margin-top: -8px;
+			}
+			.contactbox .contact_content p.online:before{
+				content: '';
+				width: 22px;
+				height: 22px;
+				background: url(../../image/sms02.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -11px;
+			}
+			.contactbox .contact_content p.telphone:before{
+				content: '';
+				width: 22px;
+				height: 22px;
+				background: url(../../image/telphone02.png) no-repeat;
+				background-size: 100%;
+				position: absolute;
+				left: 0;
+				top: 50%;
+				margin-top: -11px;
+			}
+			.contactbox .contact_content p:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.contactbox .contact_content p span{
+				padding-left: 34px;
+				font-size: 14px;
+				color: #666;
+				float: left;
+			}
+			.contactbox .contact_content p em{
+				font-size: 14px;
+				color: #5AC8E1;
+				float: right;
+				padding-right: 23px;
+			}
+			
+			.recipesbox{
+				width: 100%;
+				box-sizing: border-box;
+				padding-left: 8px;
+				padding-right: 8px;
+				padding-bottom: 12px;
+			}
+			.recipesbox .recipes_content{
+				width: 100%;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				padding: 12px 18px;
+			}
+			
+			.tt_pic{
+				padding-top: 8px;
+				width: 37px;
+				height: 34px;
+				float: left;
+			}
+			.tt_pic img{
+				width: 100%;
+				height: 100%;
+			}
+			.tt_pic.eyes{
+				padding-top: 15px;
+				width: 28px;
+				height: 16px;
+				float: left;
+			}
+			
+			.tt_info{
+				margin-left: 48px;
+			}
+			.tt_info .title span{
+				font-size: 15px;
+				color: #989898;
+				letter-spacing: 0.31px;
+				line-height: 21px;
+			}
+			.tt_info .title em{
+				font-size: 12px;
+				color: #C1C1C1;
+				letter-spacing: 0.25px;
+				line-height: 22px;
+				float: right;
+			}
+			
+			.tt_info .tt_info_cnt{
+				font-size: 12px;
+				color: #B2B3B5;
+				letter-spacing: 0.25px;
+				line-height: 17px;
+				margin-top: 4px;
+				margin-bottom: 6px;
+			}
+			
+			
+			.tt_piclist{
+				overflow: hidden;
+				/*margin: 0 -15px;*/
+				/*padding: 0 12px;*/
+				width: 100%;
+				font-size: 0;
+				box-sizing: border-box;
+			}
+			 
+            .tt_piclist:after{  
+              content: "";
+              display: block;
+              clear: both;
+              height: 0;
+              overflow: hidden;
+              visibility: hidden;
+            }
+            .tt_piclist li{
+              list-style: none;
+              float: left;
+              width:23%;
+              height:60px;
+              margin-right:2%;
+              /*box-sizing: border-box;*/
+              border-radius: 5px;
+              overflow: hidden;
+            }
+            .tt_piclist figure{
+              position: relative;  
+              width: 100%;
+              height: 100%;
+              overflow: hidden;  
+              margin: 0;  
+              /*padding-bottom: 100%;*/
+              background-position: center;  
+              background-repeat: no-repeat;  
+              background-size: cover;
+            }
+            .tt_piclist figure a{  
+              display: block;  
+              position: absolute;  
+              width: 100%;  
+              top: 0;  
+              bottom: 0;  
+            }
+            
+            .wonderfulTimebox{
+				width: 100%;
+				box-sizing: border-box;
+				padding-left: 8px;
+				padding-right: 8px;
+				padding-bottom: 12px;
+			}
+			.wonderfulTimebox .wonderfulTime_content{
+				width: 100%;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				padding: 12px 18px;
+			}
+			.tt_pic.eyes{
+				padding-top: 10px;
+				width: 32px;
+				height: 32px;
+				float: left;
+			}
+			.tt_piclist.wondertfultime li{
+			 	width: 96%;
+			 	height: 128px;
+			}
+			.tt_piclist.wondertfultime li img{
+			 	width: 100%;
+			 	height:100%;
+			 	border-radius: 5px;
+			}
+			.tt_pic.notice{
+				padding-top: 10px;
+				width: 32px;
+				height: 31px;
+				float: left;
+			}
+			.noticebox{
+				width: 100%;
+				box-sizing: border-box;
+				padding-left: 8px;
+				padding-right: 8px;
+				padding-bottom: 12px;
+			}
+			.noticebox .notice_content{
+				width: 100%;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 #CDE3E9;
+				border-radius: 8px;
+				padding: 12px 18px;
+				
+			}
+			.noticebox .notice_content .tt_info .tt_info_cnt{
+				overflow:hidden;
+				text-overflow:ellipsis;
+			    white-space:nowrap;
+			    font-size: 12px;
+				color: #999999;
+				line-height: 17px;
+				margin-bottom: 12px;
+			}
+			.noticebox .notice_content .lookdetails{
+				font-size: 12px;
+				color: #BDBDBD;
+				line-height: 17px;
+				text-align: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="top_teacherInfo">
+				<div class="teacherpic"><img src="../../image/teacherAvatar.png" alt="" /></div>
+				<p>
+					<span>所在班级：<em>拥护TG一班</em></span><span>个人荣誉：<em>残联主席</em></span>
+				</p>
+			</div>
+			<div class="contactbox">
+				<div class="contact_content">
+					<p class="online"><span>在线沟通</span></p>
+					<p class="telphone"><span>拨打电话</span><em>010-88767676</em></p>
+				</div>
+			</div>
+			<div class="recipesbox">
+				<div class="recipes_content">
+					<div class="tt_pic"><img src="../../image/ouryuan08.png" alt="" /></div>
+		    		<div class="tt_info">
+		    			<p class="title"><span>每周食谱</span><em>2018.03.15</em></p>
+		    			<p class="tt_info_cnt">新天地幼儿园食谱 名称 星期 早餐 加点 午餐 加点 晚餐...</p>
+		    			<ul class="tt_piclist">
+		    				<li>  
+							    <figure style="background-image:url(../../image/food.jpg)">  
+							      <a href="javascript:;"></a>  
+							    </figure>  
+							</li>
+							<li>  
+							    <figure style="background-image:url(../../image/food.jpg)">  
+							      <a href="javascript:;"></a>  
+							    </figure>  
+							</li>
+							<li>  
+							    <figure style="background-image:url(../../image/food.jpg)">  
+							      <a href="javascript:;"></a>  
+							    </figure>  
+							</li>
+							<li>  
+							    <figure style="background-image:url(../../image/food.jpg)">  
+							      <a href="javascript:;"></a>  
+							    </figure>  
+							</li>
+		    			</ul>
+		    		</div>
+				</div>
+			</div>
+			<div class="wonderfulTimebox">
+				<div class="wonderfulTime_content">
+					<div class="tt_pic eyes"><img src="../../image/wondtime03.png" alt="" /></div>
+		    		<div class="tt_info">
+		    			<p class="title"><span>精彩瞬间</span><em>2018.03.15</em></p>
+		    			<p class="tt_info_cnt">新天地幼儿园食谱 名称 星期 早餐 加点 午餐 加点 晚餐...</p>
+		    			<ul class="tt_piclist wondertfultime">
+		    				<li>  
+							    <img src="../../image/wonderpic.jpg"/>
+							</li>
+		    			</ul>
+		    		</div>
+				</div>
+			</div>
+			<div class="noticebox">
+				<div class="notice_content">
+					<div class="tt_pic notice"><img src="../../icon/bbs.png" alt="" /></div>
+					<div class="tt_info">
+		    			<p class="title"><span>公告通知</span><em>2018.03.15</em></p>
+		    			<p class="tt_info_cnt">美丽的广东长隆动物园，宝宝看到斑马很兴奋，在老师的带领下宝宝们玩的很开心。</p>
+		    			<p class="lookdetails">查看更多</p>
+		    		</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		
+	
+	</script>
+</html>

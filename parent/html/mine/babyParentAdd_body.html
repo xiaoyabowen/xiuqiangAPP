@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝家长</title>
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/mui.css" />
+		<link rel="stylesheet" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" href="../../css/mui.picker.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #fff;
+			}
+			#main{
+				padding:12px 18px 0;
+				box-sizing:border-box;
+			}
+			#main li{height:24px;border: 1px solid #D7D7D7;border-radius:4px;padding:8px 0;color:#333;float:left;width:100%;margin-bottom:5px;}
+			#main li span{display:block;width:85px;height:24px;line-height:24px;padding-left:18px;border-right:1px solid #D7D7D7;font-size:14px;float:left}
+			#main li input,#main li #showUserPicker{padding-left:18px;height:24px;border:0;float:left;font-size:14px;color:#333;}
+			#showUserPicker{width:60% !important;}
+			#phone{width:100px;}
+			#sms{position:absolute;top:6px;right:14px;width:79px;height:28px;background:#5AC8E1;font-size:12px;color:#fff;border-radius:4px;text-align:center;line-height:28px;}
+			#main p{height:44px;margin-top:15px;}
+			#main p button{width:100%;height:44px;border:0;background:#5AC8E1;border-radius:4px;font-size:16px;color:#fff;outline:none}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<ul>
+				<li>
+					<span>家长姓名</span>
+					<input class="babyName" type="text"/>
+				</li>
+				<li>
+					<span>亲属关系</span>
+					<span id="showUserPicker"></span>
+				</li>
+				<li style="position:relative;">
+					<span>手机号</span>
+					<input id="phone" type="text" placeholder="请输入手机号"/>
+					<div id="sms" onclick="getCode();">获取验证码</div>
+				</li>
+				<li>
+					<span>验证码</span>
+					<input class="Verification" type="text"/>
+				</li>
+			</ul>
+			<p><button onclick="addParent()">保存</button></p>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script>
+		var ftype;
+		apiready=function(){
+
+		};
+		mui.init();
+		mui.ready(function(){
+			var userPicker = new mui.PopPicker();
+			userPicker.setData(
+					[{
+						value: '1',
+						text: '父亲'
+					},{
+						value: '2',
+						text: '母亲'
+					},{
+						value: '3',
+						text: '爷爷'
+					},{
+						value: '4',
+						text: '奶奶'
+					},{
+						value: '5',
+						text: '外公'
+					},{
+						value: '6',
+						text: '外婆'
+					},{
+						value: '7',
+						text: '其他'
+					}]
+			);
+			var showUserPickerButton = document.getElementById('showUserPicker');
+			showUserPickerButton.addEventListener('tap', function(event){
+				userPicker.show(function(items){
+					document.getElementById('showUserPicker').innerHTML = items[0].text;
+					ftype =  items[0].value;
+				});
+			}, false);
+		});
+		function addParent(){
+			var name = $(".babyName").val();
+			var type = ftype;
+			var phone = $("#phone").val();
+			var code = $(".Verification").val();
+			var sid = getUserInfo().sid;
+			var cids = getUserInfo().cids[0];
+//			alert(name+"!"+type+"!"+phone+"!"+code+"!"+sid+"!"+cids+"!")
+			if(isBlack(name)){
+				toast("请填写宝宝家长");
+				return;
+			}
+			if(isBlack(type)){
+				toast("请选择与宝宝的关系");
+				return;
+			}
+			if(isBlack(phone)){
+				toast("请输入手机号");
+				return;
+			}
+			if(isBlack(code)){
+				toast("请输入验证码");
+				return;
+			}
+			ajaxGetRelease(useraddUserUrl,{name:name,type:type,phone:phone,code:code,sid:sid,cids:cids},function(ret,err){
+//				alert(JSON.stringify(err));
+				if(ret && ret.success){
+					toast("添加成功");
+					api.execScript({
+						name:'babyParent',
+						frameName:'babyParent_body',
+						script:'apiready()'
+					});
+					setTimeout(function(){
+						closeWin();
+					},1000)
+				}else{
+					toast("添加失败，请检查网络重新添加");
+				}
+			});
+//			switch ($(".babeRelationship").val()){
+//				case 1:
+//					type = "学生";
+//					break;
+//				case 2:
+//					type = "父亲";
+//					break;
+//				case 3:
+//					type = "母亲";
+//					break;
+//				case 4:
+//					type = "爷爷";
+//					break;
+//				case 5:
+//					type = "奶奶";
+//					break;
+//				case 6:
+//					type = "外公";
+//					break;
+//				case 7:
+//					type = "外婆";
+//					break;
+//			}
+		}
+		var flag = true;//防止重复点击获取验证码
+		function getCode() {
+			if (!flag) {
+				return;
+			}
+			var phone = $api.byId("phone").value;
+			if (!checkMobileNum(phone)){
+				toast("手机号码不正确");
+				return;
+			}
+			var obj = {
+				phone: phone
+			};
+
+			flag = false;
+			ajaxGetUser(createAuthCodeOnRegUrl,obj,function (ret,err){
+				if (ret && ret.success) {
+					setTime();
+					toast("获取成功，请注意查收！");
+				} else if (ret && !ret.success) {
+					flag = true;
+					if (ret) {
+						var msg = ret.msg || "网络连接错误，请稍后重试！";
+						toast(msg);
+					} else {
+						var msg = err.msg || "网络连接错误，请稍后重试！";
+						toast(msg);
+					}
+				}
+			})
+		}
+		function setTime() {
+			var time;
+			var sms = document.getElementById('sms');
+			time = time || 60;
+			sms.innerHTML = time + "s";
+			var codeInterval = setInterval(function () {
+				if (time > 0) {
+					time--;
+					sms.innerHTML = time + "s";
+				} else {
+					sms.innerHTML = "获取验证码";
+					clearInterval(codeInterval);
+					flag = true;
+				}
+			}, 1000)
+		}
+	</script>
+</html>

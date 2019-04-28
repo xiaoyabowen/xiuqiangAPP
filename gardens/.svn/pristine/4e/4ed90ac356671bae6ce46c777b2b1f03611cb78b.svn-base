@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>查看头像</title>
+    <link rel="stylesheet" href="../../css/api.css" />
+    <link rel="stylesheet" href="../../css/commonWindow.css" />
+
+    <style type="text/css">
+        html,body{
+            width: 100%;
+            height: 100%;
+            min-width: 320px;
+            background-color: #000;
+        }
+        #cuttingBox{
+            width: 100px;
+            height: 100px;
+
+        }
+        #cuttingImg{
+            display: block;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="cuttingBox">
+        <img id="cuttingImg" src="" alt="">
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script>
+
+    var FNImageClip,img_src,Multiplechoice;
+     apiready = function() {
+         FNImageClip = api.require('FNImageClip');
+         Multiplechoice = api.require('Multiplechoice');
+       img_src = api.pageParam.img_src;
+        document.getElementById("cuttingImg").setAttribute("src",img_src)
+        openImageClip(img_src);
+    };
+
+ // function setAttr(el,attrName,attrValue){
+ //    if(arguments.length==2){
+ //        if(arguments[1] === obj){
+ //            for(x in obj){
+ //                el.setAttribute(x,obj[x]);
+ //            }
+ //        }
+ //    }
+ //     el.setAttribute(attrName,attrValue);
+ // }
+
+    // 对图片进行裁剪
+    function openImageClip(img_src){
+        var rect_w = api.winWidth;
+        var rect_h = api.winHeight;
+        var clip_w = parseInt(rect_w - 2);
+        var clip_y = parseInt((rect_h - clip_w - 30) / 2);
+
+        FNImageClip.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: rect_w,
+                h: rect_h - 30
+            },
+            srcPath: img_src,
+            style: {
+                //（可选项）字符串类型；图片裁剪控件遮罩层背景，支持 rgb，rgba，#；默认：#888
+                mask: 'rgba(0,0,0,0)',
+                clip: {
+                    //（可选项）数字类型；裁剪区域的宽度，当 appearance 为 circular 时，w 为半径；默认：rect.w / 2
+                    w: clip_w,
+                    //（可选项）数字类型；裁剪区域的高度，当 appearance 为 circular 时，h 无效；默认：w
+                    h: clip_w,
+                    x: 0,
+                    y: clip_y,
+                    borderColor: '#fff',
+                    borderWidth: 0,
+                    //（可选项）字符串类型；裁剪区域的形状，支持 circular | rectangle；默认：rectangle
+                    appearance: 'rectangle'
+                }
+            },
+            mode : 'all',
+            fixedOn: api.frameName
+        }, function(ret, err){
+            // alert(JSON.stringify(arguments))
+            if (ret) {
+
+            } else {
+
+            }
+        });
+    }
+    function openImageSave() {
+        FNImageClip.save({
+            destPath:img_src,// 'fs://imageClip/result.png',
+            copyToAlbum: false,
+            quality: 1
+        }, function (ret, err) {
+              // alert(JSON.stringify(ret))   //里边有裁剪后图片的路径
+            if (ret) {
+                // alert(ret.destPath)
+                uploadFile(ret.destPath,function(ret,err){
+                    if (ret.status) {
+                        api.sendEvent({
+                            name: 'chageImg',
+                            extra:{ imgurl: ret.result }
+                        });
+                        // alert(ret.result )
+                        closeWin();
+                        //openRegister("myInformationUpImg", "./myInformationUpImg.html",{icon:ret.result },{reload : true})
+                    } else {
+
+                    }
+                })
+            } else {
+
+            }
+        });
+    }
+</script>
+</html>

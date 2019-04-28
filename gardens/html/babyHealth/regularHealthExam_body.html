@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>宝宝健康-每天体检</title>
+    <style>
+        body{
+            height:100%;
+            background: #F8F8F8;
+        }
+        .exam{
+            width:100%;
+            padding:0px 8px 12px;
+            box-sizing: border-box;
+        }
+        .exam-list{
+            width:100%;
+            background: #FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+            border-radius:4px;
+        }
+        .list-title{
+            width:100%;
+            padding:0px 18px;
+            box-sizing: border-box;
+        }
+        .exam-list .el{
+            width:100%;
+            /* border-bottom:1px solid #F2F2F2; */
+            /* padding:12px 18px; */
+            padding-top:12px;
+            padding-top:12px;
+            box-sizing: border-box;
+        }
+        .item-list{
+            width:100%;
+            /* padding-left:18px;
+            padding-right:33px; */
+            box-sizing:border-box;
+        }
+        .list-title>:nth-child(1){
+            font-size:14px;
+            color:#333333;
+            line-height:20px;
+        }
+        .exam-date,.exam-time{
+            font-size:14px;
+            color:#333333;
+            line-height:20px;
+        }
+        /* .charge-people{
+            font-size:14px;
+            color:#333333;
+            float:right;
+            line-height:20px;
+            letter-spacing: 0.26;
+        } */
+        .item-list{
+            margin-top:12px;
+            display:-webkit-box;
+            display:flex;
+            padding-bottom:12px;
+            padding-left:18px;
+            padding-right:18px;
+            border-bottom: 1px solid #F2F2F2;
+            justify-content: space-between;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .item-list li>:nth-child(1){
+            /* width:46px; */
+            /* height:21px;*/
+            line-height:17px;
+            font-size:12px;
+            color:#6F6F6F;
+            text-align: center;
+            /* border: 1px solid #5AC8E1; */
+            border-radius: 4px;
+            box-sizing:border-box;
+        }
+        .item-list li>:nth-child(2){
+            height:21px;
+            font-size:12px;
+            color:#666666;
+            text-align: center;
+            margin-top:12px;
+            line-height:21px;
+            border: 1px solid #D7D7D7;
+            border-radius: 4px;
+            padding-left:6px;
+            padding-right:6px;
+            box-sizing: border-box;
+        }
+        .item-list li .unnormal{
+            color:#D4602C;
+            border:1px solid #D4602C;
+        }
+        .unnormal-data{
+            font-size:12px;
+            color:#D4602C;
+            text-align: center;
+            margin-top:12px;
+        }
+        .edit{
+            text-align: right;
+            margin-top:12px;
+        }
+        .edit>img{
+            width:17px;
+            height:18px;
+        }
+        .warn{
+            color:#D4602C !important;
+        }
+        .unnormal-data{
+            background: url('../../icon/warn.png');
+            background-size:15px;
+            background-repeat:no-repeat;
+            background-position:left 6px center;
+        }
+       .unnormal-data>span{
+            padding-left:12px;
+        }
+        .check-name{
+            font-size: 14px;
+            color: #333333;
+            line-height:20px;
+            margin-top:12px;
+            padding:0px 18px;
+            box-sizing: border-box;
+        }
+        .data{
+            text-align: center;
+            font-size: 12px;
+            color: #333333;
+            font-weight:bold;
+            margin-top:12px;
+        }
+        .synthesize-comment{
+            padding-left:18px;
+            padding-right:18px;
+            box-sizing: border-box;
+            padding-bottom: 12.9px;
+        }
+        .synthesize-comment>:nth-child(1){
+            font-size: 14px;
+            color: #333333;
+            letter-spacing: 0.19px;
+        }
+        .synthesize-comment>:nth-child(2){
+            font-size: 16px;
+            color: #5EC4E0;
+            letter-spacing: 0.17px;
+            float:right;
+        }
+    </style>
+</head>
+<body>
+<div class="exam">
+    <ul class="exam-list" id="YangexaminationL">
+        <li class="el">
+            <div class="list-title">
+                <span>体检日期：</span>
+                <span class="exam-date">2018.02.18</span>
+            </div>
+            <div class="check-name">基本体格检查</div>
+            <ul class="item-list basic-check">
+                <li>
+                    <div>身高</div>
+                    <div class="status">未见异常</div>
+                    <div class="data"><span>100cm</span></div>
+                </li>
+                <li>
+                    <div>体重</div>
+                    <div class="status">未见异常</div>
+                    <div class="data"><span>30kg</span></div>
+                </li>
+                <li>
+                    <div>视力左</div>
+                    <div class="status">未见异常</div>
+                    <div class="data">1.0</div>
+                </li>
+            </ul>
+            <ul class="item-list basic-check">
+                <li>
+                    <div>视力右</div>
+                    <div class="status unnormal">发现异常</div>
+                    <div class="unnormal-data"><span>0.8</span></div>
+                </li>
+                <li>
+                    <div>听力左</div>
+                    <div class="status">未见异常</div>
+                    <div class="data"><span>100cm</span></div>
+                </li>
+                <li>
+                    <div>听力右</div>
+                    <div class="status">未见异常</div>
+                    <div class="data"><span>300cm</span></div>
+                </li>
+            </ul>
+            <div class="check-name">辅助检查</div>
+            <ul class="item-list assit-check">
+                <li>
+                    <div>心脏</div>
+                    <div class="status">未见异常</div>
+                </li>
+                <li>
+                    <div>肝脏</div>
+                    <div class="status">未见异常</div>
+                </li>
+                <li>
+                    <div>脾脏</div>
+                    <div class="status">未见异常</div>
+                </li>
+            </ul>
+            <ul class="item-list assit-check">
+                <li>
+                    <div>外生殖器</div>
+                    <div class="status">未见异常</div>
+                    <!-- <div class="data"><span></span></div> -->
+                    <!-- <div class="unnormal-data"><span></span></div> -->
+                </li>
+            </ul>
+            <div class="synthesize-comment">
+                <span>综合评价</span>
+                <span>正常</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/mui.min.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/init.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/html" id="YangexaminationH">
+    <%for(var i=0;i<list.length;i++){%>
+        <li class="el">
+            <div class="list-title">
+                <span>体检日期：</span>
+                <span class="exam-date"><%=list[i].ctime%></span>
+            </div>
+            <div class="check-name">基本体格检查</div>
+            <ul class="item-list basic-check">
+                <%if(list[i].heightStatus == 1){%>
+                    <li>
+                        <div>身高</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].height%>cm</span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>身高</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].height%>cm</span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].weightStatus == 1){%>
+                    <li>
+                        <div>体重</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].weight%>kg</span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>体重</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].weight%>kg</span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].leftVisionStatus == 1){%>
+                    <li>
+                        <div>视力左</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].leftVision%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>视力左</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].leftVision%></span></div>
+                    </li>
+                <%}%>
+            </ul>
+            <ul class="item-list basic-check">
+                <%if(list[i].rightVisionStatus == 1){%>
+                    <li>
+                        <div>视力右</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].rightVision%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>视力右</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].rightVision%></span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].leftHearingStatus == 1){%>
+                    <li>
+                        <div>听力左</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].leftHearing%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>听力左</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].leftHearing%></span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].rightHearingStatus == 1){%>
+                    <li>
+                        <div>听力右</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].rightHearing%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>听力右</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].rightHearing%></span></div>
+                    </li>
+                <%}%>
+            </ul>
+            <div class="check-name">辅助检查</div>
+            <ul class="item-list assit-check">
+                <%if(list[i].heartStatus == 1){%>
+                    <li>
+                        <div>心脏</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].heart%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>心脏</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].heart%></span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].liverStatus == 1){%>
+                    <li>
+                        <div>肝脏</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].liver%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>肝脏</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].liver%></span></div>
+                    </li>
+                <%}%>
+                <%if(list[i].spleenStatus == 1){%>
+                    <li>
+                        <div>脾脏</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].spleen%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>脾脏</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].spleen%></span></div>
+                    </li>
+                <%}%>
+            </ul>
+            <ul class="item-list assit-check">
+                <%if(list[i].pudendumStatus == 1){%>
+                    <li>
+                        <div>外生殖器</div>
+                        <div class="status unnormal">发现异常</div>
+                        <div class="unnormal-data"><span><%=list[i].pudendum%></span></div>
+                    </li>
+                <%} else{%>
+                    <li>
+                        <div>外生殖器</div>
+                        <div class="status">未见异常</div>
+                        <div class="data"><span><%=list[i].pudendum%></span></div>
+                    </li>
+                <%}%>
+            </ul>
+            <div class="synthesize-comment">
+                <span>综合评价</span>
+                <span><%=list[i].summarize%></span>
+            </div>
+        </li>
+    <%}%>
+</script>
+    <script>
+        apiready=function(){
+            var uid = api.pageParam.uid;
+            new datalistModel(addDataToHtml,DayCheckgetChildTimeCheckList,{uid:uid},5,5,100,true);
+        }
+
+        function addDataToHtml(results,append){
+            if(results.length != 0){
+                for(var i=0;i<results.length;i++){
+                    results[i].ctime = formatTimeToDate(results[i].ctime);
+                }
+            }
+
+            var data = {list: results};
+            var html = template('YangexaminationH',data);
+            if (append){
+                var div = document.createElement("div");
+                div.innerHTML = html;
+                document.getElementById('YangexaminationL').appendChild(div);
+            } else {
+                document.getElementById('YangexaminationL').innerHTML = html;
+            }
+            api.parseTapmode();
+        }
+
+
+
+//        var ud = document.getElementsByClassName("unnormal-data");
+//        for(var i=0;i<ud.length;i++){
+//            if(ud[i].innerHTML == ""){
+//                ud[i].style.marginTop = "0px";
+//            }
+//        }
+//        var basic = document.getElementsByClassName('basic-check'),
+//                assit = document.getElementsByClassName('assit-check');
+//        basic[basic.length-1].style.border = "none";
+//        assit[assit.length-1].style.border = "none";
+//
+//        // 体检记录按照时间排序，最近的排在最前，只有最近的记录可编辑修改
+    </script>
+</body>
+</html>

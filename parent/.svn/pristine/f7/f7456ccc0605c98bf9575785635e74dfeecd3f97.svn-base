@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <title>我们班</title>
+    <style>
+    	html,body{
+    		width: 100%;
+    		height: 100%;
+    		background: #F2F2F2;
+    	}
+    	.top{
+    		margin-top: 8px;
+    		width: 100%;
+    		height: 89px;
+    		box-sizing: border-box;
+    		padding-top: 18px;
+    		background: #fff;
+    	}
+    	.top li{
+    		width: 25.00%;
+    		float: left;
+    		text-align: center;
+    	}
+        .top .imgCon{
+          	width: 30px;
+          	height: 30px;
+          	margin: 0 auto;
+          	background: #31CACF;
+			border-radius: 8px;
+        } 
+        .top .imgCon img{
+        	width: 20px;
+        	height: 20px;
+        	margin: 5px;
+        }
+        .top .title{
+        	font-size: 13px;
+			color: #3E3E3E;
+			letter-spacing: -1.42px;
+			margin-top: 16px;
+        }
+        
+        
+        
+        .keyTitle{
+        	margin-top: 10px;
+        	width: 100%;
+        	height: 44px;
+        	background: #FFFFFF;
+        	line-height: 44px;
+        	font-size: 13px;
+			color: #817B88;
+			letter-spacing: -1.42px;
+			text-indent: 18px;
+        }
+        
+        
+        .con{
+        	margin-top: 1px;
+        	width: 100%;
+        	height: 180px;
+        	background: #FFFFFF;
+        }
+        .con li{
+        	float: left;
+        	width: 50%;
+        }
+        .con .circleCon{
+        	width: 112px;
+        	height: 112px;
+        	background: #FFFFFF;
+			box-shadow: 0 0 6px 0 rgba(90,200,225,0.30);
+        }
+        .con .circleCon .circle{
+        	
+        }      
+    </style>
+</head>
+<body>
+  	<ul class="top">
+  		<li>
+  			<div class="imgCon">
+  				<img src="../../icon/icon150x150.png" alt="" />
+  			</div>
+  			<div class="title">
+  				精彩瞬间
+  			</div>
+  		</li>
+  		<li>
+  			<div class="imgCon">
+  				<img src="../../icon/icon150x150.png" alt="" />
+  			</div>
+  			<div class="title">
+  				精彩瞬间
+  			</div>
+  		</li>
+  		<li>
+  			<div class="imgCon">
+  				<img src="../../icon/icon150x150.png" alt="" />
+  			</div>
+  			<div class="title">
+  				精彩瞬间
+  			</div>
+  		</li>
+  		<li>
+  			<div class="imgCon">
+  				<img src="../../icon/icon150x150.png" alt="" />
+  			</div>
+  			<div class="title">
+  				精彩瞬间
+  			</div>
+  		</li>
+  	</ul>
+  	<div class="keyTitle">关键指标</div>
+  	<ul class="con">
+  		<li>
+  			<div class="circleCon">
+				<div class="circle">
+					<canvas width="112" height="112" id="cas">
+						<div>98%</div>
+  						<span>出勤率</span>
+					</canvas>
+  				</div>
+  			</div>
+  		</li>
+  	</ul>
+    <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="../../script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../../script/data.js"></script>
+    <script>
+//  	apiready = function(){
+    		var canvas = document.getElementById("cas");  
+			var ctx= canvas.getContext("2d");
+	  		var x0 = canvas.width/2;
+			var y0 = canvas.height/2;
+			var r0 = canvas.width/2-20;
+			//绘制底部白色底框
+	  		ctx.beginPath();
+	    	var grad  = ctx.createLinearGradient(-Math.PI/2,-x0,90,x0+120);
+			grad.addColorStop(0,'#f58c51');
+			grad.addColorStop(0.5,'#d30404');
+			grad.addColorStop(1,'#f58c51');
+			ctx.strokeStyle = grad;
+	    	ctx.lineWidth = 4;  
+	    	ctx.arc(x0,y0,r0,0,2*Math.PI,false);  
+			ctx.stroke();
+	   		ctx.closePath(); 
+	   		
+	   		
+//  	}
+//  	
+        function openbabyCookBook(){
+			openNewWindow("babyCookBook","../babyCookBook/babyCookBook.html")
+		}
+        
+        
+        function openWonderfulTime(){
+			openNewWindow("wonderfulTime","../wonderfulTime/wonderfulTime.html")
+		}
+        
+        
+        
+        function openAllComment(){
+			openNewWindow("allComment","../babyComment/allComment.html")
+		}
+
+
+		
+
+    </script>
+</body>
+</html>

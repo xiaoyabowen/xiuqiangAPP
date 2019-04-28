@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>仓库资源</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<link rel="stylesheet" href="../../css/mui.min.css" />
+		<style type="text/css">
+			html,body{
+				background: #f8f8f8;
+				min-width: 320px;
+			}
+			#main{
+				padding-top:12px;
+				font-size: 14px;
+				color: #333333;
+			}
+			.tree a{
+				font-size: 14px;
+				color: #333333;
+				height: 50px;
+				line-height: 50px;
+				margin-left: 18px;
+			}
+			.tree ul{
+				width: 100%;
+				border-top:none;
+				border-bottom: 2px solid #f8f8f8;
+			}
+			.tree ul li{
+				background: #fff;
+				width: 100%;
+				border-top: 2px solid #f8f8f8;
+			}
+			.tree ul li ul li a{
+				margin-left: 34px;
+			}
+			.tree ul li ul li ul li a{
+				margin-left: 54px;
+			}
+			.close_menu,.open_menu{
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+			}
+			.close_menu span,.open_menu span{
+				width: 80px;
+				height: 30px;
+				float: right;
+				cursor: pointer;
+				opacity: 0.5;
+				margin-top: 20px;
+				margin-right: 20px;
+			}
+			.close_menu span{
+				background: url(../../image/arrow_tp.png) no-repeat right top;
+			}
+			.open_menu span{
+				background: url(../../image/arrow_btm.png) no-repeat right top;
+			}
+			.close_menu span:hover,.open_menu span:hover{
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<!--<div class="treebox">-->
+				<!--<div class="tree">-->
+					<!--<ul>-->
+						<!--<li>-->
+							<!--<div class="close_menu">-->
+								<!--<a>1</a>-->
+								<!--<span></span>-->
+							<!--</div>-->
+							<!--<ul>-->
+								<!--<li>-->
+									<!--<div class="close_menu">-->
+										<!--<a>1.1</a>-->
+										<!--<span></span>-->
+									<!--</div>-->
+									<!--<ul>-->
+										<!--<li>-->
+											<!--<a>1.1.1</a>-->
+										<!--</li>-->
+										<!--<li>-->
+											<!--<a>1.1.2</a>-->
+										<!--</li>-->
+										<!--<li>-->
+											<!--<a>1.1.3</a>-->
+										<!--</li>-->
+									<!--</ul>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</li>-->
+					<!--</ul>-->
+				<!--</div>-->
+			<!--</div>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="../../script/tree.js"></script>
+	<script type="text/html" id="tmpScript">
+		<%if(list.length){%>
+		<div class="treebox">
+			<div class="tree">
+				<ul>
+					<%for(var i=0;i<list.length;i++){%>
+					<li>
+						<div class="close_menu">
+							<a onclick="lookClassIndex('<%=list[i].id%>')"><%=list[i].name%></a>
+							<span onclick="getClassList('<%=list[i].id%>','listScript','class')"></span>
+						</div>
+						<ul id="class<%=list[i].id%>">
+
+						</ul>
+					</li>
+					<%}%>
+				</ul>
+			</div>
+		</div>
+		<%}%>
+	</script>
+	<!--资产总类子列表-->
+	<script type="text/html" id="listScript">
+		<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<div class="close_menu">
+				<a onclick="lookClassIndex('<%=list[i].id%>')"><%=list[i].name%></a>
+				<span onclick="getClassList('<%=list[i].id%>','indexScript','classTwo')"></span>
+			</div>
+			<ul id="classTwo<%=list[i].id%>">
+
+			</ul>
+		</li>
+		<%}%>
+	</script>
+	<!--资产总类 子 二级列表-->
+	<script type="text/html" id="indexScript">
+		<%for(var i=0;i<list.length;i++){%>
+		<li>
+			<a onclick="lookClassIndex('<%=list[i].id%>')"><%=list[i].name%></a>
+		</li>
+		<%}%>
+	</script>
+	<script>
+        var Wid = 0;
+		apiready = function(){
+			//资产总类
+            new datalistModel(addDataToHtml,getWarehouseClass,{sid:getUserInfo().sid},10,5,100,true);
+        };
+        function addDataToHtml(results){
+            if(results){
+                for(var i = 0;i<results.length;i++){
+                    var a = formatTimeToDay(results[i].utime);
+                    results[i]['Utime'] = a;
+                }
+                var data = {list: results};
+                var html = template('tmpScript',data);
+                document.getElementById('main').innerHTML = html;
+                api.parseTapmode();
+                document.getElementById("main").style.display = "block";
+            }
+        }
+        //获取wid
+        function getWid(id){
+            Wid = id;
+        };
+        //获取分类
+        function getClassList(PID,scriptDom,dom){
+            ajaxGet(getWarehouseClass,{sid:getUserInfo().sid,pid:PID},function(ret,err) {
+                if(ret.success){
+                    for(var i=0;i<ret.data.length;i++){
+                        var a = $.trim(ret.data[i].name);
+                        ret.data[i]['Name'] = a;
+                        var data = {list: ret.data};
+                        var html = template(scriptDom,data);
+                        document.getElementById(dom+PID).innerHTML = html;
+                    }
+                }
+            })
+        };
+        //查看资产详情
+        function lookClassIndex(KID){
+            if(Wid == 0){
+                toast("请选择仓库");
+            }
+            else{
+                openNewWindow('goodsClassify','goodsClassify.html',{kid:KID,wid:Wid});
+            }
+
+        }
+	</script>
+</html>

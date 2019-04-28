@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    	<meta name="format-detection" content="telephone=no" />
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>学生交费</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+				min-width: 320px;
+				background-color: #f8f8f8;
+			}
+			#main{
+				width: 100%;
+				box-sizing: border-box;
+				padding: 12px 8px;
+			}
+			.costLists{
+				width: 100%;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+				border-radius: 4px;
+				padding: 11px 0;
+			}
+			.costLists li{
+				border-bottom: 1px solid #f0f0f0;
+				padding: 9px 18px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.costLists li:nth-last-of-type(1){
+				border-bottom: 0;
+			}
+			.costLists li p.costtitle{
+				font-size: 16px;
+				color: #505050;
+				letter-spacing: 0.22px;
+				line-height: 22px;
+			}
+			.costLists li p.costtitle em{
+				border: 1px solid #6CC49E;
+				border-radius: 4px;
+				font-size: 12px;
+				letter-spacing: 0.16px;
+				line-height: 1em;
+				padding:4px 10px 4px 10px;
+				vertical-align: top;
+				display: inline-block;
+				margin-left: 10px;
+				/*margin-top: 1px;*/
+
+			}
+			.costInfo{
+				padding-top: 14px;
+				overflow: hidden;
+			}
+			.costInfo .costInfo_lt{
+				float: left;
+			}
+			.costInfo_lt span{
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.costInfo_lt p{
+				font-size: 13px;
+				color: #505050;
+				letter-spacing: 0.18px;
+				line-height: 18px;
+			}
+			.costInfo_lt p em,.costInfo_lt p i{
+				font-size: 11px;
+				color: #A3A3A3;
+				letter-spacing: 0.15px;
+				line-height: 16px;
+				padding-right: 4px;
+			}
+			.costInfo_lt p i{
+				padding-left: 15px;
+			}
+			.costInfo_lt b{
+				font-weight: 400;
+				font-size: 12px;
+				color: #A3A3A3;
+				letter-spacing: 0.16px;
+				line-height: 17px;
+			}
+			.costInfo .costInfo_rt{
+				float: right;
+				height: 24px;
+				line-height: 24px;
+				width: 24px;
+				margin-top: 28px;
+			}
+		</style>
+	</head>
+	<body id="body" style="display: none;">
+		<div id="main" >
+		    <ul class="costLists" id="costLists">
+		    	<li onclick="openstudentPayDetail()">
+		    		<p class="costtitle">
+		    			<span>2018年软件使用费</span><em>结束</em>
+		    		</p>
+		    		<div class="costInfo clearfix">
+		    			<div class="costInfo_lt">
+		    				<span>2018.02.28-2018.03.15</span>
+		    				<p>
+		    					<em>应缴:</em>50<i>已缴:</i>50
+		    				</p>
+		    				<b>用途:&nbsp;学费</b>
+		    			</div>
+		    			<div class="costInfo_rt">
+		    				详情
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<p class="costtitle">
+		    			<span>2018年软件使用费</span><em>结束</em>
+		    		</p>
+		    		<div class="costInfo">
+		    			<div class="costInfo_lt">
+		    				<span>2018.02.28-2018.03.15</span>
+		    				<p><em>应缴</em>50
+		    					<i>已缴</i>50
+		    				</p>
+		    				<b>用途:&nbsp;学费</b>
+		    			</div>
+		    			<div class="costInfo_rt">
+		    				详情
+		    			</div>
+		    		</div>
+		    	</li>
+		    	<li>
+		    		<p class="costtitle">
+		    			<span>2018年软件使用费</span><em>结束</em>
+		    		</p>
+		    		<div class="costInfo">
+		    			<div class="costInfo_lt">
+		    				<span>2018.02.28-2018.03.15</span>
+		    				<p><em>应缴:</em>50
+		    					<i>已缴:</i>50
+		    				</p>
+		    				<b>用途:&nbsp;学费</b>
+		    			</div>
+		    			<div class="costInfo_rt">
+		    				详情
+		    			</div>
+		    		</div>
+		    	</li>
+		    </ul>
+		</div>
+
+	<script id="scriptDiv1" type="text/html">
+		<%for(var i = 0;i < list.length; i++){%>
+			<li tapmode="itemOn" onclick="openstudentPayDetail('<%=list[i].id%>')">
+	    		<p class="costtitle">
+	    			<span><%=list[i].name%></span><em style="float:right;">正常</em>
+	    		</p>
+	    		<div class="costInfo clearfix">
+	    			<div class="costInfo_lt">
+	    				<span><%=list[i].startTime%>－<%=list[i].overtime%></span>
+	    				<p>
+	    					<em>应缴:</em><%=list[i].allNum%><i>已缴:</i><%=list[i].chargeNum%>
+	    				</p>
+	    				<b>用途:&nbsp;<%=list[i].desc%></b>
+	    			</div>
+	    			<div class="costInfo_rt">
+						<img src="../../image/details.png" alt="详情图片" style="width: 100%;">
+	    			</div>
+	    		</div>
+	    	</li>
+		<%}%>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/user.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script>
+		apiready = function () {
+			var userInfo = getUserInfo();
+			new datalistModel(addDataToHtml,getClassChargePagerUrl,{classId:userInfo.cids[0]},10,5,100,true);
+		};
+
+
+
+		function addDataToHtml(results,append){
+			console.log(results);
+			for(var i = 0;i< results.length;i++){
+				results[i].overtime = formatTimeToDayDade(results[i].overtime)
+				results[i].startTime = formatTimeToDayDade(results[i].startTime)
+			}
+			var data = {list: results};
+			var html = template('scriptDiv1',data);
+			if (append) {
+	            var div = document.createElement("div");
+	            div.innerHTML = html;
+	            document.getElementById('costLists').appendChild(div);
+	        } else {
+	            document.getElementById('costLists').innerHTML = html;
+	        }
+	        api.parseTapmode();
+	        if(results.length == 0){
+	        	document.getElementById('costLists').style.display = "none";
+	        }
+	        document.getElementById("body").style.display = "block";
+		}
+
+		//打开学生缴费详情
+    	function openstudentPayDetail(id){
+			openNewWindow("payManage_detail","../studentPay/payManage_detail.html",{id:id,type:1})
+		}
+	</script>
+	</body>
+</html>

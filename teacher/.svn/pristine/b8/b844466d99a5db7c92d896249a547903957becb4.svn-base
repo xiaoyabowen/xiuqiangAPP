@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="../../css/api.css">
+    <link rel="stylesheet" href="../../css/commonWindow.css">
+    <link href="../../css/mui.picker.all.css" rel="stylesheet" />
+    <link href="../../css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+
+    <title>注册</title>
+    <style>
+        html,body{
+        	width: 100%;
+        	height: 100%;
+            background:url("../../image/lrbg.png") no-repeat;
+            background-size:100% 100%;
+            color:#FFFFFF; 
+        }
+        .return{
+            width:30%;
+            height:46px;
+            position: relative;
+        }
+        .return>img{
+            width:22px;
+            height:22px;
+            position: absolute;
+            bottom:10px;
+            left:15px;
+        }
+        .title{
+        	margin-top: 10px;
+        	font-size: 18px;
+			color: #FFFFFF;
+			margin-left: 15px;
+        }
+        .ul{
+        	margin-top: 10px;
+        	padding-left: 15px;
+        }
+        .ul input{
+        	/* width: 67.2%; */
+        	height: 36px;
+        	border: 1px solid #DDDDDD;
+			border-radius: 8px;
+			/* margin-left: 6px; */
+			font-size: 14px;
+			color: #999999;
+			text-indent: 10px;
+        }
+        .ul select{
+			width:100%;
+        	height: 36px;
+        	border: 1px solid #DDDDDD;
+			border-radius: 8px;
+			font-size: 14px;
+			color: #999999;
+			text-indent: 10px;
+        }
+        
+        .ul li:nth-child(2){
+        	margin-top: 14px;
+        }
+        
+        .buttomButtom{
+        	/* width: 83.73%; */
+			width:100%;
+        	margin: 0 auto;
+        	margin-top:12px; 
+        	line-height: 43px;
+        	line-height: 43px;
+        	text-align: center;
+        	font-size: 18px;
+			color: #FFFFFF;
+			opacity: 0.8;
+			background: #5EC4E0;
+			border-radius: 100px;
+        }
+		#cityTab,#schoolTab{
+			position:relative;
+			padding-left:76px;
+		}
+		#cityTab>:nth-child(1),#schoolTab>:nth-child(1){
+			position:absolute;
+			left:0px;
+			top:7px;
+			font-size: 14px;
+			line-height:20px;
+			color:#FFFFFF;
+		}
+		.ul li{
+			width:100%;
+			padding-right:32px;
+			box-sizing: border-box;
+		}
+		.ul li input{
+			width:100%;
+		}
+		.button-out{
+			width:100%;
+			padding-left:31px;
+			padding-right:30px;
+			box-sizing: border-box;
+		}
+		#cityName{
+			background: url('../../icon/arrowup.png') no-repeat;
+			background-position:right 10px center;
+		}
+        .kg-name{
+            height: 38px;
+            margin:0 auto;
+            border-radius: 8px;
+        }
+        .kg-name select,.kid-gender select{
+            border:none;
+            color:#999999;
+            font-size:14px;
+            border-radius: 0px;
+            background: #fff;
+            appearance:none;
+            -moz-appearance:none; /* Firefox */
+            -webkit-appearance:none; /* Safari 和 Chrome */
+            background: url("../../icon/switch.png") no-repeat right;
+            background-size: 5% 50%;
+            outline:none;
+        }
+        .border_location{
+            width: 100%;
+            height: 34px;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #999999;
+            display: inline-block;
+            line-height: 36px;
+        }
+        #province,#citys{
+            width:46%;
+            display: inline-block;
+            background-size: 10% 50%;
+        }
+        #school{
+            background: url("../../icon/switch.png") no-repeat 93%;
+            background-size: 5% 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="wrap">
+            <div class="return" onclick="closeWin()">
+                <img src="../../icon/return.png" alt="">
+            </div> 
+            <div class="title">所属幼儿园</div>
+            <ul class="ul">
+           	    <li id="cityTab">
+                    <span>所在地</span>
+                    <div class="border_location kg-name">
+                        <select id="province" name="province" onchange="doProvAndCityRelation();">
+                            <option id="choosePro" value="0">请选择省份</option>
+                        </select>
+                        <select id="citys" name="city" onchange="doCityAndCountyRelation();">
+                            <option id='chooseCity' value="0">请选择城市</option>
+                        </select>
+                    </div>
+           	    </li>
+           	    <li id="schoolTab">
+					<span>幼儿园名称</span>
+                    <div class="border_location kg-name">
+                        <select id="school" onclick="getSchool()">
+                            <option value="0">请选择幼儿园</option>
+                        </select>
+                    </div>
+                </li>
+			</ul>
+			<div class="button-out">
+				<div class="buttomButtom" onclick="next();">下一步</div>
+			</div>
+        </div>   
+    </div>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/mui.picker.all.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+    <script type="text/javascript" src="../../script/apiCloud.js"></script>
+    <script type="text/javascript" src="./script/init.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+    <script type="text/javascript" src="../../script/data.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="../../script/area.js"></script>
+    <script>
+
+        //获取幼儿园
+        function getSchool(){
+            var province = parseInt($('#province').val());
+            var city = parseInt($('#citys').val());
+            if(province == '0' || province == 0){
+                toast('请选择省份')
+            }else if(city == '0' || city == 0){
+                toast('请选择城市')
+            }
+            ajaxGetUser(getSchoolList,{province:province,city:city},function (ret,err) {
+                if( ret.success ){
+                    if(ret.data == ''){
+                        toast('当前城市暂无可选幼儿园')
+                    }else{
+                        var schoolDom = document.getElementById('school');
+                        var op1 = '<option value="0">请选择幼儿园</option>';
+                        for(var i=0;i<ret.data.length;i++){
+                            schoolDom.innerHTML = op1 += "<option value='"+ ret.data[i].id +"'>" +
+                                ret.data[i].name + "</option>";
+                        };
+                    }
+                }else{
+                    toast('请求失败，请重试！')
+                }
+            })
+        }
+        function next(){
+            var schooId = $('#school').val();
+            if(schooId == '' || schooId == undefined || schooId == '0'){
+                toast('请选择所在地及幼儿园名称')
+            }else{
+                openNewWindow("registerNext","registerNext.html",{schooId:schooId});
+            }
+        }
+    </script>
+</body>
+</html>

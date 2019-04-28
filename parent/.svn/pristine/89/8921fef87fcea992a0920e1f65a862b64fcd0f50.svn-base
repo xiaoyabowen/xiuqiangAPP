@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>宝宝秀</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			html,body{
+				min-width: 320px;
+				width: 100%;
+				background-color: #fff;
+			}
+			#main{
+				width: 100%;
+				box-sizing: border-box;
+				padding-left: 15px;
+				padding-top: 12px;
+				padding-right: 15px;
+				padding-bottom: 12px;
+			}
+			.title{
+				font-size: 16px;
+				color: #333333;
+				line-height: 22px;
+			}
+			.teachingArea_video{
+				margin-top: 12px;
+				height: 172px;
+				width: 100%;
+				box-sizing: border-box;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				margin-bottom: 20px;
+				border-radius: 10px;
+				position: relative;
+			}
+			.restArea_video{
+				margin-top: 12px;
+				height: 172px;
+				width: 100%;
+				box-sizing: border-box;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				margin-bottom: 20px;
+				border-radius: 10px;
+				position: relative;
+			}
+			.restArea_video span,.teachingArea_video span{
+				width: 32px;
+				height: 32px;
+				box-sizing: border-box;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-top: -16px;
+				margin-left: -16px;
+				border-radius: 50%;
+				border: 2px solid #fff;
+			}
+			.restArea_video em,.teachingArea_video em{
+				width: 10px;
+				height: 12px;
+				box-sizing: border-box;
+				background: url(../../image/play02.png) no-repeat;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-top: -5px;
+				margin-left: -4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="teachingArea">
+				<p class="title">教学区</p>
+				<div class="teachingArea_video" style="background-image: url(../../image/teachingArea.png);">
+					<span></span>
+					<em></em>
+				</div>
+			</div>
+			<div class="restArea">
+				<p class="title">休息区</p>
+				<div class="restArea_video" style="background-image: url(../../image/restArea.jpg);">
+					<span></span>
+					<em></em>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		
+	</script>
+</html>

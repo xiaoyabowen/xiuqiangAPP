@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>我的积分</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css" />
+	<style type="text/css">
+		html,body{
+			width: 100%;
+			height: 100%;
+			min-width: 320px;
+			background-color: #fff;
+		}
+		.integral_sum{
+			width: 100%;
+			height: 118px;
+			background: url(../../image/jfbg.jpg);
+			background-repeat-y: inherit;
+			background-size: 100%;
+			text-align: center;
+			line-height: 118px;
+			font-size: 34px;
+			color: #FFFFFF;
+			letter-spacing: 0.46px;
+		}
+		.integral_sum span{
+			position: relative;
+			padding-left: 38px;
+		}
+		.integral_sum span:before{
+			content: '';
+			width: 28px;
+			height: 28px;
+			background: url(../../image/flower_wt.png) no-repeat;
+			position: absolute;
+			left: 0;
+			bottom: 50%;
+			margin-bottom: -14px;
+		}
+		.integralList{
+			padding-top: 12px;
+			background-color: #fff;
+		}
+		.integralList li{
+			padding-left: 18px;
+			padding-right: 23px;
+			border-bottom: 1px solid #f0f0f0;
+			/*border-top: 1px solid #f0f0f0;*/
+			box-sizing: border-box;
+			width: 100%;
+			height: 62px;
+			margin-bottom: 3px;
+			overflow: hidden;
+		}
+		.integralList li .lt_title{
+			float: left;
+		}
+		.integralList li .lt_title span{
+			font-size: 16px;
+			color: #505050;
+			letter-spacing: 0.22px;
+			line-height: 22px;
+			padding-top: 8px;
+		}
+		.integralList li .lt_title em{
+			font-size: 12px;
+			color: #A3A3A3;
+			letter-spacing: 0.16px;
+		}
+		.integralList li .rt_score{
+			float: right;
+			font-size: 28px;
+			color: #D26034;
+			letter-spacing: 0.38px;
+			line-height:60px;
+		}
+		.integralList li .rt_score em{
+			position: relative;
+		}
+		/*.integralList li .rt_score em:before{*/
+			/*content: '';*/
+			/*width: 15px;*/
+			/*height: 15px;*/
+			/*background: url(../../image/add.png) no-repeat;*/
+			/*position: absolute;*/
+			/*left: -16px;*/
+			/*top: 50%;*/
+			/*margin-top: -7px;*/
+		/*}*/
+	</style>
+</head>
+<body>
+<div id="main" >
+	<div class="integral_sum"><span id="integral"></span></div>
+	<ul class="integralList" id="contuntHm">
+		<!--<li>-->
+		<!--<div class="lt_title">-->
+		<!--<span>发布精彩瞬间</span><br />-->
+		<!--<em>2018.02.14</em>-->
+		<!--</div>-->
+		<!--<div class="rt_score"><i><em>1</em></div>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<div class="lt_title">-->
+		<!--<span>发布精彩评论</span><br />-->
+		<!--<em>2018.02.14</em>-->
+		<!--</div>-->
+		<!--<div class="rt_score"><em>1</em></div>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<div class="lt_title">-->
+		<!--<span>每日点赞</span><br />-->
+		<!--<em>2018.02.14</em>-->
+		<!--</div>-->
+		<!--<div class="rt_score"><em>1</em></div>-->
+		<!--</li>-->
+		<!--<li>-->
+		<!--<div class="lt_title">-->
+		<!--<span>优秀家长</span><br />-->
+		<!--<em>2018.02.14</em>-->
+		<!--</div>-->
+		<!--<div class="rt_score"><em>10</em></div>-->
+		<!--</li>-->
+	</ul>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/html" id="contuntTm">
+	<%for(var i=0;i<list.length;i++){%>
+	<li>
+		<div class="lt_title">
+			<%if(list[i].action==1){%>
+			<span>登录</span><br />
+			<%}else if(list[i].action==2){%>
+			<span>分享</span><br />
+			<%}else if(list[i].action==3){%>
+			<span>发表评论</span><br />
+			<%}else if(list[i].action==4){%>
+			<span>发表美乐瞬间</span><br />
+			<%}else if(list[i].action==5){%>
+			<span>评语</span><br />
+			<%}%>
+			<em><%=list[i].time%></em>
+		</div>
+		<div class="rt_score"><em>+<%=list[i].score%></em></div>
+	</li>
+	<%}%>
+</script>
+<script>
+    apiready = function () {
+        new datalistModel(addToHtml,getscorelogUrl,{uid:getUserInfo().id},20,20,20,false);
+        ajaxGet(getscorelogUrl,{uid:getUserInfo().id},function (ret,err) {
+			if(ret != ''){
+                document.getElementById('integral').innerHTML = ret.data[0].currentScore;
+			}else{
+                document.getElementById('integral').innerHTML = '';
+			}
+        })
+    };
+    function addToHtml(results) {
+        if (results) {
+            for (var i = 0; i < results.length; i++) {
+                results[i].time = formatTimeToDay(results[i].time)
+            }
+            var data = {list: results};
+            var html = template("contuntTm", data);
+            document.getElementById('contuntHm').innerHTML = html;
+        }
+    }
+</script>
+</html>

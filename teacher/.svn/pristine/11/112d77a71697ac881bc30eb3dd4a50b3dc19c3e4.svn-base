@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    	<meta name="apple-mobile-web-app-capable" content="yes">
+    	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>新建课表</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/commonWindow.css" />
+		<style type="text/css">
+			body{
+				min-width: 320px;
+			}
+			#topbar{
+				/*background-color: #fff;*/
+				/*color: #505050;*/
+				font-size: 17px;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			#topbar>:nth-child(1)>img{
+				/*width: 8px;*/
+				/*height: 14px;*/
+				/*left: 15px;*/
+				/*bottom: 15px;*/
+			}
+			#topbar .right{
+				font-size: 14px;
+				color: #A3A3A3;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="topbar" >
+		    <div id="leftButton" tapmode="itemOn" onclick="closeWin()">
+				<img style="width:25px;height:25px;" src="../../icon/back.png">
+		    </div>
+	    	<!--<div>已添加课程列表</div>-->
+	    	<div>编辑课程列表</div>
+	    	<!--<div class="right"><img src="../../icon/wdkq.png"/></div>-->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/mui.min.js"></script>
+	<script type="text/javascript" src="../../script/util.js"></script>
+	<script type="text/javascript" src="../../script/kv.js"></script>
+	<script type="text/javascript" src="../../script/apiCloud.js"></script>
+	<script type="text/javascript" src="../../script/public.js"></script>
+	<script type="text/javascript" src="../../script/template-native.js"></script>
+	<script type="text/javascript" src="../../script/data.js"></script>
+	<script>
+		apiready = function () {
+			initFrameInWin(api.pageParam);
+		};
+		
+		
+	
+	</script>
+</html>

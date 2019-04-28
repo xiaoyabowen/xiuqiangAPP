@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>毕业班管理--详情页</title>
+	<link rel="stylesheet" href="../../css/api.css" />
+	<link rel="stylesheet" href="../../css/commonWindow.css">
+	<style type="text/css">
+		body,html{
+			width:100%;
+			height:100%;
+			background-color: #f9f8f8
+		}
+		#detail{
+			background: #FFFFFF;
+			box-shadow: 0 2px 4px 0 rgba(90,200,225,0.30);
+			border-radius: 4px;
+			width:96%;
+			height:180px;
+			margin:0 2%;
+		}
+		.detailBox{
+			margin:0 0 0 18px;
+		}
+		.detailBox>div{
+			padding:4px 0;
+			font-family: PingFang-SC-Regular;
+			font-size: 12px;
+			color: #333333;
+			letter-spacing: 0.16px;
+		}
+		.detailBox>div:first-child{
+			font-family: PingFang-SC-Regular;
+			font-size: 14px;
+			color: #333333;
+			letter-spacing: 0.19px;
+			padding-top: 18px;
+		}
+		.detailBox>div span{
+			padding-left: 23px;
+			font-family: PingFang-SC-Regular;
+			font-size: 12px;
+			color: #333333;
+			letter-spacing: 0.16px;
+		}
+		.detailBox>div p{
+			display: inline;
+			font-family: PingFang-SC-Regular;
+			font-size: 12px;
+			color: #333333;
+			letter-spacing: 0.16px;
+		}
+	</style>
+</head>
+<body>
+	<div style="width:100%;height:10px;"></div>
+	<div id="detail">
+
+	</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/util.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../../script/kv.js"></script>
+<script type="text/javascript" src="../../script/user.js"></script>
+<script type="text/javascript" src="../../script/apiCloud.js"></script>
+<script type="text/javascript" src="../../script/public.js"></script>
+<script type="text/javascript" src="../../script/template-native.js"></script>
+<script type="text/javascript" src="../../script/data.js"></script>
+<script type="text/javascript" src="../../script/echo.min.js"></script>
+<script type="text/html" id="GraduatingH">
+		<div class="detailBox">
+			<div><%=list.name%></div>
+			<div>毕业时间：<p><%=list.ctime%></p></div>
+			<div>毕业人数：<p><%=list.userNum%></p></div>
+			<div>老师：
+				<%for(var i=0;i<list.teachers.length;i++){%>
+				<span><%=list.teachers[i]%></span>
+				<%}%>
+			</div>
+			<div>校长：<span id="principal"></span></div>
+			<!--<div>资产：<span><%=list.teachers[0]%></span></div>-->
+		</div>
+</script>
+<script>
+	var cid = 0;
+	apiready = function(){
+	    cid = api.pageParam.cid;
+
+	    ajaxGet(clazzget,{id:cid},function(ret,err){
+	        if(ret && ret.success) {
+                ret.data.ctime = formatTimeToDays(ret.data.ctime);
+                var data = {list: ret.data};
+                var html = template('GraduatingH', data);
+                document.getElementById('detail').innerHTML = html;
+                document.getElementById('principal').innerHTML = getUserInfo().name;
+            }
+
+		})
+	}
+</script>
+</html>
